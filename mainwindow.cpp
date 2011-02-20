@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "netitems/petrinetscene.h"
+#include "netitems/petrinetview.h"
 
 #include <QGraphicsView>
 #include <QUndoView>
@@ -42,7 +43,7 @@ MainWindow::~MainWindow(){
 
 /** Create new document-tab */
 void MainWindow::on_NewTapnAction_triggered(){
-	QGraphicsView* view = new QGraphicsView();
+	QGraphicsView* view = new PetriNetView();
 	PetriNetScene* scene = new PetriNetScene(this->undoGroup, view);
 	view->setScene(scene);
 	view->setRenderHints(QPainter::Antialiasing |

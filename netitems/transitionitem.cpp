@@ -26,8 +26,8 @@ int TransitionItem::type() const{
 QPointF TransitionItem::nearestPoint(QPointF to) const{
 	QLineF line = QLineF(this->pos(), to);
 	line = line.unitVector();
-	qreal x = line.dx() * (RECT_W/2);
-	qreal y = line.dy() * (RECT_W/2);
+	qreal x = line.dx() * RECT_W / 2;
+	qreal y = line.dy() * RECT_H / 2;
 	return this->pos() + QPointF(x,y);
 }
 

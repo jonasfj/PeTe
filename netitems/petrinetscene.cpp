@@ -96,7 +96,15 @@ void PetriNetScene::mousePressEvent(QGraphicsSceneMouseEvent* event){
 		transition->setSelected(true);
 		transition->setFocus(Qt::MouseFocusReason);
 	}else if(this->mode() == InsertArcMode && event->button() == Qt::LeftButton){
-		//TODO: Insert arc and select it...
+		//Insert arc an selected it
+		clearSelection();
+		NetItem* start = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
+		if(start){
+			ArcItem* arc = new ArcItem(start);
+			arc->setEndPoint(start->pos());
+			this->addItem(arc);
+			arc->setSelected(true);
+		}
 	}else if(this->mode() == PointerMode && event->button() == Qt::LeftButton){
 		//Assume PointerMode
 		QGraphicsItem* item = itemAt(event->scenePos());
@@ -132,8 +140,18 @@ void PetriNetScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event){
 		QPointF d = event->scenePos() - event->lastScenePos();
 		foreach(QGraphicsItem* item, this->selectedItems())
 			item->moveBy(d.x(), d.y());
-	}else if(this->mode() == InsertArcMode && event->button() & Qt::LeftButton){
-		//TODO: Move end point of selected arc
+	}else if(this->mode() == InsertArcMode && event->buttons() & Qt::LeftButton){
+		//Move end point of selected arc
+		if(!selectedItems().isEmpty()){
+			ArcItem* arc = dynamic_cast<ArcItem*>(selectedItems().first());
+			if(arc){
+				NetItem* end = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
+				if(end){
+					arc->setEndPoint(end->nearestPoint(arc->start()->pos()));
+				}else
+					arc->setEndPoint(event->scenePos());
+			}
+		}
 	}
 }
 
@@ -157,12 +175,19 @@ void PetriNetScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event){
 				item->setSelected(false);
 		}
 	}else if(this->mode() == InsertArcMode && event->button() == Qt::LeftButton){
-		NetItem* start = dynamic_cast<NetItem*>(itemAt(event->buttonDownScenePos(Qt::LeftButton)));
-		NetItem* end = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
-		if(start && end){
-			this->addItem(new ArcItem(start, end));
-			this->setMode(PointerMode);
+		//Move end point of selected arc
+		if(!selectedItems().isEmpty()){
+			ArcItem* arc = dynamic_cast<ArcItem*>(selectedItems().first());
+			if(arc){
+				NetItem* end = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
+				if(end){
+					arc->setEnd(end);
+					this->setMode(PointerMode);
+				}else{
+					removeItem(arc);
+					delete arc;
+				}
+			}
 		}
 	}
 }
-

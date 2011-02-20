@@ -13,10 +13,15 @@ public:
 	QPainterPath shape() const;
 	QPainterPath opaqueArea() const;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
-	void updatePosition();
+	void updateEndPoints();
+	NetItem* start() {return _startItem;}
+	NetItem* end() {return _endItem;}
+	void setEndPoint(QPointF end);
+	void setEnd(NetItem* item);
 private:
-	NetItem* _start;
-	NetItem* _end;
+	NetItem* _startItem;
+	NetItem* _endItem;
+	QPointF _end;
 };
 
 #endif // ARCITEM_H
