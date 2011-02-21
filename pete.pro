@@ -15,7 +15,9 @@ SOURCES += \
     commands/insertplacecommand.cpp \
     commands/moveitemscommand.cpp \
     commands/inserttransitioncommand.cpp \
-    netitems/petrinetview.cpp
+    netitems/petrinetview.cpp \
+    petriengine/petrinet.cpp \
+    petriengine/petrinetfactory.cpp
 
 HEADERS += \
 	mainwindow.h \
@@ -28,6 +30,9 @@ HEADERS += \
     commands/commands.h \
     commands/moveitemscommand.h \
     commands/inserttransitioncommand.h \
-    netitems/petrinetview.h
+    netitems/petrinetview.h \
+    petriengine/petrinet.h \
+    petriengine/abstractpetrinetfactory.h \
+    petriengine/petrinetfactory.h
 
 FORMS    += mainwindow.ui
