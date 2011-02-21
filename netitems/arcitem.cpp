@@ -2,6 +2,7 @@
 
 #include <QPainter>
 #include <QPainterPath>
+#include <QTransform>
 #include <QtGlobal>
 #include <QDebug>
 
@@ -30,24 +31,26 @@ QPainterPath ArcItem::shape() const{
 	if((_endItem && _startItem->collidesWithItem(_endItem)) ||
 	   (!_endItem && _startItem->contains(_end)))
 		return path;
-	QPolygonF poly;
-
 	QPointF start(0,0),
 			point = _end - pos();
 
-	QLineF line(point, start);
-	QLineF s = line.normalVector();
-	s.setAngle(line.angle() - 45);
+	//The arrow line and reverse liune
+	QLineF line(start, point);
+	QLineF revline(point, start);
+
+	//Compute various points
+	QLineF s = revline.normalVector();
+	s.setAngle(revline.angle() - 45);
 	s.setLength(ARROW_SIZE);
 	QPointF side1 = s.p2();
-	s = line.normalVector();
-	s.setAngle(line.angle() + 45);
+	s = revline.normalVector();
+	s.setAngle(revline.angle() + 45);
 	s.setLength(ARROW_SIZE);
 	QPointF side2 = s.p2();
 
 	s = QLineF(side1, side2);
 	QPointF head = point;
-	s.intersect(line, &head);
+	s.intersect(revline, &head);
 
 	path.moveTo(start);
 	path.lineTo(head);
@@ -55,6 +58,24 @@ QPainterPath ArcItem::shape() const{
 	path.lineTo(point);
 	path.lineTo(side2);
 	path.lineTo(head);
+
+	//Make some text
+	QFont font;
+	QPainterPath textpath;
+	textpath.addText(QPointF(0,0), font, "123");
+	//Move it into some reasonable position
+	textpath.translate(-textpath.boundingRect().width()/2, -3);
+	QTransform rotation;
+	qreal angle = line.angle();
+	if(angle > 90 && angle < 270)
+		angle = 180 - angle;
+	else
+		angle = 360 - angle;
+	rotation.rotate(angle);
+
+	textpath = rotation.map(textpath);
+	textpath.translate(point/2);
+	path.addPath(textpath);
 
 	return path;
 }
