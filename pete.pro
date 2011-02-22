@@ -17,7 +17,8 @@ SOURCES += \
     commands/inserttransitioncommand.cpp \
     netitems/petrinetview.cpp \
     petriengine/petrinet.cpp \
-    petriengine/petrinetfactory.cpp
+    petriengine/petrinetfactory.cpp \
+    petriengine/standardoutputprogressreporter.cpp
 
 HEADERS += \
 	mainwindow.h \
@@ -33,6 +34,9 @@ HEADERS += \
     netitems/petrinetview.h \
     petriengine/petrinet.h \
     petriengine/abstractpetrinetfactory.h \
-    petriengine/petrinetfactory.h
+    petriengine/petrinetfactory.h \
+    petriengine/reachabilitysearchstrategy.h \
+    petriengine/progressreporter.h \
+    petriengine/standardoutputprogressreporter.h
 
 FORMS    += mainwindow.ui
