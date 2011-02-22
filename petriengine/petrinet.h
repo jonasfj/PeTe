@@ -4,7 +4,9 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+namespace PetriEngine{
+
+class PetriNetFactory;
 
 /** Definition of mark, a marking is an array of markings */
 typedef int Mark;
@@ -17,11 +19,14 @@ public:
 	/** Fire transition if possible and store result in result */
 	bool fire(int transition, const Mark* marking, Mark* result) const;
 private:
-	string* _placeNames;
-	string* _transitionNames;
+	std::string* _placeNames;
+	std::string* _transitionNames;
 	Mark* _transitions;
 	int _nPlaces;
 	int _nTransitions;
+	friend class PetriNetFactory;
 };
+
+} // PetriEngine
 
 #endif // PETRINET_H

@@ -1,4 +1,9 @@
 #include "petrinetfactory.h"
+#include "petrinet.h"
+
+using namespace std;
+
+namespace PetriEngine{
 
 PetriNetFactory::PetriNetFactory() : AbstractPetriNetFactory(){
 }
@@ -27,11 +32,66 @@ void PetriNetFactory::addOutputArc(const string &transition, const string &place
 	outputArcs.push_back(arc);
 }
 
-PetriNet PetriNetFactory::makePetriNet(){
-	PetriNet net(places.size(), transitions.size());
-	vector<Arc>::iterator it;
-	for(it = inputArcs.begin(); it < inputArcs.end(); it++){
+PetriNet* PetriNetFactory::makePetriNet(){
+	PetriNet* net = new PetriNet(places.size(), transitions.size());
+	size_t i;
+	//Create place names
+	for(i = 0; i < places.size(); i++)
+		net->_placeNames[i] = places[i];
+	//Create transition names
+	for(i = 0; i < transitions.size(); i++)
+		net->_transitionNames[i] = transitions[i];
+	//Create input arcs
+	vector<Arc>::iterator arc;
+	for(arc = inputArcs.begin(); arc != inputArcs.end(); arc++){
+		int place = -1, transition = -1;
+		//Find place number
+		for(i = 0; i < places.size(); i++){
+			if(places[i] == arc->place){
+				place = i;
+				break;
+			}
+		}
+		//Find transition number
+		for(i = 0; i < transitions.size(); i++){
+			if(transitions[i] == arc->transition){
+				transition = i;
+				break;
+			}
+		}
+		//Abort if we couldn't create the arc
+		if(place < 0 || transition < 0)
+			continue;
+		else{
+			net->_transitions[transition * places.size()] = -arc->weight;
+		}
 	}
-	for(it = outputArcs.begin(); it < outputArcs.end(); it++){
+	//Create output arcs
+	for(arc = outputArcs.begin(); arc != outputArcs.end(); arc++){
+		int place = -1, transition = -1;
+		//Find place number
+		for(i = 0; i < places.size(); i++){
+			if(places[i] == arc->place){
+				place = i;
+				break;
+			}
+		}
+		//Find transition number
+		for(i = 0; i < transitions.size(); i++){
+			if(transitions[i] == arc->transition){
+				transition = i;
+				break;
+			}
+		}
+		//Abort if we couldn't create the arc
+		if(place < 0 || transition < 0)
+			continue;
+		else{
+			net->_transitions[transition * places.size()] = arc->weight;
+		}
 	}
+	//Return the finished net
+	return net;
 }
+
+} // PetriEngine
