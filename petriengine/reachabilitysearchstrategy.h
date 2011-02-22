@@ -18,7 +18,9 @@ public:
 	virtual bool reachable(PetriNet net, Mark* initialMarking) = 0;
 
 	/** Sets the concrete progress reporter */
-	virtual bool setProgressReporter(ProgressReporter* reporter) = 0;
+	void setProgressReporter(ProgressReporter* reporter) {
+		_reporter = reporter;
+	}
 
 protected:
 	/** Reports the progress of reachability search */

@@ -1,5 +1,5 @@
-#ifndef STANDARTOUTPUTPROGRESSREPORTER_H
-#define STANDARTOUTPUTPROGRESSREPORTER_H
+#ifndef STANDARDOUTPUTPROGRESSREPORTER_H
+#define STANDARDOUTPUTPROGRESSREPORTER_H
 
 #include "progressreporter.h"
 
@@ -8,7 +8,7 @@ namespace PetriEngine {
 class StandardOutputProgressReporter : public ProgressReporter
 {
 public:
-	StandardOutputProgressReporter() : public ProgressReporter{
+	StandardOutputProgressReporter() : ProgressReporter(){
 		_count = 0;
 	}
 
@@ -17,4 +17,4 @@ private:
 	int _count;
 };
 } // PetriEngine
-#endif // STANDARTOUTPUTPROGRESSREPORTER_H
+#endif // STANDARDOUTPUTPROGRESSREPORTER_H

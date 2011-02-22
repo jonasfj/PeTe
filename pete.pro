@@ -18,7 +18,8 @@ SOURCES += \
     netitems/petrinetview.cpp \
     petriengine/petrinet.cpp \
     petriengine/petrinetfactory.cpp \
-    petriengine/standardoutputprogressreporter.cpp
+    petriengine/standardoutputprogressreporter.cpp \
+    petriengine/depthfirstreachabilitysearch.cpp
 
 HEADERS += \
 	mainwindow.h \
@@ -37,6 +38,7 @@ HEADERS += \
     petriengine/petrinetfactory.h \
     petriengine/reachabilitysearchstrategy.h \
     petriengine/progressreporter.h \
-    petriengine/standardoutputprogressreporter.h
+    petriengine/standardoutputprogressreporter.h \
+    petriengine/depthfirstreachabilitysearch.h
 
 FORMS    += mainwindow.ui
