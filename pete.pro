@@ -19,7 +19,9 @@ SOURCES += \
     petriengine/petrinet.cpp \
     petriengine/petrinetfactory.cpp \
     petriengine/standardoutputprogressreporter.cpp \
-    petriengine/depthfirstreachabilitysearch.cpp
+    petriengine/depthfirstreachabilitysearch.cpp \
+    petriengine/ctl/placeexpr.cpp \
+    petriengine/ctl/ctlparser.cpp
 
 HEADERS += \
 	mainwindow.h \
@@ -39,6 +41,9 @@ HEADERS += \
     petriengine/reachabilitysearchstrategy.h \
     petriengine/progressreporter.h \
     petriengine/standardoutputprogressreporter.h \
-    petriengine/depthfirstreachabilitysearch.h
+    petriengine/depthfirstreachabilitysearch.h \
+    petriengine/ctl/ctlexpr.h \
+    petriengine/ctl/placeexpr.h \
+    petriengine/ctl/ctlparser.h
 
 FORMS    += mainwindow.ui
