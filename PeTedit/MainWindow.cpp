@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	this->modeActionGroup->addAction(ui->PointerModeAction);
 	this->modeActionGroup->addAction(ui->InsertTransitionModeAction);
 	this->modeActionGroup->addAction(ui->InsertArcModeAction);
+
 	this->modeActionGroup->setExclusive(true);
 	connect(this->modeActionGroup, SIGNAL(triggered(QAction*)),
 			this, SLOT(modeActionGroup_triggered(QAction*)));
