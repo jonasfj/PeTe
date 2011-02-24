@@ -8,7 +8,8 @@ SOURCES	   += \
 	CTL/CTLParser.cpp \
 	CTL/PlaceExpr.cpp \
 	PetriNet.cpp \
-	PetriNetFactory.cpp
+	PetriNetFactory.cpp \
+    DepthFirstReachabilitySearch.cpp
 
 HEADERS	   += \
 	AbstractPetriNetFactory.h \
@@ -19,6 +20,7 @@ HEADERS	   += \
 	PetriNetFactory.h \
 	PetriNet.h \
 	StandardOutputProgressReporter.h \
-	ReachabilitySearchStrategy.h
+	ReachabilitySearchStrategy.h \
+    DepthFirstReachabilitySearch.h
 
 TARGET		= ../PetriEngine
