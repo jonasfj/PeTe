@@ -1,4 +1,4 @@
-#include "depthfirstreachabilitysearch.h"
+#include "DepthFirstReachabilitySearch.h"
 
 namespace PetriEngine{
 

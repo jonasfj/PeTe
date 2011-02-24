@@ -1,7 +1,7 @@
 #ifndef DEPTHFIRSTREACHABILITYSEARCH_H
 #define DEPTHFIRSTREACHABILITYSEARCH_H
 
-#include "reachabilitysearchstrategy.h"
+#include "ReachabilitySearchStrategy.h"
 
 namespace PetriEngine {
 
