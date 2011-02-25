@@ -10,7 +10,6 @@ SOURCES	   += \
 	PetriNet.cpp \
 	PetriNetFactory.cpp \
     DepthFirstReachabilitySearch.cpp \
-    CoverabilityTree.cpp \
     CoverabilityTreeNode.cpp
 
 HEADERS	   += \
@@ -24,7 +23,6 @@ HEADERS	   += \
 	StandardOutputProgressReporter.h \
 	ReachabilitySearchStrategy.h \
     DepthFirstReachabilitySearch.h \
-    CoverabilityTree.h \
     CoverabilityTreeNode.h
 
 TARGET		= ../PetriEngine
