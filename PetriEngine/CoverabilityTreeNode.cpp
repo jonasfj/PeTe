@@ -23,18 +23,33 @@ void CoverabilityTreeNode::add(CoverabilityTreeNode node){
 	_childNodes.push_back(node);
 }
 
-bool CoverabilityTreeNode::isDeadEnd(){
-	return _isDeadEnd;
-}
-void CoverabilityTreeNode::setDeadEnd(bool value){
-	_isDeadEnd=value;
-}
+bool CoverabilityTreeNode::findDuplicate(PetriNet& net){
+	bool duplicateFound = false;
 
-bool CoverabilityTreeNode::isOld(){
-	return _isOld;
-}
-void CoverabilityTreeNode::setOld(bool value){
-	_isOld=value;
+	CoverabilityTreeNode* currentParent = _parent;
+	// While there is a parent on the path
+	while(currentParent){
+
+		// Compare the marking of some parent and M
+		bool areEqual = false;
+		for(int i = 0; i < net.nTransitions(); i++){
+			if(this->_marking[i] != _parent->_marking[i]){
+				areEqual = false;
+				break;
+			}
+			areEqual = true;
+		}
+		duplicateFound = areEqual;
+
+		// If we found a duplicate, no need to search further
+		if(duplicateFound) {
+			break;
+		} else if(currentParent->_parent){
+			currentParent = currentParent->_parent;
+		}
+	}
+
+	return duplicateFound;
 }
 
 } // PetriEngine

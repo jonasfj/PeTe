@@ -10,8 +10,7 @@ namespace PetriEngine{
 			if(net.fire(t, initialMarking, newMarking)){
 				deadEnd = false;
 				// Add child
-				CoverabilityTreeNode child =
-						CoverabilityTreeNode(coverTree,t,newMarking);
+				CoverabilityTreeNode child = CoverabilityTreeNode(coverTree,t,newMarking);
 
 				// Check if newMarking same as some other marking
 				bool old = false;
@@ -23,7 +22,6 @@ namespace PetriEngine{
 				} else {
 					// add to hash map
 				}
-
 			}
 		}
 
@@ -31,7 +29,6 @@ namespace PetriEngine{
 			// No t's enabled, so the node is "dead"
 			coverTree->setDeadEnd(true);
 		}
-
 		return false;
 	}
 
