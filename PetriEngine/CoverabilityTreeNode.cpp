@@ -23,33 +23,61 @@ void CoverabilityTreeNode::add(CoverabilityTreeNode node){
 	_childNodes.push_back(node);
 }
 
+bool markingEqual(Mark* m1, Mark* m2, PetriNet net){
+	bool areEqual = false;
+	for(int i = 0; i < net.nTransitions(); i++){
+		if(m1[i] != m2[i]){
+			areEqual = false;
+			break;
+		}
+		areEqual = true;
+	}
+	return areEqual;
+}
+
+bool markingGreaterThanOrEqual(Mark* m1, Mark* m2, PetriNet net){
+	bool allGEQ = false;
+	for(int i = 0; i < net.nTransitions(); i++){
+		if(m1[i] < m2[i]){
+			allGEQ = false;
+			break;
+		}
+		allGEQ = true;
+	}
+	return allGEQ;
+}
+
 bool CoverabilityTreeNode::findDuplicate(PetriNet& net){
-	bool duplicateFound = false;
+	bool found = false;
 
 	CoverabilityTreeNode* currentParent = _parent;
 	// While there is a parent on the path
 	while(currentParent){
 
 		// Compare the marking of some parent and M
-		bool areEqual = false;
-		for(int i = 0; i < net.nTransitions(); i++){
-			if(this->_marking[i] != _parent->_marking[i]){
-				areEqual = false;
-				break;
+		bool duplicateFound = markingEqual(this->_marking,currentParent->_marking,net);
+
+		if(duplicateFound)
+			found = true;
+
+		// If the are not equal, check for inifinity
+		if(!duplicateFound) {
+			// Make sure all markings are greater than or equal.
+			bool geq = markingGreaterThanOrEqual(this->_marking,currentParent->_marking,net);
+
+			// Find places with strictly more tokens and replace with inifinity
+			if(geq){
+				for(int i = 0; i< net.nTransitions(); i++){
+					if(this->_marking[i] > currentParent->_marking[i]){
+						// Replace m[i] with infinity
+					}
+				}
 			}
-			areEqual = true;
 		}
-		duplicateFound = areEqual;
-
-		// If we found a duplicate, no need to search further
-		if(duplicateFound) {
-			break;
-		} else if(currentParent->_parent){
-			currentParent = currentParent->_parent;
+			if(currentParent->_parent)
+				currentParent = currentParent->_parent;
 		}
-	}
-
-	return duplicateFound;
+	return found;
 }
 
 } // PetriEngine
