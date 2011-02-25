@@ -2,26 +2,45 @@
 
 namespace PetriEngine{
 
-	/** Checks for reachability with DFS */
-	bool reachable(PetriNet net, Mark* initialMarking){
+	bool search(CoverabilityTreeNode* coverTree, PetriNet net, Mark* initialMarking){
 
-		Mark* newMarking;
-		for(int t = 0; t< 1000; t++){
+		Mark* newMarking = new Mark[net.nTransitions()];
+		bool deadEnd = true;
+		for(int t = 0; t< net.nTransitions(); t++){
 			if(net.fire(t, initialMarking, newMarking)){
+				deadEnd = false;
+				// Add child
+				CoverabilityTreeNode child =
+						CoverabilityTreeNode(coverTree,t,newMarking);
+
 				// Check if newMarking same as some other marking
 				bool old = false;
+				child.setOld(old);
+				coverTree->add(child);
+
 				if(old){
-					// tag newMarking as old and skip to next
 					continue;
+				} else {
+					// add to hash map
 				}
 
-			} else {
-				// tag initialMarking as dead-end
 			}
+		}
+
+		if(deadEnd){
+			// No t's enabled, so the node is "dead"
+			coverTree->setDeadEnd(true);
 		}
 
 		return false;
 	}
 
+	/** Checks for reachability with DFS */
+	bool reachable(PetriNet net, Mark* initialMarking){
+
+		// Root node
+		CoverabilityTreeNode* coverTree = new CoverabilityTreeNode(initialMarking);
+		return search(coverTree,net, initialMarking);
+	}
 
 } // PetriEngine

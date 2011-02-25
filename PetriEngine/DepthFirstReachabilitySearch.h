@@ -2,6 +2,7 @@
 #define DEPTHFIRSTREACHABILITYSEARCH_H
 
 #include "ReachabilitySearchStrategy.h"
+#include "CoverabilityTreeNode.h"
 
 namespace PetriEngine {
 

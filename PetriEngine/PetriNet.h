@@ -18,6 +18,8 @@ public:
 	PetriNet(int places, int transitions);
 	/** Fire transition if possible and store result in result */
 	bool fire(int transition, const Mark* marking, Mark* result) const;
+	int nPlaces();
+	int nTransitions();
 private:
 	std::string* _placeNames;
 	std::string* _transitionNames;

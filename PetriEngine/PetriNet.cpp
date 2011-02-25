@@ -25,4 +25,12 @@ bool PetriEngine::PetriNet::fire(int transition, const Mark *marking, Mark* resu
 	return true;
 }
 
+int PetriEngine::PetriNet::nPlaces(){
+	return _nPlaces;
+}
+
+int PetriEngine::PetriNet::nTransitions(){
+	return _nTransitions;
+}
+
 } // PetriEngine
