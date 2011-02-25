@@ -1,5 +1,6 @@
 TEMPLATE	 = app
 
+QMAKE_CXXFLAGS	+= -std=c++0x
 QT		  		+= core gui
 INCLUDEPATH		+= ../PetriEngine
 LIBS			+= -L../ -lPetriEngine
@@ -16,7 +17,8 @@ SOURCES	   += \
 	NetItems/PetriNetView.cpp \
 	Commands/InsertTransitionCommand.cpp \
 	Commands/InsertPlaceCommand.cpp \
-	Commands/MoveItemsCommand.cpp
+	Commands/MoveItemsCommand.cpp \
+    DataFormats/PNMLParser.cpp
 
 HEADERS		+= \
 	NetItems/TransitionItem.h \
@@ -29,7 +31,8 @@ HEADERS		+= \
 	Commands/MoveItemsCommand.h \
 	Commands/InsertPlaceCommand.h \
 	Commands/InsertTransitionCommand.h \
-	MainWindow.h
+	MainWindow.h \
+    DataFormats/PNMLParser.h
 
 FORMS		+= MainWindow.ui
 

@@ -8,11 +8,11 @@ namespace PetriEngine{
 PetriNetFactory::PetriNetFactory() : AbstractPetriNetFactory(){
 }
 
-void PetriNetFactory::addPlace(const string &name){
+void PetriNetFactory::addPlace(const string &name, double, double){
 	places.push_back(name);
 }
 
-void PetriNetFactory::addTransition(const string &name){
+void PetriNetFactory::addTransition(const string &name, double, double){
 	transitions.push_back(name);
 }
 

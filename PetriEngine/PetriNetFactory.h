@@ -19,8 +19,8 @@ class PetriNetFactory : public AbstractPetriNetFactory
 	};
 public:
     PetriNetFactory();
-	void addPlace(const std::string& name);
-	void addTransition(const std::string& name);
+	void addPlace(const std::string& name, double x, double y);
+	void addTransition(const std::string& name, double x, double y);
 	void addInputArc(const std::string& place, const std::string& transition, int weight);
 	void addOutputArc(const std::string& transition, const std::string& place, int weight);
 	/** Make the resulting petri net */
