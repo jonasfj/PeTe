@@ -70,6 +70,7 @@ bool CoverabilityTreeNode::findDuplicate(PetriNet& net){
 				for(int i = 0; i< net.nTransitions(); i++){
 					if(this->_marking[i] > currentParent->_marking[i]){
 						// Replace m[i] with infinity
+						this->_marking[i] = MARK_INF;
 					}
 				}
 			}

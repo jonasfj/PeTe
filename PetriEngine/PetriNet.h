@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <climits>
 
 namespace PetriEngine{
 
@@ -10,6 +11,8 @@ class PetriNetFactory;
 
 /** Definition of mark, a marking is an array of markings */
 typedef int Mark;
+
+#define MARK_INF INT_MAX
 
 /** Efficient representation of PetriNet*/
 class PetriNet
