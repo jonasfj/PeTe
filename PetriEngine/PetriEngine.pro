@@ -9,7 +9,9 @@ SOURCES	   += \
 	CTL/PlaceExpr.cpp \
 	PetriNet.cpp \
 	PetriNetFactory.cpp \
-    DepthFirstReachabilitySearch.cpp
+    DepthFirstReachabilitySearch.cpp \
+    CoverabilityTree.cpp \
+    CoverabilityTreeNode.cpp
 
 HEADERS	   += \
 	AbstractPetriNetFactory.h \
@@ -21,6 +23,8 @@ HEADERS	   += \
 	PetriNet.h \
 	StandardOutputProgressReporter.h \
 	ReachabilitySearchStrategy.h \
-    DepthFirstReachabilitySearch.h
+    DepthFirstReachabilitySearch.h \
+    CoverabilityTree.h \
+    CoverabilityTreeNode.h
 
 TARGET		= ../PetriEngine
