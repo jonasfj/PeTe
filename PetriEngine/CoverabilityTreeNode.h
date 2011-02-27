@@ -15,7 +15,7 @@ public:
 	CoverabilityTreeNode(Mark* marking);
 
 	/** Adds a child node */
-	void add(CoverabilityTreeNode node);
+	void add(CoverabilityTreeNode* node);
 	/** Checks if the node is new in the coverability tree */
 	bool findDuplicate(PetriNet& net);
 
@@ -38,7 +38,7 @@ private:
 	CoverabilityTreeNode* _parent;
 	int _transition;
 	Mark* _marking;
-	std::vector<CoverabilityTreeNode> _childNodes;
+	std::vector<CoverabilityTreeNode*> _childNodes;
 
 	bool _isOld;
 	bool _isDeadEnd;

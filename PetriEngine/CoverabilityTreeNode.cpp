@@ -19,13 +19,13 @@ CoverabilityTreeNode::CoverabilityTreeNode(Mark *marking){
 }
 
 /** Adds a new marking to the set of child nodes */
-void CoverabilityTreeNode::add(CoverabilityTreeNode node){
+void CoverabilityTreeNode::add(CoverabilityTreeNode* node){
 	_childNodes.push_back(node);
 }
 
 bool markingEqual(Mark* m1, Mark* m2, PetriNet net){
 	bool areEqual = false;
-	for(int i = 0; i < net.nTransitions(); i++){
+	for(int i = 0; i < net.nPlaces(); i++){
 		if(m1[i] != m2[i]){
 			areEqual = false;
 			break;
@@ -37,7 +37,7 @@ bool markingEqual(Mark* m1, Mark* m2, PetriNet net){
 
 bool markingGreaterThanOrEqual(Mark* m1, Mark* m2, PetriNet net){
 	bool allGEQ = false;
-	for(int i = 0; i < net.nTransitions(); i++){
+	for(int i = 0; i < net.nPlaces(); i++){
 		if(m1[i] < m2[i]){
 			allGEQ = false;
 			break;
@@ -51,7 +51,6 @@ bool CoverabilityTreeNode::findDuplicate(PetriNet& net){
 	bool found = false;
 
 	CoverabilityTreeNode* currentParent = _parent;
-	// While there is a parent on the path
 	while(currentParent){
 
 		// Compare the marking of some parent and M

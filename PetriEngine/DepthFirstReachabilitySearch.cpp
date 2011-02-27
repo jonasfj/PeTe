@@ -4,25 +4,29 @@ namespace PetriEngine{
 
 	bool search(CoverabilityTreeNode* coverTree, PetriNet net, Mark* initialMarking){
 
-		Mark* newMarking = new Mark[net.nTransitions()];
+		Mark* newMarking = new Mark[net.nPlaces()];
 		bool deadEnd = true;
+		// Fire each transition
 		for(int t = 0; t< net.nTransitions(); t++){
+
 			if(net.fire(t, initialMarking, newMarking)){
 				deadEnd = false;
 				// Add child
-				CoverabilityTreeNode child = CoverabilityTreeNode(coverTree,t,newMarking);
+				CoverabilityTreeNode* child = new CoverabilityTreeNode(coverTree, t, newMarking);
 
 				// Check if newMarking same as some other marking
-				bool old = false;
-				child.setOld(old);
+				bool old = child->findDuplicate(net);
+				child->setOld(old);
 				coverTree->add(child);
 
 				if(old){
 					continue;
 				} else {
 					// add to hash map
+					return search(child, net, newMarking);
 				}
 			}
+
 		}
 
 		if(deadEnd){
@@ -37,7 +41,7 @@ namespace PetriEngine{
 
 		// Root node
 		CoverabilityTreeNode* coverTree = new CoverabilityTreeNode(initialMarking);
-		return search(coverTree,net, initialMarking);
+		return search(coverTree, net, initialMarking);
 	}
 
 } // PetriEngine
