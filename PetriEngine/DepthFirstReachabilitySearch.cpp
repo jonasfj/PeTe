@@ -53,7 +53,7 @@ namespace PetriEngine{
 
 		// Root node
 		CoverabilityTreeNode* coverTree = new CoverabilityTreeNode(initialMarking);
-		return isReachableDFS(coverTree, net, initialMarking);
+		return search(coverTree, net, initialMarking);
 	}
 
 } // PetriEngine
