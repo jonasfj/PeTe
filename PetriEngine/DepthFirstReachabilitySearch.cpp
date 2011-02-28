@@ -2,28 +2,32 @@
 
 namespace PetriEngine{
 
-	bool search(CoverabilityTreeNode* coverTree, PetriNet net, Mark* initialMarking){
+	bool isReachableDFS(CoverabilityTreeNode* coverTree, PetriNet net, Mark* initialMarking){
 
+		// The new marking after firing some t.
 		Mark* newMarking = new Mark[net.nPlaces()];
+
 		bool deadEnd = true;
 		// Fire each transition
 		for(int t = 0; t< net.nTransitions(); t++){
 
 			if(net.fire(t, initialMarking, newMarking)){
 				deadEnd = false;
-				// Add child
+				// Create child with pointer to parent
 				CoverabilityTreeNode* child = new CoverabilityTreeNode(coverTree, t, newMarking);
 
 				// Check if newMarking same as some other marking
-				bool old = child->findDuplicate(net);
-				child->setOld(old);
+				bool isOld = child->findDuplicate(net);
+
+				// Add child too tree
 				coverTree->add(child);
 
-				if(old){
+				if(isOld){
+					child->setOld(true);
 					continue;
 				} else {
 					// add to hash map
-					return search(child, net, newMarking);
+					return isReachableDFS(child, net, newMarking);
 				}
 			}
 
@@ -41,7 +45,7 @@ namespace PetriEngine{
 
 		// Root node
 		CoverabilityTreeNode* coverTree = new CoverabilityTreeNode(initialMarking);
-		return search(coverTree, net, initialMarking);
+		return isReachableDFS(coverTree, net, initialMarking);
 	}
 
 } // PetriEngine

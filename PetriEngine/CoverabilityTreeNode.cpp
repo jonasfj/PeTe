@@ -48,25 +48,24 @@ bool markingGreaterThanOrEqual(Mark* m1, Mark* m2, PetriNet net){
 }
 
 bool CoverabilityTreeNode::findDuplicate(PetriNet& net){
-	bool found = false;
+	bool foundAnyDuplicates = false;
 
-	CoverabilityTreeNode* currentParent = _parent;
+	CoverabilityTreeNode* currentParent = this->_parent;
 	while(currentParent){
 
 		// Compare the marking of some parent and M
-		bool duplicateFound = markingEqual(this->_marking,currentParent->_marking,net);
-
-		if(duplicateFound)
-			found = true;
+		bool isDuplicate = markingEqual(this->_marking,currentParent->_marking,net);
+		if(isDuplicate)
+			foundAnyDuplicates = true;
 
 		// If the are not equal, check for inifinity
-		if(!duplicateFound) {
-			// Make sure all markings are greater than or equal.
+		if(!isDuplicate) {
+			// Make sure all markings of m1 are greater than or equal to m2.
 			bool geq = markingGreaterThanOrEqual(this->_marking,currentParent->_marking,net);
 
 			// Find places with strictly more tokens and replace with inifinity
 			if(geq){
-				for(int i = 0; i< net.nTransitions(); i++){
+				for(int i = 0; i< net.nPlaces(); i++){
 					if(this->_marking[i] > currentParent->_marking[i]){
 						// Replace m[i] with infinity
 						this->_marking[i] = MARK_INF;
@@ -74,10 +73,11 @@ bool CoverabilityTreeNode::findDuplicate(PetriNet& net){
 				}
 			}
 		}
+			// Go one marking up in the path
 			if(currentParent->_parent)
 				currentParent = currentParent->_parent;
 		}
-	return found;
+	return foundAnyDuplicates;
 }
 
 } // PetriEngine
