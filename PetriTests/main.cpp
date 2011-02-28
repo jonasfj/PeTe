@@ -5,9 +5,7 @@ int main(int, char**){
 }
 
 SUITE(TestTestSuite){
-	TEST(TestBadTestTest){
-		CHECK(false);
-	}
+
 	TEST(TestGoodTestTest){
 		CHECK(true);
 	}

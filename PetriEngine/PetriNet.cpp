@@ -1,5 +1,5 @@
 #include "PetriNet.h"
-
+#include <stdio.h>
 using namespace std;
 
 namespace PetriEngine{

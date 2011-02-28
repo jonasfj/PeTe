@@ -20,7 +20,8 @@ SOURCES	   += \
 	PeTedit/Commands/InsertPlaceCommand.cpp \
 	PeTedit/Commands/MoveItemsCommand.cpp \
 	PeTedit/DataFormats/PNMLParser.cpp \
-	main.cpp
+	main.cpp \
+    PetriEngineTests/ReachabilityStrategyTest.cpp
 
 HEADERS		+= \
 	PeTedit/NetItems/TransitionItem.h \
