@@ -33,4 +33,12 @@ int PetriEngine::PetriNet::nTransitions(){
 	return _nTransitions;
 }
 
+/** Inits an empty marking */
+Mark* PetriNet::makeEmptyMarking(){
+	Mark* marking = new Mark[this->_nPlaces];
+	for(int i = 0; i < this->_nPlaces; i++)
+		marking[i]=0;
+	return marking;
+}
+
 } // PetriEngine

@@ -7,7 +7,7 @@ using namespace PetriEngine;
 
 SUITE(ReachabilityStrategyTest){
 
-	TEST(DFSReachabilityTest){
+	/*TEST(DFSReachabilityTest){
 
 		DepthFirstReachabilitySearch dfs;
 
@@ -29,6 +29,36 @@ SUITE(ReachabilityStrategyTest){
 		m[0] = 1;
 
 		dfs.reachable(net,m);
+	}*/
+
+	TEST(DFSReachabilityTest2){
+		// Tests another unbounded net
+		DepthFirstReachabilitySearch dfs;
+
+		PetriNetFactory fac;
+
+		fac.addPlace("P1",0,0);
+		fac.addPlace("P2",1,1);
+		fac.addPlace("P3",2,2);
+
+		fac.addTransition("T0", 0.5, 0.5);
+		fac.addTransition("T1", 0,0);
+		fac.addTransition("T2", 0,0);
+
+		fac.addInputArc("P1", "T0", 1);
+		fac.addOutputArc("T0", "P2", 1);
+		fac.addOutputArc("T0", "P3", 1);
+		fac.addInputArc("P2", "T1", 1);
+		fac.addInputArc("P3", "T2", 1);
+		fac.addOutputArc("T1", "P1", 1);
+		fac.addOutputArc("T2", "P1", 1);
+
+		PetriNet net = *(fac.makePetriNet());
+
+		Mark* m = net.makeEmptyMarking();
+		m[0] = 1;
+
+		dfs.reachable(net,m);
 	}
 
 	TEST(PetriNetFireTest){
@@ -41,12 +71,8 @@ SUITE(ReachabilityStrategyTest){
 		fac.addOutputArc("T0","P2",1);
 
 		PetriNet net = *(fac.makePetriNet());
-		Mark* m = new Mark[net.nPlaces()];
-		Mark* m2 = new Mark[net.nPlaces()];
-		for(int i = 0; i < net.nPlaces(); i++){
-			m[i] = 0;
-			m2[i] = 0;
-		}
+		Mark* m = net.makeEmptyMarking();
+		Mark* m2 = net.makeEmptyMarking();
 		m[0] = 1;
 		// Initial M(P1) = 1, M(P2) = 0
 		CHECK(m[0] == 1);

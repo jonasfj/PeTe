@@ -1,5 +1,5 @@
 #include "CoverabilityTreeNode.h"
-
+#include <stdio.h>
 namespace PetriEngine {
 
 CoverabilityTreeNode::CoverabilityTreeNode(CoverabilityTreeNode* parent, int transition, Mark* marking)
@@ -23,61 +23,57 @@ void CoverabilityTreeNode::add(CoverabilityTreeNode* node){
 	_childNodes.push_back(node);
 }
 
+/** Checks if two markings are equal */
 bool markingEqual(Mark* m1, Mark* m2, PetriNet net){
-	bool areEqual = false;
 	for(int i = 0; i < net.nPlaces(); i++){
-		if(m1[i] != m2[i]){
-			areEqual = false;
-			break;
-		}
-		areEqual = true;
+		if(m1[i] != m2[i])
+			return false;
 	}
-	return areEqual;
+	return true;
 }
 
+/** Checks if marking m1 is greater than or equal to marking m2 */
 bool markingGreaterThanOrEqual(Mark* m1, Mark* m2, PetriNet net){
-	bool allGEQ = false;
 	for(int i = 0; i < net.nPlaces(); i++){
-		if(m1[i] < m2[i]){
-			allGEQ = false;
-			break;
-		}
-		allGEQ = true;
+		if(m1[i] < m2[i])
+			return false;
 	}
-	return allGEQ;
+	return true;
 }
 
+/** Searches the ancestor path for duplicates and coverable nodes */
 bool CoverabilityTreeNode::findDuplicate(PetriNet& net){
+
+	//TODO: Could probably done more efficiently with e.g. hashmap
+
 	bool foundAnyDuplicates = false;
 
-	CoverabilityTreeNode* currentParent = this->_parent;
-	while(currentParent){
+	CoverabilityTreeNode* ancestorNode = this->_parent;
+	while(ancestorNode != NULL){
 
-		// Compare the marking of some parent and M
-		bool isDuplicate = markingEqual(this->_marking,currentParent->_marking,net);
-		if(isDuplicate)
+		bool markingsAreEqual = markingEqual(this->_marking,ancestorNode->_marking,net);
+		if(markingsAreEqual)
 			foundAnyDuplicates = true;
 
-		// If the are not equal, check for inifinity
-		if(!isDuplicate) {
-			// Make sure all markings of m1 are greater than or equal to m2.
-			bool geq = markingGreaterThanOrEqual(this->_marking,currentParent->_marking,net);
+		if(!markingsAreEqual) {
+
+			bool allGreaterThanOrEqual = markingGreaterThanOrEqual(this->_marking, ancestorNode->_marking,net);
 
 			// Find places with strictly more tokens and replace with inifinity
-			if(geq){
-				for(int i = 0; i< net.nPlaces(); i++){
-					if(this->_marking[i] > currentParent->_marking[i]){
+			if(allGreaterThanOrEqual){
+				for(int i = 0; i < net.nPlaces(); i++){
+					if(this->_marking[i] > ancestorNode->_marking[i]){
 						// Replace m[i] with infinity
 						this->_marking[i] = MARK_INF;
+						}
 					}
 				}
 			}
-		}
 			// Go one marking up in the path
-			if(currentParent->_parent)
-				currentParent = currentParent->_parent;
+			if(ancestorNode->_parent)
+				ancestorNode = ancestorNode->_parent;
 			else
-				currentParent = NULL;
+				ancestorNode = NULL;
 		}
 	return foundAnyDuplicates;
 }

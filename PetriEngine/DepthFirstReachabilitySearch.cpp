@@ -3,47 +3,32 @@
 
 namespace PetriEngine{
 
+	bool reachabilityDFS(CoverabilityTreeNode* coverTree, PetriNet net, Mark* m){
 
-	bool search(CoverabilityTreeNode* coverTree, PetriNet net, Mark* m){
+		//TODO: Print debug info about marking
 
-		printf("\t m(p1)=%i \n",m[0]);
-		printf("\t m(p2)=%i \n",m[1]);
+		bool old = coverTree->findDuplicate(net);
+		coverTree->setOld(old);
 
-		Mark* mNew = new Mark[net.nPlaces()];
+		if(!coverTree->isOld() && !coverTree->isDeadEnd()){
+			Mark* mNew = net.makeEmptyMarking();
 
-		bool deadEnd = true;
-		// Fire each transition
-		for(int t = 0; t< net.nTransitions(); t++){
+			bool deadEnd = true;
+			for(int t = 0; t < net.nTransitions(); t++){
+				if(net.fire(t, m, mNew)){
+					printf("Fire t%i \n",t);
+					deadEnd = false;
 
-			if(net.fire(t, m, mNew)){
-				printf("Fire t%i \n",t);
-				deadEnd = false;
+					// Add child
+					CoverabilityTreeNode* child = new CoverabilityTreeNode(coverTree, t, mNew);
+					coverTree->add(child);
 
-				// Add child
-				CoverabilityTreeNode* child = new CoverabilityTreeNode(coverTree, t, mNew);
-
-				// Check if newMarking same as some other marking
-				bool old = child->findDuplicate(net);
-
-				child->setOld(old);
-
-				coverTree->add(child);
-
-				if(child->isOld()){
-					printf("m is old \n");
-					continue;
-				} else {
-					printf("Search m \n");
-					// add to hash map
-					return search(child, net, mNew);
+					return reachabilityDFS(child, net, mNew);
 				}
 			}
-
-		}
-
-		if(deadEnd){
-			// No t's enabled, so the node is "dead"
-			coverTree->setDeadEnd(true);
+			coverTree->setDeadEnd(deadEnd);
+		} else{
+			printf("m is old \n");
 		}
 		return false;
 	}
@@ -53,7 +38,7 @@ namespace PetriEngine{
 
 		// Root node
 		CoverabilityTreeNode* coverTree = new CoverabilityTreeNode(initialMarking);
-		return search(coverTree, net, initialMarking);
+		return reachabilityDFS(coverTree, net, initialMarking);
 	}
 
 } // PetriEngine

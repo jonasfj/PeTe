@@ -23,6 +23,8 @@ public:
 	bool fire(int transition, const Mark* marking, Mark* result) const;
 	int nPlaces();
 	int nTransitions();
+	/** Creates an empty marking initialized to 0 */
+	Mark* makeEmptyMarking();
 private:
 	std::string* _placeNames;
 	std::string* _transitionNames;
