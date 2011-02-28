@@ -1,33 +1,41 @@
 #include "DepthFirstReachabilitySearch.h"
+#include <stdio.h>
 
 namespace PetriEngine{
 
-	bool isReachableDFS(CoverabilityTreeNode* coverTree, PetriNet net, Mark* initialMarking){
 
-		// The new marking after firing some t.
-		Mark* newMarking = new Mark[net.nPlaces()];
+	bool search(CoverabilityTreeNode* coverTree, PetriNet net, Mark* m){
+
+		printf("\t m(p1)=%i \n",m[0]);
+		printf("\t m(p2)=%i \n",m[1]);
+
+		Mark* mNew = new Mark[net.nPlaces()];
 
 		bool deadEnd = true;
 		// Fire each transition
 		for(int t = 0; t< net.nTransitions(); t++){
 
-			if(net.fire(t, initialMarking, newMarking)){
+			if(net.fire(t, m, mNew)){
+				printf("Fire t%i \n",t);
 				deadEnd = false;
-				// Create child with pointer to parent
-				CoverabilityTreeNode* child = new CoverabilityTreeNode(coverTree, t, newMarking);
+
+				// Add child
+				CoverabilityTreeNode* child = new CoverabilityTreeNode(coverTree, t, mNew);
 
 				// Check if newMarking same as some other marking
-				bool isOld = child->findDuplicate(net);
+				bool old = child->findDuplicate(net);
 
-				// Add child too tree
+				child->setOld(old);
+
 				coverTree->add(child);
 
-				if(isOld){
-					child->setOld(true);
+				if(child->isOld()){
+					printf("m is old \n");
 					continue;
 				} else {
+					printf("Search m \n");
 					// add to hash map
-					return isReachableDFS(child, net, newMarking);
+					return search(child, net, mNew);
 				}
 			}
 
@@ -41,7 +49,7 @@ namespace PetriEngine{
 	}
 
 	/** Checks for reachability with DFS */
-	bool reachable(PetriNet net, Mark* initialMarking){
+	bool DepthFirstReachabilitySearch::reachable(PetriNet net, Mark* initialMarking){
 
 		// Root node
 		CoverabilityTreeNode* coverTree = new CoverabilityTreeNode(initialMarking);

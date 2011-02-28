@@ -63,7 +63,7 @@ PetriNet* PetriNetFactory::makePetriNet(){
 		if(place < 0 || transition < 0)
 			continue;
 		else{
-			net->_transitions[transition * places.size()] = -arc->weight;
+			net->_transitions[transition * places.size() + place] = -arc->weight;
 		}
 	}
 	//Create output arcs
@@ -87,7 +87,7 @@ PetriNet* PetriNetFactory::makePetriNet(){
 		if(place < 0 || transition < 0)
 			continue;
 		else{
-			net->_transitions[transition * places.size()] = arc->weight;
+			net->_transitions[transition * places.size() + place] = arc->weight;
 		}
 	}
 	//Return the finished net

@@ -10,6 +10,10 @@ namespace PetriEngine {
 class DepthFirstReachabilitySearch : public ReachabilitySearchStrategy
 {
 public:
+	DepthFirstReachabilitySearch() : ReachabilitySearchStrategy(){
+
+	}
+
 	bool reachable(PetriNet net, Mark* initialMarking);
 	void setProgressReporter(ProgressReporter* reporter);
 };

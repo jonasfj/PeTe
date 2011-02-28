@@ -76,6 +76,8 @@ bool CoverabilityTreeNode::findDuplicate(PetriNet& net){
 			// Go one marking up in the path
 			if(currentParent->_parent)
 				currentParent = currentParent->_parent;
+			else
+				currentParent = NULL;
 		}
 	return foundAnyDuplicates;
 }
