@@ -5,6 +5,8 @@
 PNMLFactory::PNMLFactory(QIODevice* device)
 {
 	xml.setDevice(device);
+	xml.setAutoFormatting(true);
+	xml.setAutoFormattingIndent(5);
 	xml.writeStartDocument("1.0");
 	xml.writeStartElement("pnml");
 	xml.writeStartElement("net");

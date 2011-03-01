@@ -29,7 +29,8 @@ private:
 	QActionGroup* modeActionGroup;
 
 private slots:
-	void on_NewQueryAction_triggered();
+	void on_SaveAction_triggered();
+ void on_NewQueryAction_triggered();
  void on_NewTapnAction_triggered();
 	void on_tabWidget_currentChanged(int index);
 	void on_tabWidget_tabCloseRequested(int index);

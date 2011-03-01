@@ -260,7 +260,10 @@ void PetriNetScene::produce(PetriEngine::AbstractPetriNetFactory* factory){
 			TransitionItem* t = dynamic_cast<TransitionItem*>(item);
 			Q_ASSERT(t != NULL);
 			factory->addTransition(t->name().toStdString(), t->pos().x(), t->pos().y());
-		} else if(item->type() == NetEntity::ArcItem){
+		}
+	}
+	foreach(QGraphicsItem* item, this->items()){
+		if(item->type() == NetEntity::ArcItem){
 			ArcItem* a = dynamic_cast<ArcItem*>(item);
 			Q_ASSERT(a != NULL);
 			std::string start = a->start()->name().toStdString();

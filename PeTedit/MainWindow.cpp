@@ -10,10 +10,13 @@
 
 #include "Dialogs/QueryDialog.h"
 
+#include "DataFormats/PNMLFactory.h"
+
 #include <QGraphicsView>
 #include <QUndoView>
 #include <QtGlobal>
 #include <QDebug>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -139,4 +142,17 @@ void MainWindow::on_NewQueryAction_triggered()
 	}
 
 	dlg->deleteLater();
+}
+
+void MainWindow::on_SaveAction_triggered()
+{
+	if(!currentScene)
+		return;
+	QString fname = QFileDialog::getSaveFileName(this, "Save Petri Net");
+	QFile file(fname);
+	file.open(QIODevice::WriteOnly);
+	PNMLFactory fac(&file);
+	currentScene->produce(&fac);
+	fac.makePNMLFile();
+	file.close();
 }
