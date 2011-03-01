@@ -97,7 +97,7 @@ PetriNet* PetriNetFactory::makePetriNet(){
 
 Mark* PetriNetFactory::makeInitialMarking(){
 	Mark* mark = new Mark[places.size()];
-	for(int i = 0; i < places.size(); i++)
+	for(size_t i = 0; i < places.size(); i++)
 		mark[i] = initialMarking[i];
 	return mark;
 }

@@ -4,11 +4,16 @@
 #include "NetItems/PetriNetScene.h"
 #include "NetItems/PetriNetView.h"
 
+#include "PetriNetFactory.h"
+#include "DepthFirstReachabilitySearch.h"
+#include "CoverabilityTreeNode.h"
+
 #include "Dialogs/QueryDialog.h"
 
 #include <QGraphicsView>
 #include <QUndoView>
 #include <QtGlobal>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -118,6 +123,19 @@ void MainWindow::on_NewQueryAction_triggered()
 
 	if(dlg->exec() == QDialog::Accepted){
 
+		PetriEngine::PetriNetFactory* fac = new PetriEngine::PetriNetFactory();
+		this->currentScene->produce(fac);
+		PetriEngine::PetriNet* net = fac->makePetriNet();
+		PetriEngine::DepthFirstReachabilitySearch* dfs;
+		dfs->reachable(*net,fac->makeInitialMarking());
+
+		PetriEngine::CoverabilityTreeNode* tree = dfs->coverabilityTree();
+		for(int i = 0; i < tree->childNodes().size(); i++){
+			PetriEngine::CoverabilityTreeNode* c = tree->childNodes().at(i);
+			if(c != NULL){
+				qDebug() << QString::number( c->transition()) << "\n";
+			}
+		}
 	}
 
 	dlg->deleteLater();

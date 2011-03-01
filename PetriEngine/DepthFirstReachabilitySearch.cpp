@@ -33,11 +33,16 @@ namespace PetriEngine{
 		return false;
 	}
 
+	CoverabilityTreeNode* DepthFirstReachabilitySearch::coverabilityTree(){
+		return this->_coverabilityTree;
+	}
+
 	/** Checks for reachability with DFS */
 	bool DepthFirstReachabilitySearch::reachable(PetriNet net, Mark* initialMarking){
 
 		// Root node
 		CoverabilityTreeNode* coverTree = new CoverabilityTreeNode(initialMarking);
+		this->_coverabilityTree = coverTree;
 		return reachabilityDFS(coverTree, net, initialMarking);
 	}
 

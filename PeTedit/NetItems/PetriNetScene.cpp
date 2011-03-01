@@ -255,7 +255,7 @@ void PetriNetScene::produce(PetriEngine::AbstractPetriNetFactory* factory){
 		if(item->type() == NetEntity::PlaceItem) {
 			PlaceItem* p = dynamic_cast<PlaceItem*>(item);
 			Q_ASSERT(p != NULL);
-			factory->addPlace(p->name().toStdString(), p->pos().x(), p->pos().y());
+			factory->addPlace(p->name().toStdString(), p->tokens(), p->pos().x(), p->pos().y());
 		} else if (item->type() == NetEntity::TransitionItem){
 			TransitionItem* t = dynamic_cast<TransitionItem*>(item);
 			Q_ASSERT(t != NULL);

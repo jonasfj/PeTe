@@ -33,6 +33,16 @@ public:
 		// TODO: destructor for child nodes
 	}
 
+	const std::vector<CoverabilityTreeNode*> childNodes() const{
+		return _childNodes;
+	}
+	const Mark* marking() const{
+		return _marking;
+	}
+	const int transition() const{
+		return _transition;
+	}
+
 private:
 	/** The parent node, which is null for the root node */
 	CoverabilityTreeNode* _parent;
