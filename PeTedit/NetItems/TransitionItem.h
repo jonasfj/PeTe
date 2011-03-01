@@ -18,6 +18,7 @@ public:
 	QRectF boundingRect() const;
 	QPainterPath shape() const;
 	QPainterPath opaqueArea() const;
+	QPainterPath textPath() const;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
 };
 

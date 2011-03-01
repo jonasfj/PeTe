@@ -23,6 +23,18 @@ int TransitionItem::type() const{
 	return NetEntity::TransitionItem;
 }
 
+QPainterPath TransitionItem::textPath() const {
+	QPainterPath path;
+	// Draw text label for transition
+	path.addText(0,0,QFont("",6),this->name());
+
+	QRectF moved = path.boundingRect();
+	qreal yoffset = path.boundingRect().height();
+	moved.moveCenter(QPointF(0,yoffset*3));
+	path.translate(moved.center() - path.boundingRect().center());
+	return path;
+}
+
 QPointF TransitionItem::nearestPoint(QPointF to) const{
 	QLineF line = QLineF(this->pos(), to);
 	line = line.unitVector();
@@ -34,12 +46,14 @@ QPointF TransitionItem::nearestPoint(QPointF to) const{
 QRectF TransitionItem::boundingRect() const{
 	QPainterPath path;
 	path.addRect(-SELECTION_RECT_W/2, -SELECTION_RECT_H/2, SELECTION_RECT_W, SELECTION_RECT_H);
+	path.addPath(textPath());
 	return path.controlPointRect();
 }
 
 QPainterPath TransitionItem::shape() const{
 	QPainterPath path;
 	path.addRect(-RECT_W/2, -RECT_H/2, RECT_W, RECT_H);
+	path.addPath(textPath());
 	return path;
 }
 
@@ -50,6 +64,7 @@ QPainterPath TransitionItem::opaqueArea() const{
 void TransitionItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*){
 	painter->setBrush(Qt::SolidPattern);
 	painter->drawPath(shape());
+	painter->drawPath(textPath());
 	if(this->isSelected()){
 		painter->setBrush(Qt::NoBrush);
 		QPen pen(Qt::DotLine);

@@ -8,6 +8,7 @@
 // DIALOGS
 #include "../Dialogs/EditArcDialog.h"
 #include "../Dialogs/EditPlaceDialog.h"
+#include "../Dialogs/EditTransitionDialog.h"
 
 #include "PetriNetScene.h"
 
@@ -250,6 +251,16 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 			}
 			dlg->deleteLater();
 
+		} else if(item && item->type() == NetEntity::TransitionItem){
+			TransitionItem* t = dynamic_cast<TransitionItem*>(item);
+
+			// Open transition edit dialog
+			EditTransitionDialog* dlg = new EditTransitionDialog(dynamic_cast<QWidget*>(this->parent()));
+			dlg->setName(t->name());
+			if(dlg->exec()==QDialog::Accepted){
+				t->setName(dlg->name());
+			}
+			dlg->deleteLater();
 		}
 	}
 }
