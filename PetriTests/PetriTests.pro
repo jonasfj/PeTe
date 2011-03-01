@@ -18,6 +18,7 @@ SOURCES	   += \
 	PeTedit/NetItems/PetriNetView.cpp \
 	PeTedit/Commands/InsertTransitionCommand.cpp \
 	PeTedit/Commands/InsertPlaceCommand.cpp \
+	PeTedit/Commands/InsertArcCommand.cpp \
 	PeTedit/Commands/MoveItemsCommand.cpp \
 	PeTedit/DataFormats/PNMLParser.cpp \
 	main.cpp \
