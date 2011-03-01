@@ -13,7 +13,7 @@ InsertPlaceCommand::InsertPlaceCommand(PetriNetScene *scene, QPointF position){
 	do{
 		number += 1;
 		name =  "P " + QString::number(number);
-	}while(_scene->findPlace(name));
+	}while(_scene->findNetItem(name));
 	_place = new PlaceItem(position, name);
 	this->setText("Created \"" + name + "\"");
 }
@@ -26,12 +26,12 @@ InsertPlaceCommand::~InsertPlaceCommand(){
 
 void InsertPlaceCommand::undo(){
 	Q_ASSERT(_removed == false);
-	_scene->removePlace(_place);
+	_scene->removeNetItem(_place);
 	_removed = true;
 }
 
 void InsertPlaceCommand::redo(){
 	Q_ASSERT(_removed == true);
-	_scene->addPlace(_place);
+	_scene->addNetItem(_place);
 	_removed = false;
 }

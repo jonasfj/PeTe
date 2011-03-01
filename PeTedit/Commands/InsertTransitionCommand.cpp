@@ -10,8 +10,8 @@ InsertTransitionCommand::InsertTransitionCommand(PetriNetScene* scene, QPointF p
 	QString name;
 	do{
 		number += 1;
-		name =  "T " + QString::number(number);
-	}while(_scene->findTransition(name));
+		name =  "T" + QString::number(number);
+	}while(_scene->findNetItem(name));
 	_transition = new TransitionItem(position, name);
 	this->setText("Created \"" + name + "\"");
 }
@@ -24,12 +24,12 @@ InsertTransitionCommand::~InsertTransitionCommand(){
 
 void InsertTransitionCommand::undo(){
 	Q_ASSERT(_removed == false);
-	_scene->removeTransition(_transition);
+	_scene->removeNetItem(_transition);
 	_removed = true;
 }
 
 void InsertTransitionCommand::redo(){
 	Q_ASSERT(_removed == true);
-	_scene->addTransition(_transition);
+	_scene->addNetItem(_transition);
 	_removed = false;
 }

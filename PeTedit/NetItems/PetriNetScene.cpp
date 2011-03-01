@@ -39,70 +39,52 @@ void PetriNetScene::updateSceneRect(){
 
 /******************** Add, remove and find place ********************/
 
-void PetriNetScene::addPlace(PlaceItem* place){
-	if(!this->places.contains(place))
-		this->places.append(place);
-	this->addItem(place);
-	this->updateSceneRect();
-}
-
-void PetriNetScene::removePlace(PlaceItem* place){
-	this->places.removeAll(place);
-	this->removeItem(place);
-	this->updateSceneRect();
-}
-
-PlaceItem* PetriNetScene::findPlace(const QString& name){
-	foreach(PlaceItem* place, this->places){
-		if(place->name() == name)
-			return place;
+NetItem* PetriNetScene::findNetItem(const QString &name){
+	foreach(QGraphicsItem* item, this->items()){
+		if(item->type() == NetEntity::PlaceItem || item->type() == NetEntity::TransitionItem){
+			NetItem* i = dynamic_cast<NetItem*>(item);
+			if(i->name() == name)
+				return i;
+		}
 	}
 	return NULL;
 }
 
 /******************** Add, remove and find transition ********************/
 
-void PetriNetScene::addTransition(TransitionItem* transition){
-	if(!this->transitions.contains(transition))
-		this->transitions.append(transition);
-	this->addItem(transition);
+void PetriNetScene::addNetItem(NetItem* item){
+	if(!this->items().contains(item))
+		this->addItem(item);
 	this->updateSceneRect();
 }
 
-void PetriNetScene::removeTransition(TransitionItem* transition){
-	this->transitions.removeAll(transition);
-	this->removeItem(transition);
+void PetriNetScene::removeNetItem(NetItem* item){
+	this->removeItem(item);
 	this->updateSceneRect();
-}
-
-TransitionItem* PetriNetScene::findTransition(const QString& name){
-	foreach(TransitionItem* transition, this->transitions){
-		if(transition->name() == name)
-			return transition;
-	}
-	return NULL;
 }
 
 
 /******************** Add, remove and arc ********************/
 
 void PetriNetScene::addArc(ArcItem* arc){
-	if(!this->arcs.contains(arc))
-		this->arcs.append(arc);
-	this->addItem(arc);
+	if(!this->items().contains(arc))
+		this->addItem(arc);
 	this->updateSceneRect();
 }
 
 void PetriNetScene::removeArc(ArcItem* arc){
-	this->arcs.removeAll(arc);
 	this->removeItem(arc);
 	this->updateSceneRect();
 }
 
 ArcItem* PetriNetScene::findArc(NetItem *start, NetItem *end){
-	foreach(ArcItem* arc, this->arcs){
-		if(arc->start() == start && arc->end() == end)
-			return arc;
+	foreach(QGraphicsItem* item, this->items()){
+		if(item->type() == NetEntity::ArcItem) {
+			ArcItem* arc = dynamic_cast<ArcItem*>(item);
+
+			if(arc->start() == start && arc->end() == end)
+				return arc;
+		}
 	}
 	return NULL;
 }
@@ -269,16 +251,24 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 /******************** Produce using factory ********************/
 
 void PetriNetScene::produce(PetriEngine::AbstractPetriNetFactory* factory){
-	foreach(PlaceItem* p, places)
-		factory->addPlace(p->name().toStdString(), p->pos().x(), p->pos().y());
-	foreach(TransitionItem* t, transitions)
-		factory->addTransition(t->name().toStdString(), t->pos().x(), t->pos().y());
-	foreach(ArcItem* a, arcs){
-		std::string start = a->start()->name().toStdString();
-		std::string end = a->end()->name().toStdString();
-		if(a->isInputArc())
-			factory->addInputArc(start, end, 1);
-		else
-			factory->addOutputArc(start, end, 1);
+	foreach(QGraphicsItem* item, this->items()) {
+		if(item->type() == NetEntity::PlaceItem) {
+			PlaceItem* p = dynamic_cast<PlaceItem*>(item);
+			Q_ASSERT(p != NULL);
+			factory->addPlace(p->name().toStdString(), p->pos().x(), p->pos().y());
+		} else if (item->type() == NetEntity::TransitionItem){
+			TransitionItem* t = dynamic_cast<TransitionItem*>(item);
+			Q_ASSERT(t != NULL);
+			factory->addTransition(t->name().toStdString(), t->pos().x(), t->pos().y());
+		} else if(item->type() == NetEntity::ArcItem){
+			ArcItem* a = dynamic_cast<ArcItem*>(item);
+			Q_ASSERT(a != NULL);
+			std::string start = a->start()->name().toStdString();
+			std::string end = a->end()->name().toStdString();
+			if(a->isInputArc())
+				factory->addInputArc(start, end, a->weight());
+			else
+				factory->addOutputArc(start, end, a->weight());
+		}
 	}
 }

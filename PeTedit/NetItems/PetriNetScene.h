@@ -44,19 +44,13 @@ public:
 		emit modeChanged(mode);
 	}
 
-	/** Add new place */
-	void addPlace(PlaceItem* place);
-	/** Remove place */
-	void removePlace(PlaceItem* place);
-	/** Find a place given it's name */
-	PlaceItem* findPlace(const QString& name);
 
-	/** Add new transition */
-	void addTransition(TransitionItem* transition);
-	/** Remove transition */
-	void removeTransition(TransitionItem* transition);
-	/** Find a transition given it's name */
-	TransitionItem* findTransition(const QString& name);
+	/** Find a net item with the given name */
+	NetItem* findNetItem(const QString& name);
+
+	void addNetItem(NetItem* item);
+
+	void removeNetItem(NetItem* item);
 
 	/** Add new arc */
 	void addArc(ArcItem* arc);
@@ -71,10 +65,6 @@ public:
 	QUndoStack* _undoStack;
 private:
 	Mode _mode;
-	/** List of all places */
-	QList<PlaceItem*> places;
-	QList<TransitionItem*> transitions;
-	QList<ArcItem*> arcs;
 	/** Unselect item at mouseReleaseEvent if ControlModifier is down */
 	bool unselectItemAtReleaseIfCtrlDown;
 protected:
