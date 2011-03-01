@@ -14,8 +14,8 @@ public:
 	InsertPlaceCommand(PetriNetScene* scene, QPointF position);
 	~InsertPlaceCommand();
 	PlaceItem* place() {return _place;}
-	virtual void undo();
-	virtual void redo();
+	void undo();
+	void redo();
 private:
 	PetriNetScene* _scene;
 	PlaceItem* _place;

@@ -14,10 +14,13 @@ public:
 	QPainterPath opaqueArea() const;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
 	void updateEndPoints();
+	bool isInputArc() const {return _startItem->type() == NetEntity::TransitionItem;}
 	NetItem* start() {return _startItem;}
 	NetItem* end() {return _endItem;}
 	void setEndPoint(QPointF end);
 	void setEnd(NetItem* item);
+	void registerAtEndPoints();
+	void unregisterAtEndPoints();
 private:
 	NetItem* _startItem;
 	NetItem* _endItem;
@@ -25,4 +28,3 @@ private:
 };
 
 #endif // ARCITEM_H
-

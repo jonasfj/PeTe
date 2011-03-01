@@ -13,9 +13,6 @@ class TransitionItem : public NetItem
 public:
 	TransitionItem(QPointF position, QString name);
 
-	QString name() {return _name;}
-	void setName(QString name) {_name = name;}
-
 	QPointF nearestPoint(QPointF to) const;
 	int type() const;
 	QRectF boundingRect() const;

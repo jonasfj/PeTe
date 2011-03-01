@@ -18,7 +18,8 @@ SOURCES	   += \
 	Commands/InsertTransitionCommand.cpp \
 	Commands/InsertPlaceCommand.cpp \
 	Commands/MoveItemsCommand.cpp \
-    DataFormats/PNMLParser.cpp
+    DataFormats/PNMLParser.cpp \
+    Commands/InsertArcCommand.cpp
 
 HEADERS		+= \
 	NetItems/TransitionItem.h \
@@ -32,7 +33,8 @@ HEADERS		+= \
 	Commands/InsertPlaceCommand.h \
 	Commands/InsertTransitionCommand.h \
 	MainWindow.h \
-    DataFormats/PNMLParser.h
+    DataFormats/PNMLParser.h \
+    Commands/InsertArcCommand.h
 
 FORMS		+= MainWindow.ui
 

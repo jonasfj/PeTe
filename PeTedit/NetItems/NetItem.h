@@ -26,6 +26,9 @@ public:
 	/** Returns the point on the edges of the node closest to to.*/
 	virtual QPointF nearestPoint(QPointF to) const = 0;
 
+	QString name() {return _name;}
+	void setName(QString name) {_name = name;}
+
 	/** Register a connected item
 	 *
 	 * Registered items will be updated when this object is moved.
@@ -45,6 +48,7 @@ protected:
 private:
 	/** List of connected items (arcs etc.) */
 	QList<ArcItem*> _connectedItems;
+	QString _name;
 };
 
 

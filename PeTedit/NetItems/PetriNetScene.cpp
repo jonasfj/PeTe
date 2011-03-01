@@ -2,6 +2,7 @@
 #include "../Commands/InsertPlaceCommand.h"
 #include "../Commands/InsertTransitionCommand.h"
 #include "../Commands/MoveItemsCommand.h"
+#include "../Commands/InsertArcCommand.h"
 #include "PlaceItem.h"
 #include "TransitionItem.h"
 
@@ -35,7 +36,8 @@ void PetriNetScene::updateSceneRect(){
 /******************** Add, remove and find place ********************/
 
 void PetriNetScene::addPlace(PlaceItem* place){
-	this->places.append(place);
+	if(!this->places.contains(place))
+		this->places.append(place);
 	this->addItem(place);
 	this->updateSceneRect();
 }
@@ -57,7 +59,8 @@ PlaceItem* PetriNetScene::findPlace(const QString& name){
 /******************** Add, remove and find transition ********************/
 
 void PetriNetScene::addTransition(TransitionItem* transition){
-	this->transitions.append(transition);
+	if(!this->transitions.contains(transition))
+		this->transitions.append(transition);
 	this->addItem(transition);
 	this->updateSceneRect();
 }
@@ -72,6 +75,30 @@ TransitionItem* PetriNetScene::findTransition(const QString& name){
 	foreach(TransitionItem* transition, this->transitions){
 		if(transition->name() == name)
 			return transition;
+	}
+	return NULL;
+}
+
+
+/******************** Add, remove and arc ********************/
+
+void PetriNetScene::addArc(ArcItem* arc){
+	if(!this->arcs.contains(arc))
+		this->arcs.append(arc);
+	this->addItem(arc);
+	this->updateSceneRect();
+}
+
+void PetriNetScene::removeArc(ArcItem* arc){
+	this->arcs.removeAll(arc);
+	this->removeItem(arc);
+	this->updateSceneRect();
+}
+
+ArcItem* PetriNetScene::findArc(NetItem *start, NetItem *end){
+	foreach(ArcItem* arc, this->arcs){
+		if(arc->start() == start && arc->end() == end)
+			return arc;
 	}
 	return NULL;
 }
@@ -146,7 +173,7 @@ void PetriNetScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event){
 			ArcItem* arc = dynamic_cast<ArcItem*>(selectedItems().first());
 			if(arc){
 				NetItem* end = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
-				if(end){
+				if(end && end->type() != arc->start()->type() && !findArc(arc->start(), end)){
 					arc->setEndPoint(end->nearestPoint(arc->start()->pos()));
 				}else
 					arc->setEndPoint(event->scenePos());
@@ -180,8 +207,10 @@ void PetriNetScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event){
 			ArcItem* arc = dynamic_cast<ArcItem*>(selectedItems().first());
 			if(arc){
 				NetItem* end = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
-				if(end){
+				if(end && end->type() != arc->start()->type() && !findArc(arc->start(), end)){
 					arc->setEnd(end);
+					removeItem(arc);
+					_undoStack->push(new InsertArcCommand(this, arc));
 					this->setMode(PointerMode);
 				}else{
 					removeItem(arc);
@@ -189,5 +218,22 @@ void PetriNetScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event){
 				}
 			}
 		}
+	}
+}
+
+/******************** Produce using factory ********************/
+
+void PetriNetScene::produce(PetriEngine::AbstractPetriNetFactory* factory){
+	foreach(PlaceItem* p, places)
+		factory->addPlace(p->name().toStdString(), p->pos().x(), p->pos().y());
+	foreach(TransitionItem* t, transitions)
+		factory->addTransition(t->name().toStdString(), t->pos().x(), t->pos().y());
+	foreach(ArcItem* a, arcs){
+		std::string start = a->start()->name().toStdString();
+		std::string end = a->end()->name().toStdString();
+		if(a->isInputArc())
+			factory->addInputArc(start, end, 1);
+		else
+			factory->addOutputArc(start, end, 1);
 	}
 }

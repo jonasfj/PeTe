@@ -116,3 +116,17 @@ void ArcItem::setEnd(NetItem* item){
 	QPointF start = _startItem->nearestPoint(_end);
 	this->setPos(start);
 }
+
+void ArcItem::registerAtEndPoints(){
+	if(_endItem)
+		_endItem->registerConnectedItem(this);
+	if(_startItem)
+		_startItem->registerConnectedItem(this);
+}
+
+void ArcItem::unregisterAtEndPoints(){
+	if(_endItem)
+		_endItem->unregisterConnectedItem(this);
+	if(_startItem)
+		_startItem->unregisterConnectedItem(this);
+}
