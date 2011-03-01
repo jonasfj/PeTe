@@ -9,9 +9,10 @@
 #define ARROW_SIZE	10
 
 ArcItem::ArcItem(NetItem* start, NetItem* end){
-	setWeight(1);
+	Q_ASSERT(start != NULL);
 	_startItem = start;
 	_endItem = end;
+	setWeight(1);
 	_startItem->registerConnectedItem(this);
 	if(_endItem)
 		_endItem->registerConnectedItem(this);

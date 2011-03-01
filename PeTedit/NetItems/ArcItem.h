@@ -27,7 +27,8 @@ public:
 		_weight = weight;
 		this->update();
 		if(isInputArc())
-			end()->update();
+			if(end())
+				end()->update();
 	}
 private:
 	NetItem* _startItem;
