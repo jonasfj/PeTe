@@ -19,8 +19,6 @@ public:
 	QPainterPath shape() const;
 	QPainterPath opaqueArea() const;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
-private:
-	QString _name;
 };
 
 #endif // TRANSITIONITEM_H

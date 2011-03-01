@@ -230,7 +230,7 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 			ArcItem* arc = dynamic_cast<ArcItem*>(item);
 			//Lanuch a dialog an modify arc
 			EditArcDialog* dlg = new EditArcDialog(dynamic_cast<QWidget*>(this->parent()));
-			dlg->setInfo(tr("Edit arc from %1 to %2.").arg(arc->start()->name()).arg(arc->start()->name()));
+			dlg->setInfo(tr("Edit arc from \"%1\" to \"%2\".").arg(arc->start()->name()).arg(arc->end()->name()));
 			dlg->setWeight(arc->weight());
 			if(dlg->exec() == QDialog::Accepted)
 				arc->setWeight(dlg->weight());
