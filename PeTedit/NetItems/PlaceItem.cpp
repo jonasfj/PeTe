@@ -14,7 +14,6 @@
 PlaceItem::PlaceItem(QPointF position, QString name) : NetItem(){
 	this->setName(name);
 	this->setPos(position);
-	//TODO: Set number of tokens
 	this->setTokens(0);
 	//Configure the underlying graphics item
 	this->setFlag(QGraphicsItem::ItemIsMovable, true);
