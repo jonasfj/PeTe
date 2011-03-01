@@ -5,24 +5,23 @@ CONFIG	   += dll
 
 SOURCES	   += \
 	StandardOutputProgressReporter.cpp \
-	CTL/CTLParser.cpp \
-	CTL/PlaceExpr.cpp \
 	PetriNet.cpp \
 	PetriNetFactory.cpp \
     DepthFirstReachabilitySearch.cpp \
-    CoverabilityTreeNode.cpp
+    CoverabilityTreeNode.cpp \
+    CTL/CTLExprs.cpp \
+    CTL/CTLParser.cpp
 
 HEADERS	   += \
 	AbstractPetriNetFactory.h \
 	ProgressReporter.h \
-	CTL/PlaceExpr.h \
-	CTL/CTLParser.h \
-	CTL/CTLExpr.h \
 	PetriNetFactory.h \
 	PetriNet.h \
 	StandardOutputProgressReporter.h \
 	ReachabilitySearchStrategy.h \
     DepthFirstReachabilitySearch.h \
-    CoverabilityTreeNode.h
+    CoverabilityTreeNode.h \
+    CTL/CTLExprs.h \
+    CTL/CTLParser.h
 
 TARGET		= ../PetriEngine
