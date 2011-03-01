@@ -40,11 +40,13 @@ public:
 	 */
 	void registerConnectedItem(ArcItem* item){
 		_connectedItems.append(item);
+		this->update();
 	}
 
 	/** Unregister a connected item */
 	void unregisterConnectedItem(ArcItem* item){
 		_connectedItems.removeAll(item);
+		this->update();
 	}
 
 	const QList<ArcItem*> ConnectedItems() const{

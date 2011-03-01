@@ -218,6 +218,7 @@ void PetriNetScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event){
 					_undoStack->push(a);
 					this->setMode(PointerMode);
 				}else{
+					arc->unregisterAtEndPoints();
 					removeItem(arc);
 					delete arc;
 				}

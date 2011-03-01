@@ -84,6 +84,7 @@ void TransitionItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, Q
 
 	if(enabled()){
 		painter->setBrush(QBrush(Qt::green));
+		//painter->setPen(QPen(Qt::green));
 	}else{
 		painter->setBrush(Qt::SolidPattern);
 	}
