@@ -16,6 +16,10 @@ letter        [a-zA-Z]
 %%
 
 [ \t\n\r]					;
+"and"						{return TOKEN(AND);}
+"AND"						{return TOKEN(AND);}
+"or"						{return TOKEN(OR);}
+"OR"						{return TOKEN(OR);}
 {letter}({letter}|{digit})*	{SAVE_TOKEN; return PLACE;}
 {digit}+					{SAVE_TOKEN; return INT;}
 "&&"						{return TOKEN(AND);}

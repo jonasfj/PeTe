@@ -8,6 +8,7 @@ namespace PetriEngine{ namespace CTL {
 class CTLExpr {
 public: 
 	virtual int evaluate(const Mark* marking) = 0;
+	virtual void lookupOffset(PetriNet* network) = 0;
 	virtual std::string toString() = 0;
 };
 
@@ -17,6 +18,7 @@ public:
 		_offset = 0;
 	}
 	int evaluate(const Mark* marking);
+	void lookupOffset(PetriNet* network);
 	std::string toString();
 private:
 	std::string _name;
@@ -27,6 +29,7 @@ class LiteralExpr: public CTLExpr {
 public:
 	LiteralExpr(int value): _value(value) {}
 	int evaluate(const Mark* marking);
+	void lookupOffset(PetriNet* network);
 	std::string toString();
 private:
 	int _value;
@@ -41,6 +44,7 @@ public:
 		return _child;
 	}
 	int evaluate(const Mark* marking);
+	void lookupOffset(PetriNet* network);
 	std::string toString();
 private:
 	CTLExpr* _child;
@@ -56,6 +60,7 @@ public:
 	}
 	virtual int evaluate(const Mark* marking) = 0;
 	virtual std::string toString() = 0;
+	void lookupOffset(PetriNet* network);
 protected:
 	BinaryExpr(CTLExpr* lhand, CTLExpr* rhand) {
 		_lhand = lhand;

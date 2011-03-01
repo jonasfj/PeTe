@@ -10,6 +10,7 @@ PKGCONFIG		+= unittest++
 
 SOURCES	   +=   main.cpp \
 				PetriEngineTests/ReachabilityStrategyTest.cpp \
+    PetriEngineTests/ParserTest.cpp
 
 HEADERS		+= \
 

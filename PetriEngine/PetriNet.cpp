@@ -41,4 +41,13 @@ Mark* PetriNet::makeEmptyMarking(){
 	return marking;
 }
 
+/** Returns the Place offset */
+int PetriNet::lookupName(const string &name){
+	for(int i = 0; i < _nPlaces; i++){
+		if(_placeNames[i] == name)
+			return i;
+	}
+	return -1;
+}
+
 } // PetriEngine
