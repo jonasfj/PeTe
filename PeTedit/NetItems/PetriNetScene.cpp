@@ -5,7 +5,9 @@
 #include "../Commands/InsertArcCommand.h"
 #include "PlaceItem.h"
 #include "TransitionItem.h"
+// DIALOGS
 #include "../Dialogs/EditArcDialog.h"
+#include "../Dialogs/EditPlaceDialog.h"
 
 #include "PetriNetScene.h"
 
@@ -235,6 +237,19 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 			if(dlg->exec() == QDialog::Accepted)
 				arc->setWeight(dlg->weight());
 			dlg->deleteLater();
+		} else if( item && item->type() == NetEntity::PlaceItem){
+			PlaceItem* place = dynamic_cast<PlaceItem*>(item);
+
+			// Open dialog
+			EditPlaceDialog* dlg = new EditPlaceDialog(dynamic_cast<QWidget*>(this->parent()));
+			dlg->setName(place->name());
+			dlg->setTokens(place->tokens());
+			if(dlg->exec() == QDialog::Accepted){
+				place->setName(dlg->name());
+				place->setTokens(dlg->tokens());
+			}
+			dlg->deleteLater();
+
 		}
 	}
 }

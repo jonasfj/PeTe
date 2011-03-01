@@ -20,7 +20,8 @@ SOURCES	   += \
 	Commands/MoveItemsCommand.cpp \
 	Commands/InsertArcCommand.cpp \
 	DataFormats/PNMLParser.cpp \
-    Dialogs/EditArcDialog.cpp
+    Dialogs/EditArcDialog.cpp \
+    Dialogs/EditPlaceDialog.cpp
 
 HEADERS		+= \
 	NetItems/TransitionItem.h \
@@ -36,9 +37,11 @@ HEADERS		+= \
 	MainWindow.h \
     DataFormats/PNMLParser.h \
     Commands/InsertArcCommand.h \
-    Dialogs/EditArcDialog.h
+    Dialogs/EditArcDialog.h \
+    Dialogs/EditPlaceDialog.h
 
 FORMS		+= MainWindow.ui \
-    Dialogs/EditArcDialog.ui
+    Dialogs/EditArcDialog.ui \
+    Dialogs/EditPlaceDialog.ui
 
 TARGET		 = ../PeTe

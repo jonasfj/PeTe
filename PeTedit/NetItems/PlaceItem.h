@@ -22,6 +22,7 @@ public:
 	int type() const;
 	QRectF boundingRect() const;
 	QPainterPath shape() const;
+	QPainterPath textPath() const;
 	QPainterPath opaqueArea() const;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
 private:

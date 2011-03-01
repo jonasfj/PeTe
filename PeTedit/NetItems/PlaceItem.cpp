@@ -24,15 +24,24 @@ int PlaceItem::type() const{
 	return NetEntity::PlaceItem;
 }
 
+QPainterPath PlaceItem::textPath() const{
+	QPainterPath path;
+	path.addText(0,0,QFont(),this->name());
+	return path;
+}
+
 QRectF PlaceItem::boundingRect() const{
 	QPainterPath path;
 	path.addEllipse(QPointF(0,0), SELECTION_SIZE, SELECTION_SIZE);
+
+	path.addPath(textPath());
 	return path.controlPointRect();
 }
 
 QPainterPath PlaceItem::shape() const{
 	QPainterPath path;
 	path.addEllipse(QPointF(0,0), CIRCLE_SIZE, CIRCLE_SIZE);
+	path.addPath(textPath());
 	return path;
 }
 
@@ -50,6 +59,8 @@ QPointF PlaceItem::nearestPoint(QPointF to) const{
 void PlaceItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*){
 	painter->drawEllipse(QPointF(0,0), CIRCLE_SIZE, CIRCLE_SIZE);
 
+
+
 	// Centering number of tokens to place
 	QPainterPath path;
 	path.addText(0,0,painter->font(), QString::number(this->_tokens));
@@ -64,7 +75,8 @@ void PlaceItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidge
 	path.translate(bb.topLeft()-path.boundingRect().topLeft());
 	painter->setBrush(Qt::SolidPattern);
 	painter->drawPath(path);
-
+	// Draw place name
+	painter->drawPath(textPath());
 	if(this->isSelected()){
 		painter->setBrush(Qt::NoBrush);
 		QPen pen(Qt::DotLine);
