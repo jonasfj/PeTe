@@ -119,6 +119,22 @@ void MainWindow::modeActionGroup_triggered(QAction *action){
 		currentScene->setMode((PetriNetScene::Mode)m.toInt());
 }
 
+
+void dumpTree(const PetriEngine::CoverabilityTreeNode* tree, PetriEngine::PetriNet* net){
+
+	if(tree != NULL){
+		qDebug() << "transition number:" << QString::number( tree->transition());
+		for(int i = 0; i < net->nPlaces(); i++)
+				qDebug() << "\t m(P" << i << ")=" << QString::number( tree->marking()[i]);
+
+		for(size_t i = 0; i < tree->childNodes().size(); i++){
+			PetriEngine::CoverabilityTreeNode* c = tree->childNodes().at(i);
+			dumpTree(c,net);
+		}
+	}
+}
+
+
 /** Open the query editor window */
 void MainWindow::on_NewQueryAction_triggered()
 {
@@ -129,16 +145,12 @@ void MainWindow::on_NewQueryAction_triggered()
 		PetriEngine::PetriNetFactory* fac = new PetriEngine::PetriNetFactory();
 		this->currentScene->produce(fac);
 		PetriEngine::PetriNet* net = fac->makePetriNet();
-		PetriEngine::DepthFirstReachabilitySearch* dfs;
-		dfs->reachable(*net,fac->makeInitialMarking());
+		PetriEngine::DepthFirstReachabilitySearch dfs;
+		dfs.reachable(*net,fac->makeInitialMarking());
 
-		PetriEngine::CoverabilityTreeNode* tree = dfs->coverabilityTree();
-		for(int i = 0; i < tree->childNodes().size(); i++){
-			PetriEngine::CoverabilityTreeNode* c = tree->childNodes().at(i);
-			if(c != NULL){
-				qDebug() << QString::number( c->transition()) << "\n";
-			}
-		}
+		//NOTE: it helped making this const...
+		const PetriEngine::CoverabilityTreeNode* tree = dfs.coverabilityTree();
+		dumpTree(tree,net);
 	}
 
 	dlg->deleteLater();

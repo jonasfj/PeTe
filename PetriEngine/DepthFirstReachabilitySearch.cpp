@@ -33,7 +33,7 @@ namespace PetriEngine{
 		return false;
 	}
 
-	CoverabilityTreeNode* DepthFirstReachabilitySearch::coverabilityTree(){
+	const CoverabilityTreeNode* DepthFirstReachabilitySearch::coverabilityTree(){
 		return this->_coverabilityTree;
 	}
 

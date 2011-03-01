@@ -17,7 +17,7 @@ public:
 	bool reachable(PetriNet net, Mark* initialMarking);
 	void setProgressReporter(ProgressReporter* reporter);
 	/** The coverability tree of the net */
-	CoverabilityTreeNode* coverabilityTree();
+	const CoverabilityTreeNode* coverabilityTree();
 private:
 	CoverabilityTreeNode* _coverabilityTree;
 };
