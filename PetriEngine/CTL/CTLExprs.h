@@ -2,19 +2,15 @@
 #define CTLNODES_H
 
 #include <string>
-
-//Remove this when merging with PeTe
-typedef int Mark;
+#include "../PetriNet.h"
 
 namespace PetriEngine{ namespace CTL {
-/* Base CTL Class */
 class CTLExpr {
 public: 
 	virtual int evaluate(const Mark* marking) = 0;
 	virtual std::string toString() = 0;
 };
 
-/* A PlaceExpr */
 class PlaceExpr: public CTLExpr {
 public:
 	PlaceExpr(const std::string& name): _name(name) {

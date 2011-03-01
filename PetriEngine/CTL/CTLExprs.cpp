@@ -3,6 +3,7 @@
 
 using namespace std;
 
+/* evaluate and toString implementations for the abstract syntax tree */
 namespace PetriEngine { namespace CTL {
 
 int PlaceExpr::evaluate(const Mark* marking){
