@@ -10,13 +10,16 @@
 
 #include "Dialogs/QueryDialog.h"
 
+#include "DataFormats/PNMLParser.h"
 #include "DataFormats/PNMLFactory.h"
+#include "NetItems/PetriNetSceneFactory.h"
 
 #include <QGraphicsView>
 #include <QUndoView>
 #include <QtGlobal>
 #include <QDebug>
 #include <QFileDialog>
+#include <QFileInfo>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -61,7 +64,8 @@ void MainWindow::on_NewTapnAction_triggered(){
 						 QPainter::SmoothPixmapTransform |
 						 QPainter::TextAntialiasing);
 	view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	ui->tabWidget->addTab(view, "New TAPN");
+	int index = ui->tabWidget->addTab(view, "New TAPN");
+	ui->tabWidget->setCurrentIndex(index);
 }
 
 /** Close document-tab */
@@ -71,6 +75,29 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index){
 		//TODO: Consider asking user to save before close...
 		ui->tabWidget->removeTab(index);
 		view->deleteLater();
+	}
+}
+
+/** Load petri net from file */
+void MainWindow::on_OpenAction_triggered(){
+	QString fname = QFileDialog::getOpenFileName(this, "Open Petri Net", QDir::homePath());
+	if(fname != ""){
+		QFile file(fname);
+		if(!file.open(QIODevice::ReadOnly))
+			return;
+		QGraphicsView* view = new PetriNetView();
+		PetriNetSceneFactory fac(this->undoGroup, view);
+		PNMLParser p;
+		p.parse(&file, &fac);
+		file.close();
+		view->setScene(fac.makeScene());
+		view->setRenderHints(QPainter::Antialiasing |
+							 QPainter::SmoothPixmapTransform |
+							 QPainter::TextAntialiasing);
+		view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+		QFileInfo fi(fname);
+		int index = ui->tabWidget->addTab(view, fi.baseName());
+		ui->tabWidget->setCurrentIndex(index);
 	}
 }
 
@@ -161,10 +188,13 @@ void MainWindow::on_SaveAction_triggered()
 	if(!currentScene)
 		return;
 	QString fname = QFileDialog::getSaveFileName(this, "Save Petri Net");
-	QFile file(fname);
-	file.open(QIODevice::WriteOnly);
-	PNMLFactory fac(&file);
-	currentScene->produce(&fac);
-	fac.makePNMLFile();
-	file.close();
+	if(fname != ""){
+		QFile file(fname);
+		if(!file.open(QIODevice::WriteOnly))
+			return;
+		PNMLFactory fac(&file);
+		currentScene->produce(&fac);
+		fac.makePNMLFile();
+		file.close();
+	}
 }

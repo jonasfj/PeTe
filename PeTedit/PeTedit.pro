@@ -24,7 +24,8 @@ SOURCES	   += \
     Dialogs/EditPlaceDialog.cpp \
 	Dialogs/QueryDialog.cpp \
 	Dialogs/EditTransitionDialog.cpp \
-    DataFormats/PNMLFactory.cpp
+    DataFormats/PNMLFactory.cpp \
+    NetItems/PetriNetSceneFactory.cpp
 
 
 HEADERS		+= \
@@ -45,7 +46,8 @@ HEADERS		+= \
     Dialogs/EditPlaceDialog.h \
     Dialogs/EditTransitionDialog.h \
 	Dialogs/QueryDialog.h \
-    DataFormats/PNMLFactory.h
+    DataFormats/PNMLFactory.h \
+    NetItems/PetriNetSceneFactory.h
 
 
 FORMS		+= MainWindow.ui \
