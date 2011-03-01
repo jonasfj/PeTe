@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>EditTransitionDialog</class>
- <widget class="QDialog" name="EditTransitionDialog">
+ <class>QueryDialog</class>
+ <widget class="QDialog" name="QueryDialog">
   <property name="windowModality">
    <enum>Qt::WindowModal</enum>
   </property>
@@ -10,38 +10,18 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>107</height>
+    <height>156</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Edit Transition</string>
+   <string>Enter Query</string>
   </property>
   <property name="modal">
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLineEdit" name="nameEdit"/>
-   </item>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Transition name</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>1</height>
-      </size>
-     </property>
-    </spacer>
+    <widget class="QPlainTextEdit" name="queryEdit"/>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
@@ -60,7 +40,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>EditTransitionDialog</receiver>
+   <receiver>QueryDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -76,7 +56,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>EditTransitionDialog</receiver>
+   <receiver>QueryDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

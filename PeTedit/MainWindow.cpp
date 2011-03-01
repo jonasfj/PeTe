@@ -4,6 +4,8 @@
 #include "NetItems/PetriNetScene.h"
 #include "NetItems/PetriNetView.h"
 
+#include "Dialogs/QueryDialog.h"
+
 #include <QGraphicsView>
 #include <QUndoView>
 #include <QtGlobal>
@@ -101,10 +103,22 @@ void MainWindow::currentScene_modeChanged(PetriNetScene::Mode mode){
 	}
 }
 
-/** Propogate mode change to document */
+/** Propagate mode change to document */
 void MainWindow::modeActionGroup_triggered(QAction *action){
 	QVariant m = action->property("Mode");
 	Q_ASSERT(m.isValid() && m.type() == QVariant::Int);
 	if(currentScene)
 		currentScene->setMode((PetriNetScene::Mode)m.toInt());
+}
+
+/** Open the query editor window */
+void MainWindow::on_NewQueryAction_triggered()
+{
+	QueryDialog* dlg = new QueryDialog(this);
+
+	if(dlg->exec() == QDialog::Accepted){
+
+	}
+
+	dlg->deleteLater();
 }

@@ -63,7 +63,7 @@
      <x>0</x>
      <y>0</y>
      <width>793</width>
-     <height>24</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -72,7 +72,14 @@
     </property>
     <addaction name="NewTapnAction"/>
    </widget>
+   <widget class="QMenu" name="menuAnalysis">
+    <property name="title">
+     <string>Analysis</string>
+    </property>
+    <addaction name="NewQueryAction"/>
+   </widget>
    <addaction name="menu_File"/>
+   <addaction name="menuAnalysis"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -137,6 +144,11 @@
    </property>
    <property name="text">
     <string>New arc</string>
+   </property>
+  </action>
+  <action name="NewQueryAction">
+   <property name="text">
+    <string>New query</string>
    </property>
   </action>
  </widget>
