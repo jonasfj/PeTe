@@ -1,11 +1,12 @@
 %{
 #include <string>
 #include "CTLExprs.h"
-#include "CTLParser.hpp"
+#include "CTLParser.parser.hpp"
 #define SAVE_TOKEN ctllval.string = new std::string(ctltext, ctlleng)
 #define TOKEN(t) (ctllval.token = t)
 extern "C" int ctlwrap(){}
 %}
+%option prefix="ctl"
 
 digit         [0-9]
 letter        [a-zA-Z]

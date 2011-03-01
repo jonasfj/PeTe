@@ -1,1 +1,4 @@
 *.pro.user
+*.lexer.cpp
+*.parser.cpp
+*.parser.hpp

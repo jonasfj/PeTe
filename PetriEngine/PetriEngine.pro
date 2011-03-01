@@ -1,9 +1,9 @@
-TEMPLATE	= lib
+TEMPLATE		= lib
 
-QT		   -= gui core
-CONFIG	   += dll
+QT			   -= gui core
+CONFIG		   += dll
 
-SOURCES	   += \
+SOURCES		   += \
 	StandardOutputProgressReporter.cpp \
 	PetriNet.cpp \
 	PetriNetFactory.cpp \
@@ -12,7 +12,7 @@ SOURCES	   += \
     CTL/CTLExprs.cpp \
     CTL/CTLParser.cpp
 
-HEADERS	   += \
+HEADERS		   += \
 	AbstractPetriNetFactory.h \
 	ProgressReporter.h \
 	PetriNetFactory.h \
@@ -24,4 +24,10 @@ HEADERS	   += \
     CTL/CTLExprs.h \
     CTL/CTLParser.h
 
-TARGET		= ../PetriEngine
+TARGET			= ../PetriEngine
+
+include(flex.pri)
+include(bison.pri)
+
+FLEXSOURCES		= CTL/CTLTokens.l
+BISONSOURCES	= CTL/CTLParser.y

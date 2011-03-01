@@ -8,6 +8,8 @@ extern int ctllex();
 void ctlerror(const char *s) {printf("ERROR: %s\n", s);}
 %}
 
+%name-prefix "ctl"
+
 /* Possible data representation */
 %union {
 	PetriEngine::CTL::CTLExpr* expr;

@@ -1,7 +1,7 @@
 #ifndef CTLPARSER_H
 #define CTLPARSER_H
 
-#include "../PetriNet.h";
+#include "../PetriNet.h"
 #include "CTLExprs.h"
 
 namespace PetriEngine{ namespace CTL{
