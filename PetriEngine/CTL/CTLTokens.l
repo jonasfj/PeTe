@@ -5,6 +5,8 @@
 #define SAVE_TOKEN ctllval.string = new std::string(ctltext, ctlleng)
 #define TOKEN(t) (ctllval.token = t)
 extern "C" int ctlwrap(){}
+extern PetriEngine::CTL::CTLExpr* query;
+extern int ctlparse();
 %}
 %option prefix="ctl"
 
@@ -33,3 +35,15 @@ letter        [a-zA-Z]
 .							{printf("Unknown token %s!\n", ctltext); yyterminate();}
 
 %%
+
+PetriEngine::CTL::CTLExpr* ctlParseString(const std::string& queryString) {
+	//Load up input buffer in Flex
+	YY_BUFFER_STATE buf = ctl_scan_string(queryString.c_str());
+
+	ctlparse();
+
+	//Delete the buffer
+	ctl_delete_buffer(buf);
+
+	return query;
+} 
