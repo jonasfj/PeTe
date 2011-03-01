@@ -81,6 +81,7 @@ protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent* event);
 	void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+	void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 signals:
 	void modeChanged(PetriNetScene::Mode mode);
 public slots:

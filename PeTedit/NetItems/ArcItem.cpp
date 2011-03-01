@@ -9,6 +9,7 @@
 #define ARROW_SIZE	10
 
 ArcItem::ArcItem(NetItem* start, NetItem* end){
+	setWeight(1);
 	_startItem = start;
 	_endItem = end;
 	_startItem->registerConnectedItem(this);
@@ -62,7 +63,7 @@ QPainterPath ArcItem::shape() const{
 	//Make some text
 	QFont font;
 	QPainterPath textpath;
-	textpath.addText(QPointF(0,0), font, "123");
+	textpath.addText(QPointF(0,0), font, QString::number(this->weight()));
 	//Move it into some reasonable position
 	textpath.translate(-textpath.boundingRect().width()/2, -3);
 	QTransform rotation;

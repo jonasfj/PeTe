@@ -21,10 +21,17 @@ public:
 	void setEnd(NetItem* item);
 	void registerAtEndPoints();
 	void unregisterAtEndPoints();
+	int weight() const {return _weight;}
+	void setWeight(int weight) {
+		this->prepareGeometryChange();
+		_weight = weight;
+		this->update();
+	}
 private:
 	NetItem* _startItem;
 	NetItem* _endItem;
 	QPointF _end;
+	int _weight;
 };
 
 #endif // ARCITEM_H

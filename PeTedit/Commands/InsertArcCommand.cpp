@@ -8,7 +8,7 @@ InsertArcCommand::InsertArcCommand(PetriNetScene* scene, ArcItem* arc){
 	_arc = arc;
 	_arc->unregisterAtEndPoints();
 	_removed = true;
-	setText("Insert arc");
+	this->setText("Insert arc");
 }
 
 InsertArcCommand::~InsertArcCommand(){
@@ -29,3 +29,4 @@ void InsertArcCommand::redo(){
 	_removed = false;
 	_arc->updateEndPoints();
 }
+

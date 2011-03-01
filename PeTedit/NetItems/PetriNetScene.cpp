@@ -5,6 +5,7 @@
 #include "../Commands/InsertArcCommand.h"
 #include "PlaceItem.h"
 #include "TransitionItem.h"
+#include "../Dialogs/EditArcDialog.h"
 
 #include "PetriNetScene.h"
 
@@ -210,13 +211,30 @@ void PetriNetScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event){
 				if(end && end->type() != arc->start()->type() && !findArc(arc->start(), end)){
 					arc->setEnd(end);
 					removeItem(arc);
-					_undoStack->push(new InsertArcCommand(this, arc));
+					InsertArcCommand* a = new InsertArcCommand(this, arc);
+					_undoStack->push(a);
 					this->setMode(PointerMode);
 				}else{
 					removeItem(arc);
 					delete arc;
 				}
 			}
+		}
+	}
+}
+
+void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
+	if(this->mode() == PointerMode){
+		QGraphicsItem* item = itemAt(event->scenePos());
+		if(item && item->type() == NetEntity::ArcItem){
+			ArcItem* arc = dynamic_cast<ArcItem*>(item);
+			//Lanuch a dialog an modify arc
+			EditArcDialog* dlg = new EditArcDialog(dynamic_cast<QWidget*>(this->parent()));
+			dlg->setInfo(tr("Edit arc from %1 to %2.").arg(arc->start()->name()).arg(arc->start()->name()));
+			dlg->setWeight(arc->weight());
+			if(dlg->exec() == QDialog::Accepted)
+				arc->setWeight(dlg->weight());
+			dlg->deleteLater();
 		}
 	}
 }
