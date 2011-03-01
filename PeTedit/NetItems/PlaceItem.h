@@ -16,7 +16,7 @@ public:
 	// Getters/setters
 
 	int tokens() const {return _tokens;}
-	void setTokens(int tokens){_tokens = tokens;}
+	void setTokens(int tokens);
 
 	QPointF nearestPoint(QPointF to) const;
 	int type() const;

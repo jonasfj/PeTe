@@ -1,4 +1,6 @@
 #include "PlaceItem.h"
+#include "ArcItem.h"
+#include "TransitionItem.h"
 
 #include <QPen>
 #include <QBrush>
@@ -22,6 +24,16 @@ PlaceItem::PlaceItem(QPointF position, QString name) : NetItem(){
 
 int PlaceItem::type() const{
 	return NetEntity::PlaceItem;
+}
+
+void PlaceItem::setTokens(int tokens){
+	this->_tokens = tokens;
+	// Update all output arcs (for enabledness)
+	foreach(ArcItem* arc, this->ConnectedItems()){
+		// If it is an output arc, notify the transition
+		if(arc->end() != this)
+			arc->end()->update();
+	}
 }
 
 QPainterPath PlaceItem::textPath() const{

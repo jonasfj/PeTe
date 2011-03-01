@@ -15,6 +15,10 @@ public:
 
 	QPointF nearestPoint(QPointF to) const;
 	int type() const;
+
+	/** Checks if the transition is enabled */
+	bool enabled() const;
+
 	QRectF boundingRect() const;
 	QPainterPath shape() const;
 	QPainterPath opaqueArea() const;

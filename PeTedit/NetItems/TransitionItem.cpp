@@ -1,5 +1,7 @@
 #include "TransitionItem.h"
 #include "NetItem.h"
+#include "ArcItem.h"
+#include "PlaceItem.h"
 
 #include <QPen>
 #include <QBrush>
@@ -21,6 +23,23 @@ TransitionItem::TransitionItem(QPointF position, QString name) : NetItem(){
 
 int TransitionItem::type() const{
 	return NetEntity::TransitionItem;
+}
+
+bool TransitionItem::enabled() const{
+
+	if(this->ConnectedItems().count() == 0)
+		return false;
+
+	foreach(ArcItem* arc, this->ConnectedItems()){
+		if(arc->isInputArc()){
+			PlaceItem* start = dynamic_cast<PlaceItem*>(arc->start());
+			// Input should *always* be a place
+			Q_ASSERT(start != NULL);
+			if(start->tokens() < arc->weight())
+				return false;
+		}
+	}
+	return true;
 }
 
 QPainterPath TransitionItem::textPath() const {
@@ -62,9 +81,16 @@ QPainterPath TransitionItem::opaqueArea() const{
 }
 
 void TransitionItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*){
-	painter->setBrush(Qt::SolidPattern);
+
+	if(enabled()){
+		painter->setBrush(QBrush(Qt::green));
+	}else{
+		painter->setBrush(Qt::SolidPattern);
+	}
+
 	painter->drawPath(shape());
 	painter->drawPath(textPath());
+
 	if(this->isSelected()){
 		painter->setBrush(Qt::NoBrush);
 		QPen pen(Qt::DotLine);

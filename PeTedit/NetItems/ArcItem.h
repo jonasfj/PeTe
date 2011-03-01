@@ -14,7 +14,7 @@ public:
 	QPainterPath opaqueArea() const;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
 	void updateEndPoints();
-	bool isInputArc() const {return _startItem->type() == NetEntity::TransitionItem;}
+	bool isInputArc() const {return _startItem->type() == NetEntity::PlaceItem;}
 	NetItem* start() {return _startItem;}
 	NetItem* end() {return _endItem;}
 	void setEndPoint(QPointF end);
@@ -26,6 +26,8 @@ public:
 		this->prepareGeometryChange();
 		_weight = weight;
 		this->update();
+		if(isInputArc())
+			end()->update();
 	}
 private:
 	NetItem* _startItem;

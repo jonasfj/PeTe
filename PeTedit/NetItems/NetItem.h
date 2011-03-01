@@ -46,6 +46,11 @@ public:
 	void unregisterConnectedItem(ArcItem* item){
 		_connectedItems.removeAll(item);
 	}
+
+	const QList<ArcItem*> ConnectedItems() const{
+		return _connectedItems;
+	}
+
 protected:
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 private:
