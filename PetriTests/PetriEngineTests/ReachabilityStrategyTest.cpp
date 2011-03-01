@@ -12,8 +12,8 @@ SUITE(ReachabilityStrategyTest){
 		DepthFirstReachabilitySearch dfs;
 
 		PetriNetFactory fac;
-		fac.addPlace("P1",0,0);
-		fac.addPlace("P2",1,1);
+		fac.addPlace("P1",0,0,0);
+		fac.addPlace("P2",0,1,1);
 		fac.addTransition("T0",0.5,0.5);
 		fac.addInputArc("P1","T0",1);
 		fac.addOutputArc("T0","P2",1);
@@ -37,9 +37,9 @@ SUITE(ReachabilityStrategyTest){
 
 		PetriNetFactory fac;
 
-		fac.addPlace("P1",0,0);
-		fac.addPlace("P2",1,1);
-		fac.addPlace("P3",2,2);
+		fac.addPlace("P1",0,0,0);
+		fac.addPlace("P2",0,1,1);
+		fac.addPlace("P3",0,2,2);
 
 		fac.addTransition("T0", 0.5, 0.5);
 		fac.addTransition("T1", 0,0);
@@ -64,8 +64,8 @@ SUITE(ReachabilityStrategyTest){
 	TEST(PetriNetFireTest){
 
 		PetriNetFactory fac;
-		fac.addPlace("P1",0,0);
-		fac.addPlace("P2",1,1);
+		fac.addPlace("P1",0,0,0);
+		fac.addPlace("P2",0,1,1);
 		fac.addTransition("T0",0.5,0.5);
 		fac.addInputArc("P1","T0",1);
 		fac.addOutputArc("T0","P2",1);

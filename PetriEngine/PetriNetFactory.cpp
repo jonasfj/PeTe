@@ -8,8 +8,9 @@ namespace PetriEngine{
 PetriNetFactory::PetriNetFactory() : AbstractPetriNetFactory(){
 }
 
-void PetriNetFactory::addPlace(const string &name, double, double){
+void PetriNetFactory::addPlace(const string &name, int tokens, double, double){
 	places.push_back(name);
+	initialMarking.push_back(tokens);
 }
 
 void PetriNetFactory::addTransition(const string &name, double, double){
@@ -92,6 +93,13 @@ PetriNet* PetriNetFactory::makePetriNet(){
 	}
 	//Return the finished net
 	return net;
+}
+
+Mark* PetriNetFactory::makeInitialMarking(){
+	Mark* mark = new Mark[places.size()];
+	for(int i = 0; i < places.size(); i++)
+		mark[i] = initialMarking[i];
+	return mark;
 }
 
 } // PetriEngine

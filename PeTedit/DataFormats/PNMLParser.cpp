@@ -69,7 +69,7 @@ void PNMLParser::place(){
 			xml.skipCurrentElement();
 	}
 	//Create place
-	factory->addPlace(name.toStdString(), x, y);
+	factory->addPlace(name.toStdString(), initialMarking, x, y);
 	//Map id to name
 	idmap[id] = {Place, name};
 }
