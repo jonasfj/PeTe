@@ -7,7 +7,7 @@ using namespace PetriEngine;
 
 SUITE(ReachabilityStrategyTest){
 
-	/*TEST(DFSReachabilityTest){
+	TEST(DFSReachabilityTest){
 
 		DepthFirstReachabilitySearch dfs;
 
@@ -25,11 +25,11 @@ SUITE(ReachabilityStrategyTest){
 
 		PetriNet net = *(fac.makePetriNet());
 
-		Mark* m = new Mark[net.nPlaces()];
+		Mark* m = net.makeEmptyMarking();
 		m[0] = 1;
 
 		dfs.reachable(net,m);
-	}*/
+	}
 
 	TEST(DFSReachabilityTest2){
 		// Tests another unbounded net
