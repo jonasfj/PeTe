@@ -5,14 +5,17 @@
 #include <QColor>
 
 #include "NetItem.h"
+#include <math.h>
 
 #define CIRCLE_SIZE			7.5
 #define SELECTION_SIZE		12
+#define TOKEN_PADDING		3
 
 PlaceItem::PlaceItem(QPointF position, QString name) : NetItem(){
 	this->setName(name);
 	this->setPos(position);
-
+	//TODO: Set number of tokens
+	this->setTokens(0);
 	//Configure the underlying graphics item
 	this->setFlag(QGraphicsItem::ItemIsMovable, true);
 	this->setFlag(QGraphicsItem::ItemIsSelectable, true);
@@ -47,6 +50,22 @@ QPointF PlaceItem::nearestPoint(QPointF to) const{
 
 void PlaceItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*){
 	painter->drawEllipse(QPointF(0,0), CIRCLE_SIZE, CIRCLE_SIZE);
+
+	// Centering number of tokens to place
+	QPainterPath path;
+	path.addText(0,0,painter->font(), QString::number(this->_tokens));
+	QTransform t;
+	qreal width = path.boundingRect().width();
+	qreal height = path.boundingRect().height();
+	qreal s = ((CIRCLE_SIZE*2) - TOKEN_PADDING)/ sqrt(width*width + height*height);
+	t.scale(s,s);
+	path = t.map(path);
+	QRectF bb = path.boundingRect();
+	bb.moveCenter(QPointF(0,0));
+	path.translate(bb.topLeft()-path.boundingRect().topLeft());
+	painter->setBrush(Qt::SolidPattern);
+	painter->drawPath(path);
+
 	if(this->isSelected()){
 		painter->setBrush(Qt::NoBrush);
 		QPen pen(Qt::DotLine);
