@@ -25,7 +25,8 @@ SOURCES	   += \
 	Dialogs/QueryDialog.cpp \
 	Dialogs/EditTransitionDialog.cpp \
     DataFormats/PNMLFactory.cpp \
-    NetItems/PetriNetSceneFactory.cpp
+    NetItems/PetriNetSceneFactory.cpp \
+    Widgets/QueryEdit.cpp
 
 
 HEADERS		+= \
@@ -47,7 +48,8 @@ HEADERS		+= \
     Dialogs/EditTransitionDialog.h \
 	Dialogs/QueryDialog.h \
     DataFormats/PNMLFactory.h \
-    NetItems/PetriNetSceneFactory.h
+    NetItems/PetriNetSceneFactory.h \
+    Widgets/QueryEdit.h
 
 
 FORMS		+= MainWindow.ui \
@@ -57,3 +59,9 @@ FORMS		+= MainWindow.ui \
     Dialogs/QueryDialog.ui
 
 TARGET		 = ../PeTe
+
+RESOURCES += \
+    resources.qrc
+
+OTHER_FILES += \
+    Widgets/QueryReservedWords.list

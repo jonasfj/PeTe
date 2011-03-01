@@ -13,6 +13,10 @@ class QueryDialog : public QDialog
 
 public:
     explicit QueryDialog(QWidget *parent = 0);
+
+	/** Set places to enable syntax highlighting and auto completion */
+	void setPlaces(const QStringList& places);
+
     ~QueryDialog();
 
 private:

@@ -21,7 +21,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QPlainTextEdit" name="queryEdit"/>
+    <widget class="QueryEdit" name="queryEdit"/>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
@@ -35,6 +35,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QueryEdit</class>
+   <extends>QTextEdit</extends>
+   <header location="global">Widgets/QueryEdit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

@@ -8,6 +8,11 @@ QueryDialog::QueryDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
+void QueryDialog::setPlaces(const QStringList &places){
+	ui->queryEdit->initializeSpecialPowers(places);
+}
+
+
 QueryDialog::~QueryDialog()
 {
     delete ui;
