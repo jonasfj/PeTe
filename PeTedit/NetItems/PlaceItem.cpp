@@ -26,14 +26,23 @@ int PlaceItem::type() const{
 
 QPainterPath PlaceItem::textPath() const{
 	QPainterPath path;
-	path.addText(0,0,QFont(),this->name());
+
+	// Draw text label for place
+	QFont f("",6);
+	f.setBold(false);
+	f.setStyleHint(QFont::SansSerif, QFont::NoAntialias);
+	path.addText(0,0,f,this->name());
+
+	QRectF moved = path.boundingRect();
+	qreal yoffset = path.boundingRect().height();
+	moved.moveCenter(QPointF(0,yoffset*2 + 2));
+	path.translate(moved.center() - path.boundingRect().center());
 	return path;
 }
 
 QRectF PlaceItem::boundingRect() const{
 	QPainterPath path;
 	path.addEllipse(QPointF(0,0), SELECTION_SIZE, SELECTION_SIZE);
-
 	path.addPath(textPath());
 	return path.controlPointRect();
 }
@@ -59,8 +68,6 @@ QPointF PlaceItem::nearestPoint(QPointF to) const{
 void PlaceItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*){
 	painter->drawEllipse(QPointF(0,0), CIRCLE_SIZE, CIRCLE_SIZE);
 
-
-
 	// Centering number of tokens to place
 	QPainterPath path;
 	path.addText(0,0,painter->font(), QString::number(this->_tokens));
@@ -74,6 +81,7 @@ void PlaceItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidge
 	bb.moveCenter(QPointF(0,0));
 	path.translate(bb.topLeft()-path.boundingRect().topLeft());
 	painter->setBrush(Qt::SolidPattern);
+
 	painter->drawPath(path);
 	// Draw place name
 	painter->drawPath(textPath());

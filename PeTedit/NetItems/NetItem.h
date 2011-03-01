@@ -26,8 +26,11 @@ public:
 	/** Returns the point on the edges of the node closest to to.*/
 	virtual QPointF nearestPoint(QPointF to) const = 0;
 
-	const QString& name() {return _name;}
-	void setName(const QString& name) {_name = name;}
+	const QString& name() const {return _name;}
+	void setName(const QString& name) {
+		this->prepareGeometryChange();
+		_name = name;
+	}
 
 	/** Register a connected item
 	 *
