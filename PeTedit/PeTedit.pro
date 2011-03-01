@@ -22,7 +22,8 @@ SOURCES	   += \
 	DataFormats/PNMLParser.cpp \
     Dialogs/EditArcDialog.cpp \
     Dialogs/EditPlaceDialog.cpp \
-    Dialogs/EditTransitionDialog.cpp
+	Dialogs/EditTransitionDialog.cpp \
+    DataFormats/PNMLFactory.cpp
 
 HEADERS		+= \
 	NetItems/TransitionItem.h \
@@ -40,7 +41,8 @@ HEADERS		+= \
     Commands/InsertArcCommand.h \
     Dialogs/EditArcDialog.h \
     Dialogs/EditPlaceDialog.h \
-    Dialogs/EditTransitionDialog.h
+	Dialogs/EditTransitionDialog.h \
+    DataFormats/PNMLFactory.h
 
 FORMS		+= MainWindow.ui \
     Dialogs/EditArcDialog.ui \

@@ -9,7 +9,7 @@ namespace PetriEngine{
 class AbstractPetriNetFactory{
 public:
 	/** Add a new place with a unique name */
-	virtual void addPlace(const std::string& name, double x, double y) = 0;
+	virtual void addPlace(const std::string& name, int tokens, double x, double y) = 0;
 	/** Add a new transition with a unique name */
 	virtual void addTransition(const std::string& name, double x, double y) = 0;
 	/** Add input arc with given weight */
