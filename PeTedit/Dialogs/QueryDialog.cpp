@@ -8,6 +8,14 @@ QueryDialog::QueryDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
+QString QueryDialog::query(){
+	return ui->queryEdit->toPlainText();
+}
+
+void QueryDialog::setQuery(QString query){
+	ui->queryEdit->setPlainText(query);
+}
+
 QueryDialog::~QueryDialog()
 {
     delete ui;

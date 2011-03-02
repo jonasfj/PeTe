@@ -169,6 +169,11 @@ void MainWindow::on_NewQueryAction_triggered()
 
 	if(dlg->exec() == QDialog::Accepted){
 
+		// Get raw query text.
+		QString queryText = dlg->query();
+
+
+
 		PetriEngine::PetriNetFactory* fac = new PetriEngine::PetriNetFactory();
 		this->currentScene->produce(fac);
 		PetriEngine::PetriNet* net = fac->makePetriNet();
