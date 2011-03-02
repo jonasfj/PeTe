@@ -26,7 +26,8 @@ SOURCES	   += \
 	Dialogs/EditTransitionDialog.cpp \
     DataFormats/PNMLFactory.cpp \
     NetItems/PetriNetSceneFactory.cpp \
-    Widgets/QueryEdit.cpp
+    Widgets/QueryEdit.cpp \
+    Widgets/QueryHighlighter.cpp
 
 
 HEADERS		+= \
@@ -49,7 +50,8 @@ HEADERS		+= \
 	Dialogs/QueryDialog.h \
     DataFormats/PNMLFactory.h \
     NetItems/PetriNetSceneFactory.h \
-    Widgets/QueryEdit.h
+    Widgets/QueryEdit.h \
+    Widgets/QueryHighlighter.h
 
 
 FORMS		+= MainWindow.ui \

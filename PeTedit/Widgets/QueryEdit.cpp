@@ -45,6 +45,8 @@
 
 
 #include "QueryEdit.h"
+#include "QueryHighlighter.h"
+
 #include <QAbstractItemView>
 #include <QKeyEvent>
 #include <QScrollBar>
@@ -80,10 +82,12 @@ void QueryEdit::initializeSpecialPowers(const QStringList& places){
 	words.sort();
 
 	completer->setModel(new QStringListModel(words, completer));
-	completer->setModelSorting(QCompleter::CaseInsensitivelySortedModel);
-	completer->setCaseSensitivity(Qt::CaseInsensitive);
+	completer->setModelSorting(QCompleter::CaseSensitivelySortedModel);
 	completer->setWrapAround(false);
 	this->setCompleter(completer);
+
+	//Setup syntax highlighter
+	new QueryHighlighter(places, this);
 }
 
 void QueryEdit::setCompleter(QCompleter* completer){
@@ -165,8 +169,11 @@ void QueryEdit::insertCompletion(const QString& completion){
 		return;
 	QTextCursor c = textCursor();
 	int completed = completion.length() - _completer->completionPrefix().length();
-	c.movePosition(QTextCursor::Left);
-	c.movePosition(QTextCursor::EndOfWord);
-	c.insertText(completion.right(completed));
+	c.select(QTextCursor::WordUnderCursor);
+	c.removeSelectedText();
+	c.insertText(completion);
+	//c.movePosition(QTextCursor::Left);
+	//c.movePosition(QTextCursor::EndOfWord);
+	//c.insertText(completion.right(completed));
 	setTextCursor(c);
 }
