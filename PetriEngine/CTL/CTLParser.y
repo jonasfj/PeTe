@@ -8,6 +8,8 @@ extern int ctllex();
 void ctlerror(const char *s) {printf("ERROR: %s\n", s);}
 %}
 
+%name-prefix "ctl"
+
 /* Possible data representation */
 %union {
 	PetriEngine::CTL::CTLExpr* expr;
@@ -59,7 +61,7 @@ term	: term MULTIPLY factor	{ $$ = new MultiplyExpr($1, $3); }
 		| factor				{ $$ = $1; }
 		;
 
-factor	: LPAREN expr RPAREN	{ $$ = $2; }
+factor	: LPAREN logic RPAREN	{ $$ = $2; }
 		| INT			{ $$ = new LiteralExpr(atol($1->c_str())); delete $1; }
 		| PLACE			{ $$ = new PlaceExpr(*$1); delete $1; }
 		;

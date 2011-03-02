@@ -25,6 +25,8 @@ public:
 	int nTransitions();
 	/** Creates an empty marking initialized to 0 */
 	Mark* makeEmptyMarking();
+	/** Returns the place offset in the places */
+	int lookupName(const std::string& name);
 private:
 	std::string* _placeNames;
 	std::string* _transitionNames;

@@ -7,7 +7,11 @@ using namespace std;
 namespace PetriEngine { namespace CTL {
 
 int PlaceExpr::evaluate(const Mark* marking){
-	return _offset;
+	return marking[_offset];
+}
+
+void PlaceExpr::lookupOffset(PetriNet *network){
+	_offset = network->lookupName(_name);
 }
 
 string PlaceExpr::toString() {
@@ -17,6 +21,8 @@ string PlaceExpr::toString() {
 int LiteralExpr::evaluate(const Mark* marking){
 	return _value;
 }
+
+void LiteralExpr::lookupOffset(PetriNet *network){}
 
 string LiteralExpr::toString() {
 	stringstream s;
@@ -30,6 +36,10 @@ int NotExpr::evaluate(const Mark* marking){
 	return 0;
 }
 
+void NotExpr::lookupOffset(PetriNet *network){
+	this->child()->lookupOffset(network);
+}
+
 string NotExpr::toString(){
 	return "!" + child()->toString();
 }
@@ -40,8 +50,13 @@ int AndExpr::evaluate(const Mark* marking){
 	return 0;
 }
 
+void BinaryExpr::lookupOffset(PetriNet *network){
+	this->left()->lookupOffset(network);
+	this->right()->lookupOffset(network);
+}
+
 string AndExpr::toString() {
-	return "("+left()->toString() + " AND " + right()->toString()+")";
+	return "("+left()->toString() + " and " + right()->toString()+")";
 }
 
 int OrExpr::evaluate(const Mark* marking){
@@ -51,7 +66,7 @@ int OrExpr::evaluate(const Mark* marking){
 }
 
 string OrExpr::toString() {
-	return "("+left()->toString() + " OR " + right()->toString()+")";
+	return "("+left()->toString() + " or " + right()->toString()+")";
 }
 
 int EqualExpr::evaluate(const Mark* marking){
