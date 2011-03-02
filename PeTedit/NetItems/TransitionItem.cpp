@@ -89,7 +89,11 @@ void TransitionItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, Q
 		painter->setBrush(Qt::SolidPattern);
 	}
 
-	painter->drawPath(shape());
+	QPainterPath path;
+	path.addRect(-RECT_W/2, -RECT_H/2, RECT_W, RECT_H);
+	painter->drawPath(path);
+
+	painter->setPen(Qt::NoPen);
 	painter->drawPath(textPath());
 
 	if(this->isSelected()){

@@ -94,6 +94,7 @@ void PlaceItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidge
 	path.translate(bb.topLeft()-path.boundingRect().topLeft());
 	painter->setBrush(Qt::SolidPattern);
 
+	painter->setPen(Qt::NoPen);
 	painter->drawPath(path);
 	// Draw place name
 	painter->drawPath(textPath());
