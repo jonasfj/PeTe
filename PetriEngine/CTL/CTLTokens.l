@@ -44,7 +44,8 @@ PetriEngine::CTL::CTLExpr* ctlParseString(const std::string& queryString) {
 	//Load up input buffer in Flex
 	YY_BUFFER_STATE buf = ctl_scan_string(queryString.c_str());
 
-	ctlparse();
+	if(ctlparse() == 0)
+		return null;
 
 	//Delete the buffer
 	ctl_delete_buffer(buf);

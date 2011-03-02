@@ -10,7 +10,8 @@ namespace PetriEngine { namespace CTL {
 CTLExpr* CTLParser::parse(const string& queryString) {
 	//Load up input buffer in Flex
 	CTLExpr* query = ctlParseString(queryString);
-	query->lookupOffset(_network);
+	if(query != null)
+		query->lookupOffset(_network);
 	return query;
 }
 

@@ -18,4 +18,5 @@ Things to be done
   * Refactor MainWindow, don't use designer...
   * Mac Binary, setup virtual machine
   * LLVM evaluation of query
-
+  * Some kind of errorhandling for query parser to avoid sudden death
+  * Add mutex to query parser, so we can only have one running at any time

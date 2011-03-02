@@ -1,4 +1,5 @@
 #include <sstream>
+#include <QtGlobal>
 #include "CTLExprs.h"
 
 using namespace std;
@@ -12,6 +13,7 @@ int PlaceExpr::evaluate(const Mark* marking){
 
 void PlaceExpr::lookupOffset(PetriNet *network){
 	_offset = network->lookupName(_name);
+	Q_ASSERT(_offset == -1);
 }
 
 string PlaceExpr::toString() {
