@@ -14,6 +14,7 @@
 
 #include <QGraphicsSceneMouseEvent>
 #include <QtGlobal>
+#include <QMessageBox>
 
 PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, QObject* parent) :
     QGraphicsScene(parent)
@@ -209,6 +210,16 @@ void PetriNetScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event){
 	}
 }
 
+void showMessageBox(QString text, QString infoText){
+	QMessageBox msgBox;
+	msgBox.setText(text);
+	msgBox.setInformativeText(infoText);
+	msgBox.setStandardButtons(QMessageBox::Ok);
+	msgBox.setDefaultButton(QMessageBox::Ok);
+	msgBox.setIcon(QMessageBox::Information);
+	msgBox.exec();
+}
+
 void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 	if(this->mode() == PointerMode){
 		QGraphicsItem* item = itemAt(event->scenePos());
@@ -228,8 +239,17 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 			EditPlaceDialog* dlg = new EditPlaceDialog(dynamic_cast<QWidget*>(this->parent()));
 			dlg->setName(place->name());
 			dlg->setTokens(place->tokens());
+
 			if(dlg->exec() == QDialog::Accepted){
-				place->setName(dlg->name());
+				QString name = dlg->name().trimmed();
+				if(!name.isEmpty() && name != place->name()){
+					if(!this->findNetItem(name)){
+						place->setName(name);
+					} else {
+						showMessageBox(tr("Place was not renamed"),
+									   tr("Another item with the same name already exists. Please provide another name."));
+					}
+				}
 				place->setTokens(dlg->tokens());
 			}
 			dlg->deleteLater();
@@ -241,7 +261,15 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 			EditTransitionDialog* dlg = new EditTransitionDialog(dynamic_cast<QWidget*>(this->parent()));
 			dlg->setName(t->name());
 			if(dlg->exec()==QDialog::Accepted){
-				t->setName(dlg->name());
+				QString name = dlg->name().trimmed();
+				if(!name.isEmpty() && name != t->name()) {
+					if(!this->findNetItem(name)){
+						t->setName(name);
+					} else {
+						showMessageBox(tr("Transition was not renamed"),
+									   tr("Another item with the same name already exists. Please provide another name."));
+					}
+				}
 			}
 			dlg->deleteLater();
 		}

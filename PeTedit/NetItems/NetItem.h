@@ -3,6 +3,7 @@
 
 #include <QGraphicsItem>
 #include <QPointF>
+#include <QtGlobal>
 
 class ArcItem;
 
@@ -28,6 +29,7 @@ public:
 
 	const QString& name() const {return _name;}
 	void setName(const QString& name) {
+		Q_ASSERT(!name.contains(" "));
 		this->prepareGeometryChange();
 		_name = name;
 	}

@@ -12,7 +12,7 @@ InsertPlaceCommand::InsertPlaceCommand(PetriNetScene *scene, QPointF position){
 	QString name;
 	do{
 		number += 1;
-		name =  "P " + QString::number(number);
+		name =  "P" + QString::number(number);
 	}while(_scene->findNetItem(name));
 	_place = new PlaceItem(position, name);
 	this->setText("Created \"" + name + "\"");
