@@ -28,7 +28,7 @@ SUITE(ReachabilityStrategyTest){
 		Mark* m = net.makeEmptyMarking();
 		m[0] = 1;
 
-		dfs.reachable(net,m);
+		dfs.reachable(net,m,NULL);
 	}
 
 	TEST(DFSReachabilityTest2){
@@ -58,7 +58,7 @@ SUITE(ReachabilityStrategyTest){
 		Mark* m = net.makeEmptyMarking();
 		m[0] = 1;
 
-		dfs.reachable(net,m);
+		dfs.reachable(net,m,NULL);
 	}
 
 	TEST(PetriNetFireTest){

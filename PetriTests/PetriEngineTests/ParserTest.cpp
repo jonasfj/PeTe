@@ -15,8 +15,8 @@ SUITE(CTLParserTest){
 		string query("P1==1&&P2>1*(P2+5)");
 
 		PetriNetFactory fac;
-		fac.addPlace("P1",0,0);
-		fac.addPlace("P2",1,1);
+		fac.addPlace("P1",0,0,0);
+		fac.addPlace("P2",0,1,1);
 		fac.addTransition("T0",0.5,0.5);
 		fac.addInputArc("P1","T0",1);
 		fac.addOutputArc("T0","P2",1);
@@ -34,8 +34,8 @@ SUITE(CTLParserTest){
 		string queryString("P1==0&&P2==1");
 
 		PetriNetFactory fac;
-		fac.addPlace("P1",0,0);
-		fac.addPlace("P2",1,1);
+		fac.addPlace("P1",0,0,0);
+		fac.addPlace("P2",0,1,1);
 		fac.addTransition("T0",0.5,0.5);
 		fac.addInputArc("P1","T0",1);
 		fac.addOutputArc("T0","P2",1);

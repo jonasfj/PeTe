@@ -1,9 +1,11 @@
 #include "DepthFirstReachabilitySearch.h"
 #include <stdio.h>
 
+using namespace PetriEngine::CTL;
+
 namespace PetriEngine{
 
-	bool reachabilityDFS(CoverabilityTreeNode* coverTree, PetriNet net, Mark* m){
+	bool reachabilityDFS(CoverabilityTreeNode* coverTree, PetriNet net, Mark* m, CTLExpr* query){
 
 		//TODO: Print debug info about marking
 
@@ -23,7 +25,12 @@ namespace PetriEngine{
 					CoverabilityTreeNode* child = new CoverabilityTreeNode(coverTree, t, mNew);
 					coverTree->add(child);
 
-					return reachabilityDFS(child, net, mNew);
+					// If the query is satisfied
+					if(query->evaluate(mNew)){
+						return true;
+					} else {
+						return reachabilityDFS(child, net, mNew, query);
+					}
 				}
 			}
 			coverTree->setDeadEnd(deadEnd);
@@ -38,12 +45,12 @@ namespace PetriEngine{
 	}
 
 	/** Checks for reachability with DFS */
-	bool DepthFirstReachabilitySearch::reachable(PetriNet net, Mark* initialMarking){
+	bool DepthFirstReachabilitySearch::reachable(PetriNet net, Mark* initialMarking, CTLExpr* query){
 
 		// Root node
 		CoverabilityTreeNode* coverTree = new CoverabilityTreeNode(initialMarking);
 		this->_coverabilityTree = coverTree;
-		return reachabilityDFS(coverTree, net, initialMarking);
+		return reachabilityDFS(coverTree, net, initialMarking, query);
 	}
 
 } // PetriEngine

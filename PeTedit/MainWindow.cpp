@@ -13,6 +13,7 @@
 #include "DataFormats/PNMLParser.h"
 #include "DataFormats/PNMLFactory.h"
 #include "NetItems/PetriNetSceneFactory.h"
+#include "CTL/CTLParser.h"
 
 #include <QGraphicsView>
 #include <QUndoView>
@@ -172,13 +173,15 @@ void MainWindow::on_NewQueryAction_triggered()
 		// Get raw query text.
 		QString queryText = dlg->query();
 
-
-
 		PetriEngine::PetriNetFactory* fac = new PetriEngine::PetriNetFactory();
 		this->currentScene->produce(fac);
 		PetriEngine::PetriNet* net = fac->makePetriNet();
+
+		PetriEngine::CTL::CTLParser parser(&(*net));
+		PetriEngine::CTL::CTLExpr* exp = parser.parse(queryText.toStdString());
+
 		PetriEngine::DepthFirstReachabilitySearch dfs;
-		dfs.reachable(*net,fac->makeInitialMarking());
+		dfs.reachable(*net,fac->makeInitialMarking(),exp);
 
 		//NOTE: it helped making this const...
 		const PetriEngine::CoverabilityTreeNode* tree = dfs.coverabilityTree();

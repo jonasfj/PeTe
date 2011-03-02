@@ -3,6 +3,7 @@
 
 #include "PetriNet.h"
 #include "ProgressReporter.h"
+#include "CTL/CTLParser.h"
 
 namespace PetriEngine {
 
@@ -15,12 +16,13 @@ public:
 	}
 
 	/** Determines if a petrinet is reachable w.r.t. a query */
-	virtual bool reachable(PetriNet net, Mark* initialMarking) = 0;
+	virtual bool reachable(PetriNet net, Mark* initialMarking, CTL::CTLExpr* query) = 0;
 
 	/** Sets the concrete progress reporter */
 	void setProgressReporter(ProgressReporter* reporter) {
 		_reporter = reporter;
 	}
+
 
 protected:
 	/** Reports the progress of reachability search */

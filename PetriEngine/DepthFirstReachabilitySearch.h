@@ -14,7 +14,7 @@ public:
 		this->_coverabilityTree = NULL;
 	}
 
-	bool reachable(PetriNet net, Mark* initialMarking);
+	bool reachable(PetriNet net, Mark* initialMarking, CTL::CTLExpr* query);
 	void setProgressReporter(ProgressReporter* reporter);
 	/** The coverability tree of the net */
 	const CoverabilityTreeNode* coverabilityTree();
