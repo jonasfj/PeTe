@@ -7,3 +7,15 @@ You can develop and build the project using qt-creator 2.0, please use a
 shadow build, and remember to set LD_LIBRARY_PATH in your runtime environment.
 You should set it to $LD_LIBRARY_PATH:<path-to-your-shadow-build>
 
+Things to be done
+-----------------
+  * Check for boundedness
+  * Check that query evaluation is correct, with respect to omega
+  * Add isCoverabilityCheck to CTLExpr
+  * Add msgbox for reachability, where unbounded and not coverability.
+  * Undo/redo commands for everything that modifies the network.
+  * Choose an appropriate license
+  * Refactor MainWindow, don't use designer...
+  * Mac Binary, setup virtual machine
+  * LLVM evaluation of query
+
