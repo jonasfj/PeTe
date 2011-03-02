@@ -3,6 +3,7 @@
 
 #include "NetItems/PetriNetScene.h"
 #include "NetItems/PetriNetView.h"
+#include "NetItems/NetItem.h"
 
 #include "PetriNetFactory.h"
 #include "DepthFirstReachabilitySearch.h"
@@ -13,6 +14,7 @@
 #include "DataFormats/PNMLParser.h"
 #include "DataFormats/PNMLFactory.h"
 #include "NetItems/PetriNetSceneFactory.h"
+
 #include "CTL/CTLParser.h"
 
 #include <QGraphicsView>
@@ -21,6 +23,7 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QGraphicsItem>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -166,7 +169,18 @@ void dumpTree(const PetriEngine::CoverabilityTreeNode* tree, PetriEngine::PetriN
 /** Open the query editor window */
 void MainWindow::on_NewQueryAction_triggered()
 {
+	if(!this->currentScene)
+		return;
 	QueryDialog* dlg = new QueryDialog(this);
+	QStringList places;
+	foreach(QGraphicsItem* item, this->currentScene->items()){
+		if(item->type() == NetEntity::PlaceItem){
+			NetItem* n = dynamic_cast<NetItem*>(item);
+			if(n)
+				places.append(n->name());
+		}
+	}
+	dlg->setPlaces(places);
 
 	if(dlg->exec() == QDialog::Accepted){
 

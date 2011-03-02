@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/QueryEdit">
+        <file alias="QueryReservedWords.list">Widgets/QueryReservedWords.list</file>
+    </qresource>
+</RCC>

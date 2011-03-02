@@ -8,6 +8,7 @@ QueryDialog::QueryDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
+
 QString QueryDialog::query(){
 	return ui->queryEdit->toPlainText();
 }
@@ -15,6 +16,11 @@ QString QueryDialog::query(){
 void QueryDialog::setQuery(QString query){
 	ui->queryEdit->setPlainText(query);
 }
+
+void QueryDialog::setPlaces(const QStringList &places){
+	ui->queryEdit->initializeSpecialPowers(places);
+}
+
 
 QueryDialog::~QueryDialog()
 {
