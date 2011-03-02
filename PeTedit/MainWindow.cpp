@@ -24,6 +24,7 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QGraphicsItem>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -195,7 +196,12 @@ void MainWindow::on_NewQueryAction_triggered()
 		PetriEngine::CTL::CTLExpr* exp = parser.parse(queryText.toStdString());
 
 		PetriEngine::DepthFirstReachabilitySearch dfs;
-		dfs.reachable(*net,fac->makeInitialMarking(),exp);
+		bool reachable = dfs.reachable(*net,fac->makeInitialMarking(),exp);
+
+		QMessageBox msgBox;
+		QString text = reachable ? tr("Query is satisfiable!") : tr("Query was not satisfiable!");
+		msgBox.setText(text);
+		msgBox.exec();
 
 		//NOTE: it helped making this const...
 		const PetriEngine::CoverabilityTreeNode* tree = dfs.coverabilityTree();
