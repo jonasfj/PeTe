@@ -12,6 +12,10 @@ namespace PetriEngine{
 		bool old = coverTree->findDuplicate(net);
 		coverTree->setOld(old);
 
+		// If the query is satisfied
+		if(query->evaluate(m))
+			return true;
+
 		if(!coverTree->isOld() && !coverTree->isDeadEnd()){
 			Mark* mNew = net.makeEmptyMarking();
 
@@ -25,12 +29,7 @@ namespace PetriEngine{
 					CoverabilityTreeNode* child = new CoverabilityTreeNode(coverTree, t, mNew);
 					coverTree->add(child);
 
-					// If the query is satisfied
-					if(query->evaluate(mNew)){
-						return true;
-					} else {
-						return reachabilityDFS(child, net, mNew, query);
-					}
+					return reachabilityDFS(child, net, mNew, query);
 				}
 			}
 			coverTree->setDeadEnd(deadEnd);
