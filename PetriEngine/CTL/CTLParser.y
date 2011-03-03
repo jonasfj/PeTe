@@ -34,6 +34,7 @@ void ctlerror(const char *s) {printf("ERROR: %s\n", s);}
 %%
 
 query	: logic				{ query = $1; }
+		| error				{ yyerrok; }
 		;
 
 logic	: logic AND compare	{ $$ = new AndExpr($1, $3); }

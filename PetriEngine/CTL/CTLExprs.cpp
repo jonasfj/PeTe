@@ -1,4 +1,5 @@
 #include <sstream>
+#include <cassert>
 
 #include "CTLExprs.h"
 
@@ -13,7 +14,7 @@ int PlaceExpr::evaluate(const Mark* marking){
 
 void PlaceExpr::lookupOffset(PetriNet *network){
 	_offset = network->lookupName(_name);
-	//Q_ASSERT(_offset == -1);
+	assert(_offset != -1);
 }
 
 string PlaceExpr::toString() {

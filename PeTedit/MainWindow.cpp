@@ -195,17 +195,25 @@ void MainWindow::on_NewQueryAction_triggered()
 		PetriEngine::CTL::CTLParser parser(&(*net));
 		PetriEngine::CTL::CTLExpr* exp = parser.parse(queryText.toStdString());
 
-		PetriEngine::DepthFirstReachabilitySearch dfs;
-		bool reachable = dfs.reachable(*net,fac->makeInitialMarking(),exp);
-
+		QString text;
 		QMessageBox msgBox;
-		QString text = reachable ? tr("Query is satisfiable!") : tr("Query was not satisfiable!");
+		PetriEngine::DepthFirstReachabilitySearch dfs;
+
+		if(exp != NULL) {
+			bool reachable = dfs.reachable(*net,fac->makeInitialMarking(),exp);
+
+			text = reachable ? tr("Query is satisfiable!") : tr("Query was not satisfiable!");
+		} else
+			text = tr("Syntax error in query!");
+
 		msgBox.setText(text);
 		msgBox.exec();
 
 		//NOTE: it helped making this const...
-		const PetriEngine::CoverabilityTreeNode* tree = dfs.coverabilityTree();
-		dumpTree(tree,net);
+		if(exp != NULL) {
+			const PetriEngine::CoverabilityTreeNode* tree = dfs.coverabilityTree();
+			dumpTree(tree,net);
+		}
 	}
 
 	dlg->deleteLater();
