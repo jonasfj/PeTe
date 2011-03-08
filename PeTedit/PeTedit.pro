@@ -29,7 +29,8 @@ SOURCES	   += \
     Widgets/QueryEdit.cpp \
     Widgets/QueryHighlighter.cpp \
     Commands/RenameItemCommand.cpp \
-    Commands/EditPlaceCommand.cpp
+    Commands/EditPlaceCommand.cpp \
+    Commands/EditArcCommand.cpp
 
 
 HEADERS		+= \
@@ -55,7 +56,8 @@ HEADERS		+= \
     Widgets/QueryEdit.h \
     Widgets/QueryHighlighter.h \
     Commands/RenameItemCommand.h \
-    Commands/EditPlaceCommand.h
+    Commands/EditPlaceCommand.h \
+    Commands/EditArcCommand.h
 
 
 FORMS		+= MainWindow.ui \

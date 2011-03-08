@@ -66,6 +66,7 @@ public:
 private:
 	void transitionItemDoubleClickEvent(TransitionItem* t);
 	void placeItemDoubleClickEvent(PlaceItem* place);
+	void arcItemDoubleClickEvent(ArcItem* arc);
 
 	Mode _mode;
 	/** Unselect item at mouseReleaseEvent if ControlModifier is down */

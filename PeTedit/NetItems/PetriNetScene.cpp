@@ -5,6 +5,7 @@
 #include "../Commands/InsertArcCommand.h"
 #include "../Commands/RenameItemCommand.h"
 #include "../Commands/EditPlaceCommand.h"
+#include "../Commands/EditArcCommand.h"
 #include "PlaceItem.h"
 #include "TransitionItem.h"
 // DIALOGS
@@ -227,13 +228,7 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 		QGraphicsItem* item = itemAt(event->scenePos());
 		if(item && item->type() == NetEntity::ArcItem){
 			ArcItem* arc = dynamic_cast<ArcItem*>(item);
-			//Lanuch a dialog an modify arc
-			EditArcDialog* dlg = new EditArcDialog(dynamic_cast<QWidget*>(this->parent()));
-			dlg->setInfo(tr("Edit arc from \"%1\" to \"%2\".").arg(arc->start()->name()).arg(arc->end()->name()));
-			dlg->setWeight(arc->weight());
-			if(dlg->exec() == QDialog::Accepted)
-				arc->setWeight(dlg->weight());
-			dlg->deleteLater();
+			arcItemDoubleClickEvent(arc);
 		} else if( item && item->type() == NetEntity::PlaceItem){
 			PlaceItem* place = dynamic_cast<PlaceItem*>(item);
 			this->placeItemDoubleClickEvent(place);
@@ -245,6 +240,17 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 }
 
 /********************** Auxiliary methods **********************/
+
+/** Handle all double click events on ArcItems */
+void PetriNetScene::arcItemDoubleClickEvent(ArcItem *arc){
+	//Lanuch a dialog an modify arc
+	EditArcDialog* dlg = new EditArcDialog(dynamic_cast<QWidget*>(this->parent()));
+	dlg->setInfo(tr("Edit arc from \"%1\" to \"%2\".").arg(arc->start()->name()).arg(arc->end()->name()));
+	dlg->setWeight(arc->weight());
+	if(dlg->exec() == QDialog::Accepted)
+		_undoStack->push(new EditArcCommand(arc, dlg->weight()));
+	dlg->deleteLater();
+}
 
 /** Handle all double click events on PlaceItems */
 void PetriNetScene::placeItemDoubleClickEvent(PlaceItem *place){
