@@ -18,6 +18,8 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QtGlobal>
 #include <QMessageBox>
+#include <QPainterPath>
+#include <QDebug>
 
 PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, QObject* parent) :
     QGraphicsScene(parent)
@@ -226,6 +228,15 @@ void showMessageBox(QString text, QString infoText){
 void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 	if(this->mode() == PointerMode){
 		QGraphicsItem* item = itemAt(event->scenePos());
+		if(!item){
+			QPainterPath path;
+			path.addEllipse(event->scenePos(),5,5);
+			QList<QGraphicsItem*> gi = items(path,Qt::IntersectsItemShape);
+			if(!gi.isEmpty()){
+				qDebug()<<"Was here!";
+				item = gi.first();}
+		}
+
 		if(item && item->type() == NetEntity::ArcItem){
 			ArcItem* arc = dynamic_cast<ArcItem*>(item);
 			arcItemDoubleClickEvent(arc);
