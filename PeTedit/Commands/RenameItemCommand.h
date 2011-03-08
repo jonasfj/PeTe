@@ -11,10 +11,11 @@ public:
 	RenameItemCommand(NetItem* item, const QString& name);
 	void undo();
 	void redo();
-private:
-	void swap();
+protected:
 	QString _newname;
 	NetItem* _item;
+private:
+	void swap();
 };
 
 #endif // RENAMEITEMCOMMAND_H

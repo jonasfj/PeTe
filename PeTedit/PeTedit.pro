@@ -28,7 +28,8 @@ SOURCES	   += \
     NetItems/PetriNetSceneFactory.cpp \
     Widgets/QueryEdit.cpp \
     Widgets/QueryHighlighter.cpp \
-    Commands/RenameItemCommand.cpp
+    Commands/RenameItemCommand.cpp \
+    Commands/EditPlaceCommand.cpp
 
 
 HEADERS		+= \
@@ -53,7 +54,8 @@ HEADERS		+= \
     NetItems/PetriNetSceneFactory.h \
     Widgets/QueryEdit.h \
     Widgets/QueryHighlighter.h \
-    Commands/RenameItemCommand.h
+    Commands/RenameItemCommand.h \
+    Commands/EditPlaceCommand.h
 
 
 FORMS		+= MainWindow.ui \

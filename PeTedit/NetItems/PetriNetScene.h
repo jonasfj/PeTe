@@ -65,6 +65,7 @@ public:
 	QUndoStack* _undoStack;
 private:
 	void transitionItemDoubleClickEvent(TransitionItem* t);
+	void placeItemDoubleClickEvent(PlaceItem* place);
 
 	Mode _mode;
 	/** Unselect item at mouseReleaseEvent if ControlModifier is down */

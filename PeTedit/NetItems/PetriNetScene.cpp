@@ -4,6 +4,7 @@
 #include "../Commands/MoveItemsCommand.h"
 #include "../Commands/InsertArcCommand.h"
 #include "../Commands/RenameItemCommand.h"
+#include "../Commands/EditPlaceCommand.h"
 #include "PlaceItem.h"
 #include "TransitionItem.h"
 // DIALOGS
@@ -235,26 +236,7 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 			dlg->deleteLater();
 		} else if( item && item->type() == NetEntity::PlaceItem){
 			PlaceItem* place = dynamic_cast<PlaceItem*>(item);
-
-			// Open dialog
-			EditPlaceDialog* dlg = new EditPlaceDialog(dynamic_cast<QWidget*>(this->parent()));
-			dlg->setName(place->name());
-			dlg->setTokens(place->tokens());
-
-			if(dlg->exec() == QDialog::Accepted){
-				QString name = dlg->name().trimmed();
-				if(!name.isEmpty() && name != place->name()){
-					if(!this->findNetItem(name)){
-						place->setName(name);
-					} else {
-						showMessageBox(tr("Place was not renamed"),
-									   tr("Another item with the same name already exists. Please provide another name."));
-					}
-				}
-				place->setTokens(dlg->tokens());
-			}
-			dlg->deleteLater();
-
+			this->placeItemDoubleClickEvent(place);
 		} else if(item && item->type() == NetEntity::TransitionItem){
 			TransitionItem* t = dynamic_cast<TransitionItem*>(item);
 			this->transitionItemDoubleClickEvent(t);
@@ -264,6 +246,28 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 
 /********************** Auxiliary methods **********************/
 
+/** Handle all double click events on PlaceItems */
+void PetriNetScene::placeItemDoubleClickEvent(PlaceItem *place){
+	// Open dialog
+	EditPlaceDialog* dlg = new EditPlaceDialog(dynamic_cast<QWidget*>(this->parent()));
+	dlg->setName(place->name());
+	dlg->setTokens(place->tokens());
+
+	if(dlg->exec() == QDialog::Accepted){
+		QString name = dlg->name().trimmed();
+		if(!name.isEmpty() && name != place->name()){
+			if(!this->findNetItem(name)){
+				_undoStack->push(new EditPlaceCommand(place, name, dlg->tokens()));
+			} else {
+				showMessageBox(tr("Place was not renamed"),
+							   tr("Another item with the same name already exists. Please provide another name."));
+			}
+		}
+	}
+	dlg->deleteLater();
+}
+
+/** Handle all double click events on TransitionItems */
 void PetriNetScene::transitionItemDoubleClickEvent(TransitionItem *t){
 	// Open transition edit dialog
 	EditTransitionDialog* dlg = new EditTransitionDialog(dynamic_cast<QWidget*>(this->parent()));
