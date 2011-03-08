@@ -14,3 +14,5 @@ bison_header.commands = bison -d -o ${QMAKE_FILE_PATH}/${QMAKE_FILE_BASE}.parser
 bison_header.CONFIG += target_predeps no_link
 silent:bison_header.commands = @echo Bison ${QMAKE_FILE_IN} && $$bison.commands
 QMAKE_EXTRA_COMPILERS += bison_header
+
+OTHER_FILES += BISONSOURCES
