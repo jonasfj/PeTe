@@ -3,6 +3,7 @@
 #include "../Commands/InsertTransitionCommand.h"
 #include "../Commands/MoveItemsCommand.h"
 #include "../Commands/InsertArcCommand.h"
+#include "../Commands/RenameItemCommand.h"
 #include "PlaceItem.h"
 #include "TransitionItem.h"
 // DIALOGS
@@ -256,24 +257,29 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 
 		} else if(item && item->type() == NetEntity::TransitionItem){
 			TransitionItem* t = dynamic_cast<TransitionItem*>(item);
-
-			// Open transition edit dialog
-			EditTransitionDialog* dlg = new EditTransitionDialog(dynamic_cast<QWidget*>(this->parent()));
-			dlg->setName(t->name());
-			if(dlg->exec()==QDialog::Accepted){
-				QString name = dlg->name().trimmed();
-				if(!name.isEmpty() && name != t->name()) {
-					if(!this->findNetItem(name)){
-						t->setName(name);
-					} else {
-						showMessageBox(tr("Transition was not renamed"),
-									   tr("Another item with the same name already exists. Please provide another name."));
-					}
-				}
-			}
-			dlg->deleteLater();
+			this->transitionItemDoubleClickEvent(t);
 		}
 	}
+}
+
+/********************** Auxiliary methods **********************/
+
+void PetriNetScene::transitionItemDoubleClickEvent(TransitionItem *t){
+	// Open transition edit dialog
+	EditTransitionDialog* dlg = new EditTransitionDialog(dynamic_cast<QWidget*>(this->parent()));
+	dlg->setName(t->name());
+	if(dlg->exec()==QDialog::Accepted){
+		QString name = dlg->name().trimmed();
+		if(!name.isEmpty() && name != t->name()) {
+			if(!this->findNetItem(name)){
+				_undoStack->push(new RenameItemCommand(t, name));
+			} else {
+				showMessageBox(tr("Transition was not renamed"),
+							   tr("Another item with the same name already exists. Please provide another name."));
+			}
+		}
+	}
+	dlg->deleteLater();
 }
 
 /******************** Produce using factory ********************/

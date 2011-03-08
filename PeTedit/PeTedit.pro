@@ -27,7 +27,8 @@ SOURCES	   += \
     DataFormats/PNMLFactory.cpp \
     NetItems/PetriNetSceneFactory.cpp \
     Widgets/QueryEdit.cpp \
-    Widgets/QueryHighlighter.cpp
+    Widgets/QueryHighlighter.cpp \
+    Commands/RenameItemCommand.cpp
 
 
 HEADERS		+= \
@@ -51,7 +52,8 @@ HEADERS		+= \
     DataFormats/PNMLFactory.h \
     NetItems/PetriNetSceneFactory.h \
     Widgets/QueryEdit.h \
-    Widgets/QueryHighlighter.h
+    Widgets/QueryHighlighter.h \
+    Commands/RenameItemCommand.h
 
 
 FORMS		+= MainWindow.ui \
