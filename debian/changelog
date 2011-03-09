@@ -1,0 +1,5 @@
+pete (0.1-1) maverick; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Jonas Finnemann Jensen <jopsen@gmail.com>  Wed, 09 Mar 2011 21:26:07 +0100

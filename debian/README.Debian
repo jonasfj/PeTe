@@ -1,0 +1,7 @@
+pete for Debian
+---------------
+
+This is an upstream package, we have everything debian related in the upstream git repository.
+So there's no debian specific hacks, if they're needed they'll be applied in upstream repository.
+
+ -- Jonas Finnemann Jensen <jopsen@gmail.com>  Wed, 09 Mar 2011 21:26:07 +0100
