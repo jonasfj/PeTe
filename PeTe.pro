@@ -11,15 +11,13 @@ PeTedit.depends = PetriEngine
 PetriTests.depends = PetriEngine
 
 unix{
-	isEmpty(PREFIX){
-		PREFIX = /usr
-	}
+	#isEmpty(PREFIX){
+	#	PREFIX = /usr
+	#}
 
-	PeTe.path = $$PREFIX/bin/
+	PeTe.path = /usr/bin/
 	PeTe.files = PeTe
-	PetriEngine.path = $$PREFIX/lib/
-	PetriEngine.files = libPetriEngine.so
-	Desktop.path = $$PREFIX/share/applications/
+	Desktop.path = /usr/share/applications/
 	Desktop.files = PeTe.desktop
-	INSTALLS += PeTe PetriEngine
+	INSTALLS += PeTe Desktop
 }

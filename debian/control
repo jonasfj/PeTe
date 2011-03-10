@@ -1,8 +1,8 @@
 Source: pete
-Section: unknown
+Section: editors
 Priority: extra
 Maintainer: Jonas Finnemann Jensen <jopsen@gmail.com>
-Build-Depends: libqt4-dev (>= 4.7), qt4-dev-tools (>= 4.7), build-essential (>= 11.5), libunittest++-dev (>= 1.4), debhelper (>= 7), qt4-designer (>= 4.7)
+Build-Depends: libqt4-dev (>= 4.7), qt4-dev-tools (>= 4.7), build-essential (>= 11.5), libunittest++-dev (>= 1.4), debhelper (>= 7), cdbs, qt4-designer (>= 4.7), bison (>= 2.4), flex (>= 2.5), pkg-config (>= 0.25)
 Standards-Version: 3.8.4
 Homepage: https://github.com/jopsen/PeTe
 Vcs-Git: git://github.com/jopsen/PeTe.git

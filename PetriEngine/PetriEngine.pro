@@ -1,7 +1,7 @@
 TEMPLATE		= lib
 
 QT			   -= gui core
-CONFIG		   += dll
+CONFIG		   += staticlib
 
 SOURCES		   += \
 	StandardOutputProgressReporter.cpp \

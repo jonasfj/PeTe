@@ -1,4 +1,16 @@
-pete (0.1-1) maverick; urgency=low
+pete (0.1-1ubuntu3) maverick; urgency=low
+
+  * Added pkg-config as dependency
+
+ -- Jonas Finnemann Jensen <jopsen@gmail.com>  Thu, 10 Mar 2011 21:08:26 +0100
+
+pete (0.1-1ubuntu2) maverick; urgency=low
+
+  * Added bison and flex as dependency
+
+ -- Jonas Finnemann Jensen <jopsen@gmail.com>  Thu, 10 Mar 2011 14:52:44 +0100
+
+pete (0.1-1ubuntu1) maverick; urgency=low
 
   * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
 
