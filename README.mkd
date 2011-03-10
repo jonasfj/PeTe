@@ -22,9 +22,8 @@ when loading PeTe, e.i. launch with `LD_LIBRARY_PATH=$LD_LIBRARY_PATH:. ./PeTe`
 
 Developing with qt-creator
 --------------------------
-You can develop and build the project using qt-creator 2.0, please use a
-shadow build, and remember to set LD_LIBRARY_PATH in your runtime environment.
-You should set it to $LD_LIBRARY_PATH:<path-to-your-shadow-build>
+You can develop and build the project using qt-creator 2.0, however, you'll need UnitTest++
+for building the project.
 
 Things to be done
 -----------------
