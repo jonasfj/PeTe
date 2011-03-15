@@ -6,6 +6,7 @@
 #include "../Commands/RenameItemCommand.h"
 #include "../Commands/EditPlaceCommand.h"
 #include "../Commands/EditArcCommand.h"
+#include "../Commands/DeleteItemCommand.h"
 #include "PlaceItem.h"
 #include "TransitionItem.h"
 // DIALOGS
@@ -16,6 +17,7 @@
 #include "PetriNetScene.h"
 
 #include <QGraphicsSceneMouseEvent>
+#include <QKeyEvent>
 #include <QtGlobal>
 #include <QMessageBox>
 #include <QPainterPath>
@@ -250,7 +252,7 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 	}
 }
 
-/********************** Auxiliary methods **********************/
+/********************** Double click methods **********************/
 
 /** Handle all double click events on ArcItems */
 void PetriNetScene::arcItemDoubleClickEvent(ArcItem *arc){
@@ -301,6 +303,20 @@ void PetriNetScene::transitionItemDoubleClickEvent(TransitionItem *t){
 		}
 	}
 	dlg->deleteLater();
+}
+
+
+
+/******************** Key press events **********************/
+
+void PetriNetScene::keyPressEvent(QKeyEvent *event) {
+	if(event->key() == Qt::Key_Delete){
+		//Iterate over selected items, and delete them
+		foreach(QGraphicsItem* item, this->selectedItems()){
+			if(item->type() == NetEntity::PlaceItem || item->type() == NetEntity::TransitionItem)
+				_undoStack->push(new DeleteItemCommand(this, (NetItem*)item));
+		}
+	}
 }
 
 /******************** Produce using factory ********************/

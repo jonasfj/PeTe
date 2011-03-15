@@ -30,7 +30,8 @@ SOURCES	   += \
     Widgets/QueryHighlighter.cpp \
     Commands/RenameItemCommand.cpp \
     Commands/EditPlaceCommand.cpp \
-    Commands/EditArcCommand.cpp
+    Commands/EditArcCommand.cpp \
+    Commands/DeleteItemCommand.cpp
 
 
 HEADERS		+= \
@@ -57,7 +58,8 @@ HEADERS		+= \
     Widgets/QueryHighlighter.h \
     Commands/RenameItemCommand.h \
     Commands/EditPlaceCommand.h \
-    Commands/EditArcCommand.h
+    Commands/EditArcCommand.h \
+    Commands/DeleteItemCommand.h
 
 
 FORMS		+= MainWindow.ui \
