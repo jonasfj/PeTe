@@ -274,6 +274,7 @@ void PetriNetScene::placeItemDoubleClickEvent(PlaceItem *place){
 
 	if(dlg->exec() == QDialog::Accepted){
 		QString name = dlg->name().trimmed();
+		int tokens = dlg->tokens();
 		if(!name.isEmpty() && name != place->name()){
 			if(!this->findNetItem(name)){
 				_undoStack->push(new EditPlaceCommand(place, name, dlg->tokens()));
@@ -281,7 +282,8 @@ void PetriNetScene::placeItemDoubleClickEvent(PlaceItem *place){
 				showMessageBox(tr("Place was not renamed"),
 							   tr("Another item with the same name already exists. Please provide another name."));
 			}
-		}
+		} else if(!name.isEmpty() && tokens != place->tokens())
+			_undoStack->push(new EditPlaceCommand(place, place->name(), tokens));
 	}
 	dlg->deleteLater();
 }
