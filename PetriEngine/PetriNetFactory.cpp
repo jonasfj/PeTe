@@ -13,7 +13,14 @@ void PetriNetFactory::addPlace(const string &name, int tokens, double, double){
 	initialMarking.push_back(tokens);
 }
 
-void PetriNetFactory::addTransition(const string &name, double, double){
+void PetriNetFactory::addVariable(const string &name, int initialValue){
+	//TODO: Implement this
+}
+
+void PetriNetFactory::addTransition(const string &name,
+									const string &,	//TODO: Use conditions and assignments
+									const string &,
+									double, double){
 	transitions.push_back(name);
 }
 

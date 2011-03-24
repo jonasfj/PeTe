@@ -23,7 +23,15 @@ void PNMLFactory::addPlace(const std::string &name, int tokens, double x, double
 	xml.writeEndElement();
 }
 
-void PNMLFactory::addTransition(const std::string &name, double x, double y){
+void PNMLFactory::addVariable(const std::string& name, int initialValue){
+	//TODO: Implement this
+}
+
+
+void PNMLFactory::addTransition(const std::string &name,
+								const std::string &conditions,	//TODO: use conditions
+								const std::string &assignments,
+								double x, double y){
 	xml.writeStartElement("transition");
 	xml.writeAttribute("id", name.c_str());
 	graphics(x, y);

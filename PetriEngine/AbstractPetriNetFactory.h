@@ -8,14 +8,26 @@ namespace PetriEngine{
 /** Abstract factory for petri nets */
 class AbstractPetriNetFactory{
 public:
+	virtual void addVariable(const std::string& name, int initialValue = 0) = 0;
 	/** Add a new place with a unique name */
-	virtual void addPlace(const std::string& name, int tokens, double x, double y) = 0;
+	virtual void addPlace(const std::string& name,
+						  int tokens,
+						  double x = 0,
+						  double y = 0) = 0;
 	/** Add a new transition with a unique name */
-	virtual void addTransition(const std::string& name, double x, double y) = 0;
+	virtual void addTransition(const std::string& name,
+							   const std::string& conditions = "",
+							   const std::string& assignments = "",
+							   double x = 0,
+							   double y = 0) = 0;
 	/** Add input arc with given weight */
-	virtual void addInputArc(const std::string& place, const std::string& transition, int weight = 1) = 0;
+	virtual void addInputArc(const std::string& place,
+							 const std::string& transition,
+							 int weight = 1) = 0;
 	/** Add output arc with given weight */
-	virtual void addOutputArc(const std::string& transition, const std::string& place, int weight = 1) = 0;
+	virtual void addOutputArc(const std::string& transition,
+							  const std::string& place,
+							  int weight = 1) = 0;
 };
 
 }

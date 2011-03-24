@@ -15,7 +15,15 @@ void PetriNetSceneFactory::addPlace(const std::string &name, int tokens, double 
 	scene->addNetItem(item);
 }
 
-void PetriNetSceneFactory::addTransition(const std::string &name, double x, double y){
+void PetriNetSceneFactory::addVariable(const std::string& name, int initialValue){
+	//TODO: implement this
+}
+
+void PetriNetSceneFactory::addTransition(const std::string &name,
+										 const std::string &conditions, //TODO use conditions
+										 const std::string &assignments,
+										 double x,
+										 double y){
 	TransitionItem* item = new TransitionItem(QPointF(x,y), name.c_str());
 	scene->addNetItem(item);
 }
