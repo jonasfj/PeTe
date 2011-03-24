@@ -19,11 +19,29 @@ public:
 	/** Checks if the transition is enabled */
 	bool enabled() const;
 
+	// The pre-conditions for the place.
+	QString preConditions() const{
+		return _preConditions;
+	}
+	void setPreConditions(QString conditions);
+
+	// The post-conditions for the place
+	QString postConditions() const{
+		return _postConditions;
+	}
+	void setPostConditions(QString conditions);
+
 	QRectF boundingRect() const;
 	QPainterPath shape() const;
 	QPainterPath opaqueArea() const;
 	QPainterPath textPath() const;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
+
+private:
+	/** condition queries associated with it **/
+	QString _preConditions;
+	QString _postConditions;
+
 };
 
 #endif // TRANSITIONITEM_H

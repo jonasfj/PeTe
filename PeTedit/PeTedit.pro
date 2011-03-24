@@ -31,7 +31,8 @@ SOURCES	   += \
     Commands/RenameItemCommand.cpp \
     Commands/EditPlaceCommand.cpp \
     Commands/EditArcCommand.cpp \
-    Commands/DeleteItemCommand.cpp
+    Commands/DeleteItemCommand.cpp \
+    Commands/EditTransitionCommand.cpp
 
 
 HEADERS		+= \
@@ -59,7 +60,8 @@ HEADERS		+= \
     Commands/RenameItemCommand.h \
     Commands/EditPlaceCommand.h \
     Commands/EditArcCommand.h \
-    Commands/DeleteItemCommand.h
+    Commands/DeleteItemCommand.h \
+    Commands/EditTransitionCommand.h
 
 
 FORMS		+= MainWindow.ui \

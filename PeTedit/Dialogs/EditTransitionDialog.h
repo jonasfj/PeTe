@@ -16,6 +16,14 @@ public:
 	QString name() const;
 	void setName(QString name);
 
+	void setKeywords(const QStringList& keywords);
+
+	QString preConditions() const;
+	void setPreConditions(QString conditions);
+
+	QString postConditions() const;
+	void setPostConditions(QString conditions);
+
     explicit EditTransitionDialog(QWidget *parent = 0);
     ~EditTransitionDialog();
 

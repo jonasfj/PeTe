@@ -7,6 +7,7 @@
 #include "../Commands/EditPlaceCommand.h"
 #include "../Commands/EditArcCommand.h"
 #include "../Commands/DeleteItemCommand.h"
+#include "../Commands/EditTransitionCommand.h"
 #include "PlaceItem.h"
 #include "TransitionItem.h"
 // DIALOGS
@@ -293,9 +294,23 @@ void PetriNetScene::transitionItemDoubleClickEvent(TransitionItem *t){
 	// Open transition edit dialog
 	EditTransitionDialog* dlg = new EditTransitionDialog(dynamic_cast<QWidget*>(this->parent()));
 	dlg->setName(t->name());
+	//TODO: Set keywords to be x1,...,xm
+	QStringList keywords;
+	dlg->setKeywords(keywords);
+	dlg->setPreConditions(t->preConditions());
+	dlg->setPostConditions(t->postConditions());
 	if(dlg->exec()==QDialog::Accepted){
 		QString name = dlg->name().trimmed();
-		if(!name.isEmpty() && name != t->name()) {
+		QString preconds = dlg->preConditions();
+		QString postconds = dlg->postConditions();
+
+		//TODO: Attempt to parse conditions and push to undo stack.
+		if(preconds != t->preConditions() || postconds != t->postConditions()){
+			_undoStack->push(new EditTransitionCommand(t,name,preconds,postconds));
+		}
+
+		if(!name.isEmpty() && (name != t->name())) {
+
 			if(!this->findNetItem(name)){
 				_undoStack->push(new RenameItemCommand(t, name));
 			} else {

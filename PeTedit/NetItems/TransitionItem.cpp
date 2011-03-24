@@ -21,6 +21,14 @@ TransitionItem::TransitionItem(QPointF position, QString name) : NetItem(){
 	this->setFlag(QGraphicsItem::ItemIsSelectable, true);
 }
 
+void TransitionItem::setPostConditions(QString conditions){
+	_postConditions=conditions;
+}
+
+void TransitionItem::setPreConditions(QString conditions){
+	_preConditions=conditions;
+}
+
 int TransitionItem::type() const{
 	return NetEntity::TransitionItem;
 }
@@ -104,3 +112,5 @@ void TransitionItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, Q
 		painter->drawRect(-SELECTION_RECT_W/2, -SELECTION_RECT_H/2, SELECTION_RECT_W, SELECTION_RECT_H);
 	}
 }
+
+
