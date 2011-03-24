@@ -7,10 +7,9 @@ SOURCES		   += \
 	StandardOutputProgressReporter.cpp \
 	PetriNet.cpp \
 	PetriNetFactory.cpp \
-    DepthFirstReachabilitySearch.cpp \
-    CoverabilityTreeNode.cpp \
-    CTL/CTLExprs.cpp \
-    CTL/CTLParser.cpp
+	PQL/PQLExpressions.cpp 
+ #   DepthFirstReachabilitySearch.cpp \
+#    CoverabilityTreeNode.cpp 
 
 HEADERS		   += \
 	AbstractPetriNetFactory.h \
@@ -18,16 +17,15 @@ HEADERS		   += \
 	PetriNetFactory.h \
 	PetriNet.h \
 	StandardOutputProgressReporter.h \
-	ReachabilitySearchStrategy.h \
-    DepthFirstReachabilitySearch.h \
-    CoverabilityTreeNode.h \
-    CTL/CTLExprs.h \
-    CTL/CTLParser.h
+	PQL/PQLExpressions.h
+#	ReachabilitySearchStrategy.h \
+#    DepthFirstReachabilitySearch.h \
+#    CoverabilityTreeNode.h 
 
 TARGET			= ../PetriEngine
 
 include(flex.pri)
 include(bison.pri)
 
-FLEXSOURCES		= CTL/CTLTokens.l
-BISONSOURCES	= CTL/CTLParser.y
+#FLEXSOURCES		= CTL/CTLTokens.l
+#BISONSOURCES	= CTL/CTLParser.y

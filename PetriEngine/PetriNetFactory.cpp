@@ -95,10 +95,10 @@ PetriNet* PetriNetFactory::makePetriNet(){
 	return net;
 }
 
-Mark* PetriNetFactory::makeInitialMarking(){
-	Mark* mark = new Mark[places.size()];
+Marking PetriNetFactory::makeInitialMarking(){
+	ALLOCATE_MARKING(mark,places.size());
 	for(size_t i = 0; i < places.size(); i++)
-		mark[i] = initialMarking[i];
+		SET_TOKENS(mark,i,initialMarking[i]);
 	return mark;
 }
 

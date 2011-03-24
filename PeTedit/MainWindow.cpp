@@ -6,8 +6,8 @@
 #include "NetItems/NetItem.h"
 
 #include "PetriNetFactory.h"
-#include "DepthFirstReachabilitySearch.h"
-#include "CoverabilityTreeNode.h"
+//#include "DepthFirstReachabilitySearch.h"
+//#include "CoverabilityTreeNode.h"
 
 #include "Dialogs/QueryDialog.h"
 
@@ -15,7 +15,7 @@
 #include "DataFormats/PNMLFactory.h"
 #include "NetItems/PetriNetSceneFactory.h"
 
-#include "CTL/CTLParser.h"
+//#include "CTL/CTLParser.h"
 
 #include <QGraphicsView>
 #include <QUndoView>
@@ -152,7 +152,7 @@ void MainWindow::modeActionGroup_triggered(QAction *action){
 }
 
 
-void dumpTree(const PetriEngine::CoverabilityTreeNode* tree, PetriEngine::PetriNet* net){
+/*void dumpTree(const PetriEngine::CoverabilityTreeNode* tree, PetriEngine::PetriNet* net){
 
 	if(tree != NULL){
 		qDebug() << "transition number:" << QString::number( tree->transition());
@@ -164,13 +164,13 @@ void dumpTree(const PetriEngine::CoverabilityTreeNode* tree, PetriEngine::PetriN
 			dumpTree(c,net);
 		}
 	}
-}
+}*/
 
 
 /** Open the query editor window */
 void MainWindow::on_NewQueryAction_triggered()
 {
-	if(!this->currentScene)
+/*	if(!this->currentScene)
 		return;
 	QueryDialog* dlg = new QueryDialog(this);
 	QStringList places;
@@ -216,7 +216,7 @@ void MainWindow::on_NewQueryAction_triggered()
 		}
 	}
 
-	dlg->deleteLater();
+	dlg->deleteLater();*/
 }
 
 void MainWindow::on_SaveAction_triggered()

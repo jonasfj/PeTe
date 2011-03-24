@@ -27,7 +27,7 @@ public:
 	/** Make the resulting petri net */
 	PetriNet* makePetriNet();
 	/** Make the resulting initial marking */
-	Mark* makeInitialMarking();
+	Marking makeInitialMarking();
 private:
 	std::vector<std::string> places;
 	std::vector<std::string> transitions;

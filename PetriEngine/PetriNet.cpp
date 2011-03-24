@@ -9,14 +9,14 @@ PetriEngine::PetriNet::PetriNet(int places, int transitions){
 	_nTransitions = transitions;
 	_placeNames = new string[places];
 	_transitionNames = new string[transitions];
-	_transitions = new Mark[places*transitions];
+	_transitions = NEW_MARKING(places*transitions);
 	//Set transition matrix to zero
 	for(int i = 0; i < places*transitions; i++)
 		_transitions[i] = 0;
 }
 
-bool PetriEngine::PetriNet::fire(int transition, const Mark *marking, Mark* result) const{
-	Mark* t = _transitions + transition * _nPlaces;
+bool PetriEngine::PetriNet::fire(int transition, const Marking marking, Marking result) const{
+	Marking t = _transitions + transition * _nPlaces;
 	for(int i = 0; i < _nPlaces; i++){
 		result[i] = marking[i] + t[i];
 		if(result[i] < 0)
@@ -34,19 +34,23 @@ int PetriEngine::PetriNet::nTransitions(){
 }
 
 /** Inits an empty marking */
-Mark* PetriNet::makeEmptyMarking(){
-	Mark* marking = new Mark[this->_nPlaces];
+Marking PetriNet::makeEmptyMarking(){
+	ALLOCATE_MARKING(marking,this->_nPlaces);
 	for(int i = 0; i < this->_nPlaces; i++)
-		marking[i]=0;
+		SET_TOKENS(marking,i,0);
 	return marking;
 }
 
 /** Returns the Place offset */
-int PetriNet::lookupName(const string &name){
+int PetriNet::lookupPlace(const string &name) const{
 	for(int i = 0; i < _nPlaces; i++){
 		if(_placeNames[i] == name)
 			return i;
 	}
+	return -1;
+}
+
+int PetriNet::lookupVariable(const string &name) const{
 	return -1;
 }
 

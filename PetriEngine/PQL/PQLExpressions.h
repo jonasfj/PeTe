@@ -1,25 +1,13 @@
-#include <assert.h>
+#ifndef PQLEXPRESSIONS_H
+#define PQLEXPRESSIONS_H
 
-/** Marking representation as an integer array.
-  * Use DECLARE_MARKING macro to initialise the marking on the heap,
-  * and ALLOCATE_MARKING to initialise on the stack 
-  */
-typedef Marking int*;
-#define DECLARE_MARKING(m, s)		int m[s]
-#define ALLOCATE_MARKING(m, s)		Marking m = (Marking)new int[s]
-#define GET_TOKENS(m, o)			m[o]
-#define SET_TOKENS(m, o, v)			m[o] = v
+#include "../PetriNet.h"
 
-/** Assignment representation as an integer array.
-  * Use DECLARE_ASSIGNMENT macro to initialise the assignment on the heap,
-  * and ALLOCATE_ASSIGNMENT to initialise on the stack 
-  */
-typedef Assignment int*;
-#define DECLARE_ASSIGNMENT(a, s)	int a[s]
-#define ALLOCATE_ASSIGNMENT(a, s)	int Assignment a = (Assignment)new int[s]
-#define GET_VALUE(a, o)				a[o]
-#define SET_TOKENS(a, o, v)			a[o] = v
+#include <string>
+#include <list>
 
+namespace PetriEngine{
+namespace PQL{
 
 /** Representation of an error */
 class ExprError{
@@ -27,7 +15,7 @@ class ExprError{
 	int _offset;
 	int _length;
 public:
-	Error(std::string text, int offset = -1, int length = 0){
+	ExprError(std::string text, int offset = -1, int length = 0){
 		_text = text;
 		_offset = offset;
 		_length = length;
@@ -43,7 +31,7 @@ public:
 /** Context provided for context analysis */
 class AnalysisContext{
 private:
-	const PetriNet& _net
+	const PetriNet& _net;
 	bool _usePlaces;
 	std::list<ExprError> _errors;
 public:
@@ -67,7 +55,7 @@ public:
 		if(_usePlaces){
 			result.offset = _net.lookupPlace(identifier);
 			result.isPlace = true;
-			result.success = result.offset =! -1;
+			result.success = (result.offset =! -1);
 			if(result.success)
 				return result;
 		}
@@ -102,7 +90,7 @@ public:
 };
 
 /** Base class for all binary expressions */
-class BinaryExpr : Expr{
+class BinaryExpr : public Expr{
 public:
 	BinaryExpr(Expr* expr1, Expr* expr2){
 		_expr1 = expr1;
@@ -122,7 +110,7 @@ private:
 /** Binary plus expression */
 class PlusExpr : public BinaryExpr{
 public:
-	SubtractExpr(Expr* expr1, Expr2* expr2) : BinaryExpr(expr1, expr2) {}
+	PlusExpr(Expr* expr1, Expr* expr2) : BinaryExpr(expr1, expr2) {}
 private:
 	int apply(int v1, int v2) const;
 	std::string op() const;
@@ -131,20 +119,20 @@ private:
 /** Binary minus expression */
 class SubtractExpr : public BinaryExpr{
 public: 
-	SubtractExpr(Expr* expr1, Expr2* expr2) : BinaryExpr(expr1, expr2) {}
+	SubtractExpr(Expr* expr1, Expr* expr2) : BinaryExpr(expr1, expr2) {}
 private:
 	int apply(int v1, int v2) const;
 	std::string op() const;
 };
 
 /** Binary multiplication expression **/
-class MultExpr : public BinaryExpr{
+class MultiplyExpr : public BinaryExpr{
 public:
-	MultExpr(Expr* expr1, Expr2* expr2) : BinaryExpr(expr1, expr1) {}
+	MultiplyExpr(Expr* expr1, Expr* expr2) : BinaryExpr(expr1, expr2) {}
 private:
 	int apply(int v1, int v2) const;
-	std:string op() const;
-}
+	std::string op() const;
+};
 
 /** Unary minus expression*/
 class MinusExpr : public Expr {
@@ -198,9 +186,9 @@ private:
 class Condition{
 public:
 	virtual ~Condition();
-	virtual bool evaluate(const Marking marking, const Assignment variable) = 0;
+	virtual bool evaluate(const Marking marking, const Assignment variable) const = 0;
 	virtual void analyze(AnalysisContext& context) = 0;
-	virtual std::string toString() = 0;
+	virtual std::string toString() const = 0;
 };
 
 /* Logical conditon */
@@ -211,9 +199,12 @@ public:
 		_cond2 = cond2;
 	}
 	~LogicalCondition();
+	bool evaluate(const Marking marking, const Assignment variable) const;
+	void analyze(AnalysisContext& context);
+	std::string toString() const;
 private:
-	virtual bool apply(bool b1, bool b2) = 0;
-	virtual std::string op() = 0;
+	virtual bool apply(bool b1, bool b2) const = 0;
+	virtual std::string op() const = 0;
 	Condition* _cond1;
 	Condition* _cond2;
 };
@@ -244,9 +235,12 @@ public:
 		_expr2 = expr2;
 	}
 	~CompareCondition();
+	bool evaluate(const Marking marking, const Assignment variable) const;
+	void analyze(AnalysisContext& context);
+	std::string toString() const;
 private:
-	virtual bool apply(int v1, int v2) = 0;
-	virtual std::string op() = 0;
+	virtual bool apply(int v1, int v2) const = 0;
+	virtual std::string op() const = 0;
 	Expr* _expr1;
 	Expr* _expr2;
 };
@@ -257,7 +251,7 @@ public:
 	EqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
 private:
 	bool apply(int v1, int v2) const;
-	std:string op() const;
+	std::string op() const;
 };
 
 /* None equality conditon */
@@ -266,7 +260,7 @@ public:
 	NotEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
 private:
 	bool apply(int v1, int v2) const;
-	std:string op() const;
+	std::string op() const;
 };
 
 /* Less-than conditon */
@@ -275,7 +269,7 @@ public:
 	LessThanCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
 private:
 	bool apply(int v1, int v2) const;
-	std:string op() const;
+	std::string op() const;
 };
 
 /* Less-than-or-equal conditon */
@@ -284,7 +278,7 @@ public:
 	LessThanOrEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
 private:
 	bool apply(int v1, int v2) const;
-	std:string op() const;
+	std::string op() const;
 };
 
 /* Greater-than conditon */
@@ -293,7 +287,7 @@ public:
 	GreaterThanCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
 private:
 	bool apply(int v1, int v2) const;
-	std:string op() const;
+	std::string op() const;
 };
 
 /* Greater-than-or-equal conditon */
@@ -302,7 +296,7 @@ public:
 	GreaterThanOrEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
 private:
 	bool apply(int v1, int v2) const;
-	std:string op() const;
+	std::string op() const;
 };
 
 /* Not condition */
@@ -312,17 +306,17 @@ public:
 		_cond = cond;
 	}
 	~NotCondition();
-	bool evaluate(const Marking marking, const Assignment variable);
+	bool evaluate(const Marking marking, const Assignment variable) const;
 	void analyze(AnalysisContext& context);
-	std::string toString();
+	std::string toString() const;
 private:
-	Cond* _cond;
+	Condition* _cond;
 };
 
 
 /******************** Assignment ********************/
 
-/**  */
+/** Assignment expression */
 class AssignmentExpression{
 private:
 	struct VariableAssignment{
@@ -342,13 +336,20 @@ public:
 	void analyze(AnalysisContext& context){
 		for(iter it = assignments.begin(); it != assignments.end(); it++){
 			AnalysisContext::ResolutionResult result = context.resolve(it->identifier);
-			if(result.success){
+			if(result.success && !result.isPlace){
+				it->offset = result.offset;
+			}else if(result.isPlace){
+				context.reportError(ExprError("You cannot assign to an place!"));
 			}else{
-				ExprError error(...);
-				context.reportError(error);
+				context.reportError(ExprError("Variable for assignment could not be resolved!"));
 			}
 		}
 	}
 private:
 	std::list<VariableAssignment> assignments;
 };
+
+}/* PQL */
+}/* PetriEngine */
+
+#endif /* PQLEXPRESSIONS_H */

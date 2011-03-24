@@ -1,14 +1,14 @@
 %{
 #include <string>
-#include "CTLExprs.h"
-#include "CTLParser.parser.hpp"
-#define SAVE_TOKEN ctllval.string = new std::string(ctltext, ctlleng)
-#define TOKEN(t) (ctllval.token = t)
-extern "C" int ctlwrap(){}
-extern PetriEngine::CTL::CTLExpr* query;
-extern int ctlparse();
+#include "PQLExpressions.h"
+#include "PQLAssignmentParser.parser.hpp"
+#define SAVE_TOKEN pqllval.string = new std::string(pqltext, pqlleng)
+#define TOKEN(t) (pqllval.token = t)
+extern "C" int pqlwrap(){}
+extern PetriEngine::PQL::AssignmentExpression* assignment;
+extern int pqlparse();
 %}
-%option prefix="ctl"
+%option prefix="pql"
 
 digit         [0-9]
 letter        [a-zA-Z]
@@ -20,8 +20,9 @@ letter        [a-zA-Z]
 "AND"						{return TOKEN(AND);}
 "or"						{return TOKEN(OR);}
 "OR"						{return TOKEN(OR);}
-{letter}({letter}|{digit})*	{SAVE_TOKEN; return PLACE;}
+{letter}({letter}|{digit})*	{SAVE_TOKEN; return ID;}
 {digit}+					{SAVE_TOKEN; return INT;}
+":="						{return TOKEN(ASSIGN);}
 "&&"						{return TOKEN(AND);}
 "||"						{return TOKEN(OR);}
 "=="						{return TOKEN(EQUAL);}
@@ -35,20 +36,20 @@ letter        [a-zA-Z]
 "+"							{return TOKEN(PLUS);}
 "-"							{return TOKEN(MINUS);}
 "*"							{return TOKEN(MULTIPLY);}
-"/"							{return TOKEN(DIVIDE);}
-.							{printf("Unknown token %s!\n", ctltext); yyterminate();}
+";"							{return TOKEN(SEMI);}
+.							{printf("Unknown token %s!\n", pqltext); yyterminate();}
 
 %%
 
-PetriEngine::CTL::CTLExpr* ctlParseString(const std::string& queryString) {
+PetriEngine::PQL::AssignmentExpression* pqlParseAssignment(const std::string& assignmentString) {
 	//Load up input buffer in Flex
-	YY_BUFFER_STATE buf = ctl_scan_string(queryString.c_str());
+	YY_BUFFER_STATE buf = pql_scan_string(assignmentString.c_str());
 
-	if(ctlparse() != 0)
+	if(pqlparse() != 0)
 		return NULL;
 
 	//Delete the buffer
-	ctl_delete_buffer(buf);
+	pql_delete_buffer(buf);
 
-	return query;
+	return assignment;
 } 

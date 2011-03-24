@@ -8,9 +8,7 @@ PRE_TARGETDEPS	+= ../PetriEngine
 CONFIG			+= console link_pkgconfig
 PKGCONFIG		+= unittest++
 
-SOURCES	   +=   main.cpp \
-				PetriEngineTests/ReachabilityStrategyTest.cpp \
-    PetriEngineTests/ParserTest.cpp
+SOURCES	   +=   main.cpp
 
 HEADERS		+= \
 
