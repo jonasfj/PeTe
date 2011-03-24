@@ -6,6 +6,9 @@ EditTransitionDialog::EditTransitionDialog(QWidget *parent) :
     ui(new Ui::EditTransitionDialog)
 {
     ui->setupUi(this);
+	QStringList empty;
+	ui->preconditions->initializeSpecialPowers(empty);
+	ui->postconditions->initializeSpecialPowers(empty);
 }
 
 QString EditTransitionDialog::name() const{
