@@ -14,11 +14,12 @@ void EditTransitionCommand::swap() {
 	TransitionItem* t = (TransitionItem*)_item;
 	/* swap conditions*/
 	QString prec = t->preConditions();
-	t->setPreConditions(_newPreConditions);
-	_newPreConditions=prec;
-
 	QString posc = t->postConditions();
+
+	t->setPreConditions(_newPreConditions);
 	t->setPostConditions(_newPostConditions);
+
+	_newPreConditions=prec;
 	_newPostConditions=posc;
 }
 

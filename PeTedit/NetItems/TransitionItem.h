@@ -31,6 +31,8 @@ public:
 	}
 	void setPostConditions(QString conditions);
 
+	void refreshTooltip();
+
 	QRectF boundingRect() const;
 	QPainterPath shape() const;
 	QPainterPath opaqueArea() const;

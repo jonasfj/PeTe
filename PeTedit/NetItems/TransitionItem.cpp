@@ -21,12 +21,18 @@ TransitionItem::TransitionItem(QPointF position, QString name) : NetItem(){
 	this->setFlag(QGraphicsItem::ItemIsSelectable, true);
 }
 
+void TransitionItem::refreshTooltip(){
+	this->setToolTip(this->name()+ "\n - pre: "+_preConditions + "\n - post: " +_postConditions);
+}
+
 void TransitionItem::setPostConditions(QString conditions){
 	_postConditions=conditions;
+	refreshTooltip();
 }
 
 void TransitionItem::setPreConditions(QString conditions){
 	_preConditions=conditions;
+	refreshTooltip();
 }
 
 int TransitionItem::type() const{
