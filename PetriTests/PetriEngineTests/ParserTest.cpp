@@ -9,19 +9,32 @@ using namespace PetriEngine;
 using namespace PetriEngine::PQL;
 using namespace std;
 
-SUITE(CTLParserTest){
+SUITE(PQLParserTest){
 
-	TEST(CTLTreeConstruction){
+	TEST(PQLQueryTreeConstruction){
+		string query("(P5==5 && P1 > 4)");
 
-		string query("P1==1&&P2>1*(P2+5)");
-
-		Condition* expr1 = PQLParser().parseQuery(query);
+		Condition* expr1 = ParseQuery(query);
+		CHECK(expr1 != NULL);
 		cout<<"Expression parsed:"<<endl;
 		cout<<expr1->toString()<<endl;
 
-		Condition* expr2 = PQLParser().parseQuery(expr1->toString());
+		Condition* expr2 = ParseQuery(expr1->toString());
 		CHECK(expr1->toString() == expr2->toString());
 	}
+
+	TEST(PQLAssignmentTreeConstruction){
+		string assignment("X2:=5;Excaliber:=4+5*8+(55*7)+1;");
+
+		AssignmentExpression* ass1 = ParseAssignment(assignment);
+		CHECK(ass1 != NULL);
+		cout<<"Assignment parsed:"<<endl;
+		cout<<ass1->toString()<<endl;
+
+		AssignmentExpression* ass2 = ParseAssignment(ass1->toString());
+		CHECK(ass1->toString() == ass2->toString());
+	}
+
 /*
 	TEST(CTLEvaluation){
 

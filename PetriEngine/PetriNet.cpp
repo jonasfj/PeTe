@@ -1,21 +1,8 @@
 #include "PetriNet.h"
-#include "PQL/PQLParser.h"
 #include <stdio.h>
 using namespace std;
 
 namespace PetriEngine{
-
-namespace PQL {
-
-PQLParser::PQLParser(){
-
-}
-
-Condition* PQLParser::parseQuery(const std::string& query){
-	return pqlParseQuery(query);
-}
-
-}
 
 PetriEngine::PetriNet::PetriNet(int places, int transitions){
 	_nPlaces = places;

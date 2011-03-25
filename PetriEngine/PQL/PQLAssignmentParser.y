@@ -1,19 +1,18 @@
 %{
 #include <stdio.h>
-#include "CTLExprs.h"
+#include "PQLExpressions.h"
 using namespace PetriEngine::PQL;
 
 AssignmentExpression* assignment;
-extern int pqllex();
-void pqlerror(const char *s) {printf("ERROR: %s\n", s);}
+extern int pqlalex();
+void pqlaerror(const char *s) {printf("ERROR: %s\n", s);}
 %}
 
-%name-prefix "pql"
+%name-prefix "pqla"
 
 /* Possible data representation */
 %union {
 	PetriEngine::PQL::Expr* expr;
-	PetriEngine::PQL::AssignmentExpression* assignment;
 	std::string *string;
 	int token;
 }
@@ -26,7 +25,7 @@ void pqlerror(const char *s) {printf("ERROR: %s\n", s);}
 %token <token> PLUS MINUS MULTIPLY
 
 /* Nonterminal type definition */
-%type <expr> logic expr term factor compare
+%type <expr> expr term factor
 
 /* Operator precedence, more possibly coming */
 
@@ -34,9 +33,9 @@ void pqlerror(const char *s) {printf("ERROR: %s\n", s);}
 
 %%
 
-assignment	: ID ASSIGN expr SEMI assignment 	{ assignment = assignment.add($1, $3); }
-			| ID ASSIGN expr SEMI				{ assignment = new Assignment();
-												  assignment.add($1, $3);}
+assignment	: ID ASSIGN expr SEMI assignment 	{ assignment->prepend(*$1, $3); delete $1;}
+			| ID ASSIGN expr SEMI				{ assignment = new AssignmentExpression();
+												  assignment->prepend(*$1, $3); delete $1;}
 			| error								{ yyerrok; }
 			;
 
@@ -50,7 +49,7 @@ term	: term MULTIPLY factor	{ $$ = new MultiplyExpr($1, $3); }
 		| factor				{ $$ = $1; }
 		;
 
-factor	: LPAREN logic RPAREN	{ $$ = $2; }
+factor	: LPAREN expr RPAREN	{ $$ = $2; }
 		| INT			{ $$ = new LiteralExpr(atol($1->c_str())); delete $1; }
-		| ID			{ $$ = new IdentifierExpr(*$1); delete $1; }
+		| ID			{ $$ = new IdentifierExpr(*$1, @1.first_column); delete $1; }
 		;

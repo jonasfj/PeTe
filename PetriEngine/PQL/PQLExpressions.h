@@ -345,6 +345,13 @@ public:
 			}
 		}
 	}
+	std::string toString(){
+		std::string t;
+		for(iter it = assignments.begin(); it != assignments.end(); it++){
+			t = t + it->identifier + " := " + it->expr->toString() + "; ";
+		}
+		return t;
+	}
 private:
 	std::list<VariableAssignment> assignments;
 };

@@ -4,11 +4,11 @@
 using namespace PetriEngine::PQL;
 
 Condition* query;
-extern int pqllex();
-void pqlerror(const char *s) {printf("ERROR: %s\n", s);}
+extern int pqlqlex();
+void pqlqerror(const char *s) {printf("ERROR: %s\n", s);}
 %}
 
-%name-prefix "pql"
+%name-prefix "pqlq"
 
 /* Possible data representation */
 %union {
@@ -39,9 +39,10 @@ query	: logic				{ query = $1; }
 		| error				{ yyerrok; }
 		;
 
-logic	: logic AND compare	{ $$ = new AndCondition($1, $3); }
-		| logic OR compare 	{ $$ = new OrCondition($1, $3); }
+logic	: logic AND logic	{ $$ = new AndCondition($1, $3); }
+		| logic OR logic 	{ $$ = new OrCondition($1, $3); }
 		| NOT logic			{ $$ = new NotCondition($2); }
+		| LPAREN logic RPAREN	{ $$ = $2; }
 		| compare			{ $$ = $1; }
 		;
 
@@ -51,7 +52,6 @@ compare	: expr EQUAL expr		{ $$ = new EqualCondition($1, $3); }
 		| expr LESSEQUAL expr 	{ $$ = new LessThanOrEqualCondition($1, $3); }
 		| expr GREATER expr		{ $$ = new GreaterThanCondition($1, $3); }
 		| expr GREATEREQUAL expr	{ $$ = new GreaterThanOrEqualCondition($1, $3); }
-		| LPAREN compare RPAREN	{ $$ = $2; }
 		;
 
 expr	: expr PLUS term	{ $$ = new PlusExpr($1, $3); }

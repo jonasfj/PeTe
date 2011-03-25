@@ -28,5 +28,9 @@ TARGET			= ../PetriEngine
 include(flex.pri)
 include(bison.pri)
 
-FLEXSOURCES		= PQL/PQLQueryTokens.l
-BISONSOURCES	= PQL/PQLQueryParser.y
+FLEXSOURCES		+= \
+	PQL/PQLQueryTokens.l \
+	PQL/PQLAssignmentTokens.l
+BISONSOURCES	+= \
+	PQL/PQLQueryParser.y \
+	PQL/PQLAssignmentParser.y
