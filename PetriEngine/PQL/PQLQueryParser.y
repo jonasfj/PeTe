@@ -45,13 +45,13 @@ logic	: logic AND compare	{ $$ = new AndCondition($1, $3); }
 		| compare			{ $$ = $1; }
 		;
 
-compare	: compare EQUAL expr		{ $$ = new EqualCondition($1, $3); }
-		| compare NEQUAL expr		{ $$ = new NotEqualCondition($1, $3); }
-		| compare LESS expr			{ $$ = new LessThanCondition($1, $3); }
-		| compare LESSEQUAL expr 	{ $$ = new LessThanOrEqualCondition($1, $3); }
-		| compare GREATER expr		{ $$ = new GreaterThanCondition($1, $3); }
-		| compare GREATEREQUAL expr	{ $$ = new GreaterThanOrEqualCondition($1, $3); }
-		| expr						{ $$ = $1; }
+compare	: expr EQUAL expr		{ $$ = new EqualCondition($1, $3); }
+		| expr NEQUAL expr		{ $$ = new NotEqualCondition($1, $3); }
+		| expr LESS expr			{ $$ = new LessThanCondition($1, $3); }
+		| expr LESSEQUAL expr 	{ $$ = new LessThanOrEqualCondition($1, $3); }
+		| expr GREATER expr		{ $$ = new GreaterThanCondition($1, $3); }
+		| expr GREATEREQUAL expr	{ $$ = new GreaterThanOrEqualCondition($1, $3); }
+		| LPAREN compare RPAREN	{ $$ = $2; }
 		;
 
 expr	: expr PLUS term	{ $$ = new PlusExpr($1, $3); }
@@ -64,7 +64,7 @@ term	: term MULTIPLY factor	{ $$ = new MultiplyExpr($1, $3); }
 		| factor				{ $$ = $1; }
 		;
 
-factor	: LPAREN logic RPAREN	{ $$ = $2; }
+factor	: LPAREN expr RPAREN	{ $$ = $2; }
 		| INT			{ $$ = new LiteralExpr(atol($1->c_str())); delete $1; }
-		| ID			{ $$ = new IdentifierExpr(*$1, $1.first_column); delete $1; }
+		| ID			{ $$ = new IdentifierExpr(*$1, @1.first_column); delete $1; }
 		;

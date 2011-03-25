@@ -17,7 +17,8 @@ HEADERS		   += \
 	PetriNetFactory.h \
 	PetriNet.h \
 	StandardOutputProgressReporter.h \
-	PQL/PQLExpressions.h
+	PQL/PQLExpressions.h \
+    PQL/PQLParser.h
 #	ReachabilitySearchStrategy.h \
 #    DepthFirstReachabilitySearch.h \
 #    CoverabilityTreeNode.h 
@@ -27,5 +28,5 @@ TARGET			= ../PetriEngine
 include(flex.pri)
 include(bison.pri)
 
-#FLEXSOURCES		= CTL/CTLTokens.l
-#BISONSOURCES	= CTL/CTLParser.y
+FLEXSOURCES		= PQL/PQLQueryTokens.l
+BISONSOURCES	= PQL/PQLQueryParser.y

@@ -38,8 +38,8 @@ letter        [a-zA-Z]
 .							{printf("Unknown token %s!\n", pqltext); yyterminate();}
 
 %%
-
-PetriEngine::PQL::Condition* pqlParseQuery(const std::string& queryString) {
+namespace PetriEngine{ namespace PQL {
+Condition* pqlParseQuery(const std::string& queryString) {
 	//Load up input buffer in Flex
 	YY_BUFFER_STATE buf = pql_scan_string(queryString.c_str());
 
@@ -51,3 +51,4 @@ PetriEngine::PQL::Condition* pqlParseQuery(const std::string& queryString) {
 
 	return query;
 } 
+}}

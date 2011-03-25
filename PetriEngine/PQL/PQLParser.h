@@ -4,7 +4,16 @@
 #include <string>
 #include "PQLExpressions.h"
 
-PetriEngine::PQL::Condition* pqlParseQuery(const std::string& queryString);
-PetriEngine::PQL::AssignmentExpression* pqlParseAssignment(const std::string& assignmentString);
+namespace PetriEngine { namespace PQL {
 
+class PQLParser {
+public:
+	PQLParser();
+	Condition* parseQuery(const std::string& query);
+};
+
+
+Condition* pqlParseQuery(const std::string& queryString);
+AssignmentExpression* pqlParseAssignment(const std::string& assignmentString);
+}}
 #endif // PQLPARSER_H
