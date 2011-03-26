@@ -1,5 +1,6 @@
 #include "PQLExpressions.h"
 
+#include <sstream>
 #include <assert.h>
 
 namespace PetriEngine{
@@ -52,6 +53,16 @@ NotCondition::~NotCondition(){
 
 /******************** To String ********************/
 
+std::string LiteralExpr::toString() const{
+	std::stringstream stream;
+	stream <<_value;
+	return stream.str();
+}
+
+std::string IdentifierExpr::toString() const{
+	return _name;
+}
+
 std::string BinaryExpr::toString() const{
 	return "(" + _expr1->toString() + " " + op() + " " + _expr2->toString() + ")";
 }
@@ -60,11 +71,31 @@ std::string MinusExpr::toString() const{
 	return "-" + _expr->toString();
 }
 
+std::string LogicalCondition::toString() const{
+	return "(" + _cond1->toString() + " " + op() + " " + _cond2->toString() + ")";
+}
+
+std::string CompareCondition::toString() const{
+	return "(" + _expr1->toString() + " " + op() + " " + _expr2->toString() + ")";
+}
+
+std::string NotCondition::toString() const {
+	return "!" + _cond->toString();
+}
+
 /******************** Context Analysis ********************/
 
 void BinaryExpr::analyze(AnalysisContext& context){
 	_expr1->analyze(context);
 	_expr2->analyze(context);
+}
+
+void MinusExpr::analyze(AnalysisContext &context){
+	_expr->analyze(context);
+}
+
+void LiteralExpr::analyze(AnalysisContext &context){
+	return;
 }
 
 void IdentifierExpr::analyze(AnalysisContext& context){
@@ -79,6 +110,20 @@ void IdentifierExpr::analyze(AnalysisContext& context){
 						_name.length());
 		context.reportError(error);
 	}
+}
+
+void LogicalCondition::analyze(AnalysisContext &context){
+	_cond1->analyze(context);
+	_cond2->analyze(context);
+}
+
+void CompareCondition::analyze(AnalysisContext &context){
+	_expr1->analyze(context);
+	_expr2->analyze(context);
+}
+
+void NotCondition::analyze(AnalysisContext &context){
+	_cond->analyze(context);
 }
 
 /******************** Evaluation ********************/

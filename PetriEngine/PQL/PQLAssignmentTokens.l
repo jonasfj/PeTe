@@ -2,13 +2,13 @@
 #include <string>
 #include "PQLExpressions.h"
 #include "PQLAssignmentParser.parser.hpp"
-#define SAVE_TOKEN pqllval.string = new std::string(pqltext, pqlleng)
-#define TOKEN(t) (pqllval.token = t)
-extern "C" int pqlwrap(){}
+#define SAVE_TOKEN pqlalval.string = new std::string(pqlatext, pqlaleng)
+#define TOKEN(t) (pqlalval.token = t)
+extern "C" int pqlawrap(){}
 extern PetriEngine::PQL::AssignmentExpression* assignment;
-extern int pqlparse();
+extern int pqlaparse();
 %}
-%option prefix="pql"
+%option prefix="pqla"
 
 digit         [0-9]
 letter        [a-zA-Z]
@@ -37,19 +37,23 @@ letter        [a-zA-Z]
 "-"							{return TOKEN(MINUS);}
 "*"							{return TOKEN(MULTIPLY);}
 ";"							{return TOKEN(SEMI);}
-.							{printf("Unknown token %s!\n", pqltext); yyterminate();}
+.							{printf("Unknown token %s!\n", pqlatext); yyterminate();}
 
 %%
 
-PetriEngine::PQL::AssignmentExpression* pqlParseAssignment(const std::string& assignmentString) {
-	//Load up input buffer in Flex
-	YY_BUFFER_STATE buf = pql_scan_string(assignmentString.c_str());
+namespace PetriEngine { namespace PQL {
+AssignmentExpression* ParseAssignment(const std::string& assignmentString) {
+	assignment = NULL;
 
-	if(pqlparse() != 0)
+	//Load up input buffer in Flex
+	YY_BUFFER_STATE buf = pqla_scan_string(assignmentString.c_str());
+
+	if(pqlaparse() != 0)
 		return NULL;
 
 	//Delete the buffer
-	pql_delete_buffer(buf);
+	pqla_delete_buffer(buf);
 
 	return assignment;
 } 
+}}
