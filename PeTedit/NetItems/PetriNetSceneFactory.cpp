@@ -26,8 +26,8 @@ void PetriNetSceneFactory::addTransition(const std::string &name,
 										 double y){
 	TransitionItem* item = new TransitionItem(QPointF(x,y), name.c_str());
 	//TODO: Perhaps use a new constructor for this?
-	item->setPreConditions(conditions);
-	item->setPostConditions(assignments);
+	item->setPreConditions(conditions.c_str());
+	item->setPostConditions(assignments.c_str());
 	scene->addNetItem(item);
 }
 

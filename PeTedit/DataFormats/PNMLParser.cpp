@@ -115,7 +115,8 @@ void PNMLParser::transition(){
 			xml.skipCurrentElement();
 	}
 	//Create transition
-	factory->addTransition(name.toStdString(), x, y);
+	//TODO: Read conditions and assignments
+	factory->addTransition(name.toStdString(), "" , "", x, y);
 	//Map id to name
 	idmap[id] = NodeName(Transition, name);
 }
