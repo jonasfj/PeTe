@@ -25,12 +25,12 @@ void TransitionItem::refreshTooltip(){
 	this->setToolTip(this->name()+ "\n - pre: "+_preConditions + "\n - post: " +_postConditions);
 }
 
-void TransitionItem::setPostConditions(QString conditions){
+void TransitionItem::setPostConditions(const QString conditions){
 	_postConditions=conditions;
 	refreshTooltip();
 }
 
-void TransitionItem::setPreConditions(QString conditions){
+void TransitionItem::setPreConditions(const QString conditions){
 	_preConditions=conditions;
 	refreshTooltip();
 }

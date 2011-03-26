@@ -23,13 +23,13 @@ public:
 	QString preConditions() const{
 		return _preConditions;
 	}
-	void setPreConditions(QString conditions);
+	void setPreConditions(const QString conditions);
 
 	// The post-conditions for the place
 	QString postConditions() const{
 		return _postConditions;
 	}
-	void setPostConditions(QString conditions);
+	void setPostConditions(const QString conditions);
 
 	void refreshTooltip();
 
