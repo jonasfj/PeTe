@@ -45,6 +45,7 @@ public:
 private:
 	void pnml();
 	void net();
+	void variable();
 	void place();
 	void transition();
 	void arc();

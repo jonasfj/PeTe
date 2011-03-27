@@ -66,6 +66,8 @@ void PNMLParser::net(){
 		if(xml.name() == "page"){
 			net();
 			break;	//Don't read more than one page
+		}else if(xml.name() == "variable"){
+			variable();
 		}else if(xml.name() == "place"){
 			place();
 		}else if(xml.name() == "transition"){
@@ -75,6 +77,18 @@ void PNMLParser::net(){
 		}else
 			xml.skipCurrentElement();
 	}
+}
+
+void PNMLParser::variable(){
+	QString vname = xml.attributes().value("name").toString();
+	bool good = true;
+	int initialValue = xml.attributes().value("initial-value").toString().toInt(&good);
+	if(good)
+		initialValue = 0;
+	factory->addVariable(vname.toStdString(), initialValue);
+
+	//Should work fine, even if it's a empty-element
+	xml.skipCurrentElement();
 }
 
 void PNMLParser::place(){
@@ -105,9 +119,14 @@ void PNMLParser::transition(){
 	qreal x = 0, y = 0;
 	QString name;
 	QString id = xml.attributes().value("id").toString();
+	QString conditions, assignments;
 
 	while(xml.readNextStartElement()){
-		if(xml.name() == "graphics"){
+		if(xml.name() == "conditions"){
+			conditions = xml.readElementText(QXmlStreamReader::SkipChildElements);
+		}else if(xml.name() == "assignments"){
+			assignments = xml.readElementText(QXmlStreamReader::SkipChildElements);
+		}else if(xml.name() == "graphics"){
 			position(x,y);
 		}else if(xml.name() == "name"){
 			value(name);
@@ -115,13 +134,16 @@ void PNMLParser::transition(){
 			xml.skipCurrentElement();
 	}
 	//Create transition
-	//TODO: Read conditions and assignments
-	factory->addTransition(name.toStdString(), "" , "", x, y);
+	factory->addTransition(name.toStdString(),
+						   conditions.toStdString(),
+						   assignments.toStdString(),
+						   x, y);
 	//Map id to name
 	idmap[id] = NodeName(Transition, name);
 }
 
 void PNMLParser::arc(){
+	//TODO: test if already closed, e.g. empty tag
 	QString source = xml.attributes().value("source").toString();
 	QString target = xml.attributes().value("target").toString();
 	int inscription = 1;
