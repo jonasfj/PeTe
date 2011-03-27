@@ -23,8 +23,8 @@ public:
 	void addVariable(const std::string& name, int initialValue);
 	void addPlace(const std::string& name, int tokens, double x, double y);
 	void addTransition(const std::string& name,
-					   const std::string& conditions,
-					   const std::string& assignments,
+					   const std::string& condition,
+					   const std::string& assignment,
 					   double x,
 					   double y);
 	void addInputArc(const std::string& place,
@@ -35,9 +35,15 @@ public:
 	PetriNet* makePetriNet();
 	/** Make the resulting initial marking */
 	Marking makeInitialMarking();
+	/** Make the resulting initial assignment */
+	Assignment makeInitialAssignment();
 private:
 	std::vector<std::string> places;
 	std::vector<std::string> transitions;
+	std::vector<std::string> conditions;
+	std::vector<std::string> assignments;
+	std::vector<std::string> variables;
+	std::vector<int> initialVariableValues;
 	std::vector<Arc> inputArcs;
 	std::vector<Arc> outputArcs;
 	std::vector<int> initialMarking;
@@ -46,3 +52,4 @@ private:
 }
 
 #endif // PETRINETFACTORY_H
+

@@ -345,6 +345,9 @@ public:
 			}
 		}
 	}
+	void evaluate(const Assignment variables, Assignment resultVariables) const{
+		//TODO: Evaluate this
+	}
 	std::string toString(){
 		std::string t;
 		for(iter it = assignments.begin(); it != assignments.end(); it++){

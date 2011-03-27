@@ -1,6 +1,8 @@
 #include "PetriNetFactory.h"
 #include "PetriNet.h"
 
+#include "PQL/PQLParser.h"
+
 using namespace std;
 
 namespace PetriEngine{
@@ -14,14 +16,17 @@ void PetriNetFactory::addPlace(const string &name, int tokens, double, double){
 }
 
 void PetriNetFactory::addVariable(const string &name, int initialValue){
-	//TODO: Implement this
+	variables.push_back(name);
+	initialVariableValues.push_back(initialValue);
 }
 
 void PetriNetFactory::addTransition(const string &name,
-									const string &,	//TODO: Use conditions and assignments
-									const string &,
+									const string &condition,
+									const string &assignment,
 									double, double){
 	transitions.push_back(name);
+	conditions.push_back(condition);
+	assignments.push_back(assignment);
 }
 
 void PetriNetFactory::addInputArc(const string &place, const string &transition, int weight){
@@ -41,14 +46,25 @@ void PetriNetFactory::addOutputArc(const string &transition, const string &place
 }
 
 PetriNet* PetriNetFactory::makePetriNet(){
-	PetriNet* net = new PetriNet(places.size(), transitions.size());
+	PetriNet* net = new PetriNet(places.size(), transitions.size(), variables.size());
 	size_t i;
+	//Create variables
+	for(i = 0; i < variables.size(); i++)
+		net->_variables[i] = variables[i];
 	//Create place names
 	for(i = 0; i < places.size(); i++)
-		net->_placeNames[i] = places[i];
+		net->_places[i] = places[i];
 	//Create transition names
 	for(i = 0; i < transitions.size(); i++)
-		net->_transitionNames[i] = transitions[i];
+		net->_transitions[i] = transitions[i];
+	//Parse conditions and assignments
+	for(i = 0; i < transitions.size(); i++){
+		if(conditions[i] != "")
+			net->_annotations[i].condition = PQL::ParseQuery(conditions[i]);
+		if(assignments[i] != "")
+			net->_annotations[i].assignment= PQL::ParseAssignment(assignments[i]);
+		//TODO: Report parsing errors, if any
+	}
 	//Create input arcs
 	vector<Arc>::iterator arc;
 	for(arc = inputArcs.begin(); arc != inputArcs.end(); arc++){
@@ -71,7 +87,7 @@ PetriNet* PetriNetFactory::makePetriNet(){
 		if(place < 0 || transition < 0)
 			continue;
 		else{
-			net->_transitions[transition * places.size() + place] = -arc->weight;
+			net->_transitionMatrix[transition * places.size() + place] = -arc->weight;
 		}
 	}
 	//Create output arcs
@@ -95,7 +111,7 @@ PetriNet* PetriNetFactory::makePetriNet(){
 		if(place < 0 || transition < 0)
 			continue;
 		else{
-			net->_transitions[transition * places.size() + place] = arc->weight;
+			net->_transitionMatrix[transition * places.size() + place] = arc->weight;
 		}
 	}
 	//Return the finished net
@@ -108,5 +124,12 @@ Marking PetriNetFactory::makeInitialMarking(){
 		SET_TOKENS(mark,i,initialMarking[i]);
 	return mark;
 }
+Assignment PetriNetFactory::makeInitialAssignment(){
+	ALLOCATE_ASSIGNMENT(assign, variables.size());
+	for(size_t i = 0; i < variables.size(); i++)
+		SET_TOKENS(assign, i, initialVariableValues[i]);
+	return assign;
+}
+
 
 } // PetriEngine
