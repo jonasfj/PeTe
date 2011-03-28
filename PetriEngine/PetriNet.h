@@ -19,6 +19,9 @@ typedef int MarkVal;
 /** Type used for holding variable values */
 typedef int VarVal;
 
+#define EMPTY_MARKING(size)			(MarkVal*)calloc(size, sizeof(MarkVal));
+#define EMPTY_ASSIGNMENT(size)		(VarVal*)calloc(size, sizeof(VarVal));
+
 #define MARK_INF					INT_MAX
 
 /** Efficient representation of PetriNet */

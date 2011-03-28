@@ -294,7 +294,7 @@ void PetriNetScene::transitionItemDoubleClickEvent(TransitionItem *t){
 	// Open transition edit dialog
 	EditTransitionDialog* dlg = new EditTransitionDialog(dynamic_cast<QWidget*>(this->parent()));
 	dlg->setName(t->name());
-	//TODO: Set keywords to be x1,...,xm
+	//TODO: Set keywords to be x1,...,xm (e.g. variables)
 	QStringList keywords;
 	dlg->setKeywords(keywords);
 	dlg->setPreConditions(t->preConditions());
