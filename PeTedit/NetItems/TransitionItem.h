@@ -19,17 +19,23 @@ public:
 	/** Checks if the transition is enabled */
 	bool enabled() const;
 
-	// The pre-conditions for the place.
-	QString preConditions() const{
+	/** The pre-conditions for the place. */
+	const QString& preConditions() const{
 		return _preConditions;
 	}
-	void setPreConditions(const QString conditions);
+	void setPreConditions(const QString& conditions){
+		_postConditions = conditions;
+		refreshTooltip();
+	}
 
-	// The post-conditions for the place
-	QString postConditions() const{
+	/** The post-conditions for the place */
+	const QString& postConditions() const{
 		return _postConditions;
 	}
-	void setPostConditions(const QString conditions);
+	void setPostConditions(const QString& conditions){
+		_preConditions = conditions;
+		refreshTooltip();
+	}
 
 	void refreshTooltip();
 

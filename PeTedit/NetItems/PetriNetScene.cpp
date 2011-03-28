@@ -364,8 +364,11 @@ void PetriNetScene::produce(PetriEngine::AbstractPetriNetFactory* factory){
 		} else if (item->type() == NetEntity::TransitionItem){
 			TransitionItem* t = dynamic_cast<TransitionItem*>(item);
 			Q_ASSERT(t != NULL);
-			//TODO: Update this
-			factory->addTransition(t->name().toStdString(),"", "", t->pos().x(), t->pos().y());
+			factory->addTransition(t->name().toStdString(),
+								   t->preConditions().toStdString(),
+								   t->postConditions().toStdString(),
+								   t->pos().x(),
+								   t->pos().y());
 		}
 	}
 	foreach(QGraphicsItem* item, this->items()){

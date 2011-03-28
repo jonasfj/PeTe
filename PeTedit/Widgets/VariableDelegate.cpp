@@ -7,7 +7,7 @@ VariableDelegate::VariableDelegate(QObject *parent):QItemDelegate(parent){
 }
 
 QWidget* VariableDelegate::createEditor(QWidget *parent,
-										const QStyleOptionViewItem &option,
+										const QStyleOptionViewItem&,
 										const QModelIndex &index) const{
 
 	if(index.column() == 0){
@@ -67,6 +67,6 @@ void VariableDelegate::setModelData(QWidget *editor,
 
 void VariableDelegate::updateEditorGeometry(QWidget *editor,
 											const QStyleOptionViewItem &option,
-											const QModelIndex &index) const{
+											const QModelIndex&) const{
 	editor->setGeometry(option.rect);
 }

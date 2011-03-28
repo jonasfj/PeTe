@@ -16,7 +16,7 @@ void PetriNetSceneFactory::addPlace(const std::string &name, int tokens, double 
 }
 
 void PetriNetSceneFactory::addVariable(const std::string& name, int initialValue, int range){
-	//TODO: implement this
+	scene->addVariable(name.c_str(), initialValue, range);
 }
 
 void PetriNetSceneFactory::addTransition(const std::string &name,
