@@ -24,12 +24,19 @@
 #include <QPainterPath>
 #include <QDebug>
 
+
 PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, QObject* parent) :
     QGraphicsScene(parent)
 {
 	//Create undostack for this document
 	this->_undoStack = new QUndoStack(this);
 	undoGroup->addStack(this->_undoStack);
+
+	// Create variable model (name,value,range)
+	this->_variables = new QStandardItemModel(0, 3, this);
+	this->_variables->setHeaderData(0,Qt::Horizontal,"Name");
+	this->_variables->setHeaderData(1,Qt::Horizontal,"Value");
+	this->_variables->setHeaderData(2,Qt::Horizontal,"Range");
 
 	//Set initial mode
 	this->setMode(PointerMode);
@@ -96,6 +103,17 @@ ArcItem* PetriNetScene::findArc(NetItem *start, NetItem *end){
 		}
 	}
 	return NULL;
+}
+
+/******************** Variables ********************/
+
+/** Append a new variable to the list of variables */
+void PetriNetScene::addVariable(QString name, int value, int range){
+
+	int r = this->_variables->rowCount();
+	this->_variables->setData(this->_variables->index(r,0), name);
+	this->_variables->setData(this->_variables->index(r,1), value);
+	this->_variables->setData(this->_variables->index(r,2), range);
 }
 
 /******************** Mouse event handling ********************/
@@ -305,18 +323,17 @@ void PetriNetScene::transitionItemDoubleClickEvent(TransitionItem *t){
 		QString postconds = dlg->postConditions();
 
 		//TODO: Attempt to parse conditions and push to undo stack.
-		if(preconds != t->preConditions() || postconds != t->postConditions()){
-			_undoStack->push(new EditTransitionCommand(t,name,preconds,postconds));
-		}
-
-		if(!name.isEmpty() && (name != t->name())) {
-
-			if(!this->findNetItem(name)){
-				_undoStack->push(new RenameItemCommand(t, name));
-			} else {
-				showMessageBox(tr("Transition was not renamed"),
-							   tr("Another item with the same name already exists. Please provide another name."));
+		if((!name.isEmpty() && name != t->name()) || preconds != t->preConditions() || postconds != t->postConditions()){
+			bool applychanges = true;
+			if(name != t->name()){
+				if(this->findNetItem(name)){
+					showMessageBox(tr("Transition was not renamed"),
+								   tr("Another item with the same name already exists. Please provide another name."));
+					applychanges = false;
+				}
 			}
+			if(applychanges)
+				_undoStack->push(new EditTransitionCommand(t,name,preconds,postconds));
 		}
 	}
 	dlg->deleteLater();

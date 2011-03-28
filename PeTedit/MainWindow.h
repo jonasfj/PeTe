@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QUndoGroup>
 #include <QActionGroup>
+#include <QTableView>
 
 #include "NetItems/PetriNetScene.h"
 
@@ -27,6 +28,9 @@ private:
 	QUndoGroup* undoGroup;
 	/** Action group for selecting mode */
 	QActionGroup* modeActionGroup;
+
+	/** List of variables */
+	QTableView* _variableView;
 
 private slots:
 	void on_OpenAction_triggered();

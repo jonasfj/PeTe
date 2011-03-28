@@ -10,7 +10,7 @@ using namespace PetriEngine::PQL;
 using namespace std;
 
 SUITE(PQLParserTest){
-
+/*
 	TEST(PQLQueryTreeConstruction){
 		string query("(P5==5 && P1 > 4)");
 
@@ -34,7 +34,7 @@ SUITE(PQLParserTest){
 		AssignmentExpression* ass2 = ParseAssignment(ass1->toString());
 		CHECK(ass1->toString() == ass2->toString());
 	}
-
+*/
 /*
 	TEST(CTLEvaluation){
 

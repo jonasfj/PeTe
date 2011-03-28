@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <QUndoStack>
 #include <QUndoGroup>
+#include <QStandardItemModel>
 
 #include "AbstractPetriNetFactory.h"
 
@@ -62,11 +63,22 @@ public:
 	/** Produce a copy using factory */
 	void produce(PetriEngine::AbstractPetriNetFactory* factory);
 
+	/** Add a new variable to the net */
+	void addVariable(QString name, int value, int range);
+
+	/** Get the variables */
+	QStandardItemModel* variables() const{
+		return this->_variables;
+	}
+
 	QUndoStack* _undoStack;
 private:
 	void transitionItemDoubleClickEvent(TransitionItem* t);
 	void placeItemDoubleClickEvent(PlaceItem* place);
 	void arcItemDoubleClickEvent(ArcItem* arc);
+
+	/* Model representing the variables of the net */
+	QStandardItemModel* _variables;
 
 	Mode _mode;
 	/** Unselect item at mouseReleaseEvent if ControlModifier is down */

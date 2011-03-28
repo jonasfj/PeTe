@@ -14,6 +14,7 @@
 #include "DataFormats/PNMLParser.h"
 #include "DataFormats/PNMLFactory.h"
 #include "NetItems/PetriNetSceneFactory.h"
+#include "Widgets/VariableDelegate.h"
 
 //#include "CTL/CTLParser.h"
 
@@ -25,7 +26,8 @@
 #include <QFileInfo>
 #include <QGraphicsItem>
 #include <QMessageBox>
-
+#include <QStandardItemModel>
+#include <QTableView>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,7 +38,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	//Add undoview to panel... We Should probably do a nicer panel
 	QLayout* layout = new QHBoxLayout(ui->panel);
-	layout->addWidget(new QUndoView(undoGroup, this));
+	//layout->addWidget(new QUndoView(undoGroup, this));
+
+	// variable editor
+	this->_variableView = new QTableView(this);
+	VariableDelegate* delegate = new VariableDelegate(this);
+	this->_variableView->setItemDelegate(delegate);
+	this->_variableView->horizontalHeader()->setStretchLastSection(true);
+	layout->addWidget(this->_variableView);
+
 
 	//Action group for editing mode
 	ui->InsertPlaceModeAction->setProperty("Mode", PetriNetScene::InsertPlaceMode);
@@ -131,6 +141,7 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 		connect(this->currentScene, SIGNAL(modeChanged(PetriNetScene::Mode)),
 				this, SLOT(currentScene_modeChanged(PetriNetScene::Mode)));
 		this->currentScene_modeChanged(this->currentScene->mode());
+		this->_variableView->setModel(currentScene->variables());
 	}
 }
 

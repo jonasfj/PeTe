@@ -32,7 +32,8 @@ SOURCES	   += \
     Commands/EditPlaceCommand.cpp \
     Commands/EditArcCommand.cpp \
     Commands/DeleteItemCommand.cpp \
-    Commands/EditTransitionCommand.cpp
+    Commands/EditTransitionCommand.cpp \
+    Widgets/VariableDelegate.cpp
 
 
 HEADERS		+= \
@@ -61,7 +62,8 @@ HEADERS		+= \
     Commands/EditPlaceCommand.h \
     Commands/EditArcCommand.h \
     Commands/DeleteItemCommand.h \
-    Commands/EditTransitionCommand.h
+    Commands/EditTransitionCommand.h \
+    Widgets/VariableDelegate.h
 
 
 FORMS		+= MainWindow.ui \
