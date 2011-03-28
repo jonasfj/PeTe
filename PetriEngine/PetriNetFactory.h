@@ -20,7 +20,7 @@ class PetriNetFactory : public AbstractPetriNetFactory
 	};
 public:
     PetriNetFactory();
-	void addVariable(const std::string& name, int initialValue);
+	void addVariable(const std::string& name, int initialValue, int range);
 	void addPlace(const std::string& name, int tokens, double x, double y);
 	void addTransition(const std::string& name,
 					   const std::string& condition,
@@ -44,6 +44,7 @@ private:
 	std::vector<std::string> assignments;
 	std::vector<std::string> variables;
 	std::vector<int> initialVariableValues;
+	std::vector<int> ranges;
 	std::vector<Arc> inputArcs;
 	std::vector<Arc> outputArcs;
 	std::vector<int> initialMarking;

@@ -5,6 +5,7 @@
 
 #include <string>
 #include <list>
+#include <vector>
 
 namespace PetriEngine{
 namespace PQL{
@@ -74,6 +75,21 @@ public:
 	}
 };
 
+/** Context provided for evalation */
+class EvaluationContext{
+public:
+	/** Create evaluation context, this doesn't take ownershop */
+	EvaluationContext(const MarkVal* marking, const VarVal* assignment){
+		_marking = marking;
+		_assignment = assignment;
+	}
+	const MarkVal* marking() const {return _marking;}
+	const VarVal* assignment() const {return _assignment;}
+private:
+	const MarkVal* _marking;
+	const VarVal* _assignment;
+};
+
 /******************** EXPRESSIONS ********************/
 
 /** Representation of an expression */
@@ -82,7 +98,7 @@ public:
 	/** Virtual destructor, an expression should know it subexpressions */
 	virtual ~Expr();
 	/** Evaluate the expression given marking and assignment */
-	virtual int evaluate(const Marking marking, const Assignment variables) const = 0;
+	virtual int evaluate(const EvaluationContext& context) const = 0;
 	/** Perform context analysis */
 	virtual void analyze(AnalysisContext& context) = 0;
 	/** Convert expression to string */
@@ -98,7 +114,7 @@ public:
 	}
 	~BinaryExpr();
 	void analyze(AnalysisContext& context);
-	int evaluate(const Marking marking, const Assignment variables) const;
+	int evaluate(const EvaluationContext& context) const;
 	std::string toString() const;
 private:
 	virtual int apply(int v1, int v2) const = 0;
@@ -141,7 +157,7 @@ public:
 		_expr = expr;
 	}
 	~MinusExpr();
-	int evaluate(const Marking marking, const Assignment variables) const;
+	int evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
 	std::string toString() const;
 private:
@@ -152,7 +168,7 @@ private:
 class LiteralExpr : public Expr {
 public:
 	LiteralExpr(int value) : _value(value){}
-	int evaluate(const Marking marking, const Assignment variable) const;
+	int evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
 	std::string toString() const;
 private:
@@ -166,7 +182,7 @@ public:
 		_offsetInMarking = -1;
 		_srcOffset = srcOffset;
 	}
-	int evaluate(const Marking marking, const Assignment variable) const;
+	int evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
 	std::string toString() const;
 private:
@@ -186,7 +202,7 @@ private:
 class Condition{
 public:
 	virtual ~Condition();
-	virtual bool evaluate(const Marking marking, const Assignment variable) const = 0;
+	virtual bool evaluate(const EvaluationContext& context) const = 0;
 	virtual void analyze(AnalysisContext& context) = 0;
 	virtual std::string toString() const = 0;
 };
@@ -199,7 +215,7 @@ public:
 		_cond2 = cond2;
 	}
 	~LogicalCondition();
-	bool evaluate(const Marking marking, const Assignment variable) const;
+	bool evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
 	std::string toString() const;
 private:
@@ -235,7 +251,7 @@ public:
 		_expr2 = expr2;
 	}
 	~CompareCondition();
-	bool evaluate(const Marking marking, const Assignment variable) const;
+	bool evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
 	std::string toString() const;
 private:
@@ -306,7 +322,7 @@ public:
 		_cond = cond;
 	}
 	~NotCondition();
-	bool evaluate(const Marking marking, const Assignment variable) const;
+	bool evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
 	std::string toString() const;
 private:
@@ -324,16 +340,18 @@ private:
 		int offset;
 		Expr* expr;
 	};
-	typedef std::list<VariableAssignment>::iterator iter;
+	typedef std::vector<VariableAssignment>::iterator iter;
+	typedef std::vector<VariableAssignment>::const_iterator const_iter;
 public:
 	void prepend(const std::string& identifier, Expr* expr){
 		VariableAssignment va;
 		va.offset = -1;
 		va.identifier = identifier;
 		va.expr = expr;
-		assignments.push_front(va);
+		assignments.push_back(va);
 	}
-	void analyze(AnalysisContext& context){
+	void analyze(const PetriNet& net){
+		AnalysisContext context(net, false);
 		for(iter it = assignments.begin(); it != assignments.end(); it++){
 			AnalysisContext::ResolutionResult result = context.resolve(it->identifier);
 			if(result.success && !result.isPlace){
@@ -343,11 +361,11 @@ public:
 			}else{
 				context.reportError(ExprError("Variable for assignment could not be resolved!"));
 			}
+			it->expr->analyze(context);
 		}
 	}
-	void evaluate(const Assignment variables, Assignment resultVariables) const{
-		//TODO: Evaluate this
-	}
+	/** Evaluate the assignment expression */
+	void evaluate(const VarVal* a, VarVal* result_a, VarVal* ranges, size_t nvars) const;
 	std::string toString(){
 		std::string t;
 		for(iter it = assignments.begin(); it != assignments.end(); it++){
@@ -356,7 +374,7 @@ public:
 		return t;
 	}
 private:
-	std::list<VariableAssignment> assignments;
+	std::vector<VariableAssignment> assignments;
 };
 
 }/* PQL */

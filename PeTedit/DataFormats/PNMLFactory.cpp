@@ -23,10 +23,11 @@ void PNMLFactory::addPlace(const std::string &name, int tokens, double x, double
 	xml.writeEndElement();
 }
 
-void PNMLFactory::addVariable(const std::string& name, int initialValue){
+void PNMLFactory::addVariable(const std::string& name, int initialValue, int range){
 	xml.writeEmptyElement("variable");
 	xml.writeAttribute("name", name.c_str());
 	xml.writeAttribute("initial-value", QString::number(initialValue));
+	xml.writeAttribute("range", QString::number(range));
 }
 
 

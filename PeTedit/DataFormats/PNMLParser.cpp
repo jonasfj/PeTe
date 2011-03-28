@@ -85,7 +85,10 @@ void PNMLParser::variable(){
 	int initialValue = xml.attributes().value("initial-value").toString().toInt(&good);
 	if(good)
 		initialValue = 0;
-	factory->addVariable(vname.toStdString(), initialValue);
+	int range = xml.attributes().value("range").toString().toInt(&good);
+	if(good)
+		range = initialValue;
+	factory->addVariable(vname.toStdString(), initialValue, range);
 
 	//Should work fine, even if it's a empty-element
 	xml.skipCurrentElement();

@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <assert.h>
+#include <string.h>
 
 namespace PetriEngine{
 namespace PQL{
@@ -90,11 +91,11 @@ void BinaryExpr::analyze(AnalysisContext& context){
 	_expr2->analyze(context);
 }
 
-void MinusExpr::analyze(AnalysisContext &context){
+void MinusExpr::analyze(AnalysisContext& context){
 	_expr->analyze(context);
 }
 
-void LiteralExpr::analyze(AnalysisContext &context){
+void LiteralExpr::analyze(AnalysisContext&){
 	return;
 }
 
@@ -112,12 +113,12 @@ void IdentifierExpr::analyze(AnalysisContext& context){
 	}
 }
 
-void LogicalCondition::analyze(AnalysisContext &context){
+void LogicalCondition::analyze(AnalysisContext& context){
 	_cond1->analyze(context);
 	_cond2->analyze(context);
 }
 
-void CompareCondition::analyze(AnalysisContext &context){
+void CompareCondition::analyze(AnalysisContext& context){
 	_expr1->analyze(context);
 	_expr2->analyze(context);
 }
@@ -128,42 +129,49 @@ void NotCondition::analyze(AnalysisContext &context){
 
 /******************** Evaluation ********************/
 
-int BinaryExpr::evaluate(const Marking marking, const Assignment variables) const{
-	int v1 = _expr1->evaluate(marking, variables);
-	int v2 = _expr2->evaluate(marking, variables);
+int BinaryExpr::evaluate(const EvaluationContext& context) const{
+	int v1 = _expr1->evaluate(context);
+	int v2 = _expr2->evaluate(context);
 	return apply(v1, v2);
 }
 
-int MinusExpr::evaluate(const Marking marking, const Assignment variables) const{
-	return -(_expr->evaluate(marking, variables));
+int MinusExpr::evaluate(const EvaluationContext& context) const{
+	return -(_expr->evaluate(context));
 }
 
-int LiteralExpr::evaluate(const Marking marking, const Assignment variables) const{
+int LiteralExpr::evaluate(const EvaluationContext&) const{
 	return _value;
 }
 
-int IdentifierExpr::evaluate(const Marking marking, const Assignment variables) const{
+int IdentifierExpr::evaluate(const EvaluationContext& context) const{
 	assert(_offsetInMarking != -1);
 	if(isPlace)
-		return GET_TOKENS(marking, _offsetInMarking);
-	return GET_VALUE(variables, _offsetInMarking);
+		return context.marking()[_offsetInMarking];
+	return context.assignment()[_offsetInMarking];
 }
 
-bool LogicalCondition::evaluate(const Marking marking, const Assignment variables) const{
-	bool b1 = _cond1->evaluate(marking,variables);
-	bool b2 = _cond2->evaluate(marking,variables);
+bool LogicalCondition::evaluate(const EvaluationContext& context) const{
+	bool b1 = _cond1->evaluate(context);
+	bool b2 = _cond2->evaluate(context);
 	return apply(b1,b2);
 }
 
-bool CompareCondition::evaluate(const Marking marking, const Assignment variables) const{
-	int v1 = _expr1->evaluate(marking,variables);
-	int v2 = _expr2->evaluate(marking,variables);
+bool CompareCondition::evaluate(const EvaluationContext& context) const{
+	int v1 = _expr1->evaluate(context);
+	int v2 = _expr2->evaluate(context);
 	return apply(v1,v2);
 }
 
 
-bool NotCondition::evaluate(const Marking marking, const Assignment variables) const{
-	return !(_cond->evaluate(marking, variables));
+bool NotCondition::evaluate(const EvaluationContext& context) const{
+	return !(_cond->evaluate(context));
+}
+
+void AssignmentExpression::evaluate(const VarVal *a, VarVal *result_a, VarVal* ranges, size_t nvars) const{
+	memcpy(result_a, a, sizeof(VarVal) * nvars);
+	EvaluationContext context(NULL, a);
+	for(const_iter it = assignments.begin(); it != assignments.end(); it++)
+		result_a[it->offset] = it->expr->evaluate(context) % ranges[it->offset];
 }
 
 /******************** Apply (BinaryExpr subclasses) ********************/

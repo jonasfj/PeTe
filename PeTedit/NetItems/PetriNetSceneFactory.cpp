@@ -15,7 +15,7 @@ void PetriNetSceneFactory::addPlace(const std::string &name, int tokens, double 
 	scene->addNetItem(item);
 }
 
-void PetriNetSceneFactory::addVariable(const std::string& name, int initialValue){
+void PetriNetSceneFactory::addVariable(const std::string& name, int initialValue, int range){
 	//TODO: implement this
 }
 

@@ -15,9 +15,10 @@ void PetriNetFactory::addPlace(const string &name, int tokens, double, double){
 	initialMarking.push_back(tokens);
 }
 
-void PetriNetFactory::addVariable(const string &name, int initialValue){
+void PetriNetFactory::addVariable(const string &name, int initialValue, int range){
 	variables.push_back(name);
 	initialVariableValues.push_back(initialValue);
+	ranges.push_back(range);
 }
 
 void PetriNetFactory::addTransition(const string &name,
@@ -49,8 +50,10 @@ PetriNet* PetriNetFactory::makePetriNet(){
 	PetriNet* net = new PetriNet(places.size(), transitions.size(), variables.size());
 	size_t i;
 	//Create variables
-	for(i = 0; i < variables.size(); i++)
+	for(i = 0; i < variables.size(); i++){
 		net->_variables[i] = variables[i];
+		net->_ranges[i] = ranges[i];
+	}
 	//Create place names
 	for(i = 0; i < places.size(); i++)
 		net->_places[i] = places[i];

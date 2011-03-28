@@ -19,7 +19,7 @@ public:
 	/** undogroup for the scene, and parent for the scene */
 	PetriNetSceneFactory(QUndoGroup* undoGroup, QObject* sceneParent);
 	void addPlace(const std::string &name, int tokens, double x, double y);
-	void addVariable(const std::string& name, int initialValue);
+	void addVariable(const std::string& name, int initialValue, int range);
 	void addTransition(const std::string &name,
 					   const std::string &conditions,
 					   const std::string &assignments,

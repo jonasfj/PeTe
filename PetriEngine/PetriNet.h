@@ -14,7 +14,11 @@ namespace PQL{
 
 class PetriNetFactory;
 
-/** Type used for holding markings and variable values */
+/** Type used for holding markings values */
+typedef int MarkVal;
+/** Type used for holding variable values */
+typedef int VarVal;
+
 typedef int Mark;
 
 #define MARK_INF					INT_MAX
@@ -51,10 +55,10 @@ class PetriNet
 public:
 	/** Fire transition if possible and store result in result */
 	bool fire(unsigned int transition,
-			  const Marking marking,
-			  const Assignment assignment,
-			  Marking resultMarking,
-			  Assignment resultAssignment) const;
+			  const MarkVal* marking,
+			  const VarVal* assignment,
+			  MarkVal* resultMarking,
+			  VarVal* resultAssignment) const;
 
 	/** Returns the place offset, or -1 if not found */
 	int lookupPlace(const std::string& name) const;
@@ -65,7 +69,8 @@ private:
 	std::string* _transitions;
 	std::string* _variables;
 	size_t _nPlaces, _nTransitions, _nVariables;
-	Mark* _transitionMatrix;
+	MarkVal* _transitionMatrix;
+	VarVal* _ranges;
 	AnnotationPair* _annotations;
 	friend class PetriNetFactory;
 };

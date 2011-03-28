@@ -16,6 +16,7 @@ PetriEngine::PetriNet::PetriNet(int places, int transitions, int variables){
 	_places = new std::string[places];
 	_transitions = new std::string[transitions];
 	_variables = new std::string[variables];
+	_ranges = new VarVal[variables];
 
 	//Allocate space for conditions and assignments
 	_annotations = new AnnotationPair[transitions];
@@ -25,33 +26,34 @@ PetriEngine::PetriNet::PetriNet(int places, int transitions, int variables){
 	}
 
 	//Allocate transition matrix
-	_transitionMatrix = new Mark[places*transitions];
+	_transitionMatrix = new MarkVal[places*transitions];
 	//Set transition matrix to zero
 	for(int i = 0; i < places*transitions; i++)
 		_transitionMatrix[i] = 0;
 }
 
 bool PetriEngine::PetriNet::fire(unsigned int transition,
-								 const Marking marking,
-								 const Assignment assignment,
-								 Marking resultMarking,
-								 Assignment resultAssignment) const{
+								 const MarkVal* m,
+								 const VarVal* a,
+								 MarkVal* result_m,
+								 VarVal* result_a) const{
 	//Check the condition
 	if(_annotations[transition].condition &&
-	   !_annotations[transition].condition->evaluate(NULL, assignment))
+	   !_annotations[transition].condition->evaluate(PQL::EvaluationContext(NULL, a)))
 		return false;
 
-	Mark* t = _transitionMatrix + transition * _nPlaces;
+	MarkVal* t = _transitionMatrix + transition * _nPlaces;
 	for(int i = 0; i < _nPlaces; i++){
-		resultMarking[i] = marking[i] + t[i];
-		if(resultMarking[i] < 0)
+		result_m[i] = m[i] + t[i];
+		if(result_m[i] < 0)
 			return false;
 	}
 
+
 	if(_annotations[transition].assignment)
-		_annotations[transition].assignment->evaluate(assignment, resultAssignment);
+		_annotations[transition].assignment->evaluate(a, result_a, _ranges, _nVariables);
 	else
-		memcpy(resultAssignment, assignment, sizeof(Mark)*this->_nVariables);
+		memcpy(result_a, a, sizeof(VarVal) * _nVariables);
 
 	return true;
 }

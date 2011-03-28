@@ -168,12 +168,8 @@ void QueryEdit::insertCompletion(const QString& completion){
 	if(_completer->widget() != this)
 		return;
 	QTextCursor c = textCursor();
-	int completed = completion.length() - _completer->completionPrefix().length();
 	c.select(QTextCursor::WordUnderCursor);
 	c.removeSelectedText();
 	c.insertText(completion);
-	//c.movePosition(QTextCursor::Left);
-	//c.movePosition(QTextCursor::EndOfWord);
-	//c.insertText(completion.right(completed));
 	setTextCursor(c);
 }
