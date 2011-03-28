@@ -8,6 +8,7 @@ namespace PetriEngine{
 /** Abstract factory for petri nets */
 class AbstractPetriNetFactory{
 public:
+	/** Add a new variable */
 	virtual void addVariable(const std::string& name,
 							 int initialValue,
 							 int range) = 0;

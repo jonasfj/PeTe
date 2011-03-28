@@ -10,7 +10,7 @@
 namespace PetriEngine{
 namespace PQL{
 
-/** Representation of an error */
+/** Representation of a PQL error */
 class ExprError{
 	std::string _text;
 	int _offset;
@@ -27,6 +27,11 @@ public:
 	int offset() const {return _offset;}
 	/** length in the source, 0 if not applicable */
 	int length() const {return _length;}
+
+	/** Convert error to string */
+	std::string toString() const {
+		return "Parsing error \"" + text() + "\"";
+	}
 };
 
 /** Context provided for context analysis */
@@ -350,8 +355,7 @@ public:
 		va.expr = expr;
 		assignments.push_back(va);
 	}
-	void analyze(const PetriNet& net){
-		AnalysisContext context(net, false);
+	void analyze(AnalysisContext& context){
 		for(iter it = assignments.begin(); it != assignments.end(); it++){
 			AnalysisContext::ResolutionResult result = context.resolve(it->identifier);
 			if(result.success && !result.isPlace){

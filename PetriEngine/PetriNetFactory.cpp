@@ -60,13 +60,20 @@ PetriNet* PetriNetFactory::makePetriNet(){
 	//Create transition names
 	for(i = 0; i < transitions.size(); i++)
 		net->_transitions[i] = transitions[i];
+	PQL::AnalysisContext context(*net, false);
 	//Parse conditions and assignments
 	for(i = 0; i < transitions.size(); i++){
-		if(conditions[i] != "")
+		if(conditions[i] != ""){
 			net->_annotations[i].condition = PQL::ParseQuery(conditions[i]);
-		if(assignments[i] != "")
-			net->_annotations[i].assignment= PQL::ParseAssignment(assignments[i]);
-		//TODO: Report parsing errors, if any
+			if(net->_annotations[i].condition)
+				net->_annotations[i].condition->analyze(context);
+		}
+		if(assignments[i] != ""){
+			net->_annotations[i].assignment = PQL::ParseAssignment(assignments[i]);
+			if(net->_annotations[i].assignment)
+				net->_annotations[i].assignment->analyze(context);
+		}
+		//TODO: Report parsing and analysis errors, if any
 	}
 	//Create input arcs
 	vector<Arc>::iterator arc;

@@ -7,7 +7,7 @@ SOURCES		   += \
 	StandardOutputProgressReporter.cpp \
 	PetriNet.cpp \
 	PetriNetFactory.cpp \
-	PQL/PQLExpressions.cpp 
+	PQL/PQLExpressions.cpp  
  #   DepthFirstReachabilitySearch.cpp \
 #    CoverabilityTreeNode.cpp 
 
