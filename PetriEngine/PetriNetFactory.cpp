@@ -121,17 +121,17 @@ PetriNet* PetriNetFactory::makePetriNet(){
 	return net;
 }
 
-Marking PetriNetFactory::makeInitialMarking(){
-	ALLOCATE_MARKING(mark,places.size());
+MarkVal* PetriNetFactory::makeInitialMarking(){
+	MarkVal* m = new MarkVal[places.size()];
 	for(size_t i = 0; i < places.size(); i++)
-		SET_TOKENS(mark,i,initialMarking[i]);
-	return mark;
+		m[i] = initialMarking[i];
+	return m;
 }
-Assignment PetriNetFactory::makeInitialAssignment(){
-	ALLOCATE_ASSIGNMENT(assign, variables.size());
+VarVal* PetriNetFactory::makeInitialAssignment(){
+	VarVal* a = new VarVal[variables.size()];
 	for(size_t i = 0; i < variables.size(); i++)
-		SET_TOKENS(assign, i, initialVariableValues[i]);
-	return assign;
+		a[i] = initialVariableValues[i];
+	return a;
 }
 
 

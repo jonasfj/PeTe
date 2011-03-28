@@ -43,7 +43,7 @@ bool PetriEngine::PetriNet::fire(unsigned int transition,
 		return false;
 
 	MarkVal* t = _transitionMatrix + transition * _nPlaces;
-	for(int i = 0; i < _nPlaces; i++){
+	for(size_t i = 0; i < _nPlaces; i++){
 		result_m[i] = m[i] + t[i];
 		if(result_m[i] < 0)
 			return false;
@@ -59,7 +59,7 @@ bool PetriEngine::PetriNet::fire(unsigned int transition,
 }
 
 int PetriNet::lookupPlace(const string &name) const{
-	for(int i = 0; i < _nPlaces; i++){
+	for(size_t i = 0; i < _nPlaces; i++){
 		if(_places[i] == name)
 			return i;
 	}
@@ -67,7 +67,7 @@ int PetriNet::lookupPlace(const string &name) const{
 }
 
 int PetriNet::lookupVariable(const string &name) const{
-	for(int i = 0; i < _nVariables; i++){
+	for(size_t i = 0; i < _nVariables; i++){
 		if(_variables[i] == name)
 			return i;
 	}

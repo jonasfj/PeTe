@@ -33,10 +33,10 @@ public:
 	void addOutputArc(const std::string& transition, const std::string& place, int weight);
 	/** Make the resulting petri net */
 	PetriNet* makePetriNet();
-	/** Make the resulting initial marking */
-	Marking makeInitialMarking();
-	/** Make the resulting initial assignment */
-	Assignment makeInitialAssignment();
+	/** Make the resulting initial marking, you take ownership */
+	MarkVal* makeInitialMarking();
+	/** Make the resulting initial assignment, you take ownership */
+	VarVal* makeInitialAssignment();
 private:
 	std::vector<std::string> places;
 	std::vector<std::string> transitions;

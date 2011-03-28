@@ -19,30 +19,7 @@ typedef int MarkVal;
 /** Type used for holding variable values */
 typedef int VarVal;
 
-typedef int Mark;
-
 #define MARK_INF					INT_MAX
-
-/** Marking representation as an integer array.
-  * Use DECLARE_MARKING macro to initialise the marking on the heap,
-  * and ALLOCATE_MARKING to initialise on the stack
-  */
-typedef Mark* Marking;
-#define DECLARE_MARKING(m, s)		int m[s]
-#define ALLOCATE_MARKING(m, s)		Marking m = (Marking)new int[s]
-#define NEW_MARKING(s)				(Marking)new int[s]
-#define GET_TOKENS(m, o)			m[o]
-#define SET_TOKENS(m, o, v)			m[o] = v
-
-/** Assignment representation as an integer array.
-  * Use DECLARE_ASSIGNMENT macro to initialise the assignment on the heap,
-  * and ALLOCATE_ASSIGNMENT to initialise on the stack
-  */
-typedef Mark* Assignment;
-#define DECLARE_ASSIGNMENT(a, s)	int a[s]
-#define ALLOCATE_ASSIGNMENT(a, s)	Assignment a = (Assignment)new int[s]
-#define GET_VALUE(a, o)				a[o]
-#define SET_VALUE(a, o, v)			a[o] = v
 
 /** Efficient representation of PetriNet */
 class PetriNet
