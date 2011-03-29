@@ -16,7 +16,9 @@
 #include "NetItems/PetriNetSceneFactory.h"
 #include "Widgets/VariableDelegate.h"
 
-//#include "CTL/CTLParser.h"
+#include <PQL/PQLParser.h>
+#include <PQL/PQLExpressions.h>
+#include <Reachability/KarpMillerL1SearchStrategy.h>
 
 #include <QGraphicsView>
 #include <QUndoView>
@@ -188,7 +190,7 @@ void MainWindow::modeActionGroup_triggered(QAction *action){
 /** Open the query editor window */
 void MainWindow::on_NewQueryAction_triggered()
 {
-/*	if(!this->currentScene)
+	if(!this->currentScene)
 		return;
 	QueryDialog* dlg = new QueryDialog(this);
 	QStringList places;
@@ -202,39 +204,50 @@ void MainWindow::on_NewQueryAction_triggered()
 	dlg->setPlaces(places);
 
 	if(dlg->exec() == QDialog::Accepted){
-
 		// Get raw query text.
 		QString queryText = dlg->query();
 
 		PetriEngine::PetriNetFactory* fac = new PetriEngine::PetriNetFactory();
 		this->currentScene->produce(fac);
 		PetriEngine::PetriNet* net = fac->makePetriNet();
+		PetriEngine::MarkVal* m0 = fac->makeInitialMarking();
 
-		PetriEngine::CTL::CTLParser parser(&(*net));
-		PetriEngine::CTL::CTLExpr* exp = parser.parse(queryText.toStdString());
+		PetriEngine::PQL::Condition* query = PetriEngine::PQL::ParseQuery(queryText.toStdString());
+		PetriEngine::PQL::AnalysisContext context(*net, true);
+		query->analyze(context);
+		for(int i = 0; i < context.errors().size(); i++){
+			QMessageBox::warning(this, "Query parse error", context.errors()[i].toString().c_str());
+		}
 
 		QString text;
 		QMessageBox msgBox;
-		PetriEngine::DepthFirstReachabilitySearch dfs;
+		PetriEngine::Reachability::KarpMillerL1SearchStrategy dfs;
 
-		if(exp != NULL) {
-			bool reachable = dfs.reachable(*net,fac->makeInitialMarking(),exp);
+		if(query != NULL) {
+			bool reachable = dfs.reachable(*net, m0, query);
+			delete query;
+			query = NULL;
 
 			text = reachable ? tr("Query is satisfiable!") : tr("Query was not satisfiable!");
 		} else
 			text = tr("Syntax error in query!");
 
+		delete net;
+		net = NULL;
+		delete m0;
+		m0 = NULL;
+
 		msgBox.setText(text);
 		msgBox.exec();
 
 		//NOTE: it helped making this const...
-		if(exp != NULL) {
+		/*if(query != NULL) {
 			const PetriEngine::CoverabilityTreeNode* tree = dfs.coverabilityTree();
 			dumpTree(tree,net);
-		}
+		}*/
 	}
 
-	dlg->deleteLater();*/
+	dlg->deleteLater();
 }
 
 void MainWindow::on_SaveAction_triggered()

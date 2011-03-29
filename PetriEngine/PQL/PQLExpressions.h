@@ -39,7 +39,7 @@ class AnalysisContext{
 private:
 	const PetriNet& _net;
 	bool _usePlaces;
-	std::list<ExprError> _errors;
+	std::vector<ExprError> _errors;
 public:
 	/** A resolution result */
 	struct ResolutionResult {
@@ -75,7 +75,7 @@ public:
 		_errors.push_back(error);
 	}
 	/** Get list of errors */
-	const std::list<ExprError>& errors() const{
+	const std::vector<ExprError>& errors() const{
 		return _errors;
 	}
 };
