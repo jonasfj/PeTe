@@ -174,13 +174,13 @@ void PNMLParser::position(qreal &x, qreal &y){
 	}
 }
 
+/** Read text from value or text tag, value prefered */
 void PNMLParser::value(QString &value){
+	value = "";
 	while(xml.readNextStartElement()){
-		if(xml.name() == "value"){
-			xml.readNext();
-			if(xml.tokenType() == QXmlStreamReader::Characters)
-				value = xml.text().toString();
-		}
-		xml.skipCurrentElement();
+		if(xml.name() == "value" || (xml.name() == "text" && value.isEmpty()))
+			value = xml.readElementText(QXmlStreamReader::SkipChildElements);
+		else
+			xml.skipCurrentElement();
 	}
 }
