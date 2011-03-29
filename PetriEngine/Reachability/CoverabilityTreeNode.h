@@ -17,7 +17,7 @@ public:
 	/** Adds a child node */
 	void add(CoverabilityTreeNode* node);
 	/** Checks if the node is new in the coverability tree */
-	bool findDuplicate(PetriNet& net);
+	bool findDuplicate(const PetriNet& net);
 
 	// Getters/setters
 	bool isDeadEnd(){ return _isDeadEnd; }

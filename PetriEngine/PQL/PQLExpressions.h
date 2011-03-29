@@ -55,21 +55,8 @@ public:
 		_usePlaces = usePlaces;
 	}
 	/** Resolve an identifier */
-	ResolutionResult resolve(std::string identifier) const{
-		ResolutionResult result;
-		result.offset = -1;
-		if(_usePlaces){
-			result.offset = _net.lookupPlace(identifier);
-			result.isPlace = true;
-			result.success = (result.offset =! -1);
-			if(result.success)
-				return result;
-		}
-		result.offset = _net.lookupVariable(identifier);
-		result.success = result.offset != -1;
-		result.isPlace = false;
-		return result;
-	}
+	ResolutionResult resolve(std::string identifier) const;
+
 	/** Report error */
 	void reportError(const ExprError& error){
 		_errors.push_back(error);

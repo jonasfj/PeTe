@@ -25,7 +25,7 @@ void CoverabilityTreeNode::add(CoverabilityTreeNode* node){
 }
 
 /** Searches the ancestor path for duplicates and coverable nodes */
-bool CoverabilityTreeNode::findDuplicate(PetriNet& net){
+bool CoverabilityTreeNode::findDuplicate(const PetriNet& net){
 	//TODO: Could probably done more efficiently with e.g. hashmap
 	bool foundAnyDuplicates = true;
 	CoverabilityTreeNode* ancestorNode = this->_parent;

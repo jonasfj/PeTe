@@ -14,7 +14,15 @@ public:
 		this->_coverabilityTree = NULL;
 	}
 
-	bool reachable(PetriNet net, MarkVal* initialMarking, VarVal* initialAssignment, PQL::Condition* query);
+	bool reachable(const PetriNet &net,
+				   const MarkVal* initialMarking,
+				   const VarVal* initialAssignment,
+				   PQL::Condition* query);
+	bool reachable(CoverabilityTreeNode* tree,
+				   const PetriNet &net,
+				   const MarkVal* initialMarking,
+				   const VarVal* initialAssignment,
+				   PQL::Condition* query);
 	void setProgressReporter(ProgressReporter* reporter);
 	/** The coverability tree of the net */
 	const CoverabilityTreeNode* coverabilityTree();

@@ -272,6 +272,29 @@ std::string GreaterThanOrEqualCondition::op() const{
 	return ">=";
 }
 
+/******************** Misc test ********************/
+
+AnalysisContext::ResolutionResult AnalysisContext::resolve(std::string identifier) const{
+	ResolutionResult result;
+	result.offset = -1;
+	if(this->_usePlaces){
+		result.offset = _net.lookupPlace(identifier);
+		result.isPlace = true;
+		if(result.offset != -1)
+			result.success = true;
+		else
+			result.success = false;
+		//result.success = result.offset =! -1;
+		//Wtf.. This change works, commented is old and doesn't..!?
+		if(result.success)
+			return result;
+	}
+	result.offset = _net.lookupVariable(identifier);
+	result.success = result.offset != -1;
+	result.isPlace = false;
+	return result;
+}
+
 /******************** Just-In-Time Compilation ********************/
 
 }/* PQL */
