@@ -51,8 +51,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->variableView->horizontalHeader()->setStretchLastSection(true);
 
 	// Add variable button
-	QIcon ico = QIcon::fromTheme("list-add");
-	ui->addVariable->setIcon(ico);
+
+	ui->addVariable->setIcon(QIcon::fromTheme("list-add"));
+	ui->deleteVariable->setIcon(QIcon::fromTheme("list-remove"));
 
 	//Action group for editing mode
 	ui->InsertPlaceModeAction->setProperty("Mode", PetriNetScene::InsertPlaceMode);
@@ -275,6 +276,21 @@ void MainWindow::on_addVariable_clicked()
 		currentScene->addVariable("x1",0,0);
 }
 
+/** Removes a variable from the variableView table */
+void MainWindow::on_deleteVariable_clicked()
+{
+	if(currentScene){
+		const QModelIndexList selection = ui->variableView->selectionModel()->selectedIndexes();
+		if(selection.length()>0){
+			QModelIndex index = selection.at(0);
+			if(currentScene->variables()->rowCount() > index.row()){
+				currentScene->variables()->removeRow(index.row());
+			}
+		}
+	}
+}
+
+
 /** Save current scene to SVG */
 void MainWindow::on_actionExport_SVG_triggered()
 {
@@ -299,3 +315,4 @@ void MainWindow::on_actionExport_SVG_triggered()
 		file.close();
 	}
 }
+

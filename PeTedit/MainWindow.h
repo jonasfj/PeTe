@@ -30,7 +30,8 @@ private:
 	QActionGroup* modeActionGroup;
 
 private slots:
-	void on_addVariable_clicked();
+	void on_deleteVariable_clicked();
+ void on_addVariable_clicked();
  void on_OpenAction_triggered();
  void on_SaveAction_triggered();
  void on_NewQueryAction_triggered();
