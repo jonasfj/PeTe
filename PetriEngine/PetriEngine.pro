@@ -8,9 +8,9 @@ SOURCES		   += \
 	PetriNet.cpp \
 	PetriNetFactory.cpp \
 	PQL/PQLExpressions.cpp \  
-    Reachability/KarpMillerL1SearchStrategy.cpp
- #   DepthFirstReachabilitySearch.cpp \
-#    CoverabilityTreeNode.cpp 
+    Reachability/KarpMillerL1SearchStrategy.cpp \
+	Reachability/DepthFirstReachabilitySearch.cpp \
+	Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
 	AbstractPetriNetFactory.h \
@@ -21,10 +21,9 @@ HEADERS		   += \
 	PQL/PQLExpressions.h \
     PQL/PQLParser.h \
     Reachability/ReachabilitySearchStrategy.h \
-    Reachability/KarpMillerL1SearchStrategy.h
-#	ReachabilitySearchStrategy.h \
-#    DepthFirstReachabilitySearch.h \
-#    CoverabilityTreeNode.h 
+    Reachability/KarpMillerL1SearchStrategy.h \
+	Reachability/DepthFirstReachabilitySearch.h \
+	Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine
 

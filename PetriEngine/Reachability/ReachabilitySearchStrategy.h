@@ -1,8 +1,9 @@
 #ifndef REACHABILITYSEARCHSTRATEGY_H
 #define REACHABILITYSEARCHSTRATEGY_H
 
-#include "PetriNet.h"
-#include "ProgressReporter.h"
+#include "../PetriNet.h"
+#include "../ProgressReporter.h"
+#include "../PQL/PQLParser.h"
 
 namespace PetriEngine {
 
@@ -23,6 +24,7 @@ public:
 	/** Determines if a petrinet is reachable w.r.t. a query */
 	virtual bool reachable(const PetriNet &net,
 						   const MarkVal* initialMarking,
+						   const VarVal* initialAssignment,
 						   PQL::Condition* query) = 0;
 
 	/** Sets the concrete progress reporter */

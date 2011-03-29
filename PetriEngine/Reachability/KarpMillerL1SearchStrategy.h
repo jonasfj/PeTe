@@ -12,7 +12,7 @@ class KarpMillerL1SearchStrategy : public ReachabilitySearchStrategy
 {
 public:
     KarpMillerL1SearchStrategy();
-	bool reachable(const PetriNet &net, const MarkVal *initialMarking, PQL::Condition *query);
+	bool reachable(const PetriNet &net, const MarkVal *iM, const VarVal* iA, PQL::Condition *query);
 private:
 	/** Attempt to fire a transition */
 	inline bool fire(const PetriNet& net, uint8_t t, const MarkVal* old_m, MarkVal* new_m);

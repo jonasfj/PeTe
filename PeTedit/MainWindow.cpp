@@ -225,7 +225,7 @@ void MainWindow::on_NewQueryAction_triggered()
 		PetriEngine::Reachability::KarpMillerL1SearchStrategy dfs;
 
 		if(query != NULL) {
-			bool reachable = dfs.reachable(*net, m0, query);
+			bool reachable = dfs.reachable(*net, m0, NULL, query);
 			delete query;
 			query = NULL;
 

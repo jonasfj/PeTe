@@ -22,6 +22,7 @@ KarpMillerL1SearchStrategy::KarpMillerL1SearchStrategy() {}
 
 bool KarpMillerL1SearchStrategy::reachable(const PetriNet &net,
 										   const MarkVal *initialMarking,
+										   const VarVal*,
 										   PQL::Condition *query){
 	assert(net.numberOfVariables() == 0);
 	if(net.numberOfVariables() > 0){
