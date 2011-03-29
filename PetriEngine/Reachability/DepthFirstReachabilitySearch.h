@@ -10,9 +10,8 @@ namespace PetriEngine { namespace Reachability {
 class DepthFirstReachabilitySearch : public ReachabilitySearchStrategy
 {
 public:
-	DepthFirstReachabilitySearch() : ReachabilitySearchStrategy(){
-		this->_coverabilityTree = NULL;
-	}
+	DepthFirstReachabilitySearch() : ReachabilitySearchStrategy(),
+									 _coverabilityTree(NULL, NULL){}
 
 	bool reachable(const PetriNet &net,
 				   const MarkVal* initialMarking,
@@ -27,7 +26,7 @@ public:
 	/** The coverability tree of the net */
 	const CoverabilityTreeNode* coverabilityTree();
 private:
-	CoverabilityTreeNode* _coverabilityTree;
+	CoverabilityTreeNode _coverabilityTree;
 };
 } // Reachability
 } // PetriEngine

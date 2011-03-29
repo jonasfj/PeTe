@@ -26,14 +26,11 @@ public:
 	bool isOld(){ return _isOld; }
 	void setOld(bool value){ _isOld=value; }
 
+	// TODO: Fix this some day, on the horizon
 	// Destructor
+	/*
 	~CoverabilityTreeNode(){
-		if(_marking)
-			delete _marking;
-		_marking = NULL;
-		if(_assignments)
-			delete _assignments;
-		_assignments = NULL;
+		_parent = NULL;
 		if(_childNodes.size() != 0){
 			for(unsigned int i = 0; i < _childNodes.size(); i++){
 				if(_childNodes[i])
@@ -41,7 +38,7 @@ public:
 				_childNodes[i] = NULL;
 			}
 		}
-	}
+	}*/
 
 	const std::vector<CoverabilityTreeNode*> childNodes() const{
 		return _childNodes;

@@ -47,7 +47,7 @@ namespace PetriEngine{ namespace Reachability {
 	}
 
 	const CoverabilityTreeNode* DepthFirstReachabilitySearch::coverabilityTree(){
-		return this->_coverabilityTree;
+		return &_coverabilityTree;
 	}
 
 	/** Checks for reachability with DFS */
@@ -57,14 +57,13 @@ namespace PetriEngine{ namespace Reachability {
 				   PQL::Condition* query){
 
 		// Root node
-		MarkVal m0[net.numberOfPlaces()];
-		VarVal a0[net.numberOfVariables()];
+		MarkVal* m0 = new MarkVal[net.numberOfPlaces()];
+		VarVal* a0 = new VarVal[net.numberOfVariables()];
 		memcpy(m0, initialMarking, net.numberOfPlaces()*sizeof(MarkVal));
 		memcpy(a0, initialAssignment, net.numberOfVariables()*sizeof(VarVal));
 
-		CoverabilityTreeNode* coverTree = new CoverabilityTreeNode(m0, a0);
-		this->_coverabilityTree = coverTree;
-		return reachabilityDFS(coverTree, net, initialMarking, initialAssignment, query);
+		this->_coverabilityTree = CoverabilityTreeNode(m0, a0);
+		return reachabilityDFS(&_coverabilityTree, net, initialMarking, initialAssignment, query);
 	}
 
 } // Reachability
