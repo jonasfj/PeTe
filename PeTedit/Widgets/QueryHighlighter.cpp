@@ -14,8 +14,8 @@ QueryHighlighter::QueryHighlighter(const QStringList& places, QTextEdit *parent)
 	}
 
 	QTextCharFormat literalFormat;
-	literalFormat.setFontItalic(true);
-	literalFormat.setForeground(Qt::green);
+	//literalFormat.setFontItalic(true);
+	//literalFormat.setForeground(Qt::green);
 	HighlightingRule literalRule;
 	literalRule.pattern = QRegExp("\\b[0-9]+\\b");
 	literalRule.format = literalFormat;
