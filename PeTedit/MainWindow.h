@@ -29,11 +29,9 @@ private:
 	/** Action group for selecting mode */
 	QActionGroup* modeActionGroup;
 
-	/** List of variables */
-	QTableView* _variableView;
-
 private slots:
-	void on_OpenAction_triggered();
+	void on_addVariable_clicked();
+ void on_OpenAction_triggered();
  void on_SaveAction_triggered();
  void on_NewQueryAction_triggered();
  void on_NewTapnAction_triggered();

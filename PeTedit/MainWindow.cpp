@@ -37,16 +37,17 @@ MainWindow::MainWindow(QWidget *parent) :
 	currentScene = NULL;
 
 	//Add undoview to panel... We Should probably do a nicer panel
-	QLayout* layout = new QHBoxLayout(ui->panel);
+	//QLayout* layout = new QHBoxLayout(ui->panel);
 	//layout->addWidget(new QUndoView(undoGroup, this));
 
 	// variable editor
-	this->_variableView = new QTableView(this);
 	VariableDelegate* delegate = new VariableDelegate(this);
-	this->_variableView->setItemDelegate(delegate);
-	this->_variableView->horizontalHeader()->setStretchLastSection(true);
-	layout->addWidget(this->_variableView);
+	ui->variableView->setItemDelegate(delegate);
+	ui->variableView->horizontalHeader()->setStretchLastSection(true);
 
+	// Add variable button
+	QIcon ico = QIcon::fromTheme("list-add");
+	ui->addVariable->setIcon(ico);
 
 	//Action group for editing mode
 	ui->InsertPlaceModeAction->setProperty("Mode", PetriNetScene::InsertPlaceMode);
@@ -76,7 +77,7 @@ void MainWindow::on_NewTapnAction_triggered(){
 	QGraphicsView* view = new PetriNetView();
 	PetriNetScene* scene = new PetriNetScene(this->undoGroup, view);
 	scene->addVariable("hest",0,1);
-	this->_variableView->setModel(scene->variables());
+	ui->variableView->setModel(scene->variables());
 
 	view->setScene(scene);
 	view->setRenderHints(QPainter::Antialiasing |
@@ -136,6 +137,7 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 		currentScene = qobject_cast<PetriNetScene*>(view->scene());
 
 	if(previousScene){
+		ui->variableView->setModel(NULL);
 		disconnect(previousScene, SIGNAL(modeChanged(PetriNetScene::Mode)),
 				   this,  SLOT(currentScene_modeChanged(PetriNetScene::Mode)));
 	}
@@ -145,7 +147,7 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 		connect(this->currentScene, SIGNAL(modeChanged(PetriNetScene::Mode)),
 				this, SLOT(currentScene_modeChanged(PetriNetScene::Mode)));
 		this->currentScene_modeChanged(this->currentScene->mode());
-		this->_variableView->setModel(currentScene->variables());
+		ui->variableView->setModel(currentScene->variables());
 	}
 }
 
@@ -249,4 +251,12 @@ void MainWindow::on_SaveAction_triggered()
 		fac.makePNMLFile();
 		file.close();
 	}
+}
+
+/** Adds a new variable to the variableView table */
+void MainWindow::on_addVariable_clicked()
+{
+	//TODO: Check if dummy variable exists already
+	if(currentScene)
+		currentScene->addVariable("x1",0,0);
 }
