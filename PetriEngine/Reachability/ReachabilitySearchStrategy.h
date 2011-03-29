@@ -3,9 +3,14 @@
 
 #include "PetriNet.h"
 #include "ProgressReporter.h"
-#include "CTL/CTLParser.h"
 
 namespace PetriEngine {
+
+namespace PQL{
+	class Condition;
+}
+
+namespace Reachability{
 
 /** Represents an abstract reachability search strategy. */
 class ReachabilitySearchStrategy {
@@ -16,13 +21,14 @@ public:
 	}
 
 	/** Determines if a petrinet is reachable w.r.t. a query */
-	virtual bool reachable(PetriNet net, Mark* initialMarking, CTL::CTLExpr* query) = 0;
+	virtual bool reachable(const PetriNet &net,
+						   const MarkVal* initialMarking,
+						   PQL::Condition* query) = 0;
 
 	/** Sets the concrete progress reporter */
 	void setProgressReporter(ProgressReporter* reporter) {
 		_reporter = reporter;
 	}
-
 
 protected:
 	/** Reports the progress of reachability search */
@@ -34,6 +40,8 @@ protected:
 private:
 	ProgressReporter* _reporter;
 };
+
+} // Reachability
 
 } // PetriEngine
 

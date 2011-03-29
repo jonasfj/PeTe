@@ -39,7 +39,13 @@ public:
 			  const VarVal* assignment,
 			  MarkVal* resultMarking,
 			  VarVal* resultAssignment) const;
-
+	/** Get a transition vector */
+	const MarkVal* transitionVector(unsigned int transition) const {
+		return _transitionMatrix + _nPlaces * transition;
+	}
+	unsigned int numberOfTransitions() const {return _nTransitions;}
+	unsigned int numberOfVariables() const {return _nVariables;}
+	unsigned int numberOfPlaces() const {return _nPlaces;}
 	/** Returns the place offset, or -1 if not found */
 	int lookupPlace(const std::string& name) const;
 	/** Returns the variable offset, or -1 if not found */

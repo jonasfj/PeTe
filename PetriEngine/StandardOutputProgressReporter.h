@@ -5,6 +5,7 @@
 
 namespace PetriEngine {
 
+/** Progress reporter, reporting to stdout */
 class StandardOutputProgressReporter : public ProgressReporter
 {
 public:
@@ -16,5 +17,6 @@ public:
 private:
 	int _count;
 };
+
 } // PetriEngine
 #endif // STANDARDOUTPUTPROGRESSREPORTER_H

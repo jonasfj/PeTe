@@ -2,6 +2,7 @@
 #define PROGRESSREPORTER_H
 
 namespace PetriEngine {
+
 /** Reports progress of search */
 class ProgressReporter{
 public:
