@@ -4,8 +4,9 @@
 
 #include <string.h>
 #include <assert.h>
+#include <stdio.h>
 
-#define MAX_DEPTH			4096
+#define MAX_DEPTH			4096*4096
 
 namespace PetriEngine{ namespace Reachability{
 
@@ -36,7 +37,7 @@ bool KarpMillerL1SearchStrategy::reachable(const PetriNet &net,
 	MarkVal new_m[nPlaces];
 	memcpy(old_m, initialMarking, nPlaces * sizeof(MarkVal));
 	size_t depth = 1;
-	uint8_t stack[MAX_DEPTH];
+	uint8_t* stack = new uint8_t[MAX_DEPTH];
 	stack[0] = 0;
 	uint8_t t = 0;
 	while(true){
@@ -46,13 +47,13 @@ bool KarpMillerL1SearchStrategy::reachable(const PetriNet &net,
 		// t is the next transition to fire
 
 		while(!fire(net, t, old_m, new_m)){
-			while(++t = nTransitions){
-				if(!(--depth))		//Pop the stack
+			while(++t == nTransitions){
+				if(--depth == 0)	//Pop the stack
 					return false;	//Terminate algorithm, we're done now
 				// Reverse transition on the stack
+				t = stack[depth];
 				for(size_t i = 0; i < nPlaces; i++)
 					old_m[i] -= net.transitionVector(t)[i];
-				t = stack[depth];
 			}
 		}
 
@@ -61,7 +62,7 @@ bool KarpMillerL1SearchStrategy::reachable(const PetriNet &net,
 			return true;
 
 		//Check if it's seen
-		bool seen;
+		bool seen = false;
 		size_t d = depth;
 		while(--d > 0){
 			seen = true;
@@ -69,23 +70,30 @@ bool KarpMillerL1SearchStrategy::reachable(const PetriNet &net,
 			for(size_t i = 0; i < nPlaces; i++){
 				old_m[i] -= tv[i];
 				seen &= old_m[i] == new_m[i];
+				if(!seen) break;
 			}
-			if(seen)
-				break;
+			if(seen) break;
 		}
+		if(seen)
+			printf("|");
+		else
+			printf("%i", (int)t);
+		fflush(stdout);
+		memcpy(old_m, new_m, nPlaces * sizeof(MarkVal));
 		if(!seen){
 			stack[depth++] = t;
-			memcpy(old_m, new_m, nPlaces * sizeof(MarkVal));
 			t = 0;
 		}else{
+			for(size_t i = 0; i < nPlaces; i++)
+				old_m[i] -= net.transitionVector(t)[i];
 			//Pop if needed as long as needed
-			while(++t = nTransitions){
-				if(!(--depth))		//Pop the stack
+			while(++t == nTransitions){
+				if(--depth == 0)	//Pop the stack
 					return false;	//Terminate algorithm, we're done now
 				// Reverse transition on the stack
+				t = stack[depth];
 				for(size_t i = 0; i < nPlaces; i++)
 					old_m[i] -= net.transitionVector(t)[i];
-				t = stack[depth];
 			}
 		}
 	}
