@@ -141,17 +141,27 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 		currentScene = qobject_cast<PetriNetScene*>(view->scene());
 
 	if(previousScene){
-		ui->variableView->setModel(NULL);
 		disconnect(previousScene, SIGNAL(modeChanged(PetriNetScene::Mode)),
 				   this,  SLOT(currentScene_modeChanged(PetriNetScene::Mode)));
+		disconnect(ui->addQuery, SIGNAL(clicked()), previousScene, SLOT(addQuery()));
+		disconnect(ui->queryListView, SIGNAL(doubleClicked(QModelIndex)),
+				   previousScene, SLOT(editQuery(QModelIndex)));
+		ui->variableView->setModel(NULL);
+		ui->queryListView->setModel(NULL);
 	}
 
 	if(currentScene){
 		currentScene->setActive();
+		ui->variableView->setModel(currentScene->variables());
+		ui->queryListView->setModel(currentScene->queries());
+
 		connect(this->currentScene, SIGNAL(modeChanged(PetriNetScene::Mode)),
 				this, SLOT(currentScene_modeChanged(PetriNetScene::Mode)));
+		connect(ui->addQuery, SIGNAL(clicked()), currentScene, SLOT(addQuery()));
+		connect(ui->queryListView, SIGNAL(doubleClicked(QModelIndex)),
+				currentScene, SLOT(editQuery(QModelIndex)));
+
 		this->currentScene_modeChanged(this->currentScene->mode());
-		ui->variableView->setModel(currentScene->variables());
 	}
 }
 
@@ -174,22 +184,8 @@ void MainWindow::modeActionGroup_triggered(QAction *action){
 }
 
 
-/*void dumpTree(const PetriEngine::CoverabilityTreeNode* tree, PetriEngine::PetriNet* net){
-
-	if(tree != NULL){
-		qDebug() << "transition number:" << QString::number( tree->transition());
-		for(int i = 0; i < net->nPlaces(); i++)
-				qDebug() << "\t m(P" << i << ")=" << QString::number( tree->marking()[i]);
-
-		for(size_t i = 0; i < tree->childNodes().size(); i++){
-			PetriEngine::CoverabilityTreeNode* c = tree->childNodes().at(i);
-			dumpTree(c,net);
-		}
-	}
-}*/
-
-
 /** Open the query editor window */
+/*
 void MainWindow::on_NewQueryAction_triggered()
 {
 	if(!this->currentScene)
@@ -241,16 +237,10 @@ void MainWindow::on_NewQueryAction_triggered()
 
 		msgBox.setText(text);
 		msgBox.exec();
-
-		//NOTE: it helped making this const...
-		/*if(query != NULL) {
-			const PetriEngine::CoverabilityTreeNode* tree = dfs.coverabilityTree();
-			dumpTree(tree,net);
-		}*/
 	}
 
 	dlg->deleteLater();
-}
+}*/
 
 void MainWindow::on_SaveAction_triggered()
 {
@@ -316,3 +306,8 @@ void MainWindow::on_actionExport_SVG_triggered()
 	}
 }
 
+/** Delete query */
+void MainWindow::on_deleteQuery_clicked(){
+	if(currentScene)
+		currentScene->removeQuery(ui->queryListView->currentIndex());
+}

@@ -35,16 +35,17 @@ public:
 	 * @param parent		Widget to die, with unless killed otherwise.
 	 */
 	explicit PetriNetScene(QUndoGroup* undoGroup, QObject *parent = 0);
+
 	/** Notify the document that it's active  */
 	void setActive(){
 		this->_undoStack->setActive();
 	}
+
 	Mode mode() {return _mode;}
 	void setMode(Mode mode) {
 		_mode = mode;
 		emit modeChanged(mode);
 	}
-
 
 	/** Find a net item with the given name */
 	NetItem* findNetItem(const QString& name);
@@ -67,18 +68,27 @@ public:
 	void addVariable(QString name, int value, int range);
 
 	/** Get the variables */
-	QStandardItemModel* variables() const{
+	QStandardItemModel* variables() {
 		return this->_variables;
 	}
 
-	QUndoStack* _undoStack;
+	/** Get query model */
+	QStandardItemModel* queries() {
+		return _queries;
+	}
 private:
 	void transitionItemDoubleClickEvent(TransitionItem* t);
 	void placeItemDoubleClickEvent(PlaceItem* place);
 	void arcItemDoubleClickEvent(ArcItem* arc);
 
-	/* Model representing the variables of the net */
+	/** Model representing the variables of the net */
 	QStandardItemModel* _variables;
+
+	/** Model holding queries */
+	QStandardItemModel* _queries;
+
+	/** Undo stack */
+	QUndoStack* _undoStack;
 
 	Mode _mode;
 	/** Unselect item at mouseReleaseEvent if ControlModifier is down */
@@ -93,6 +103,12 @@ signals:
 	void modeChanged(PetriNetScene::Mode mode);
 public slots:
 	void updateSceneRect();
+	/** Add new query */
+	void addQuery();
+	/** Remove query */
+	void removeQuery(const QModelIndex& index);
+	/** Edit query */
+	void editQuery(const QModelIndex& index);
 };
 
 #endif // PETRINETSCENE_H

@@ -33,7 +33,10 @@ SOURCES	   += \
     Commands/EditArcCommand.cpp \
     Commands/DeleteItemCommand.cpp \
     Commands/EditTransitionCommand.cpp \
-    Widgets/VariableDelegate.cpp
+    Widgets/VariableDelegate.cpp \
+    Misc/QueryItem.cpp \
+    Commands/EditQueryCommand.cpp \
+    Commands/AddRemoveQueryCommand.cpp
 
 
 HEADERS		+= \
@@ -63,7 +66,10 @@ HEADERS		+= \
     Commands/EditArcCommand.h \
     Commands/DeleteItemCommand.h \
     Commands/EditTransitionCommand.h \
-    Widgets/VariableDelegate.h
+    Widgets/VariableDelegate.h \
+    Misc/QueryItem.h \
+    Commands/EditQueryCommand.h \
+    Commands/AddRemoveQueryCommand.h
 
 
 FORMS		+= MainWindow.ui \

@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	//QString fileName = "/home/thomas/DAT4/PeTe-build-desktop/Testnetwork";
 
 	QStringList args = a.arguments();
-	for(size_t i = 1; i < args.size(); i++){
+	for(int i = 1; i < args.size(); i++){
 		if(args[i] == "--query")
 			queryString = args[++i];
 		else
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 	}
 	PetriEngine::PQL::AnalysisContext context(*net, true);
 	query->analyze(context);
-	for(int i = 0; i < context.errors().size(); i++){
+	for(size_t i = 0; i < context.errors().size(); i++){
 		std::cout<<context.errors()[i].toString()<<std::endl;
 	}
 	//Load up reachability engine

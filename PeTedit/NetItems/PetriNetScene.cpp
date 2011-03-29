@@ -10,6 +10,12 @@
 #include "../Commands/EditTransitionCommand.h"
 #include "PlaceItem.h"
 #include "TransitionItem.h"
+
+#include "../Misc/QueryItem.h"
+#include "../Dialogs/QueryDialog.h"
+#include "../Commands/EditQueryCommand.h"
+#include "../Commands/AddRemoveQueryCommand.h"
+
 // DIALOGS
 #include "../Dialogs/EditArcDialog.h"
 #include "../Dialogs/EditPlaceDialog.h"
@@ -34,9 +40,13 @@ PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, QObject* parent) :
 
 	// Create variable model (name,value,range)
 	this->_variables = new QStandardItemModel(0, 3, this);
-	this->_variables->setHeaderData(0,Qt::Horizontal,"Name");
-	this->_variables->setHeaderData(1,Qt::Horizontal,"Value");
-	this->_variables->setHeaderData(2,Qt::Horizontal,"Range");
+	this->_variables->setHeaderData(0, Qt::Horizontal, "Name");
+	this->_variables->setHeaderData(1, Qt::Horizontal, "Value");
+	this->_variables->setHeaderData(2, Qt::Horizontal, "Range");
+
+	// Create query model (name)
+	this->_queries = new QStandardItemModel(0, 1, this);
+	this->_queries->setHeaderData(0, Qt::Horizontal, "Query");
 
 	//Set initial mode
 	this->setMode(PointerMode);
@@ -396,3 +406,66 @@ void PetriNetScene::produce(PetriEngine::AbstractPetriNetFactory* factory){
 		}
 	}
 }
+
+/******************** Query model handling ********************/
+
+void PetriNetScene::addQuery(){
+	QStringList places;
+	foreach(QGraphicsItem* item, items()){
+		if(item->type() == NetEntity::PlaceItem){
+			NetItem* n = dynamic_cast<NetItem*>(item);
+			if(n)
+				places.append(n->name());
+		}
+	}
+
+	QueryItem* item = new QueryItem();
+	QueryDialog d(item, dynamic_cast<QWidget*>(this->parent()));
+	d.setIdentifiers(places);
+	if(d.exec() == QDialog::Accepted){
+		item->setName(d.name());
+		item->setQuery(d.query());
+		item->setStrategy(d.strategy());
+		AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(_queries, item, true);
+		_undoStack->push(cmd);
+	}else{
+		delete item;
+		item = NULL;
+	}
+}
+
+void PetriNetScene::editQuery(const QModelIndex& index){
+	QueryItem* item = dynamic_cast<QueryItem*>(_queries->itemFromIndex(index));
+	if(!item) return;
+
+	QStringList places;
+	foreach(QGraphicsItem* item, items()){
+		if(item->type() == NetEntity::PlaceItem){
+			NetItem* n = dynamic_cast<NetItem*>(item);
+			if(n)
+				places.append(n->name());
+		}
+	}
+
+	QueryDialog d(item, dynamic_cast<QWidget*>(this->parent()));
+	d.setIdentifiers(places);
+	if(d.exec() == QDialog::Accepted){
+		EditQueryCommand* cmd = new EditQueryCommand(item,
+													 d.name(),
+													 d.query(),
+													 d.strategy());
+		_undoStack->push(cmd);
+	}
+}
+
+void PetriNetScene::removeQuery(const QModelIndex& index){
+	QueryItem* item = dynamic_cast<QueryItem*>(_queries->itemFromIndex(index));
+	if(!item) return;
+	AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(_queries, item, false);
+	_undoStack->push(cmd);
+}
+
+
+
+
+
