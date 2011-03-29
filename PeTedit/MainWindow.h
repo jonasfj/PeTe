@@ -39,6 +39,7 @@ private slots:
 	void on_tabWidget_tabCloseRequested(int index);
 	void currentScene_modeChanged(PetriNetScene::Mode mode);
 	void modeActionGroup_triggered(QAction* action);
-};
+	void on_actionExport_SVG_triggered();
+	};
 
 #endif // MAINWINDOW_H

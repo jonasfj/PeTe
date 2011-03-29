@@ -31,6 +31,9 @@
 #include <QStandardItemModel>
 #include <QTableView>
 
+#include <QSvgGenerator>
+#include <QPainter>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow){
@@ -78,9 +81,7 @@ MainWindow::~MainWindow(){
 void MainWindow::on_NewTapnAction_triggered(){
 	QGraphicsView* view = new PetriNetView();
 	PetriNetScene* scene = new PetriNetScene(this->undoGroup, view);
-	scene->addVariable("hest",0,1);
 	ui->variableView->setModel(scene->variables());
-
 	view->setScene(scene);
 	view->setRenderHints(QPainter::Antialiasing |
 						 QPainter::SmoothPixmapTransform |
@@ -272,4 +273,29 @@ void MainWindow::on_addVariable_clicked()
 	//TODO: Check if dummy variable exists already
 	if(currentScene)
 		currentScene->addVariable("x1",0,0);
+}
+
+/** Save current scene to SVG */
+void MainWindow::on_actionExport_SVG_triggered()
+{
+	if(!currentScene)
+		return;
+	QString fname = QFileDialog::getSaveFileName(this, "Save Petri Net");
+	if(fname != ""){
+		QFile file(fname);
+		if(!file.open(QIODevice::WriteOnly))
+			return;
+
+		QSvgGenerator generator;
+		generator.setOutputDevice(&file);
+		generator.setSize(currentScene->sceneRect().size().toSize());
+		generator.setViewBox(currentScene->sceneRect());
+
+		QPainter painter;
+		painter.begin(&generator);
+		currentScene->render(&painter);
+		painter.end();
+
+		file.close();
+	}
 }
