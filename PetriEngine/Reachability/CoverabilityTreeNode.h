@@ -4,15 +4,15 @@
 #include <vector>
 
 #include "PetriNet.h"
-namespace PetriEngine {
+namespace PetriEngine { namespace Reachability {
 
 /** Represents a node in the coverability tree of a Petri-net */
 class CoverabilityTreeNode
 {
 public:
 	/** Constructs a new node with its parent and a heap-allocated marking. This class takes ownership of marking */
-	CoverabilityTreeNode(CoverabilityTreeNode* parent, int transition, Mark* marking);
-	CoverabilityTreeNode(Mark* marking);
+	CoverabilityTreeNode(CoverabilityTreeNode* parent, int transition, MarkVal* marking, VarVal* assignments);
+	CoverabilityTreeNode(MarkVal* marking, VarVal* assignments);
 
 	/** Adds a child node */
 	void add(CoverabilityTreeNode* node);
@@ -30,13 +30,23 @@ public:
 	~CoverabilityTreeNode(){
 		if(_marking)
 			delete _marking;
-		// TODO: destructor for child nodes
+		_marking = NULL;
+		if(_assignments)
+			delete _assignments;
+		_assignments = NULL;
+		if(_childNodes.size() != 0){
+			for(unsigned int i = 0; i < _childNodes.size(); i++){
+				if(_childNodes[i])
+					delete _childNodes[i];
+				_childNodes[i] = NULL;
+			}
+		}
 	}
 
 	const std::vector<CoverabilityTreeNode*> childNodes() const{
 		return _childNodes;
 	}
-	 Mark* marking() const{
+	 MarkVal* marking() const{
 		return _marking;
 	}
 	 int transition() const{
@@ -47,12 +57,14 @@ private:
 	/** The parent node, which is null for the root node */
 	CoverabilityTreeNode* _parent;
 	int _transition;
-	Mark* _marking;
+	MarkVal* _marking;
+	VarVal* _assignments;
 	std::vector<CoverabilityTreeNode*> _childNodes;
 
 	bool _isOld;
 	bool _isDeadEnd;
 
 };
+} // "Reachability"
 } // "PetriEngine"
 #endif // COVERABILITYTREENODE_H

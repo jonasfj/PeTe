@@ -54,6 +54,7 @@ private:
 	std::string* _places;
 	std::string* _transitions;
 	std::string* _variables;
+	/** Number of x variables */
 	size_t _nPlaces, _nTransitions, _nVariables;
 	MarkVal* _transitionMatrix;
 	VarVal* _ranges;
