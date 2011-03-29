@@ -280,12 +280,7 @@ AnalysisContext::ResolutionResult AnalysisContext::resolve(std::string identifie
 	if(this->_usePlaces){
 		result.offset = _net.lookupPlace(identifier);
 		result.isPlace = true;
-		if(result.offset != -1)
-			result.success = true;
-		else
-			result.success = false;
-		//result.success = result.offset =! -1;
-		//Wtf.. This change works, commented is old and doesn't..!?
+		result.success = result.offset != -1;
 		if(result.success)
 			return result;
 	}
