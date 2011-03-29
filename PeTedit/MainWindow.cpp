@@ -75,6 +75,9 @@ MainWindow::~MainWindow(){
 void MainWindow::on_NewTapnAction_triggered(){
 	QGraphicsView* view = new PetriNetView();
 	PetriNetScene* scene = new PetriNetScene(this->undoGroup, view);
+	scene->addVariable("hest",0,1);
+	this->_variableView->setModel(scene->variables());
+
 	view->setScene(scene);
 	view->setRenderHints(QPainter::Antialiasing |
 						 QPainter::SmoothPixmapTransform |
@@ -82,6 +85,7 @@ void MainWindow::on_NewTapnAction_triggered(){
 	view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	int index = ui->tabWidget->addTab(view, "New TAPN");
 	ui->tabWidget->setCurrentIndex(index);
+
 }
 
 /** Close document-tab */

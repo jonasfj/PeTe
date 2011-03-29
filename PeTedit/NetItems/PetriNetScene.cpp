@@ -109,11 +109,15 @@ ArcItem* PetriNetScene::findArc(NetItem *start, NetItem *end){
 
 /** Append a new variable to the list of variables */
 void PetriNetScene::addVariable(QString name, int value, int range){
+	QList<QStandardItem*> row;
+	row.append( new QStandardItem());
+	row.append( new QStandardItem());
+	row.append( new QStandardItem());
+	row.at(0)->setData(name,Qt::EditRole);
+	row.at(1)->setData(value,Qt::EditRole);
+	row.at(2)->setData(range,Qt::EditRole);
 
-	int r = this->_variables->rowCount();
-	this->_variables->setData(this->_variables->index(r,0), name);
-	this->_variables->setData(this->_variables->index(r,1), value);
-	this->_variables->setData(this->_variables->index(r,2), range);
+	this->_variables->appendRow(row);
 }
 
 /******************** Mouse event handling ********************/
@@ -356,6 +360,14 @@ void PetriNetScene::keyPressEvent(QKeyEvent *event) {
 /******************** Produce using factory ********************/
 
 void PetriNetScene::produce(PetriEngine::AbstractPetriNetFactory* factory){
+
+	for(int row = 0; row < this->_variables->rowCount(); row++){
+		QString name = this->_variables->data(this->_variables->index(row, 0)).toString();
+		int value = this->_variables->data(this->_variables->index(row, 1)).toInt();
+		int range = this->_variables->data(this->_variables->index(row, 2)).toInt();
+		factory->addVariable(name.toStdString(), value, range);
+	}
+
 	foreach(QGraphicsItem* item, this->items()) {
 		if(item->type() == NetEntity::PlaceItem) {
 			PlaceItem* p = dynamic_cast<PlaceItem*>(item);
