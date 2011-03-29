@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+     <net>
+          <transition id="T5">
+               <graphics>
+                    <position x="321.016" y="332.628"/>
+               </graphics>
+               <name>
+                    <value>T5</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T6">
+               <graphics>
+                    <position x="356.533" y="329.212"/>
+               </graphics>
+               <name>
+                    <value>T6</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T2">
+               <graphics>
+                    <position x="264.326" y="293.013"/>
+               </graphics>
+               <name>
+                    <value>T2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T3">
+               <graphics>
+                    <position x="293.013" y="291.647"/>
+               </graphics>
+               <name>
+                    <value>T3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T1">
+               <graphics>
+                    <position x="202.855" y="249.3"/>
+               </graphics>
+               <name>
+                    <value>T1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <place id="Q0">
+               <graphics>
+                    <position x="205.587" y="374.974"/>
+               </graphics>
+               <name>
+                    <value>Q0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Q3">
+               <graphics>
+                    <position x="342.19" y="379.072"/>
+               </graphics>
+               <name>
+                    <value>Q3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Q2">
+               <graphics>
+                    <position x="297.794" y="378.389"/>
+               </graphics>
+               <name>
+                    <value>Q2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Q1">
+               <graphics>
+                    <position x="248.617" y="376.34"/>
+               </graphics>
+               <name>
+                    <value>Q1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <transition id="Tick3">
+               <graphics>
+                    <position x="458" y="335"/>
+               </graphics>
+               <name>
+                    <value>Tick3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="Tick2">
+               <graphics>
+                    <position x="457" y="287"/>
+               </graphics>
+               <name>
+                    <value>Tick2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="Tick1">
+               <graphics>
+                    <position x="456" y="246"/>
+               </graphics>
+               <name>
+                    <value>Tick1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <place id="Clock3">
+               <graphics>
+                    <position x="420" y="349"/>
+               </graphics>
+               <name>
+                    <value>Clock3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Clock2">
+               <graphics>
+                    <position x="418.634" y="307.683"/>
+               </graphics>
+               <name>
+                    <value>Clock2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Clock1">
+               <graphics>
+                    <position x="418" y="266"/>
+               </graphics>
+               <name>
+                    <value>Clock1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Clock0">
+               <graphics>
+                    <position x="417" y="229"/>
+               </graphics>
+               <name>
+                    <value>Clock0</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="P0">
+               <graphics>
+                    <position x="212.276" y="172.905"/>
+               </graphics>
+               <name>
+                    <value>P0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P3">
+               <graphics>
+                    <position x="352.373" y="177.468"/>
+               </graphics>
+               <name>
+                    <value>P3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P2">
+               <graphics>
+                    <position x="304.373" y="176.468"/>
+               </graphics>
+               <name>
+                    <value>P2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P1">
+               <graphics>
+                    <position x="255.373" y="177.468"/>
+               </graphics>
+               <name>
+                    <value>P1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <arc source="P2" target="T6">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1" target="T5">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1" target="T3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P0" target="T2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P0" target="T1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T6" target="Q3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T5" target="Q3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T3" target="Q2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T2" target="Q2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1" target="Q1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T5" target="Clock3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Clock3" target="T6">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T6" target="Clock3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Clock3" target="T5">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Clock2" target="T2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T2" target="Clock2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Clock2" target="T3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T3" target="Clock2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Clock1" target="T1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1" target="Clock1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Tick3" target="Clock3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Clock2" target="Tick3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Tick2" target="Clock2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Clock1" target="Tick2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Tick1" target="Clock1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Clock0" target="Tick1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+     </net>
+</pnml>
