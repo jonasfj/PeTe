@@ -65,6 +65,9 @@ void PetriNetScene::updateSceneRect(){
 
 /** Check if this is a valid available identifier */
 bool PetriNetScene::isValidAvailableIdentifier(const QString &id) const{
+	QRegExp reg("^(?!\\d)\\w+$");
+	if(!reg.exactMatch(id))
+		return false;
 	foreach(QGraphicsItem* item, this->items()){
 		if(item->type() == NetEntity::PlaceItem || item->type() == NetEntity::TransitionItem){
 			NetItem* i = dynamic_cast<NetItem*>(item);
@@ -341,7 +344,7 @@ void PetriNetScene::placeItemDoubleClickEvent(PlaceItem *place){
 		QString name = dlg->name().trimmed();
 		int tokens = dlg->tokens();
 		if(!name.isEmpty() && name != place->name()){
-			if(!this->findNetItem(name)){
+			if(isValidAvailableIdentifier(name)){
 				_undoStack->push(new EditPlaceCommand(place, name, dlg->tokens()));
 			} else {
 				showMessageBox(tr("Place was not renamed"),
