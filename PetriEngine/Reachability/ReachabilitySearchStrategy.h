@@ -5,6 +5,9 @@
 #include "../ProgressReporter.h"
 #include "../PQL/PQLParser.h"
 
+#include <string>
+#include <vector>
+
 namespace PetriEngine {
 
 namespace PQL{
@@ -16,7 +19,6 @@ namespace Reachability{
 /** Represents an abstract reachability search strategy. */
 class ReachabilitySearchStrategy {
 public:
-
 	ReachabilitySearchStrategy(){
 		_reporter = NULL;
 	}
@@ -32,19 +34,24 @@ public:
 		_reporter = reporter;
 	}
 
+	/** List all reachability strategies, return unqiue display names */
+	static std::vector<std::string> listStrategies();
+
+	/** Create a reachability strategy from string, NULL if not found */
+	static ReachabilitySearchStrategy* createStrategy(const std::string& strategy);
+
 protected:
 	/** Reports the progress of reachability search */
 	void reportProgress(double status){
 		if(_reporter)
 			_reporter->reportProgress(status);
 	}
-
 private:
 	ProgressReporter* _reporter;
 };
 
-} // Reachability
 
+} // Reachability
 } // PetriEngine
 
 #endif // REACHABILITYSEARCHSTRATEGY_H

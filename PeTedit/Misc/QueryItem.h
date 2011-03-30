@@ -34,11 +34,6 @@ private:
 	QString _name;
 	QString _query;
 	QString _strategy;
-	//TODO: Make a StrategyFactory in PetriEngine::Reachability
-	//		With an enum StrategyFactory::Strategy such that I can
-	//		store the enum value here, and create strategy from it...
-	//		Also getting a list of strategies as string and method
-	//		for converting those to enum values would be nice.
 };
 
 #endif // QUERYITEM_H

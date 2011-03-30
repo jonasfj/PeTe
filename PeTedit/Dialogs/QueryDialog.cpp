@@ -5,6 +5,7 @@
 #include <QMessageBox>
 
 #include "PQL/PQLParser.h"
+#include "Reachability/ReachabilitySearchStrategy.h"
 
 QueryDialog::QueryDialog(QueryItem* item, QWidget *parent)
 	: QDialog(parent), ui(new Ui::QueryDialog)
@@ -12,15 +13,15 @@ QueryDialog::QueryDialog(QueryItem* item, QWidget *parent)
     ui->setupUi(this);
 	ui->nameEdit->setText(item->name());
 	ui->queryEdit->setPlainText(item->query());
-	//TODO: See QueryItem.h for how to implement the StrategyFactory
-	ui->strategyBox->addItem("Karp-Miller L1");
-	ui->strategyBox->addItem("Naive Karp-Miller DFS");
 
-	//TODO: Refactor this, see QueryItem.h
-	if(item->strategy() == "Karp-Miller L1")
-		ui->strategyBox->setCurrentIndex(0);
-	else
-		ui->strategyBox->setCurrentIndex(1);
+	int strategyIndex  = 0;
+	std::vector<std::string> strats = PetriEngine::Reachability::ReachabilitySearchStrategy::listStrategies();
+	for(size_t i = 0; i < strats.size(); i++){
+		ui->strategyBox->addItem(strats[i].c_str());
+		if(item->strategy() == strats[i].c_str())
+			strategyIndex = i;
+	}
+	ui->strategyBox->setCurrentIndex(strategyIndex);
 }
 
 void QueryDialog::accept(){

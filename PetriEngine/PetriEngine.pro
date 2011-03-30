@@ -10,7 +10,8 @@ SOURCES		   += \
 	PQL/PQLExpressions.cpp \  
     Reachability/KarpMillerL1SearchStrategy.cpp \
 	Reachability/DepthFirstReachabilitySearch.cpp \
-	Reachability/CoverabilityTreeNode.cpp
+	Reachability/CoverabilityTreeNode.cpp \
+    Reachability/ReachabilitySearchStrategy.cpp
 
 HEADERS		   += \
 	AbstractPetriNetFactory.h \
