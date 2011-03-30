@@ -63,10 +63,11 @@ QueryEdit::QueryEdit(QWidget *parent) :
 }
 
 
-void QueryEdit::initializeSpecialPowers(const QStringList& places){
+void QueryEdit::initializeSpecialPowers(const QStringList& places, const QStringList& variables){
 	QCompleter* completer = new QCompleter(this->parent());
 
 	QStringList words = places;
+	words.append(variables);
 
 	//Add query reserved words
 	QFile file(":/QueryEdit/QueryReservedWords.list");
@@ -87,7 +88,7 @@ void QueryEdit::initializeSpecialPowers(const QStringList& places){
 	this->setCompleter(completer);
 
 	//Setup syntax highlighter
-	new QueryHighlighter(places, this);
+	new QueryHighlighter(places, variables, this);
 }
 
 void QueryEdit::setCompleter(QCompleter* completer){

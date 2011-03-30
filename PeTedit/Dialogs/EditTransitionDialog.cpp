@@ -13,9 +13,9 @@ QString EditTransitionDialog::name() const{
 }
 
 // Set syntax highlighter keywords
-void EditTransitionDialog::setKeywords(const QStringList& keywords){
-	ui->preconditions->initializeSpecialPowers(keywords);
-	ui->postconditions->initializeSpecialPowers(keywords);
+void EditTransitionDialog::setIdentifiers(const QStringList& places, const QStringList& variables){
+	ui->preconditions->initializeSpecialPowers(places, variables);
+	ui->postconditions->initializeSpecialPowers(places, variables);
 }
 
 // Set the name text for transition

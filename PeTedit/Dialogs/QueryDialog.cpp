@@ -52,8 +52,8 @@ QString QueryDialog::strategy() const{
 	return ui->strategyBox->currentText();
 }
 
-void QueryDialog::setIdentifiers(const QStringList &places){
-	ui->queryEdit->initializeSpecialPowers(places);
+void QueryDialog::setIdentifiers(const QStringList &places, const QStringList& variables){
+	ui->queryEdit->initializeSpecialPowers(places, variables);
 }
 
 QueryDialog::~QueryDialog()

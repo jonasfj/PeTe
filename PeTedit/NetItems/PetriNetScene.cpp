@@ -63,6 +63,20 @@ void PetriNetScene::updateSceneRect(){
 	this->setSceneRect(rect);
 }
 
+/** Check if this is a valid available identifier */
+bool PetriNetScene::isValidAvailableIdentifier(const QString &id) const{
+	foreach(QGraphicsItem* item, this->items()){
+		if(item->type() == NetEntity::PlaceItem || item->type() == NetEntity::TransitionItem){
+			NetItem* i = dynamic_cast<NetItem*>(item);
+			if(i->name() == id)
+				return false;
+		}
+	}
+	foreach(const QString& name, variableNames())
+		if(name == id) return false;
+	return true;
+}
+
 /******************** Add, remove and find place ********************/
 
 NetItem* PetriNetScene::findNetItem(const QString &name){
@@ -87,6 +101,17 @@ void PetriNetScene::addNetItem(NetItem* item){
 void PetriNetScene::removeNetItem(NetItem* item){
 	this->removeItem(item);
 	this->updateSceneRect();
+}
+
+QStringList PetriNetScene::placeNames() const{
+	QStringList names;
+	foreach(QGraphicsItem* item, this->items()){
+		if(item->type() == NetEntity::PlaceItem){
+			NetItem* i = dynamic_cast<NetItem*>(item);
+			names.append(i->name());
+		}
+	}
+	return names;
 }
 
 
@@ -116,6 +141,13 @@ ArcItem* PetriNetScene::findArc(NetItem *start, NetItem *end){
 }
 
 /******************** Variables ********************/
+
+QStringList PetriNetScene::variableNames() const{
+	QStringList list;
+	for(int row = 0; row < this->_variables->rowCount(); row++)
+		list.append(this->_variables->data(this->_variables->index(row, 0)).toString());
+	return list;
+}
 
 /** Append a new variable to the list of variables */
 void PetriNetScene::addVariable(QString name, int value, int range){
@@ -326,9 +358,7 @@ void PetriNetScene::transitionItemDoubleClickEvent(TransitionItem *t){
 	// Open transition edit dialog
 	EditTransitionDialog* dlg = new EditTransitionDialog(dynamic_cast<QWidget*>(this->parent()));
 	dlg->setName(t->name());
-	//TODO: Set keywords to be x1,...,xm (e.g. variables)
-	QStringList keywords;
-	dlg->setKeywords(keywords);
+	dlg->setIdentifiers(placeNames(), variableNames());
 	dlg->setPreConditions(t->preConditions());
 	dlg->setPostConditions(t->postConditions());
 	if(dlg->exec()==QDialog::Accepted){
@@ -411,17 +441,10 @@ void PetriNetScene::produce(PetriEngine::AbstractPetriNetFactory* factory){
 
 void PetriNetScene::addQuery(){
 	QStringList places;
-	foreach(QGraphicsItem* item, items()){
-		if(item->type() == NetEntity::PlaceItem){
-			NetItem* n = dynamic_cast<NetItem*>(item);
-			if(n)
-				places.append(n->name());
-		}
-	}
 
 	QueryItem* item = new QueryItem();
 	QueryDialog d(item, dynamic_cast<QWidget*>(this->parent()));
-	d.setIdentifiers(places);
+	d.setIdentifiers(placeNames(), variableNames());
 	if(d.exec() == QDialog::Accepted){
 		item->setName(d.name());
 		item->setQuery(d.query());
@@ -438,17 +461,8 @@ void PetriNetScene::editQuery(const QModelIndex& index){
 	QueryItem* item = dynamic_cast<QueryItem*>(_queries->itemFromIndex(index));
 	if(!item) return;
 
-	QStringList places;
-	foreach(QGraphicsItem* item, items()){
-		if(item->type() == NetEntity::PlaceItem){
-			NetItem* n = dynamic_cast<NetItem*>(item);
-			if(n)
-				places.append(n->name());
-		}
-	}
-
 	QueryDialog d(item, dynamic_cast<QWidget*>(this->parent()));
-	d.setIdentifiers(places);
+	d.setIdentifiers(placeNames(), variableNames());
 	if(d.exec() == QDialog::Accepted){
 		EditQueryCommand* cmd = new EditQueryCommand(item,
 													 d.name(),

@@ -76,6 +76,13 @@ public:
 	QStandardItemModel* queries() {
 		return _queries;
 	}
+
+	/** Check if this is a valid available identifier */
+	bool isValidAvailableIdentifier(const QString& id) const;
+
+	/** List variables names */
+	QStringList variableNames() const;
+	QStringList placeNames() const;
 private:
 	void transitionItemDoubleClickEvent(TransitionItem* t);
 	void placeItemDoubleClickEvent(PlaceItem* place);

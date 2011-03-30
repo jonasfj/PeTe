@@ -16,7 +16,7 @@ public:
 	QString name() const;
 	void setName(QString name);
 
-	void setKeywords(const QStringList& keywords);
+	void setIdentifiers(const QStringList& places, const QStringList& variables);
 
 	QString preConditions() const;
 	void setPreConditions(QString conditions);

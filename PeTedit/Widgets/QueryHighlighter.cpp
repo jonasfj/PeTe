@@ -1,15 +1,26 @@
 #include "QueryHighlighter.h"
 #include <QFile>
 
-QueryHighlighter::QueryHighlighter(const QStringList& places, QTextEdit *parent) :
+QueryHighlighter::QueryHighlighter(const QStringList& places,
+								   const QStringList& variables,
+								   QTextEdit *parent) :
     QSyntaxHighlighter(parent)
 {
 	QTextCharFormat placeFormat;
 	placeFormat.setForeground(Qt::blue);
-	foreach(QString place, places){
+	foreach(const QString& place, places){
 		HighlightingRule rule;
 		rule.pattern = QRegExp("\\b" + place + "\\b");
 		rule.format = placeFormat;
+		rules.append(rule);
+	}
+
+	QTextCharFormat variableFormat;
+	variableFormat.setForeground(Qt::darkGray);
+	foreach(const QString& variable, variables){
+		HighlightingRule rule;
+		rule.pattern = QRegExp("\\b" + variable + "\\b");
+		rule.format = variableFormat;
 		rules.append(rule);
 	}
 

@@ -17,7 +17,7 @@ public:
 	explicit QueryDialog(QueryItem* item, QWidget *parent = 0);
 
 	/** Set identifers to enable syntax highlighting and auto completion */
-	void setIdentifiers(const QStringList& places);
+	void setIdentifiers(const QStringList& places, const QStringList& variables);
 
 	QString name() const;
 	QString query() const;

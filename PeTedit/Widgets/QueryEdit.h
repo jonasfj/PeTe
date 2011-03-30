@@ -11,7 +11,7 @@ class QueryEdit : public QTextEdit
 public:
     explicit QueryEdit(QWidget *parent = 0);
 
-	void initializeSpecialPowers(const QStringList& places);
+	void initializeSpecialPowers(const QStringList& places, const QStringList& variables);
 	void setCompleter(QCompleter* completer);
 	QCompleter* completer() {return _completer;}
 protected:

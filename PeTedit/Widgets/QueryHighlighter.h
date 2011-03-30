@@ -12,7 +12,9 @@ class QueryHighlighter : public QSyntaxHighlighter
 		QTextCharFormat format;
 	};
 public:
-	explicit QueryHighlighter(const QStringList& places, QTextEdit* parent);
+	explicit QueryHighlighter(const QStringList& places,
+							  const QStringList& variables,
+							  QTextEdit* parent);
 
 	void highlightBlock(const QString &text);
 signals:
