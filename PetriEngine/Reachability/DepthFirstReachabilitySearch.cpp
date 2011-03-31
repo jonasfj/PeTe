@@ -1,5 +1,6 @@
 #include "DepthFirstReachabilitySearch.h"
 #include <stdio.h>
+#include <iostream>
 #include <stdlib.h>
 #include <string.h>
 
@@ -7,12 +8,12 @@ using namespace PetriEngine::PQL;
 
 namespace PetriEngine{ namespace Reachability {
 
+/*  This is the old shit
 	bool reachabilityDFS(CoverabilityTreeNode* tree,
 				   const PetriNet &net,
 				   const MarkVal* m,
 				   const VarVal* a,
 				   PQL::Condition* query){
-
 		//TODO: Print debug info about marking
 
 		bool old = tree->findDuplicate(net);
@@ -45,25 +46,64 @@ namespace PetriEngine{ namespace Reachability {
 		}
 		return false;
 	}
+*/
+	/*This is the new shit*/
+	/** Internal recursive reachability searcher */
+	bool DepthFirstReachabilitySearch::dfsReachable(CoverabilityTreeNode *tree,
+										const PetriNet &net,
+										const MarkVal *m,
+										const VarVal *a,
+										PQL::Condition *query){
+		// Check for duplicate
+		if(tree->findDuplicate(net))
+			return false;
 
-	const CoverabilityTreeNode* DepthFirstReachabilitySearch::coverabilityTree(){
-		return &_coverabilityTree;
+		// If not duplicate, check if evaluates
+		if(query->evaluate(EvaluationContext(m, a)))
+			return true;
+
+		// If not duplicate and does not evaluate, fire a transition, and call recursively
+		for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
+			//std::cout<<"Transition: "<<t<<std::endl;
+			MarkVal* mNew = new MarkVal[net.numberOfPlaces()];
+			VarVal* aNew = new VarVal[net.numberOfVariables()];
+			if(net.fire(t, m, a, mNew, aNew)){
+				//Explore this new path
+				CoverabilityTreeNode child(tree, t, mNew, aNew);
+
+				if(dfsReachable(&child, net, mNew, aNew, query))
+					return true;
+			}
+		}
+
+		// If no result has been found, return false
+		return false;
 	}
 
 	/** Checks for reachability with DFS */
 	bool DepthFirstReachabilitySearch::reachable(const PetriNet &net,
-				   const MarkVal* initialMarking,
-				   const VarVal* initialAssignment,
-				   PQL::Condition* query){
-
-		// Root node
+										const MarkVal* initialMarking,
+										const VarVal* initialAssignment,
+										PQL::Condition* query){
+		// Create copies of the marking and variable assignment
 		MarkVal* m0 = new MarkVal[net.numberOfPlaces()];
-		VarVal* a0 = new VarVal[net.numberOfVariables()];
 		memcpy(m0, initialMarking, net.numberOfPlaces()*sizeof(MarkVal));
+		VarVal* a0 = new VarVal[net.numberOfVariables()];		
 		memcpy(a0, initialAssignment, net.numberOfVariables()*sizeof(VarVal));
 
+		// Create root node of coverability tree
 		this->_coverabilityTree = CoverabilityTreeNode(m0, a0);
-		return reachabilityDFS(&_coverabilityTree, net, initialMarking, initialAssignment, query);
+		// Recursively handle reachability check
+		return dfsReachable(&_coverabilityTree,
+						 net,
+						 initialMarking,
+						 initialAssignment,
+						 query);
+	}
+
+	/** Set the progress reporter */
+	void DepthFirstReachabilitySearch::setProgressReporter(ProgressReporter *reporter){
+		_reporter = reporter;
 	}
 
 } // Reachability

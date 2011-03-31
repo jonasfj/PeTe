@@ -7,21 +7,12 @@ CoverabilityTreeNode::CoverabilityTreeNode(CoverabilityTreeNode* parent, int tra
 	_transition = transition;
 	_marking = marking;
 	_assignments = assignments;
-	_isDeadEnd = false;
-	_isOld = false;
 }
 
 CoverabilityTreeNode::CoverabilityTreeNode(MarkVal *marking, VarVal* assignments){
 	_marking = marking;
 	_assignments = assignments;
-	_isDeadEnd = false;
-	_isOld = false;
 	_parent = NULL;
-}
-
-/** Adds a new marking to the set of child nodes */
-void CoverabilityTreeNode::add(CoverabilityTreeNode* node){
-	_childNodes.push_back(node);
 }
 
 /** Searches the ancestor path for duplicates and coverable nodes */
@@ -30,7 +21,10 @@ bool CoverabilityTreeNode::findDuplicate(const PetriNet& net){
 	bool foundAnyDuplicates = true;
 	CoverabilityTreeNode* ancestorNode = this->_parent;
 
-	while(ancestorNode != NULL){
+	if(!ancestorNode)
+		return false;
+
+	while(ancestorNode){
 		for(unsigned int i = 0; i < net.numberOfPlaces(); i++){
 			// Check assignments
 			if(_assignments[i] != ancestorNode->_assignments[i])
@@ -40,8 +34,9 @@ bool CoverabilityTreeNode::findDuplicate(const PetriNet& net){
 			if(_marking[i] != ancestorNode->_marking[i]){
 				foundAnyDuplicates = false;
 				// Replace m[i] with infinity on strictly larger marks
-				if(_marking[i] > ancestorNode->_marking[i])
-					_marking[i] = MARK_INF;
+				//Uncomment for unbounded
+				//if(_marking[i] > ancestorNode->_marking[i])
+					//_marking[i] = MARK_INF;
 			}
 		}
 

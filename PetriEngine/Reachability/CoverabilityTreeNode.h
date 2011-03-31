@@ -10,42 +10,32 @@ namespace PetriEngine { namespace Reachability {
 class CoverabilityTreeNode
 {
 public:
-	/** Constructs a new node with its parent and a heap-allocated marking. This class takes ownership of marking */
+	/** Constructs a new node with its parent and a heap-allocated marking and variable assignment.
+	  * This class takes ownership of marking and variable assignment*/
 	CoverabilityTreeNode(CoverabilityTreeNode* parent, int transition, MarkVal* marking, VarVal* assignments);
+	/** Constructs a root node, and a heap-allocated marking and variable assignment.
+	  * This class takes ownership of the marking and variable assignment. */
 	CoverabilityTreeNode(MarkVal* marking, VarVal* assignments);
 
-	/** Adds a child node */
-	void add(CoverabilityTreeNode* node);
+	/** Destroy the CoverabilityTreeNode */
+	~CoverabilityTreeNode(){
+		_parent = NULL;
+		if(_marking)
+			delete _marking;
+		_marking = NULL;
+		if(_assignments)
+			delete _assignments;
+		_assignments = NULL;
+	}
+
 	/** Checks if the node is new in the coverability tree */
 	bool findDuplicate(const PetriNet& net);
 
-	// Getters/setters
-	bool isDeadEnd(){ return _isDeadEnd; }
-	void setDeadEnd(bool value){ _isDeadEnd=value; }
-
-	bool isOld(){ return _isOld; }
-	void setOld(bool value){ _isOld=value; }
-
-	// TODO: Fix this some day, on the horizon
-	// Destructor
-	/*
-	~CoverabilityTreeNode(){
-		_parent = NULL;
-		if(_childNodes.size() != 0){
-			for(unsigned int i = 0; i < _childNodes.size(); i++){
-				if(_childNodes[i])
-					delete _childNodes[i];
-				_childNodes[i] = NULL;
-			}
-		}
-	}*/
-
-	const std::vector<CoverabilityTreeNode*> childNodes() const{
-		return _childNodes;
-	}
-	 MarkVal* marking() const{
+	/** Getter for marking */
+	MarkVal* marking() const{
 		return _marking;
 	}
+	/** Getter for the transition */
 	 int transition() const{
 		return _transition;
 	}
@@ -53,14 +43,12 @@ public:
 private:
 	/** The parent node, which is null for the root node */
 	CoverabilityTreeNode* _parent;
+	/** The transition being fired */
 	int _transition;
+	/** The current marking */
 	MarkVal* _marking;
+	/** The current variable assignments */
 	VarVal* _assignments;
-	std::vector<CoverabilityTreeNode*> _childNodes;
-
-	bool _isOld;
-	bool _isDeadEnd;
-
 };
 } // "Reachability"
 } // "PetriEngine"

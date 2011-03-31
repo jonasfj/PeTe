@@ -11,22 +11,30 @@ class DepthFirstReachabilitySearch : public ReachabilitySearchStrategy
 {
 public:
 	DepthFirstReachabilitySearch() : ReachabilitySearchStrategy(),
-									 _coverabilityTree(NULL, NULL){}
+									 _coverabilityTree(NULL, NULL){
+		_reporter == NULL;
+	}
 
+	/** Perform reachability check using the DepthFirstSearch */
 	bool reachable(const PetriNet &net,
 				   const MarkVal* initialMarking,
 				   const VarVal* initialAssignment,
 				   PQL::Condition* query);
-	bool reachable(CoverabilityTreeNode* tree,
+
+	void setProgressReporter(ProgressReporter* reporter);
+private:
+	/** Internal reachability method */
+	bool dfsReachable(CoverabilityTreeNode* tree,
 				   const PetriNet &net,
 				   const MarkVal* initialMarking,
 				   const VarVal* initialAssignment,
 				   PQL::Condition* query);
-	void setProgressReporter(ProgressReporter* reporter);
-	/** The coverability tree of the net */
-	const CoverabilityTreeNode* coverabilityTree();
-private:
+
+	/** Root node of the reachability search */
 	CoverabilityTreeNode _coverabilityTree;
+
+	/** The report to report progress too */
+	ProgressReporter* _reporter;
 };
 } // Reachability
 } // PetriEngine
