@@ -58,13 +58,13 @@ int main(int argc, char *argv[])
 	}
 	//Load up reachability engine
 	PetriEngine::Reachability::DepthFirstReachabilitySearch dfs;
-	bool reachable = dfs.reachable(*net, m0, a0, query);
+	PetriEngine::Reachability::ReachabilityResult result;
+	result = dfs.reachable(*net, m0, a0, query);
 	delete query;
 	query = NULL;
 
 	//Print result
-	std::string retString = reachable ? "Query is satisfiable!" : "Query is NOT satisfiable!";
-	std::cout<<retString<<std::endl;
+	std::cout<<result.explanation()<<std::endl;
 
 	return 0;
 }

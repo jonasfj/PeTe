@@ -1,6 +1,6 @@
 #include "ReachabilitySearchStrategy.h"
 
-#include "KarpMillerL1SearchStrategy.h"
+//#include "KarpMillerL1SearchStrategy.h"
 #include "DepthFirstReachabilitySearch.h"
 
 #include <stdio.h>

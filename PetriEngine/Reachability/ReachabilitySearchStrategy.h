@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+#include "ReachabilityResult.h"
+
 namespace PetriEngine {
 
 namespace PQL{
@@ -24,10 +26,10 @@ public:
 	}
 
 	/** Determines if a petrinet is reachable w.r.t. a query */
-	virtual bool reachable(const PetriNet &net,
-						   const MarkVal* initialMarking,
-						   const VarVal* initialAssignment,
-						   PQL::Condition* query) = 0;
+	virtual ReachabilityResult reachable(const PetriNet &net,
+										 const MarkVal* initialMarking,
+										 const VarVal* initialAssignment,
+										 PQL::Condition* query) = 0;
 
 	/** Sets the concrete progress reporter */
 	void setProgressReporter(ProgressReporter* reporter) {

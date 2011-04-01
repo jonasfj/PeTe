@@ -18,7 +18,6 @@
 
 #include <PQL/PQLParser.h>
 #include <PQL/PQLExpressions.h>
-#include <Reachability/KarpMillerL1SearchStrategy.h>
 
 #include <QGraphicsView>
 #include <QUndoView>

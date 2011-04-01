@@ -16,10 +16,10 @@ public:
 	}
 
 	/** Perform reachability check using the DepthFirstSearch */
-	bool reachable(const PetriNet &net,
-				   const MarkVal* initialMarking,
-				   const VarVal* initialAssignment,
-				   PQL::Condition* query);
+	ReachabilityResult reachable(const PetriNet &net,
+								 const MarkVal* initialMarking,
+								 const VarVal* initialAssignment,
+								 PQL::Condition* query);
 
 	void setProgressReporter(ProgressReporter* reporter);
 private:

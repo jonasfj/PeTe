@@ -22,7 +22,8 @@ HEADERS		   += \
 	Reachability/DepthFirstReachabilitySearch.h \
 	Reachability/CoverabilityTreeNode.h \
     PetriNetBuilder.h \
-    AbstractPetriNetBuilder.h
+    AbstractPetriNetBuilder.h \
+    Reachability/ReachabilityResult.h
 
 TARGET			= ../PetriEngine
 
