@@ -37,8 +37,8 @@ public:
 /** Context provided for context analysis */
 class AnalysisContext{
 private:
-	const PetriNet& _net;
-	bool _usePlaces;
+	std::vector<std::string> _places;
+	std::vector<std::string> _variables;
 	std::vector<ExprError> _errors;
 public:
 	/** A resolution result */
@@ -50,10 +50,12 @@ public:
 		/** True if the identifer was resolved to a place */
 		bool isPlace;
 	};
-	/** Create a context analysis context */
-	AnalysisContext(const PetriNet& net, bool usePlaces) : _net(net) {
-		_usePlaces = usePlaces;
-	}
+	AnalysisContext(const PetriNet& net)
+	 : _places(net.placeNames()), _variables(net.variableNames()) {}
+	AnalysisContext(const std::vector<std::string>& places,
+					const std::vector<std::string>& variables)
+	 : _places(places), _variables(variables) {}
+
 	/** Resolve an identifier */
 	ResolutionResult resolve(std::string identifier) const;
 
@@ -356,7 +358,11 @@ public:
 		}
 	}
 	/** Evaluate the assignment expression */
-	void evaluate(const VarVal* a, VarVal* result_a, VarVal* ranges, size_t nvars) const;
+	void evaluate(const MarkVal* m,
+				  const VarVal* a,
+				  VarVal* result_a,
+				  VarVal* ranges,
+				  size_t nvars) const;
 	std::string toString(){
 		std::string t;
 		for(iter it = assignments.begin(); it != assignments.end(); it++){

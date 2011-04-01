@@ -62,7 +62,7 @@ PetriNet* PetriNetBuilder::makePetriNet(){
 	//Create transition names
 	for(i = 0; i < transitions.size(); i++)
 		net->_transitions[i] = transitions[i];
-	PQL::AnalysisContext context(*net, false);
+	PQL::AnalysisContext context(*net);
 	//Parse conditions and assignments
 	for(i = 0; i < transitions.size(); i++){
 		if(conditions[i] != ""){

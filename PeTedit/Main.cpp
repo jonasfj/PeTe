@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 		std::cout<<"Syntax error in query"<<std::endl;
 		return 9;
 	}
-	PetriEngine::PQL::AnalysisContext context(*net, true);
+	PetriEngine::PQL::AnalysisContext context(*net);
 	query->analyze(context);
 	for(size_t i = 0; i < context.errors().size(); i++){
 		std::cout<<context.errors()[i].toString()<<std::endl;

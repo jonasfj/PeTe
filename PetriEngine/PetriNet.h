@@ -45,10 +45,10 @@ public:
 	unsigned int numberOfTransitions() const {return _nTransitions;}
 	unsigned int numberOfVariables() const {return _nVariables;}
 	unsigned int numberOfPlaces() const {return _nPlaces;}
-	/** Returns the place offset, or -1 if not found */
-	int lookupPlace(const std::string& name) const;
-	/** Returns the variable offset, or -1 if not found */
-	int lookupVariable(const std::string& name) const;
+	/** Get vector place names, don't use this to get the number of places */
+	const std::vector<std::string>& placeNames() const {return _places;}
+	/** Get vector variable names, don't use this to get the number of variable */
+	const std::vector<std::string>& variableNames() const {return _variables;}
 private:
 	std::vector<std::string> _places;
 	std::vector<std::string> _transitions;

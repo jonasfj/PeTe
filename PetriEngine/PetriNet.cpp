@@ -63,7 +63,7 @@ bool PetriNet::fire(unsigned int t,
 
 
 	if(_assignments[t])
-		_assignments[t]->evaluate(a, result_a, _ranges, _nVariables);
+		_assignments[t]->evaluate(m, a, result_a, _ranges, _nVariables);
 	else
 		memcpy(result_a, a, sizeof(VarVal) * _nVariables);
 
@@ -98,27 +98,11 @@ bool PetriNet::fireWithMarkInf(unsigned int t,
 
 
 	if(_assignments[t]) //TODO: Use evaluate that respects MarkInf
-		_assignments[t]->evaluate(a, result_a, _ranges, _nVariables);
+		_assignments[t]->evaluate(m, a, result_a, _ranges, _nVariables);
 	else
 		memcpy(result_a, a, sizeof(VarVal) * _nVariables);
 
 	return true;
-}
-
-int PetriNet::lookupPlace(const string &name) const{
-	for(size_t i = 0; i < _nPlaces; i++){
-		if(_places[i] == name)
-			return i;
-	}
-	return -1;
-}
-
-int PetriNet::lookupVariable(const string &name) const{
-	for(size_t i = 0; i < _nVariables; i++){
-		if(_variables[i] == name)
-			return i;
-	}
-	return -1;
 }
 
 } // PetriEngine

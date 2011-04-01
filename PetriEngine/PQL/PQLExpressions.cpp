@@ -167,9 +167,13 @@ bool NotCondition::evaluate(const EvaluationContext& context) const{
 	return !(_cond->evaluate(context));
 }
 
-void AssignmentExpression::evaluate(const VarVal *a, VarVal *result_a, VarVal* ranges, size_t nvars) const{
+void AssignmentExpression::evaluate(const MarkVal* m,
+									const VarVal *a,
+									VarVal *result_a,
+									VarVal* ranges,
+									size_t nvars) const{
 	memcpy(result_a, a, sizeof(VarVal) * nvars);
-	EvaluationContext context(NULL, a);
+	EvaluationContext context(m, a);
 	for(const_iter it = assignments.begin(); it != assignments.end(); it++)
 		result_a[it->offset] = it->expr->evaluate(context) % ranges[it->offset];
 }
@@ -277,16 +281,23 @@ std::string GreaterThanOrEqualCondition::op() const{
 AnalysisContext::ResolutionResult AnalysisContext::resolve(std::string identifier) const{
 	ResolutionResult result;
 	result.offset = -1;
-	if(this->_usePlaces){
-		result.offset = _net.lookupPlace(identifier);
-		result.isPlace = true;
-		result.success = result.offset != -1;
-		if(result.success)
+	result.success = false;
+	for(size_t i = 0; i < _places.size(); i++){
+		if(_places[i] == identifier){
+			result.offset = i;
+			result.isPlace = true;
+			result.success = true;
 			return result;
+		}
 	}
-	result.offset = _net.lookupVariable(identifier);
-	result.success = result.offset != -1;
-	result.isPlace = false;
+	for(size_t i = 0; i < _variables.size(); i++){
+		if(_variables[i] == identifier){
+			result.offset = i;
+			result.isPlace = false;
+			result.success = true;
+			return result;
+		}
+	}
 	return result;
 }
 
