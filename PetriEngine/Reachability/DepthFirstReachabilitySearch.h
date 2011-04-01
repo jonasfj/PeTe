@@ -12,7 +12,7 @@ class DepthFirstReachabilitySearch : public ReachabilitySearchStrategy
 public:
 	DepthFirstReachabilitySearch() : ReachabilitySearchStrategy(),
 									 _coverabilityTree(NULL, NULL){
-		_reporter == NULL;
+		_reporter = NULL;
 	}
 
 	/** Perform reachability check using the DepthFirstSearch */

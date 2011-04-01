@@ -1,57 +1,104 @@
 #include "PetriNet.h"
 #include "PQL/PQLExpressions.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 using namespace std;
 
 namespace PetriEngine{
 
-PetriEngine::PetriNet::PetriNet(int places, int transitions, int variables){
+PetriNet::PetriNet(int places, int transitions, int variables)
+	: _places(places), _transitions(transitions), _variables(variables) {
 	//Store size for later
 	_nPlaces = places;
 	_nTransitions = transitions;
 	_nVariables = variables;
 
-	//Allocate space for names
-	_places = new std::string[places];
-	_transitions = new std::string[transitions];
-	_variables = new std::string[variables];
+	//Allocate space for ranges
 	_ranges = new VarVal[variables];
 
 	//Allocate space for conditions and assignments
-	_annotations = new AnnotationPair[transitions];
-	for(int i = 0; i < transitions; i++){
-		this->_annotations[i].condition = NULL;
-		this->_annotations[i].assignment = NULL;
-	}
+	_conditions = (PQL::Condition**)calloc(sizeof(PQL::Condition*) + sizeof(PQL::AssignmentExpression*),
+										  transitions);
+	_assignments = (PQL::AssignmentExpression**)(_conditions + transitions);
 
 	//Allocate transition matrix
-	_transitionMatrix = new MarkVal[places*transitions];
-	//Set transition matrix to zero
-	for(int i = 0; i < places*transitions; i++)
-		_transitionMatrix[i] = 0;
+	_tm = (MarkVal*)calloc(sizeof(MarkVal), places * transitions * 2);
 }
 
-bool PetriEngine::PetriNet::fire(unsigned int transition,
-								 const MarkVal* m,
-								 const VarVal* a,
-								 MarkVal* result_m,
-								 VarVal* result_a) const{
+PetriNet::~PetriNet(){
+	if(_ranges)
+		delete _ranges;
+	_ranges = NULL;
+	if(_tm)
+		free(_tm);
+	_tm = NULL;
+	//Conditions and assignments is allocated in the same block
+	if(_conditions)
+		free(_conditions);
+	_conditions = NULL;
+	_assignments = NULL;
+}
+
+bool PetriNet::fire(unsigned int t,
+					const MarkVal* m,
+					const VarVal* a,
+					MarkVal* result_m,
+					VarVal* result_a) const{
 	//Check the condition
-	if(_annotations[transition].condition &&
-	   !_annotations[transition].condition->evaluate(PQL::EvaluationContext(NULL, a)))
+	if(_conditions[t] &&
+	   !_conditions[t]->evaluate(PQL::EvaluationContext(m, a)))
 		return false;
 
-	MarkVal* t = _transitionMatrix + transition * _nPlaces;
+	const MarkVal* tv = _tv(t);
+	//Check that we can take from the marking
 	for(size_t i = 0; i < _nPlaces; i++){
-		result_m[i] = m[i] + t[i];
+		result_m[i] = m[i] - tv[i];
 		if(result_m[i] < 0)
 			return false;
 	}
+	//Add stuff that the marking gives us
+	for(size_t i = 0; i < _nPlaces; i++)
+		result_m[i] += tv[i+_nPlaces];
 
 
-	if(_annotations[transition].assignment)
-		_annotations[transition].assignment->evaluate(a, result_a, _ranges, _nVariables);
+	if(_assignments[t])
+		_assignments[t]->evaluate(a, result_a, _ranges, _nVariables);
+	else
+		memcpy(result_a, a, sizeof(VarVal) * _nVariables);
+
+	return true;
+}
+
+bool PetriNet::fireWithMarkInf(unsigned int t,
+							   const MarkVal* m,
+							   const VarVal* a,
+							   MarkVal* result_m,
+							   VarVal* result_a) const{
+	//Check the condition
+	if(_conditions[t] && //TODO: Use evaluate that respects MarkInf
+	   !_conditions[t]->evaluate(PQL::EvaluationContext(m, a)))
+		return false;
+
+	const MarkVal* tv = _tv(t);
+	//Check that we can take from the marking
+	for(size_t i = 0; i < _nPlaces; i++){
+		if(m[i] == MARK_INF)
+			continue;
+		result_m[i] = m[i] - tv[i];
+		if(result_m[i] < 0)
+			return false;
+	}
+	//Add stuff that the marking gives us
+	for(size_t i = 0; i < _nPlaces; i++){
+		if(m[i] == MARK_INF)
+			continue;
+		result_m[i] += tv[i+_nPlaces];
+	}
+
+
+	if(_assignments[t]) //TODO: Use evaluate that respects MarkInf
+		_assignments[t]->evaluate(a, result_a, _ranges, _nVariables);
 	else
 		memcpy(result_a, a, sizeof(VarVal) * _nVariables);
 

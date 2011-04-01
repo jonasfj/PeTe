@@ -3,6 +3,8 @@
 
 #include "PQL/PQLParser.h"
 
+#include <assert.h>
+
 using namespace std;
 
 namespace PetriEngine{
@@ -64,16 +66,21 @@ PetriNet* PetriNetFactory::makePetriNet(){
 	//Parse conditions and assignments
 	for(i = 0; i < transitions.size(); i++){
 		if(conditions[i] != ""){
-			net->_annotations[i].condition = PQL::ParseQuery(conditions[i]);
-			if(net->_annotations[i].condition)
-				net->_annotations[i].condition->analyze(context);
+			net->_conditions[i] = PQL::ParseQuery(conditions[i]);
+			if(net->_conditions[i])
+				net->_conditions[i]->analyze(context);
+			else
+				assert(false);	//Shouldn't experience parse errors here
 		}
 		if(assignments[i] != ""){
-			net->_annotations[i].assignment = PQL::ParseAssignment(assignments[i]);
-			if(net->_annotations[i].assignment)
-				net->_annotations[i].assignment->analyze(context);
+			net->_assignments[i] = PQL::ParseAssignment(assignments[i]);
+			if(net->_assignments[i])
+				net->_assignments[i]->analyze(context);
+			else
+				assert(false);	//Shouldn't experience parse errors here
 		}
-		//TODO: Report parsing and analysis errors, if any
+		//We shouldn't have context errors here
+		assert(context.errors().size() == 0);
 	}
 	//Create input arcs
 	vector<Arc>::iterator arc;
@@ -93,12 +100,9 @@ PetriNet* PetriNetFactory::makePetriNet(){
 				break;
 			}
 		}
-		//Abort if we couldn't create the arc
-		if(place < 0 || transition < 0)
-			continue;
-		else{
-			net->_transitionMatrix[transition * places.size() + place] = -arc->weight;
-		}
+		//We should have found a places and transition
+		assert(place >= 0 && transition >= 0);
+		net->_tv(transition)[place] = arc->weight;
 	}
 	//Create output arcs
 	for(arc = outputArcs.begin(); arc != outputArcs.end(); arc++){
@@ -117,12 +121,9 @@ PetriNet* PetriNetFactory::makePetriNet(){
 				break;
 			}
 		}
-		//Abort if we couldn't create the arc
-		if(place < 0 || transition < 0)
-			continue;
-		else{
-			net->_transitionMatrix[transition * places.size() + place] = arc->weight;
-		}
+		//We should have found a places and transition
+		assert(place >= 0 && transition >= 0);
+		net->_tv(transition)[place + places.size()] = arc->weight;
 	}
 	//Return the finished net
 	return net;

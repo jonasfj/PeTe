@@ -8,7 +8,6 @@ SOURCES		   += \
 	PetriNet.cpp \
 	PetriNetFactory.cpp \
 	PQL/PQLExpressions.cpp \  
-    Reachability/KarpMillerL1SearchStrategy.cpp \
 	Reachability/DepthFirstReachabilitySearch.cpp \
 	Reachability/CoverabilityTreeNode.cpp \
     Reachability/ReachabilitySearchStrategy.cpp
@@ -22,7 +21,6 @@ HEADERS		   += \
 	PQL/PQLExpressions.h \
     PQL/PQLParser.h \
     Reachability/ReachabilitySearchStrategy.h \
-    Reachability/KarpMillerL1SearchStrategy.h \
 	Reachability/DepthFirstReachabilitySearch.h \
 	Reachability/CoverabilityTreeNode.h
 
