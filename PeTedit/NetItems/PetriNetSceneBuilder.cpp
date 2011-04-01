@@ -1,25 +1,25 @@
-#include "PetriNetSceneFactory.h"
+#include "PetriNetSceneBuilder.h"
 
 #include "PetriNetScene.h"
 #include "PlaceItem.h"
 #include "ArcItem.h"
 #include "TransitionItem.h"
 
-PetriNetSceneFactory::PetriNetSceneFactory(QUndoGroup* undoGroup, QObject* sceneParent){
+PetriNetSceneBuilder::PetriNetSceneBuilder(QUndoGroup* undoGroup, QObject* sceneParent){
 	scene = new PetriNetScene(undoGroup, sceneParent);
 }
 
-void PetriNetSceneFactory::addPlace(const std::string &name, int tokens, double x, double y){
+void PetriNetSceneBuilder::addPlace(const std::string &name, int tokens, double x, double y){
 	PlaceItem* item = new PlaceItem(QPointF(x,y), name.c_str());
 	item->setTokens(tokens);
 	scene->addNetItem(item);
 }
 
-void PetriNetSceneFactory::addVariable(const std::string& name, int initialValue, int range){
+void PetriNetSceneBuilder::addVariable(const std::string& name, int initialValue, int range){
 	scene->addVariable(name.c_str(), initialValue, range);
 }
 
-void PetriNetSceneFactory::addTransition(const std::string &name,
+void PetriNetSceneBuilder::addTransition(const std::string &name,
 										 const std::string &conditions,
 										 const std::string &assignments,
 										 double x,
@@ -31,15 +31,15 @@ void PetriNetSceneFactory::addTransition(const std::string &name,
 	scene->addNetItem(item);
 }
 
-void PetriNetSceneFactory::addInputArc(const std::string &place, const std::string &transition, int weight){
+void PetriNetSceneBuilder::addInputArc(const std::string &place, const std::string &transition, int weight){
 	arcs.append({place.c_str(), transition.c_str(), weight});
 }
 
-void PetriNetSceneFactory::addOutputArc(const std::string &transition, const std::string &place, int weight){
+void PetriNetSceneBuilder::addOutputArc(const std::string &transition, const std::string &place, int weight){
 	arcs.append({transition.c_str(), place.c_str(), weight});
 }
 
-PetriNetScene* PetriNetSceneFactory::makeScene(){
+PetriNetScene* PetriNetSceneBuilder::makeScene(){
 	foreach(ArcEntry entry, arcs){
 		NetItem* start = scene->findNetItem(entry.src);
 		NetItem* end = scene->findNetItem(entry.dst);

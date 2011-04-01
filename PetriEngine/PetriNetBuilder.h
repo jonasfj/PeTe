@@ -1,7 +1,7 @@
-#ifndef PETRINETFACTORY_H
-#define PETRINETFACTORY_H
+#ifndef PETRINETBUILDER_H
+#define PETRINETBUILDER_H
 
-#include "AbstractPetriNetFactory.h"
+#include "AbstractPetriNetBuilder.h"
 #include <vector>
 #include <string>
 
@@ -10,8 +10,8 @@
 namespace PetriEngine{
 
 
-/** Factory for building PetriNets */
-class PetriNetFactory : public AbstractPetriNetFactory
+/** Builder for building engine representations of PetriNets */
+class PetriNetBuilder : public AbstractPetriNetBuilder
 {
 	struct Arc{
 		std::string place;
@@ -19,7 +19,7 @@ class PetriNetFactory : public AbstractPetriNetFactory
 		int weight;
 	};
 public:
-    PetriNetFactory();
+	PetriNetBuilder();
 	void addVariable(const std::string& name, int initialValue, int range);
 	void addPlace(const std::string& name, int tokens, double x, double y);
 	void addTransition(const std::string& name,
@@ -52,5 +52,5 @@ private:
 
 }
 
-#endif // PETRINETFACTORY_H
+#endif // PETRINETBUILDER_H
 

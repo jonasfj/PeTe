@@ -1,4 +1,4 @@
-#include "PetriNetFactory.h"
+#include "PetriNetBuilder.h"
 #include "PetriNet.h"
 
 #include "PQL/PQLParser.h"
@@ -9,21 +9,21 @@ using namespace std;
 
 namespace PetriEngine{
 
-PetriNetFactory::PetriNetFactory() : AbstractPetriNetFactory(){
+PetriNetBuilder::PetriNetBuilder() : AbstractPetriNetBuilder(){
 }
 
-void PetriNetFactory::addPlace(const string &name, int tokens, double, double){
+void PetriNetBuilder::addPlace(const string &name, int tokens, double, double){
 	places.push_back(name);
 	initialMarking.push_back(tokens);
 }
 
-void PetriNetFactory::addVariable(const string &name, int initialValue, int range){
+void PetriNetBuilder::addVariable(const string &name, int initialValue, int range){
 	variables.push_back(name);
 	initialVariableValues.push_back(initialValue);
 	ranges.push_back(range);
 }
 
-void PetriNetFactory::addTransition(const string &name,
+void PetriNetBuilder::addTransition(const string &name,
 									const string &condition,
 									const string &assignment,
 									double, double){
@@ -32,7 +32,7 @@ void PetriNetFactory::addTransition(const string &name,
 	assignments.push_back(assignment);
 }
 
-void PetriNetFactory::addInputArc(const string &place, const string &transition, int weight){
+void PetriNetBuilder::addInputArc(const string &place, const string &transition, int weight){
 	Arc arc;
 	arc.place = place;
 	arc.transition = transition;
@@ -40,7 +40,7 @@ void PetriNetFactory::addInputArc(const string &place, const string &transition,
 	inputArcs.push_back(arc);
 }
 
-void PetriNetFactory::addOutputArc(const string &transition, const string &place, int weight){
+void PetriNetBuilder::addOutputArc(const string &transition, const string &place, int weight){
 	Arc arc;
 	arc.transition = transition;
 	arc.place = place;
@@ -48,7 +48,7 @@ void PetriNetFactory::addOutputArc(const string &transition, const string &place
 	outputArcs.push_back(arc);
 }
 
-PetriNet* PetriNetFactory::makePetriNet(){
+PetriNet* PetriNetBuilder::makePetriNet(){
 	PetriNet* net = new PetriNet(places.size(), transitions.size(), variables.size());
 	size_t i;
 	//Create variables
@@ -129,13 +129,13 @@ PetriNet* PetriNetFactory::makePetriNet(){
 	return net;
 }
 
-MarkVal* PetriNetFactory::makeInitialMarking(){
+MarkVal* PetriNetBuilder::makeInitialMarking(){
 	MarkVal* m = new MarkVal[places.size()];
 	for(size_t i = 0; i < places.size(); i++)
 		m[i] = initialMarking[i];
 	return m;
 }
-VarVal* PetriNetFactory::makeInitialAssignment(){
+VarVal* PetriNetBuilder::makeInitialAssignment(){
 	VarVal* a = new VarVal[variables.size()];
 	for(size_t i = 0; i < variables.size(); i++)
 		a[i] = initialVariableValues[i];

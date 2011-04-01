@@ -3,12 +3,12 @@
 #include <QtGlobal>
 #include <QDebug>
 
-void PNMLParser::parse(QIODevice *input, PetriEngine::AbstractPetriNetFactory *factory){
+void PNMLParser::parse(QIODevice *input, PetriEngine::AbstractPetriNetBuilder *builder){
 	bool wasOpen = input->isOpen();
 	if(!wasOpen)
 		input->open(QIODevice::ReadOnly);
 	xml.setDevice(input);
-	this->factory = factory;
+	this->builder = builder;
 
 	idmap.clear();
 	arcs.clear();
@@ -34,9 +34,9 @@ void PNMLParser::parse(QIODevice *input, PetriEngine::AbstractPetriNetFactory *f
 		std::string src = idmap[entry.src].name.toStdString();
 		std::string dst = idmap[entry.dst].name.toStdString();
 		if(idmap[entry.src].type == Place && idmap[entry.dst].type == Transition)
-			factory->addInputArc(src, dst, entry.weight);
+			builder->addInputArc(src, dst, entry.weight);
 		else if(idmap[entry.src].type == Transition && idmap[entry.dst].type == Place)
-			factory->addOutputArc(src, dst, entry.weight);
+			builder->addOutputArc(src, dst, entry.weight);
 		else{
 			//TODO: Consider reporting an error
 			qDebug()<<"Error duing parse: Arc from \""<<src.c_str()<<"\" to \""<<dst.c_str()<<"\" is invalid";
@@ -48,7 +48,7 @@ void PNMLParser::parse(QIODevice *input, PetriEngine::AbstractPetriNetFactory *f
 
 	if(!wasOpen)
 		input->close();
-	this->factory = NULL;
+	this->builder = NULL;
 }
 
 void PNMLParser::pnml(){
@@ -88,7 +88,7 @@ void PNMLParser::variable(){
 	int range = xml.attributes().value("range").toString().toInt(&good);
 	if(good)
 		range = initialValue;
-	factory->addVariable(vname.toStdString(), initialValue, range);
+	builder->addVariable(vname.toStdString(), initialValue, range);
 
 	//Should work fine, even if it's a empty-element
 	xml.skipCurrentElement();
@@ -113,7 +113,7 @@ void PNMLParser::place(){
 			xml.skipCurrentElement();
 	}
 	//Create place
-	factory->addPlace(name.toStdString(), initialMarking, x, y);
+	builder->addPlace(name.toStdString(), initialMarking, x, y);
 	//Map id to name
 	idmap[id] = NodeName(Place, name);
 }
@@ -137,7 +137,7 @@ void PNMLParser::transition(){
 			xml.skipCurrentElement();
 	}
 	//Create transition
-	factory->addTransition(name.toStdString(),
+	builder->addTransition(name.toStdString(),
 						   conditions.toStdString(),
 						   assignments.toStdString(),
 						   x, y);

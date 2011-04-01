@@ -12,7 +12,7 @@ namespace PQL{
 	class AssignmentExpression;
 }
 
-class PetriNetFactory;
+class PetriNetBuilder;
 
 /** Type used for holding markings values */
 typedef int MarkVal;
@@ -71,7 +71,7 @@ private:
 	VarVal* _ranges;
 	PQL::Condition** _conditions;
 	PQL::AssignmentExpression** _assignments;
-	friend class PetriNetFactory;
+	friend class PetriNetBuilder;
 };
 
 } // PetriEngine

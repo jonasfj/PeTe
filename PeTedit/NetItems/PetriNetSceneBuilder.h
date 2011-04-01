@@ -1,14 +1,14 @@
-#ifndef PETRINETSCENEFACTORY_H
-#define PETRINETSCENEFACTORY_H
+#ifndef PETRINETSCENEBUILDER_H
+#define PETRINETSCENEBUILDER_H
 
-#include "AbstractPetriNetFactory.h"
+#include "AbstractPetriNetBuilder.h"
 
 #include <QUndoGroup>
 
 class PetriNetScene;
 
-/** Factory for PetriNetScene */
-class PetriNetSceneFactory : public PetriEngine::AbstractPetriNetFactory
+/** Builder for PetriNetScene */
+class PetriNetSceneBuilder : public PetriEngine::AbstractPetriNetBuilder
 {
 	struct ArcEntry{
 		QString src;
@@ -17,7 +17,7 @@ class PetriNetSceneFactory : public PetriEngine::AbstractPetriNetFactory
 	};
 public:
 	/** undogroup for the scene, and parent for the scene */
-	PetriNetSceneFactory(QUndoGroup* undoGroup, QObject* sceneParent);
+	PetriNetSceneBuilder(QUndoGroup* undoGroup, QObject* sceneParent);
 	void addPlace(const std::string &name, int tokens, double x, double y);
 	void addVariable(const std::string& name, int initialValue, int range);
 	void addTransition(const std::string &name,
@@ -33,4 +33,4 @@ private:
 	QList<ArcEntry> arcs;
 };
 
-#endif // PETRINETSCENEFACTORY_H
+#endif // PETRINETSCENEBUILDER_H

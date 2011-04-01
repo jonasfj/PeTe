@@ -1,7 +1,7 @@
 #ifndef PNMLPARSER_H
 #define PNMLPARSER_H
 
-#include "AbstractPetriNetFactory.h"
+#include "AbstractPetriNetBuilder.h"
 
 #include <QXmlStreamReader>
 #include <QIODevice>
@@ -39,9 +39,9 @@ class PNMLParser
 		int weight;
 	};
 public:
-	PNMLParser() { factory = NULL; }
-	/** Parse input and build result with factory */
-	void parse(QIODevice* input, PetriEngine::AbstractPetriNetFactory* factory);
+	PNMLParser() { builder = NULL; }
+	/** Parse input and build result with builder */
+	void parse(QIODevice* input, PetriEngine::AbstractPetriNetBuilder* builder);
 private:
 	void pnml();
 	void net();
@@ -51,8 +51,8 @@ private:
 	void arc();
 	void position(qreal& x, qreal& y);
 	void value(QString& value);
-	/** Factory for creating new petri net */
-	PetriEngine::AbstractPetriNetFactory* factory;
+	/** Builder for creating new petri net */
+	PetriEngine::AbstractPetriNetBuilder* builder;
 	QXmlStreamReader xml;
 	QList<ArcEntry> arcs;
 	/** Maps Ids to names */

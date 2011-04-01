@@ -400,26 +400,26 @@ void PetriNetScene::keyPressEvent(QKeyEvent *event) {
 	}
 }
 
-/******************** Produce using factory ********************/
+/******************** Produce using builder ********************/
 
-void PetriNetScene::produce(PetriEngine::AbstractPetriNetFactory* factory){
+void PetriNetScene::produce(PetriEngine::AbstractPetriNetBuilder* builder){
 
 	for(int row = 0; row < this->_variables->rowCount(); row++){
 		QString name = this->_variables->data(this->_variables->index(row, 0)).toString();
 		int value = this->_variables->data(this->_variables->index(row, 1)).toInt();
 		int range = this->_variables->data(this->_variables->index(row, 2)).toInt();
-		factory->addVariable(name.toStdString(), value, range);
+		builder->addVariable(name.toStdString(), value, range);
 	}
 
 	foreach(QGraphicsItem* item, this->items()) {
 		if(item->type() == NetEntity::PlaceItem) {
 			PlaceItem* p = dynamic_cast<PlaceItem*>(item);
 			Q_ASSERT(p != NULL);
-			factory->addPlace(p->name().toStdString(), p->tokens(), p->pos().x(), p->pos().y());
+			builder->addPlace(p->name().toStdString(), p->tokens(), p->pos().x(), p->pos().y());
 		} else if (item->type() == NetEntity::TransitionItem){
 			TransitionItem* t = dynamic_cast<TransitionItem*>(item);
 			Q_ASSERT(t != NULL);
-			factory->addTransition(t->name().toStdString(),
+			builder->addTransition(t->name().toStdString(),
 								   t->preConditions().toStdString(),
 								   t->postConditions().toStdString(),
 								   t->pos().x(),
@@ -433,9 +433,9 @@ void PetriNetScene::produce(PetriEngine::AbstractPetriNetFactory* factory){
 			std::string start = a->start()->name().toStdString();
 			std::string end = a->end()->name().toStdString();
 			if(a->isInputArc())
-				factory->addInputArc(start, end, a->weight());
+				builder->addInputArc(start, end, a->weight());
 			else
-				factory->addOutputArc(start, end, a->weight());
+				builder->addOutputArc(start, end, a->weight());
 		}
 	}
 }

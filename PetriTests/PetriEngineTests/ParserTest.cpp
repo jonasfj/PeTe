@@ -3,7 +3,7 @@
 #include <iostream>
 #include "PQL/PQLParser.h"
 #include "PQL/PQLExpressions.h"
-#include "PetriNetFactory.h"
+#include "PetriNetBuilder.h"
 
 using namespace PetriEngine;
 using namespace PetriEngine::PQL;
@@ -40,14 +40,14 @@ SUITE(PQLParserTest){
 
 		string queryString("P1==0&&P2==1");
 
-		PetriNetFactory fac;
-		fac.addPlace("P1",0,0,0);
-		fac.addPlace("P2",0,1,1);
-		fac.addTransition("T0",0.5,0.5);
-		fac.addInputArc("P1","T0",1);
-		fac.addOutputArc("T0","P2",1);
+		PetriNetBuilder builder;
+		builder.addPlace("P1",0,0,0);
+		builder.addPlace("P2",0,1,1);
+		builder.addTransition("T0",0.5,0.5);
+		builder.addInputArc("P1","T0",1);
+		builder.addOutputArc("T0","P2",1);
 
-		PetriNet net = *(fac.makePetriNet());
+		PetriNet net = *(builder.makePetriNet());
 
 		CTLParser parser(&net);
 		CTLExpr* query = parser.parse(queryString);

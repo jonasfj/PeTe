@@ -24,8 +24,6 @@ SOURCES	   += \
     Dialogs/EditPlaceDialog.cpp \
 	Dialogs/QueryDialog.cpp \
 	Dialogs/EditTransitionDialog.cpp \
-    DataFormats/PNMLFactory.cpp \
-    NetItems/PetriNetSceneFactory.cpp \
     Widgets/QueryEdit.cpp \
     Widgets/QueryHighlighter.cpp \
     Commands/RenameItemCommand.cpp \
@@ -36,7 +34,9 @@ SOURCES	   += \
     Widgets/VariableDelegate.cpp \
     Misc/QueryItem.cpp \
     Commands/EditQueryCommand.cpp \
-    Commands/AddRemoveQueryCommand.cpp
+    Commands/AddRemoveQueryCommand.cpp \
+    NetItems/PetriNetSceneBuilder.cpp \
+    DataFormats/PNMLBuilder.cpp
 
 
 HEADERS		+= \
@@ -57,8 +57,6 @@ HEADERS		+= \
     Dialogs/EditPlaceDialog.h \
     Dialogs/EditTransitionDialog.h \
 	Dialogs/QueryDialog.h \
-    DataFormats/PNMLFactory.h \
-    NetItems/PetriNetSceneFactory.h \
     Widgets/QueryEdit.h \
     Widgets/QueryHighlighter.h \
     Commands/RenameItemCommand.h \
@@ -69,7 +67,9 @@ HEADERS		+= \
     Widgets/VariableDelegate.h \
     Misc/QueryItem.h \
     Commands/EditQueryCommand.h \
-    Commands/AddRemoveQueryCommand.h
+    Commands/AddRemoveQueryCommand.h \
+    NetItems/PetriNetSceneBuilder.h \
+    DataFormats/PNMLBuilder.h
 
 
 FORMS		+= MainWindow.ui \

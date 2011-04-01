@@ -4,7 +4,7 @@
 #include "MainWindow.h"
 
 #include "DataFormats/PNMLParser.h"
-#include "PetriNetFactory.h"
+#include "PetriNetBuilder.h"
 #include "PetriNet.h"
 #include "PQL/PQLParser.h"
 #include "Reachability/DepthFirstReachabilitySearch.h"
@@ -37,14 +37,14 @@ int main(int argc, char *argv[])
 	QFile file(fileName);
 	if(!file.open(QIODevice::ReadOnly))
 		return 8;
-	PetriEngine::PetriNetFactory fac;
+	PetriEngine::PetriNetBuilder builder;
 	PNMLParser p;
-	p.parse(&file, &fac);
+	p.parse(&file, &builder);
 	file.close();
 	// Load network
-	PetriEngine::PetriNet* net = fac.makePetriNet();
-	PetriEngine::MarkVal* m0 = fac.makeInitialMarking();
-	PetriEngine::VarVal* a0 = fac.makeInitialAssignment();
+	PetriEngine::PetriNet* net = builder.makePetriNet();
+	PetriEngine::MarkVal* m0 = builder.makeInitialMarking();
+	PetriEngine::VarVal* a0 = builder.makeInitialAssignment();
 	//Load and analyze query
 	PetriEngine::PQL::Condition* query = PetriEngine::PQL::ParseQuery(queryString.toStdString());
 	if(!query) {

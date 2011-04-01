@@ -1,12 +1,12 @@
-#ifndef ABSTRACTPETRINETFACTORY_H
-#define ABSTRACTPETRINETFACTORY_H
+#ifndef ABSTRACTPETRINETBUILDER_H
+#define ABSTRACTPETRINETBUILDER_H
 
 #include <string>
 
 namespace PetriEngine{
 
-/** Abstract factory for petri nets */
-class AbstractPetriNetFactory{
+/** Abstract builder for petri nets */
+class AbstractPetriNetBuilder{
 public:
 	/** Add a new variable */
 	virtual void addVariable(const std::string& name,
@@ -35,4 +35,4 @@ public:
 
 }
 
-#endif // ABSTRACTPETRINETFACTORY_H
+#endif // ABSTRACTPETRINETBUILDER_H

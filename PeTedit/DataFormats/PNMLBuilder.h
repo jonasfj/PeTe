@@ -1,16 +1,16 @@
-#ifndef PNMLFACTORY_H
-#define PNMLFACTORY_H
+#ifndef PNMLBUILDER_H
+#define PNMLBUILDER_H
 
-#include "AbstractPetriNetFactory.h"
+#include "AbstractPetriNetBuilder.h"
 
 #include <QIODevice>
 #include <QXmlStreamWriter>
 
-/** Factory for PNML export */
-class PNMLFactory : public PetriEngine::AbstractPetriNetFactory
+/** Builder for PNML export */
+class PNMLBuilder : public PetriEngine::AbstractPetriNetBuilder
 {
 public:
-	PNMLFactory(QIODevice* device);
+	PNMLBuilder(QIODevice* device);
 	void addPlace(const std::string &name, int tokens, double x, double y);
 	void addVariable(const std::string& name, int initialValue, int range);
 	void addTransition(const std::string &name,
@@ -26,4 +26,4 @@ private:
 	void name(std::string name);
 };
 
-#endif // PNMLFACTORY_H
+#endif // PNMLBUILDER_H

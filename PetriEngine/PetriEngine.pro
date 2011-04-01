@@ -6,23 +6,23 @@ CONFIG		   += staticlib
 SOURCES		   += \
 	StandardOutputProgressReporter.cpp \
 	PetriNet.cpp \
-	PetriNetFactory.cpp \
 	PQL/PQLExpressions.cpp \  
 	Reachability/DepthFirstReachabilitySearch.cpp \
 	Reachability/CoverabilityTreeNode.cpp \
-    Reachability/ReachabilitySearchStrategy.cpp
+    Reachability/ReachabilitySearchStrategy.cpp \
+    PetriNetBuilder.cpp
 
 HEADERS		   += \
-	AbstractPetriNetFactory.h \
 	ProgressReporter.h \
-	PetriNetFactory.h \
 	PetriNet.h \
 	StandardOutputProgressReporter.h \
 	PQL/PQLExpressions.h \
     PQL/PQLParser.h \
     Reachability/ReachabilitySearchStrategy.h \
 	Reachability/DepthFirstReachabilitySearch.h \
-	Reachability/CoverabilityTreeNode.h
+	Reachability/CoverabilityTreeNode.h \
+    PetriNetBuilder.h \
+    AbstractPetriNetBuilder.h
 
 TARGET			= ../PetriEngine
 

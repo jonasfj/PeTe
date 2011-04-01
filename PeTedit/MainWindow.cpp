@@ -5,15 +5,15 @@
 #include "NetItems/PetriNetView.h"
 #include "NetItems/NetItem.h"
 
-#include "PetriNetFactory.h"
+#include "PetriNetBuilder.h"
 //#include "DepthFirstReachabilitySearch.h"
 //#include "CoverabilityTreeNode.h"
 
 #include "Dialogs/QueryDialog.h"
 
 #include "DataFormats/PNMLParser.h"
-#include "DataFormats/PNMLFactory.h"
-#include "NetItems/PetriNetSceneFactory.h"
+#include "DataFormats/PNMLBuilder.h"
+#include "NetItems/PetriNetSceneBuilder.h"
 #include "Widgets/VariableDelegate.h"
 
 #include <PQL/PQLParser.h>
@@ -111,11 +111,11 @@ void MainWindow::on_OpenAction_triggered(){
 		if(!file.open(QIODevice::ReadOnly))
 			return;
 		QGraphicsView* view = new PetriNetView();
-		PetriNetSceneFactory fac(this->undoGroup, view);
+		PetriNetSceneBuilder builder(this->undoGroup, view);
 		PNMLParser p;
-		p.parse(&file, &fac);
+		p.parse(&file, &builder);
 		file.close();
-		view->setScene(fac.makeScene());
+		view->setScene(builder.makeScene());
 		view->setRenderHints(QPainter::Antialiasing |
 							 QPainter::SmoothPixmapTransform |
 							 QPainter::TextAntialiasing);
@@ -205,10 +205,10 @@ void MainWindow::on_NewQueryAction_triggered()
 		// Get raw query text.
 		QString queryText = dlg->query();
 
-		PetriEngine::PetriNetFactory* fac = new PetriEngine::PetriNetFactory();
-		this->currentScene->produce(fac);
-		PetriEngine::PetriNet* net = fac->makePetriNet();
-		PetriEngine::MarkVal* m0 = fac->makeInitialMarking();
+		PetriEngine::PetriNetBuilder* builder = new PetriEngine::PetriNetBuilder();
+		this->currentScene->produce(builder);
+		PetriEngine::PetriNet* net = builder->makePetriNet();
+		PetriEngine::MarkVal* m0 = builder->makeInitialMarking();
 
 		PetriEngine::PQL::Condition* query = PetriEngine::PQL::ParseQuery(queryText.toStdString());
 		PetriEngine::PQL::AnalysisContext context(*net, true);
@@ -251,9 +251,9 @@ void MainWindow::on_SaveAction_triggered()
 		QFile file(fname);
 		if(!file.open(QIODevice::WriteOnly))
 			return;
-		PNMLFactory fac(&file);
-		currentScene->produce(&fac);
-		fac.makePNMLFile();
+		PNMLBuilder builder(&file);
+		currentScene->produce(&builder);
+		builder.makePNMLFile();
 		file.close();
 	}
 }

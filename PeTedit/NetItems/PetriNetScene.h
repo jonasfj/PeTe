@@ -6,7 +6,7 @@
 #include <QUndoGroup>
 #include <QStandardItemModel>
 
-#include "AbstractPetriNetFactory.h"
+#include "AbstractPetriNetBuilder.h"
 
 class NetItem;
 class PlaceItem;
@@ -61,8 +61,8 @@ public:
 	/** Find an arc from start to end, NULL if none */
 	ArcItem* findArc(NetItem* start, NetItem* end);
 
-	/** Produce a copy using factory */
-	void produce(PetriEngine::AbstractPetriNetFactory* factory);
+	/** Produce a copy using builder */
+	void produce(PetriEngine::AbstractPetriNetBuilder* builder);
 
 	/** Add a new variable to the net */
 	void addVariable(QString name, int value, int range);
