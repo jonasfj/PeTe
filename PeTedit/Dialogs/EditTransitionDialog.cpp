@@ -16,6 +16,7 @@ QString EditTransitionDialog::name() const{
 void EditTransitionDialog::setIdentifiers(const QStringList& places, const QStringList& variables){
 	ui->preconditions->initializeSpecialPowers(places, variables);
 	ui->postconditions->initializeSpecialPowers(places, variables);
+	//TODO: Save places and variables, for test parsing and context analysis
 }
 
 // Set the name text for transition

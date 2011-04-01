@@ -4,6 +4,9 @@
 #include <QDialog>
 #include "../Misc/QueryItem.h"
 
+#include <vector>
+#include <string>
+
 namespace Ui {
     class QueryDialog;
 }
@@ -27,7 +30,10 @@ public:
 
     ~QueryDialog();
 private:
-	QString _query;
+	/** Names of places (for context analysis) */
+	std::vector<std::string> _places;
+	/** Names of variables (for context analysis) */
+	std::vector<std::string> _variables;
     Ui::QueryDialog *ui;
 };
 

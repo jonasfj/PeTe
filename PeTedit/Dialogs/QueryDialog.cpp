@@ -6,6 +6,7 @@
 
 #include "PQL/PQLParser.h"
 #include "Reachability/ReachabilitySearchStrategy.h"
+#include "PQL/PQLExpressions.h"
 
 QueryDialog::QueryDialog(QueryItem* item, QWidget *parent)
 	: QDialog(parent), ui(new Ui::QueryDialog)
@@ -31,9 +32,21 @@ void QueryDialog::accept(){
 	//TODO: Do context analysis here and display errors we get from this
 	//		Errors should be annotated in the tree and reported during analysis
 	if(cond){
+		PetriEngine::PQL::AnalysisContext context(_places, _variables);
+		cond->analyze(context);
+
+		bool hasError = false;
+		for(size_t i = 0; i < context.errors().size(); i++){
+			QMessageBox::warning(this, "Context analysis error", context.errors()[i].text().c_str());
+			//TODO: Underline the error in the view...
+			hasError = true;
+		}
+
 		delete cond;
 		cond = NULL;
-		QDialog::accept();
+
+		if(!hasError)
+			QDialog::accept();
 	}else{
 		QMessageBox::warning(this, "Parsing error!", "There was some parsing error!");
 	}
@@ -54,6 +67,12 @@ QString QueryDialog::strategy() const{
 
 void QueryDialog::setIdentifiers(const QStringList &places, const QStringList& variables){
 	ui->queryEdit->initializeSpecialPowers(places, variables);
+	_places.clear();
+	foreach(const QString& place, places)
+		_places.push_back(place.toStdString());
+	_variables.clear();
+	foreach(const QString& variable, variables)
+		_variables.push_back(variable.toStdString());
 }
 
 QueryDialog::~QueryDialog()
