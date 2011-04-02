@@ -10,7 +10,8 @@ SOURCES		   += \
 	Reachability/DepthFirstReachabilitySearch.cpp \
 	Reachability/CoverabilityTreeNode.cpp \
     Reachability/ReachabilitySearchStrategy.cpp \
-    PetriNetBuilder.cpp
+    PetriNetBuilder.cpp \
+    ValidationBuilder.cpp
 
 HEADERS		   += \
 	ProgressReporter.h \
@@ -23,7 +24,8 @@ HEADERS		   += \
 	Reachability/CoverabilityTreeNode.h \
     PetriNetBuilder.h \
     AbstractPetriNetBuilder.h \
-    Reachability/ReachabilityResult.h
+    Reachability/ReachabilityResult.h \
+    ValidationBuilder.h
 
 TARGET			= ../PetriEngine
 

@@ -16,7 +16,7 @@ class ExprError{
 	int _offset;
 	int _length;
 public:
-	ExprError(std::string text, int offset = -1, int length = 0){
+	ExprError(std::string text = "", int offset = -1, int length = 0){
 		_text = text;
 		_offset = offset;
 		_length = length;
@@ -31,6 +31,10 @@ public:
 	/** Convert error to string */
 	std::string toString() const {
 		return "Parsing error \"" + text() + "\"";
+	}
+	/** True, if this is a default created ExprError without any information */
+	bool isEmpty() const {
+		return _text.empty() && _offset == -1 && _length == 0;
 	}
 };
 
