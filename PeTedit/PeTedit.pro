@@ -36,7 +36,8 @@ SOURCES	   += \
     Commands/EditQueryCommand.cpp \
     Commands/AddRemoveQueryCommand.cpp \
     NetItems/PetriNetSceneBuilder.cpp \
-    DataFormats/PNMLBuilder.cpp
+    DataFormats/PNMLBuilder.cpp \
+    Misc/ValidationIssuesModel.cpp
 
 
 HEADERS		+= \
@@ -69,7 +70,8 @@ HEADERS		+= \
     Commands/EditQueryCommand.h \
     Commands/AddRemoveQueryCommand.h \
     NetItems/PetriNetSceneBuilder.h \
-    DataFormats/PNMLBuilder.h
+    DataFormats/PNMLBuilder.h \
+    Misc/ValidationIssuesModel.h
 
 
 FORMS		+= MainWindow.ui \

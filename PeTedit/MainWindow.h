@@ -41,6 +41,7 @@ private slots:
 	void modeActionGroup_triggered(QAction* action);
 	void on_actionExport_SVG_triggered();
 	void on_deleteQuery_clicked();
+	void on_validateAction_triggered();
 	};
 
 #endif // MAINWINDOW_H

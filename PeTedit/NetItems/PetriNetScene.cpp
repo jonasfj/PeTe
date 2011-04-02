@@ -23,6 +23,10 @@
 
 #include "PetriNetScene.h"
 
+#include "../Misc/ValidationIssuesModel.h"
+
+#include <PetriEngine/ValidationBuilder.h>
+
 #include <QGraphicsSceneMouseEvent>
 #include <QKeyEvent>
 #include <QtGlobal>
@@ -47,6 +51,9 @@ PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, QObject* parent) :
 	// Create query model (name)
 	this->_queries = new QStandardItemModel(0, 1, this);
 	this->_queries->setHeaderData(0, Qt::Horizontal, "Query");
+
+	// Create valiation issue model
+	this->_validationIssues = new ValidationIssuesModel(this);
 
 	//Set initial mode
 	this->setMode(PointerMode);
@@ -243,7 +250,6 @@ void PetriNetScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event){
 		}
 	}
 }
-
 void PetriNetScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event){
 	if(this->mode() == PointerMode && event->button() == Qt::LeftButton){
 		QPointF d = event->scenePos() - event->buttonDownScenePos(Qt::LeftButton);
@@ -483,6 +489,58 @@ void PetriNetScene::removeQuery(const QModelIndex& index){
 }
 
 
+/******************** Validation handling ********************/
 
+/** Refresh the model with validation issues */
+void PetriNetScene::validate(){
+	//Get the list of issues
+	PetriEngine::ValidationBuilder validator;
+	produce(&validator);
+	validator.validate();
 
+	_validationIssues->setIssues(validator.errors());
 
+	//Clear existing issues
+//	_validationIssues->clear();
+
+	//List all the issues
+	/*const std::vector<PetriEngine::ValidationError>& issues = validator.errors();
+	for(size_t i = 0; issues.size(); i++){
+		const PetriEngine::ValidationError& issue = issues[i];
+
+		QString msg, location;
+		if(issue.hasExprError()){
+			msg = issue.exprError().toString().c_str();
+			if(issue.isConditionError())
+				location = "In the pre-condition for \"";
+			else
+				location = "In the post-assignemnt for \"";
+			location += issue.startIdentifier().c_str();
+			location += "\"";
+		}else{
+			msg = issue.text().c_str();
+			if(issue.endIdentifier().empty()){
+				location += "In \"";
+				location +=  issue.startIdentifier().c_str();
+				location += "\"";
+			}else{
+				location = "In arc from \"";
+				location += issue.startIdentifier().c_str();
+				location += "\" to \"";
+				location += issue.endIdentifier().c_str();
+				location += "\"";
+			}
+		}
+
+		QStandardItem* issueItem = new QStandardItem(msg);
+		QStandardItem* locationItem = new QStandardItem(location);
+		QList<QStandardItem*> row;
+		row.append(issueItem);
+		row.append(locationItem);
+		_validationIssues->appendRow(row);
+	}*/
+}
+
+void PetriNetScene::showValidationIssue(const QModelIndex &index){
+	_validationIssues->showValidationIssue(this, index);
+}

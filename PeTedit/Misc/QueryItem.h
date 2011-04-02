@@ -3,6 +3,7 @@
 
 #include <QStandardItem>
 
+/** Item for a QStandardItemModel for queries */
 class QueryItem : public QStandardItem
 {
 public:

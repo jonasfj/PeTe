@@ -12,6 +12,7 @@ class NetItem;
 class PlaceItem;
 class TransitionItem;
 class ArcItem;
+class ValidationIssuesModel;
 
 /** A TAPN document, the model behind the view */
 class PetriNetScene : public QGraphicsScene
@@ -68,14 +69,13 @@ public:
 	void addVariable(QString name, int value, int range);
 
 	/** Get the variables */
-	QStandardItemModel* variables() {
-		return this->_variables;
-	}
+	QStandardItemModel* variables() { return this->_variables; }
 
 	/** Get query model */
-	QStandardItemModel* queries() {
-		return _queries;
-	}
+	QStandardItemModel* queries() { return _queries; }
+
+	/** Get validation issue model */
+	ValidationIssuesModel* validationIssues() { return _validationIssues; }
 
 	/** Check if this is a valid available identifier */
 	bool isValidAvailableIdentifier(const QString& id) const;
@@ -93,6 +93,9 @@ private:
 
 	/** Model holding queries */
 	QStandardItemModel* _queries;
+
+	/** Model holding validation issues, from last call to validate */
+	ValidationIssuesModel* _validationIssues;
 
 	/** Undo stack */
 	QUndoStack* _undoStack;
@@ -116,6 +119,10 @@ public slots:
 	void removeQuery(const QModelIndex& index);
 	/** Edit query */
 	void editQuery(const QModelIndex& index);
+	/** Refresh the model with validation issues */
+	void validate();
+	/** Scroll to, select or otherwise highlight the issue */
+	void showValidationIssue(const QModelIndex& index);
 };
 
 #endif // PETRINETSCENE_H

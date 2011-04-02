@@ -24,7 +24,7 @@ public:
 		return _preConditions;
 	}
 	void setPreConditions(const QString& conditions){
-		_postConditions = conditions;
+		_preConditions = conditions;
 		refreshTooltip();
 	}
 
@@ -33,7 +33,7 @@ public:
 		return _postConditions;
 	}
 	void setPostConditions(const QString& conditions){
-		_preConditions = conditions;
+		_postConditions = conditions;
 		refreshTooltip();
 	}
 

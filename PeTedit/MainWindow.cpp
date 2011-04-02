@@ -16,6 +16,8 @@
 #include "NetItems/PetriNetSceneBuilder.h"
 #include "Widgets/VariableDelegate.h"
 
+#include "Misc/ValidationIssuesModel.h"
+
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/PQL/PQLExpressions.h>
 
@@ -168,20 +170,34 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 		disconnect(ui->addQuery, SIGNAL(clicked()), previousScene, SLOT(addQuery()));
 		disconnect(ui->queryListView, SIGNAL(doubleClicked(QModelIndex)),
 				   previousScene, SLOT(editQuery(QModelIndex)));
+		disconnect(ui->refreshValidationButton, SIGNAL(clicked()),
+					previousScene, SLOT(validate()));
+		disconnect(ui->clearValidationButton, SIGNAL(clicked()),
+					previousScene->validationIssues(), SLOT(clear()));
+		disconnect(ui->validationView, SIGNAL(doubleClicked(QModelIndex)),
+					previousScene, SLOT(showValidationIssue(QModelIndex)));
 		ui->variableView->setModel(NULL);
 		ui->queryListView->setModel(NULL);
+		ui->validationView->setModel(NULL);
 	}
 
 	if(currentScene){
 		currentScene->setActive();
 		ui->variableView->setModel(currentScene->variables());
 		ui->queryListView->setModel(currentScene->queries());
+		ui->validationView->setModel(currentScene->validationIssues());
 
 		connect(this->currentScene, SIGNAL(modeChanged(PetriNetScene::Mode)),
 				this, SLOT(currentScene_modeChanged(PetriNetScene::Mode)));
 		connect(ui->addQuery, SIGNAL(clicked()), currentScene, SLOT(addQuery()));
 		connect(ui->queryListView, SIGNAL(doubleClicked(QModelIndex)),
 				currentScene, SLOT(editQuery(QModelIndex)));
+		connect(ui->refreshValidationButton, SIGNAL(clicked()),
+				currentScene, SLOT(validate()));
+		connect(ui->clearValidationButton, SIGNAL(clicked()),
+				currentScene->validationIssues(), SLOT(clear()));
+		connect(ui->validationView, SIGNAL(doubleClicked(QModelIndex)),
+				currentScene, SLOT(showValidationIssue(QModelIndex)));
 
 		this->currentScene_modeChanged(this->currentScene->mode());
 	}
@@ -332,4 +348,15 @@ void MainWindow::on_actionExport_SVG_triggered()
 void MainWindow::on_deleteQuery_clicked(){
 	if(currentScene)
 		currentScene->removeQuery(ui->queryListView->currentIndex());
+}
+
+/** Validate the petri net */
+void MainWindow::on_validateAction_triggered()
+{
+	if(!currentScene)
+		return;
+	currentScene->validate();
+	if(ui->validationDock->isHidden() &&
+	   currentScene->validationIssues()->rowCount() > 0)
+		ui->validationDock->show();
 }
