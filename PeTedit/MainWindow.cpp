@@ -61,6 +61,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	toggleQueryDock->setText(tr("Show queries"));
 	ui->menuView->addAction(toggleQueryDock);
 
+	//Decide which dock-widget gets the corners
+	this->setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
+	this->setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
+	this->setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea);
+	this->setCorner(Qt::TopRightCorner, Qt::RightDockWidgetArea);
+
 	//Action group for editing mode
 	ui->InsertPlaceModeAction->setProperty("Mode", PetriNetScene::InsertPlaceMode);
 	ui->PointerModeAction->setProperty("Mode", PetriNetScene::PointerMode);
@@ -252,7 +258,7 @@ void MainWindow::on_SaveAction_triggered()
 {
 	if(!currentScene)
 		return;
-	QString fname = QFileDialog::getSaveFileName(this, "Save Petri Net");
+	QString fname = QFileDialog::getSaveFileName(this, "Save Petri Net as PNML");
 	if(fname != ""){
 		QFile file(fname);
 		if(!file.open(QIODevice::WriteOnly))
@@ -292,7 +298,7 @@ void MainWindow::on_actionExport_SVG_triggered()
 {
 	if(!currentScene)
 		return;
-	QString fname = QFileDialog::getSaveFileName(this, "Save Petri Net");
+	QString fname = QFileDialog::getSaveFileName(this, "Export Petri Net to SVG");
 	if(fname != ""){
 		QFile file(fname);
 		if(!file.open(QIODevice::WriteOnly))
