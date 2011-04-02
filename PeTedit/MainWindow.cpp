@@ -44,30 +44,40 @@ MainWindow::MainWindow(QWidget *parent) :
 	//QLayout* layout = new QHBoxLayout(ui->panel);
 	//layout->addWidget(new QUndoView(undoGroup, this));
 
-	// variable editor
+	// Variable editor
 	VariableDelegate* delegate = new VariableDelegate(this);
 	ui->variableView->setItemDelegate(delegate);
 	ui->variableView->horizontalHeader()->setStretchLastSection(true);
 
-	// Add variable button
+	// Set icons on variable buttons
 	ui->addVariable->setIcon(QIcon::fromTheme("list-add"));
 	ui->deleteVariable->setIcon(QIcon::fromTheme("list-remove"));
 
-	//Add actions for toggling dockwidgets
+	// Set icons on validation buttons
+	ui->refreshValidationButton->setIcon(QIcon::fromTheme("view-refresh"));
+	ui->clearValidationButton->setIcon(QIcon::fromTheme("edit-delete"));
+
+	// Add actions for toggling dockwidgets
 	QAction* toggleVariablesDock = ui->variableDock->toggleViewAction();
 	toggleVariablesDock->setText(tr("Show variables"));
 	ui->menuView->addAction(toggleVariablesDock);
 	QAction* toggleQueryDock = ui->queryDock->toggleViewAction();
 	toggleQueryDock->setText(tr("Show queries"));
 	ui->menuView->addAction(toggleQueryDock);
+	QAction* toggleValidationDock = ui->validationDock->toggleViewAction();
+	toggleValidationDock->setText(tr("Show validation issues"));
+	ui->menuView->addAction(toggleValidationDock);
 
-	//Decide which dock-widget gets the corners
+	//Hide validation dock initially
+	ui->validationDock->hide();
+
+	// Decide which dock-widget gets the corners
 	this->setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
 	this->setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 	this->setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea);
 	this->setCorner(Qt::TopRightCorner, Qt::RightDockWidgetArea);
 
-	//Action group for editing mode
+	// Action group for editing mode
 	ui->InsertPlaceModeAction->setProperty("Mode", PetriNetScene::InsertPlaceMode);
 	ui->PointerModeAction->setProperty("Mode", PetriNetScene::PointerMode);
 	ui->InsertTransitionModeAction->setProperty("Mode", PetriNetScene::InsertTransitionMode);
@@ -82,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(this->modeActionGroup, SIGNAL(triggered(QAction*)),
 			this, SLOT(modeActionGroup_triggered(QAction*)));
 
-	//Create new document
+	// Create new document
 	ui->NewTapnAction->trigger();
 }
 
