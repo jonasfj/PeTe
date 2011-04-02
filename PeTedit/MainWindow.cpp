@@ -50,9 +50,16 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->variableView->horizontalHeader()->setStretchLastSection(true);
 
 	// Add variable button
-
 	ui->addVariable->setIcon(QIcon::fromTheme("list-add"));
 	ui->deleteVariable->setIcon(QIcon::fromTheme("list-remove"));
+
+	//Add actions for toggling dockwidgets
+	QAction* toggleVariablesDock = ui->variableDock->toggleViewAction();
+	toggleVariablesDock->setText(tr("Show variables"));
+	ui->menuView->addAction(toggleVariablesDock);
+	QAction* toggleQueryDock = ui->queryDock->toggleViewAction();
+	toggleQueryDock->setText(tr("Show queries"));
+	ui->menuView->addAction(toggleQueryDock);
 
 	//Action group for editing mode
 	ui->InsertPlaceModeAction->setProperty("Mode", PetriNetScene::InsertPlaceMode);
