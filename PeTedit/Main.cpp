@@ -4,10 +4,11 @@
 #include "MainWindow.h"
 
 #include "DataFormats/PNMLParser.h"
-#include "PetriNetBuilder.h"
-#include "PetriNet.h"
-#include "PQL/PQLParser.h"
-#include "Reachability/DepthFirstReachabilitySearch.h"
+#include <PetriEngine/PetriNetBuilder.h>
+#include <PetriEngine/PetriNet.h>
+#include <PetriEngine/PQL/PQLParser.h>
+#include <PetriEngine/Reachability/DepthFirstReachabilitySearch.h>
+#include <PetriEngine/PQL/PQLExpressions.h>
 
 int main(int argc, char *argv[])
 {

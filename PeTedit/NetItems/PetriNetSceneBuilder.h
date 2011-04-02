@@ -1,7 +1,7 @@
 #ifndef PETRINETSCENEBUILDER_H
 #define PETRINETSCENEBUILDER_H
 
-#include "AbstractPetriNetBuilder.h"
+#include <PetriEngine/AbstractPetriNetBuilder.h>
 
 #include <QUndoGroup>
 

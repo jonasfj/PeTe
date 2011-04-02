@@ -4,9 +4,9 @@
 
 #include <QMessageBox>
 
-#include "PQL/PQLParser.h"
-#include "Reachability/ReachabilitySearchStrategy.h"
-#include "PQL/PQLExpressions.h"
+#include <PetriEngine/PQL/PQLParser.h>
+#include <PetriEngine/Reachability/ReachabilitySearchStrategy.h>
+#include <PetriEngine/PQL/PQLExpressions.h>
 
 QueryDialog::QueryDialog(QueryItem* item, QWidget *parent)
 	: QDialog(parent), ui(new Ui::QueryDialog)

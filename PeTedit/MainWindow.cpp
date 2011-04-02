@@ -5,7 +5,7 @@
 #include "NetItems/PetriNetView.h"
 #include "NetItems/NetItem.h"
 
-#include "PetriNetBuilder.h"
+#include <PetriEngine/PetriNetBuilder.h>
 //#include "DepthFirstReachabilitySearch.h"
 //#include "CoverabilityTreeNode.h"
 
@@ -16,8 +16,8 @@
 #include "NetItems/PetriNetSceneBuilder.h"
 #include "Widgets/VariableDelegate.h"
 
-#include <PQL/PQLParser.h>
-#include <PQL/PQLExpressions.h>
+#include <PetriEngine/PQL/PQLParser.h>
+#include <PetriEngine/PQL/PQLExpressions.h>
 
 #include <QGraphicsView>
 #include <QUndoView>

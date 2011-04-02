@@ -2,7 +2,7 @@ TEMPLATE	 = app
 
 QMAKE_CXXFLAGS	+= -std=c++0x
 QT		  		+= core gui svg
-INCLUDEPATH		+= ../PetriEngine
+INCLUDEPATH		+= ../
 LIBS			+= -L../ -lPetriEngine
 PRE_TARGETDEPS	+= ../PetriEngine
 

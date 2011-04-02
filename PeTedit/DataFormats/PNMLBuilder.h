@@ -1,7 +1,7 @@
 #ifndef PNMLBUILDER_H
 #define PNMLBUILDER_H
 
-#include "AbstractPetriNetBuilder.h"
+#include <PetriEngine/AbstractPetriNetBuilder.h>
 
 #include <QIODevice>
 #include <QXmlStreamWriter>

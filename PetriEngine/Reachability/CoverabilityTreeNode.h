@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "PetriNet.h"
+#include "../PetriNet.h"
 namespace PetriEngine { namespace Reachability {
 
 /** Represents a node in the coverability tree of a Petri-net */

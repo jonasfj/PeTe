@@ -2,6 +2,7 @@
 #include "PetriNet.h"
 
 #include "PQL/PQLParser.h"
+#include "PQL/PQLExpressions.h"
 
 #include <assert.h>
 

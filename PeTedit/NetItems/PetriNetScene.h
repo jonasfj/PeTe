@@ -6,7 +6,7 @@
 #include <QUndoGroup>
 #include <QStandardItemModel>
 
-#include "AbstractPetriNetBuilder.h"
+#include <PetriEngine/AbstractPetriNetBuilder.h>
 
 class NetItem;
 class PlaceItem;

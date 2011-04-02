@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../PQL/PQLExpressions.h"
+
 using namespace PetriEngine::PQL;
 
 namespace PetriEngine{ namespace Reachability {

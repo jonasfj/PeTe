@@ -2,9 +2,11 @@
 #define PQLPARSER_H
 
 #include <string>
-#include "PQLExpressions.h"
 
 namespace PetriEngine { namespace PQL {
+
+class Condition;
+class AssignmentExpression;
 
 Condition* ParseQuery(const std::string& queryString);
 AssignmentExpression* ParseAssignment(const std::string& assignmentString);
