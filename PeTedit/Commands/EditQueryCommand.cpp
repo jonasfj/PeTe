@@ -2,14 +2,12 @@
 
 #include "../Misc/QueryItem.h"
 
-EditQueryCommand::EditQueryCommand(QueryItem *item,
-								   const QString &name,
-								   const QString &query,
-								   const QString &strategy){
-	_item = item;
-	_name = name;
+EditQueryCommand::EditQueryCommand(QueryModel *model,
+								   int row,
+								   const QueryModel::Query& query){
+	_model = model;
+	_row = row;
 	_query = query;
-	_strategy = strategy;
 }
 
 void EditQueryCommand::undo(){
@@ -21,13 +19,10 @@ void EditQueryCommand::redo(){
 }
 
 void EditQueryCommand::swap(){
-	QString name = _item->name(),
-			query = _item->query(),
-			strategy = _item->strategy();
-	_item->setName(_name);
-	_item->setQuery(_query);
-	_item->setStrategy(_strategy);
-	_name = name;
-	_query = query;
-	_strategy = strategy;
+	//TODO: Try emitting the dataChanged signal on QueryModel instead
+	_model->beginResetModel();
+	QueryModel::Query& q = _model->_queries[_row];
+	_model->_queries[_row] = _query;
+	_query = q;
+	_model->endResetModel();
 }

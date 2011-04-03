@@ -32,12 +32,12 @@ SOURCES	   += \
     Commands/DeleteItemCommand.cpp \
     Commands/EditTransitionCommand.cpp \
     Widgets/VariableDelegate.cpp \
-    Misc/QueryItem.cpp \
     Commands/EditQueryCommand.cpp \
     Commands/AddRemoveQueryCommand.cpp \
     NetItems/PetriNetSceneBuilder.cpp \
     DataFormats/PNMLBuilder.cpp \
-    Misc/ValidationIssuesModel.cpp
+    Misc/ValidationIssuesModel.cpp \
+    Misc/QueryModel.cpp
 
 
 HEADERS		+= \
@@ -66,12 +66,12 @@ HEADERS		+= \
     Commands/DeleteItemCommand.h \
     Commands/EditTransitionCommand.h \
     Widgets/VariableDelegate.h \
-    Misc/QueryItem.h \
     Commands/EditQueryCommand.h \
     Commands/AddRemoveQueryCommand.h \
     NetItems/PetriNetSceneBuilder.h \
     DataFormats/PNMLBuilder.h \
-    Misc/ValidationIssuesModel.h
+    Misc/ValidationIssuesModel.h \
+    Misc/QueryModel.h
 
 
 FORMS		+= MainWindow.ui \

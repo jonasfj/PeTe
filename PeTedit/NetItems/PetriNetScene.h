@@ -13,6 +13,7 @@ class PlaceItem;
 class TransitionItem;
 class ArcItem;
 class ValidationIssuesModel;
+class QueryModel;
 
 /** A TAPN document, the model behind the view */
 class PetriNetScene : public QGraphicsScene
@@ -48,6 +49,9 @@ public:
 		emit modeChanged(mode);
 	}
 
+	/** Get the undo stack for this scene */
+	QUndoStack* undoStack() { return _undoStack; }
+
 	/** Find a net item with the given name */
 	NetItem* findNetItem(const QString& name);
 
@@ -72,7 +76,7 @@ public:
 	QStandardItemModel* variables() { return this->_variables; }
 
 	/** Get query model */
-	QStandardItemModel* queries() { return _queries; }
+	QueryModel* queries() { return _queries; }
 
 	/** Get validation issue model */
 	ValidationIssuesModel* validationIssues() { return _validationIssues; }
@@ -92,7 +96,7 @@ private:
 	QStandardItemModel* _variables;
 
 	/** Model holding queries */
-	QStandardItemModel* _queries;
+	QueryModel* _queries;
 
 	/** Model holding validation issues, from last call to validate */
 	ValidationIssuesModel* _validationIssues;
@@ -113,12 +117,6 @@ signals:
 	void modeChanged(PetriNetScene::Mode mode);
 public slots:
 	void updateSceneRect();
-	/** Add new query */
-	void addQuery();
-	/** Remove query */
-	void removeQuery(const QModelIndex& index);
-	/** Edit query */
-	void editQuery(const QModelIndex& index);
 	/** Refresh the model with validation issues */
 	void validate();
 	/** Scroll to, select or otherwise highlight the issue */

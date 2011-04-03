@@ -42,6 +42,8 @@ private slots:
 	void on_actionExport_SVG_triggered();
 	void on_deleteQuery_clicked();
 	void on_validateAction_triggered();
+	void on_queryView_doubleClicked(QModelIndex index);
+	void on_addQueryAction_triggered();
 	};
 
 #endif // MAINWINDOW_H

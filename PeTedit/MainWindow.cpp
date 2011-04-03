@@ -9,14 +9,13 @@
 //#include "DepthFirstReachabilitySearch.h"
 //#include "CoverabilityTreeNode.h"
 
-#include "Dialogs/QueryDialog.h"
-
 #include "DataFormats/PNMLParser.h"
 #include "DataFormats/PNMLBuilder.h"
 #include "NetItems/PetriNetSceneBuilder.h"
 #include "Widgets/VariableDelegate.h"
 
 #include "Misc/ValidationIssuesModel.h"
+#include "Misc/QueryModel.h"
 
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/PQL/PQLExpressions.h>
@@ -167,9 +166,6 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 	if(previousScene){
 		disconnect(previousScene, SIGNAL(modeChanged(PetriNetScene::Mode)),
 				   this,  SLOT(currentScene_modeChanged(PetriNetScene::Mode)));
-		disconnect(ui->addQuery, SIGNAL(clicked()), previousScene, SLOT(addQuery()));
-		disconnect(ui->queryListView, SIGNAL(doubleClicked(QModelIndex)),
-				   previousScene, SLOT(editQuery(QModelIndex)));
 		disconnect(ui->refreshValidationButton, SIGNAL(clicked()),
 					previousScene, SLOT(validate()));
 		disconnect(ui->clearValidationButton, SIGNAL(clicked()),
@@ -177,21 +173,18 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 		disconnect(ui->validationView, SIGNAL(doubleClicked(QModelIndex)),
 					previousScene, SLOT(showValidationIssue(QModelIndex)));
 		ui->variableView->setModel(NULL);
-		ui->queryListView->setModel(NULL);
+		ui->queryView->setModel(NULL);
 		ui->validationView->setModel(NULL);
 	}
 
 	if(currentScene){
 		currentScene->setActive();
 		ui->variableView->setModel(currentScene->variables());
-		ui->queryListView->setModel(currentScene->queries());
+		ui->queryView->setModel(currentScene->queries());
 		ui->validationView->setModel(currentScene->validationIssues());
 
 		connect(this->currentScene, SIGNAL(modeChanged(PetriNetScene::Mode)),
 				this, SLOT(currentScene_modeChanged(PetriNetScene::Mode)));
-		connect(ui->addQuery, SIGNAL(clicked()), currentScene, SLOT(addQuery()));
-		connect(ui->queryListView, SIGNAL(doubleClicked(QModelIndex)),
-				currentScene, SLOT(editQuery(QModelIndex)));
 		connect(ui->refreshValidationButton, SIGNAL(clicked()),
 				currentScene, SLOT(validate()));
 		connect(ui->clearValidationButton, SIGNAL(clicked()),
@@ -220,65 +213,6 @@ void MainWindow::modeActionGroup_triggered(QAction *action){
 	if(currentScene)
 		currentScene->setMode((PetriNetScene::Mode)m.toInt());
 }
-
-
-/** Open the query editor window */
-/*
-void MainWindow::on_NewQueryAction_triggered()
-{
-	if(!this->currentScene)
-		return;
-	QueryDialog* dlg = new QueryDialog(this);
-	QStringList places;
-	foreach(QGraphicsItem* item, this->currentScene->items()){
-		if(item->type() == NetEntity::PlaceItem){
-			NetItem* n = dynamic_cast<NetItem*>(item);
-			if(n)
-				places.append(n->name());
-		}
-	}
-	dlg->setPlaces(places);
-
-	if(dlg->exec() == QDialog::Accepted){
-		// Get raw query text.
-		QString queryText = dlg->query();
-
-		PetriEngine::PetriNetBuilder* builder = new PetriEngine::PetriNetBuilder();
-		this->currentScene->produce(builder);
-		PetriEngine::PetriNet* net = builder->makePetriNet();
-		PetriEngine::MarkVal* m0 = builder->makeInitialMarking();
-
-		PetriEngine::PQL::Condition* query = PetriEngine::PQL::ParseQuery(queryText.toStdString());
-		PetriEngine::PQL::AnalysisContext context(*net, true);
-		query->analyze(context);
-		for(int i = 0; i < context.errors().size(); i++){
-			QMessageBox::warning(this, "Query parse error", context.errors()[i].toString().c_str());
-		}
-
-		QString text;
-		QMessageBox msgBox;
-		PetriEngine::Reachability::KarpMillerL1SearchStrategy dfs;
-
-		if(query != NULL) {
-			bool reachable = dfs.reachable(*net, m0, NULL, query);
-			delete query;
-			query = NULL;
-
-			text = reachable ? tr("Query is satisfiable!") : tr("Query was not satisfiable!");
-		} else
-			text = tr("Syntax error in query!");
-
-		delete net;
-		net = NULL;
-		delete m0;
-		m0 = NULL;
-
-		msgBox.setText(text);
-		msgBox.exec();
-	}
-
-	dlg->deleteLater();
-}*/
 
 void MainWindow::on_SaveAction_triggered()
 {
@@ -344,12 +278,6 @@ void MainWindow::on_actionExport_SVG_triggered()
 	}
 }
 
-/** Delete query */
-void MainWindow::on_deleteQuery_clicked(){
-	if(currentScene)
-		currentScene->removeQuery(ui->queryListView->currentIndex());
-}
-
 /** Validate the petri net */
 void MainWindow::on_validateAction_triggered()
 {
@@ -362,4 +290,29 @@ void MainWindow::on_validateAction_triggered()
 		//TODO: Call this method when appropriate
 		ui->validationView->resizeColumnsToContents();
 	}
+}
+
+
+/** Add query
+ * @remarks AddQuery (button) is connected to addQueryAction, so this is
+ *			also handled here...
+ */
+void MainWindow::on_addQueryAction_triggered(){
+	if(!currentScene)
+		return;
+	currentScene->queries()->addQuery(this);
+}
+
+/** Edit query */
+void MainWindow::on_queryView_doubleClicked(QModelIndex index){
+	if(!currentScene)
+		return;
+	currentScene->queries()->editQuery(index, this);
+}
+
+/** Delete query */
+void MainWindow::on_deleteQuery_clicked(){
+	if(!currentScene)
+		return;
+	currentScene->queries()->removeQuery(ui->queryView->currentIndex());
 }

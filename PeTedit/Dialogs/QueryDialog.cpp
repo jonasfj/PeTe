@@ -8,18 +8,18 @@
 #include <PetriEngine/Reachability/ReachabilitySearchStrategy.h>
 #include <PetriEngine/PQL/PQLExpressions.h>
 
-QueryDialog::QueryDialog(QueryItem* item, QWidget *parent)
+QueryDialog::QueryDialog(const QueryModel::Query& query, QWidget *parent)
 	: QDialog(parent), ui(new Ui::QueryDialog)
 {
     ui->setupUi(this);
-	ui->nameEdit->setText(item->name());
-	ui->queryEdit->setPlainText(item->query());
+	ui->nameEdit->setText(query.name);
+	ui->queryEdit->setPlainText(query.query);
 
 	int strategyIndex  = 0;
 	std::vector<std::string> strats = PetriEngine::Reachability::ReachabilitySearchStrategy::listStrategies();
 	for(size_t i = 0; i < strats.size(); i++){
 		ui->strategyBox->addItem(strats[i].c_str());
-		if(item->strategy() == strats[i].c_str())
+		if(query.strategy == strats[i].c_str())
 			strategyIndex = i;
 	}
 	ui->strategyBox->setCurrentIndex(strategyIndex);

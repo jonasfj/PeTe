@@ -11,7 +11,7 @@
 #include "PlaceItem.h"
 #include "TransitionItem.h"
 
-#include "../Misc/QueryItem.h"
+#include "../Misc/QueryModel.h"
 #include "../Dialogs/QueryDialog.h"
 #include "../Commands/EditQueryCommand.h"
 #include "../Commands/AddRemoveQueryCommand.h"
@@ -48,9 +48,8 @@ PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, QObject* parent) :
 	this->_variables->setHeaderData(1, Qt::Horizontal, "Value");
 	this->_variables->setHeaderData(2, Qt::Horizontal, "Range");
 
-	// Create query model (name)
-	this->_queries = new QStandardItemModel(0, 1, this);
-	this->_queries->setHeaderData(0, Qt::Horizontal, "Query");
+	// Create query model
+	this->_queries = new QueryModel(this);
 
 	// Create valiation issue model
 	this->_validationIssues = new ValidationIssuesModel(this);
@@ -446,49 +445,6 @@ void PetriNetScene::produce(PetriEngine::AbstractPetriNetBuilder* builder){
 	}
 }
 
-/******************** Query model handling ********************/
-
-void PetriNetScene::addQuery(){
-	QStringList places;
-
-	QueryItem* item = new QueryItem();
-	QueryDialog d(item, dynamic_cast<QWidget*>(this->parent()));
-	d.setIdentifiers(placeNames(), variableNames());
-	if(d.exec() == QDialog::Accepted){
-		item->setName(d.name());
-		item->setQuery(d.query());
-		item->setStrategy(d.strategy());
-		AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(_queries, item, true);
-		_undoStack->push(cmd);
-	}else{
-		delete item;
-		item = NULL;
-	}
-}
-
-void PetriNetScene::editQuery(const QModelIndex& index){
-	QueryItem* item = dynamic_cast<QueryItem*>(_queries->itemFromIndex(index));
-	if(!item) return;
-
-	QueryDialog d(item, dynamic_cast<QWidget*>(this->parent()));
-	d.setIdentifiers(placeNames(), variableNames());
-	if(d.exec() == QDialog::Accepted){
-		EditQueryCommand* cmd = new EditQueryCommand(item,
-													 d.name(),
-													 d.query(),
-													 d.strategy());
-		_undoStack->push(cmd);
-	}
-}
-
-void PetriNetScene::removeQuery(const QModelIndex& index){
-	QueryItem* item = dynamic_cast<QueryItem*>(_queries->itemFromIndex(index));
-	if(!item) return;
-	AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(_queries, item, false);
-	_undoStack->push(cmd);
-}
-
-
 /******************** Validation handling ********************/
 
 /** Refresh the model with validation issues */
@@ -499,46 +455,6 @@ void PetriNetScene::validate(){
 	validator.validate();
 
 	_validationIssues->setIssues(validator.errors());
-
-	//Clear existing issues
-//	_validationIssues->clear();
-
-	//List all the issues
-	/*const std::vector<PetriEngine::ValidationError>& issues = validator.errors();
-	for(size_t i = 0; issues.size(); i++){
-		const PetriEngine::ValidationError& issue = issues[i];
-
-		QString msg, location;
-		if(issue.hasExprError()){
-			msg = issue.exprError().toString().c_str();
-			if(issue.isConditionError())
-				location = "In the pre-condition for \"";
-			else
-				location = "In the post-assignemnt for \"";
-			location += issue.startIdentifier().c_str();
-			location += "\"";
-		}else{
-			msg = issue.text().c_str();
-			if(issue.endIdentifier().empty()){
-				location += "In \"";
-				location +=  issue.startIdentifier().c_str();
-				location += "\"";
-			}else{
-				location = "In arc from \"";
-				location += issue.startIdentifier().c_str();
-				location += "\" to \"";
-				location += issue.endIdentifier().c_str();
-				location += "\"";
-			}
-		}
-
-		QStandardItem* issueItem = new QStandardItem(msg);
-		QStandardItem* locationItem = new QStandardItem(location);
-		QList<QStandardItem*> row;
-		row.append(issueItem);
-		row.append(locationItem);
-		_validationIssues->appendRow(row);
-	}*/
 }
 
 void PetriNetScene::showValidationIssue(const QModelIndex &index){

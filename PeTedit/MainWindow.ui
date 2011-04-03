@@ -85,6 +85,8 @@
      <string>&amp;Analysis</string>
     </property>
     <addaction name="validateAction"/>
+    <addaction name="separator"/>
+    <addaction name="addQueryAction"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -208,9 +210,12 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QListView" name="queryListView">
+      <widget class="QTableView" name="queryView">
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="tabKeyNavigation">
+        <bool>false</bool>
        </property>
        <property name="showDropIndicator" stdset="0">
         <bool>false</bool>
@@ -218,6 +223,21 @@
        <property name="alternatingRowColors">
         <bool>true</bool>
        </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <attribute name="horizontalHeaderCascadingSectionResizes">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="horizontalHeaderStretchLastSection">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
       </widget>
      </item>
      <item>
@@ -451,8 +471,30 @@
     <string>&amp;Validate</string>
    </property>
   </action>
+  <action name="addQueryAction">
+   <property name="text">
+    <string>&amp;Add query</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>addQuery</sender>
+   <signal>clicked()</signal>
+   <receiver>addQueryAction</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>459</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

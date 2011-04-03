@@ -1,20 +1,17 @@
 #include "AddRemoveQueryCommand.h"
 
-#include "../Misc/QueryItem.h"
+#include "../Misc/QueryModel.h"
 
-AddRemoveQueryCommand::AddRemoveQueryCommand(QStandardItemModel *model,
-											 QueryItem *item,
+AddRemoveQueryCommand::AddRemoveQueryCommand(QueryModel* model,
+											 const QueryModel::Query& query,
 											 bool add){
 	_model = model;
-	_item = item;
+	_query = query;
 	_add = add;
+	_index = -1;
 }
 
-AddRemoveQueryCommand::~AddRemoveQueryCommand(){
-	if(_add && _item)
-		delete _item;
-	_item = NULL;
-}
+AddRemoveQueryCommand::~AddRemoveQueryCommand(){}
 
 void AddRemoveQueryCommand::redo(){
 	swap();
@@ -26,11 +23,19 @@ void AddRemoveQueryCommand::undo(){
 
 void AddRemoveQueryCommand::swap(){
 	if(_add){
-		_model->appendRow(_item);
+		if(_index == -1)
+			_index = _model->rowCount();
+		_model->beginInsertRows(QModelIndex(), _index, _index);
+		_model->_queries.insert(_index, _query);
+		_model->endInsertRows();
 	}else{
-		QModelIndex i = _model->indexFromItem(_item);
-		QStandardItem* taken = _model->takeItem(i.row(), i.column());
-		Q_ASSERT(taken == _item);
+		_index = _model->_queries.indexOf(_query);
+		Q_ASSERT(_index != -1);
+		if(_index != -1){
+			_model->beginRemoveRows(QModelIndex(), _index, _index);
+			_model->_queries.removeAt(_index);
+			_model->endRemoveRows();
+		}
 	}
 	_add = !_add;
 }

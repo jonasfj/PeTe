@@ -2,7 +2,7 @@
 #define QUERYDIALOG_H
 
 #include <QDialog>
-#include "../Misc/QueryItem.h"
+#include "../Misc/QueryModel.h"
 
 #include <vector>
 #include <string>
@@ -17,7 +17,7 @@ class QueryDialog : public QDialog
 
 public:
 	/** Create instance of QueryDialog, will not take ownership of item !*/
-	explicit QueryDialog(QueryItem* item, QWidget *parent = 0);
+	explicit QueryDialog(const QueryModel::Query& query, QWidget *parent = 0);
 
 	/** Set identifers to enable syntax highlighting and auto completion */
 	void setIdentifiers(const QStringList& places, const QStringList& variables);

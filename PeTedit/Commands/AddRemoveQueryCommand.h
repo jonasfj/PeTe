@@ -3,7 +3,7 @@
 
 #include <QUndoCommand>
 
-#include <QStandardItemModel>
+#include "../Misc/QueryModel.h"
 
 class QueryItem;
 
@@ -11,15 +11,16 @@ class QueryItem;
 class AddRemoveQueryCommand : public QUndoCommand
 {
 public:
-	AddRemoveQueryCommand(QStandardItemModel* model, QueryItem* item, bool add);
+	AddRemoveQueryCommand(QueryModel* model, const QueryModel::Query& query, bool add);
 	~AddRemoveQueryCommand();
 	void redo();
 	void undo();
 private:
 	void swap();
-	QStandardItemModel* _model;
-	QueryItem* _item;
+	QueryModel* _model;
+	QueryModel::Query _query;
 	bool _add;
+	int _index;
 };
 
 #endif // ADDREMOVEQUERYCOMMAND_H
