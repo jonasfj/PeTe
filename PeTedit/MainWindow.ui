@@ -95,7 +95,7 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
    <addaction name="InsertPlaceModeAction"/>
    <addaction name="InsertTransitionModeAction"/>
@@ -314,7 +314,7 @@
         <bool>false</bool>
        </attribute>
        <attribute name="horizontalHeaderStretchLastSection">
-        <bool>false</bool>
+        <bool>true</bool>
        </attribute>
        <attribute name="verticalHeaderVisible">
         <bool>false</bool>

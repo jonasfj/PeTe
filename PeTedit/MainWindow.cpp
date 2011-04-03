@@ -357,6 +357,9 @@ void MainWindow::on_validateAction_triggered()
 		return;
 	currentScene->validate();
 	if(ui->validationDock->isHidden() &&
-	   currentScene->validationIssues()->rowCount() > 0)
+	   currentScene->validationIssues()->rowCount() > 0){
 		ui->validationDock->show();
+		//TODO: Call this method when appropriate
+		ui->validationView->resizeColumnsToContents();
+	}
 }
