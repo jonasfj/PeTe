@@ -51,13 +51,13 @@ bool reachabilityDFS(CoverabilityTreeNode* tree,
 */
 /*This is the new shit*/
 /** Internal recursive reachability searcher */
-bool DepthFirstReachabilitySearch::dfsReachable(CoverabilityTreeNode *tree,
+bool DepthFirstReachabilitySearch::dfsReachable(State *oldStates,
 									const PetriNet &net,
 									const MarkVal *m,
 									const VarVal *a,
 									PQL::Condition *query){
 	// Check for duplicate
-	if(tree->findDuplicate(net))
+	if(oldStates->isLoop(net))
 		return false;
 
 	// If not duplicate, check if evaluates
@@ -67,15 +67,19 @@ bool DepthFirstReachabilitySearch::dfsReachable(CoverabilityTreeNode *tree,
 	// If not duplicate and does not evaluate, fire a transition, and call recursively
 	for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
 		//std::cout<<"Transition: "<<t<<std::endl;
-		MarkVal* mNew = new MarkVal[net.numberOfPlaces()];
-		VarVal* aNew = new VarVal[net.numberOfVariables()];
-		if(net.fire(t, m, a, mNew, aNew)){
-			//Explore this new path
-			CoverabilityTreeNode child(tree, t, mNew, aNew);
+		//New state for firing
+		State* child = State::createState(net.numberOfPlaces(), net.numberOfVariables(), oldStates);
 
-			if(dfsReachable(&child, net, mNew, aNew, query))
+		if(net.fire(t, m, a, child->marking(), child->valuation())){
+			//Explore this new path
+			if(dfsReachable(child, net, child->marking(), child->valuation(), query)) {
+				delete child;
+				child = NULL;
 				return true;
+			}
 		}
+		delete child;
+		child = NULL;
 	}
 
 	// If no result has been found, return false
@@ -93,14 +97,17 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 	VarVal* a0 = new VarVal[net.numberOfVariables()];
 	memcpy(a0, initialAssignment, net.numberOfVariables()*sizeof(VarVal));
 
-	// Create root node of coverability tree
-	this->_coverabilityTree = CoverabilityTreeNode(m0, a0);
+	// Create root node of the state space
+	State* root = State::createState(net.numberOfPlaces(), net.numberOfVariables());
+
 	// Recursively handle reachability check
-	bool result = dfsReachable(&_coverabilityTree,
+	bool result = dfsReachable(root,
 					 net,
 					 initialMarking,
 					 initialAssignment,
 					 query);
+	delete root;
+	root = NULL;
 	if(result)
 		return ReachabilityResult(ReachabilityResult::Satisfied,
 								  "A state satisfying the queue was found");

@@ -8,10 +8,10 @@ SOURCES		   += \
 	PetriNet.cpp \
 	PQL/PQLExpressions.cpp \  
 	Reachability/DepthFirstReachabilitySearch.cpp \
-	Reachability/CoverabilityTreeNode.cpp \
-    Reachability/ReachabilitySearchStrategy.cpp \
     PetriNetBuilder.cpp \
-    ValidationBuilder.cpp
+    ValidationBuilder.cpp \
+	Reachability/ReachabilitySearchStrategy.cpp
+	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
 	ProgressReporter.h \
@@ -20,12 +20,14 @@ HEADERS		   += \
 	PQL/PQLExpressions.h \
     PQL/PQLParser.h \
     Reachability/ReachabilitySearchStrategy.h \
-	Reachability/DepthFirstReachabilitySearch.h \
-	Reachability/CoverabilityTreeNode.h \
     PetriNetBuilder.h \
     AbstractPetriNetBuilder.h \
     Reachability/ReachabilityResult.h \
-    ValidationBuilder.h
+    ValidationBuilder.h \
+    Reachability/KarpMillerL1SearchStrategy.h \
+	Reachability/DepthFirstReachabilitySearch.h \
+    Reachability/GeneralState.h
+	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine
 
