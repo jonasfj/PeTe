@@ -11,7 +11,10 @@ class QueryItem;
 class AddRemoveQueryCommand : public QUndoCommand
 {
 public:
-	AddRemoveQueryCommand(QueryModel* model, const QueryModel::Query& query, bool add);
+	/** Add new query */
+	AddRemoveQueryCommand(QueryModel* model, const QueryModel::Query& query);
+	/** Remove query at row */
+	AddRemoveQueryCommand(QueryModel* model, int row);
 	~AddRemoveQueryCommand();
 	void redo();
 	void undo();
@@ -20,7 +23,7 @@ private:
 	QueryModel* _model;
 	QueryModel::Query _query;
 	bool _add;
-	int _index;
+	int _row;
 };
 
 #endif // ADDREMOVEQUERYCOMMAND_H

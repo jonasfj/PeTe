@@ -19,10 +19,7 @@ void EditQueryCommand::redo(){
 }
 
 void EditQueryCommand::swap(){
-	//TODO: Try emitting the dataChanged signal on QueryModel instead
-	_model->beginResetModel();
-	QueryModel::Query& q = _model->_queries[_row];
-	_model->_queries[_row] = _query;
+	QueryModel::Query q = _model->query(_row);
+	_model->setQuery(_query, _row);
 	_query = q;
-	_model->endResetModel();
 }

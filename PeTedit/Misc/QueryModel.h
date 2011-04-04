@@ -4,8 +4,6 @@
 #include <QAbstractTableModel>
 
 class PetriNetScene;
-class AddRemoveQueryCommand;
-class EditQueryCommand;
 
 /** Model for presenting the list of queries */
 class QueryModel : public QAbstractTableModel
@@ -41,6 +39,19 @@ public:
 						Qt::Orientation orientation,
 						int role = Qt::DisplayRole) const;
 
+	/** Insert query (no undo command will be created!)
+	 * @param row	Row to insert at, -1 if end of list.
+	 * @returns row number that was created...
+	 */
+	int insertQuery(const Query& query, int row = -1);
+	/** Remove query (no undo command will be created!) */
+	Query takeQuery(int row);
+
+	/** Get a query */
+	const Query& query(int row);
+	/** Set a query (no undo command will be created!) */
+	void setQuery(const Query& query, int row);
+
 private:
 	QList<Query> _queries;
 	PetriNetScene* _net;
@@ -61,9 +72,6 @@ public slots:
 	void stopAll();
 	/** Break execution of a specific query */
 	void stopQuery(const QModelIndex& index);
-
-	friend class AddRemoveQueryCommand;
-	friend class EditQueryCommand;
 };
 
 #endif // QUERYMODEL_H

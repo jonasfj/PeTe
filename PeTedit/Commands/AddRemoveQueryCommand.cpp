@@ -3,12 +3,18 @@
 #include "../Misc/QueryModel.h"
 
 AddRemoveQueryCommand::AddRemoveQueryCommand(QueryModel* model,
-											 const QueryModel::Query& query,
-											 bool add){
+											 const QueryModel::Query& query){
 	_model = model;
 	_query = query;
-	_add = add;
-	_index = -1;
+	_add = true;
+	_row = -1;
+}
+
+AddRemoveQueryCommand::AddRemoveQueryCommand(QueryModel* model,
+											 int row){
+	_model = model;
+	_add = false;
+	_row = row;
 }
 
 AddRemoveQueryCommand::~AddRemoveQueryCommand(){}
@@ -22,20 +28,11 @@ void AddRemoveQueryCommand::undo(){
 }
 
 void AddRemoveQueryCommand::swap(){
-	if(_add){
-		if(_index == -1)
-			_index = _model->rowCount();
-		_model->beginInsertRows(QModelIndex(), _index, _index);
-		_model->_queries.insert(_index, _query);
-		_model->endInsertRows();
-	}else{
-		_index = _model->_queries.indexOf(_query);
-		Q_ASSERT(_index != -1);
-		if(_index != -1){
-			_model->beginRemoveRows(QModelIndex(), _index, _index);
-			_model->_queries.removeAt(_index);
-			_model->endRemoveRows();
-		}
+	if(_add)
+		_row = _model->insertQuery(_query, _row);
+	else{
+		Q_ASSERT(_row != -1);
+		_query = _model->takeQuery(_row);
 	}
 	_add = !_add;
 }

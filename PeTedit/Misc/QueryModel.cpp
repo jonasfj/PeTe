@@ -65,6 +65,7 @@ QVariant QueryModel::headerData(int section, Qt::Orientation orientation, int ro
 	return QVariant();
 }
 
+/******************** Query Editing Slots ********************/
 
 /** Add a new query (opens a dialog) */
 void QueryModel::addQuery(QWidget *parent){
@@ -79,7 +80,7 @@ void QueryModel::addQuery(QWidget *parent){
 		query.name = d.name();
 		query.query = d.query();
 		query.strategy = d.strategy();
-		AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(this, query, true);
+		AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(this, query);
 		_net->undoStack()->push(cmd);
 	}
 }
@@ -107,9 +108,48 @@ void QueryModel::editQuery(const QModelIndex& index, QWidget *parent){
 void QueryModel::removeQuery(const QModelIndex& index){
 	if(!index.isValid()) return;
 	Q_ASSERT(index.row() < rowCount());
-	AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(this, _queries[index.row()], false);
+	AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(this, _queries[index.row()]);
 	_net->undoStack()->push(cmd);
 }
+
+/******************** Query Editing Methods ********************/
+
+/** Insert query (no undo command will be created!)
+ * @param row	Row to insert at, -1 if end of list.
+ * @returns row number that was created...
+ */
+int QueryModel::insertQuery(const Query& query, int row){
+	if(row == -1)
+		row = _queries.size();
+	//Alert views that we're inserting a row
+	this->beginInsertRows(QModelIndex(), row, row);
+	_queries.insert(row, query);
+	this->endInsertRows();
+	return row;
+}
+
+/** Remove query (no undo command will be created!) */
+QueryModel::Query QueryModel::takeQuery(int row){
+	Q_ASSERT(0 <= row && row < _queries.size());
+	this->beginRemoveRows(QModelIndex(), row, row);
+	Query q = _queries.takeAt(row);
+	this->endRemoveRows();
+	return q;
+}
+
+/** Get a query */
+const QueryModel::Query& QueryModel::query(int row){
+	Q_ASSERT(0 <= row && row < _queries.size());
+	return _queries.at(row);
+}
+
+/** Set a query (no undo command will be created!) */
+void QueryModel::setQuery(const Query& query, int row){
+	_queries[row] = query;
+	emit dataChanged(this->index(row, 0), this->index(row,2));
+}
+
+/******************** Query Exection Slots ********************/
 
 /** Run all queries */
 void QueryModel::runAll(){}
