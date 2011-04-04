@@ -37,7 +37,8 @@ SOURCES	   += \
     NetItems/PetriNetSceneBuilder.cpp \
     DataFormats/PNMLBuilder.cpp \
     Misc/ValidationIssuesModel.cpp \
-    Misc/QueryModel.cpp
+    Misc/QueryModel.cpp \
+    Misc/ProgressViewDelegate.cpp
 
 
 HEADERS		+= \
@@ -71,7 +72,8 @@ HEADERS		+= \
     NetItems/PetriNetSceneBuilder.h \
     DataFormats/PNMLBuilder.h \
     Misc/ValidationIssuesModel.h \
-    Misc/QueryModel.h
+    Misc/QueryModel.h \
+    Misc/ProgressViewDelegate.h
 
 
 FORMS		+= MainWindow.ui \

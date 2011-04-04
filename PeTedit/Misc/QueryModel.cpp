@@ -46,8 +46,9 @@ QVariant QueryModel::data(const QModelIndex &index, int role) const{
 	if(index.column() == 1)
 		return query.name;
 
+	//Return double if you want progress bar, text if you wan't text
 	if(index.column() == 2)
-		return "50%";	//TODO: Do something better than this :)
+		return 0.5;	//TODO: Do something better than this :)
 
 	return QVariant();
 }

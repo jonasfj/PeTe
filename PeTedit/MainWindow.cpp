@@ -16,6 +16,7 @@
 
 #include "Misc/ValidationIssuesModel.h"
 #include "Misc/QueryModel.h"
+#include "Misc/ProgressViewDelegate.h"
 
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/PQL/PQLExpressions.h>
@@ -48,11 +49,15 @@ MainWindow::MainWindow(QWidget *parent) :
 	// Variable editor
 	VariableDelegate* delegate = new VariableDelegate(this);
 	ui->variableView->setItemDelegate(delegate);
-	ui->variableView->horizontalHeader()->setStretchLastSection(true);
+
+	//Set delegate for query editor
+	ui->queryView->setItemDelegateForColumn(2, new ProgressViewDelegate(this));
 
 	// Set icons on variable buttons
 	ui->addVariable->setIcon(QIcon::fromTheme("list-add"));
 	ui->deleteVariable->setIcon(QIcon::fromTheme("list-remove"));
+
+	// Set icons on query buttons
 	ui->addQuery->setIcon(QIcon::fromTheme("list-add"));
 	ui->deleteQuery->setIcon(QIcon::fromTheme("list-remove"));
 
@@ -115,7 +120,6 @@ void MainWindow::on_NewTapnAction_triggered(){
 	view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	int index = ui->tabWidget->addTab(view, "New TAPN");
 	ui->tabWidget->setCurrentIndex(index);
-
 }
 
 /** Close document-tab */
