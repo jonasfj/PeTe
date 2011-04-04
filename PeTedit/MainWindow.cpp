@@ -53,6 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	// Set icons on variable buttons
 	ui->addVariable->setIcon(QIcon::fromTheme("list-add"));
 	ui->deleteVariable->setIcon(QIcon::fromTheme("list-remove"));
+	ui->addQuery->setIcon(QIcon::fromTheme("list-add"));
+	ui->deleteQuery->setIcon(QIcon::fromTheme("list-remove"));
 
 	// Set icons on validation buttons
 	ui->refreshValidationButton->setIcon(QIcon::fromTheme("view-refresh"));

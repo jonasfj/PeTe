@@ -1,6 +1,6 @@
 #include "EditQueryCommand.h"
 
-#include "../Misc/QueryItem.h"
+#include "../Misc/QueryModel.h"
 
 EditQueryCommand::EditQueryCommand(QueryModel *model,
 								   int row,

@@ -63,7 +63,7 @@
      <x>0</x>
      <y>0</y>
      <width>826</width>
-     <height>24</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -165,6 +165,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="deleteVariable">
+         <property name="toolTip">
+          <string>Remove variable</string>
+         </property>
          <property name="text">
           <string notr="true"/>
          </property>
@@ -244,15 +247,21 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QPushButton" name="addQuery">
+         <property name="toolTip">
+          <string>Add new query</string>
+         </property>
          <property name="text">
-          <string>Add</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="deleteQuery">
+         <property name="toolTip">
+          <string>Remove query</string>
+         </property>
          <property name="text">
-          <string>Remove</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -322,7 +331,7 @@
         <bool>true</bool>
        </property>
        <attribute name="horizontalHeaderVisible">
-        <bool>true</bool>
+        <bool>false</bool>
        </attribute>
        <attribute name="horizontalHeaderCascadingSectionResizes">
         <bool>true</bool>
