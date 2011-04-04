@@ -1,8 +1,11 @@
 #ifndef DEPTHFIRSTREACHABILITYSEARCH_H
 #define DEPTHFIRSTREACHABILITYSEARCH_H
 
+#include <stdlib.h>
+#include <string.h>
+
 #include "ReachabilitySearchStrategy.h"
-#include "CoverabilityTreeNode.h"
+#include "GeneralState.h"
 
 namespace PetriEngine { namespace Reachability {
 
@@ -10,10 +13,7 @@ namespace PetriEngine { namespace Reachability {
 class DepthFirstReachabilitySearch : public ReachabilitySearchStrategy
 {
 public:
-	DepthFirstReachabilitySearch() : ReachabilitySearchStrategy(),
-									 _coverabilityTree(NULL, NULL){
-		_reporter = NULL;
-	}
+	DepthFirstReachabilitySearch() : ReachabilitySearchStrategy(){}
 
 	/** Perform reachability check using the DepthFirstSearch */
 	ReachabilityResult reachable(const PetriNet &net,
@@ -23,18 +23,17 @@ public:
 
 	void setProgressReporter(ProgressReporter* reporter);
 private:
+	typedef GeneralState State;
 	/** Internal reachability method */
-	bool dfsReachable(CoverabilityTreeNode* tree,
+	bool dfsReachable(State* oldStates,
 				   const PetriNet &net,
 				   const MarkVal* initialMarking,
 				   const VarVal* initialAssignment,
 				   PQL::Condition* query);
 
-	/** Root node of the reachability search */
-	CoverabilityTreeNode _coverabilityTree;
-
 	/** The report to report progress too */
 	ProgressReporter* _reporter;
+
 };
 } // Reachability
 } // PetriEngine

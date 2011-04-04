@@ -10,7 +10,6 @@ using namespace PetriEngine::PQL;
 using namespace std;
 
 SUITE(PQLParserTest){
-/*
 	TEST(PQLQueryTreeConstruction){
 		string query("(P5==5 && P1 > 4)");
 
@@ -22,7 +21,7 @@ SUITE(PQLParserTest){
 		Condition* expr2 = ParseQuery(expr1->toString());
 		CHECK(expr1->toString() == expr2->toString());
 	}
-
+/*
 	TEST(PQLAssignmentTreeConstruction){
 		string assignment("X2:=5;Excaliber:=4+5*8+(55*7)+1;");
 
@@ -34,7 +33,6 @@ SUITE(PQLParserTest){
 		AssignmentExpression* ass2 = ParseAssignment(ass1->toString());
 		CHECK(ass1->toString() == ass2->toString());
 	}
-*/
 /*
 	TEST(CTLEvaluation){
 
