@@ -9,7 +9,8 @@ CONFIG			+= console link_pkgconfig
 PKGCONFIG		+= unittest++
 
 SOURCES	   +=   main.cpp \
-    PetriEngineTests/ParserTest.cpp
+    PetriEngineTests/ParserTest.cpp \
+    PetriEngineTests/DFSReachabilityTest.cpp
 
 HEADERS		+= \
 

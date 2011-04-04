@@ -16,6 +16,10 @@ public:
 		return _valuation;
 	}
 
+	GeneralState* parent(){
+		return _parent;
+	}
+
 	/** Check if this state is a loop */
 	bool isLoop(const PetriNet& net){
 

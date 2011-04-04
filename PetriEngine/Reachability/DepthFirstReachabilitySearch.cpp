@@ -28,30 +28,20 @@ bool DepthFirstReachabilitySearch::dfsReachable(State *oldStates,
 
 	// If not duplicate and does not evaluate, fire a transition, and call recursively
 	for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
-		//std::cout<<"Transition: "<<t<<std::endl;
 		//New state for firing
 		State* child = State::createState(net.numberOfPlaces(), net.numberOfVariables(), oldStates);
 
 		if(net.fire(t, m, a, child->marking(), child->valuation())){
 			//Explore this new path
-
-			std::stringstream stream;
-			stream<<"[";
-			for(int i = 0; i < net.numberOfPlaces(); i++)
-				stream << m[i] << ",";
-			stream<<"] -> [";
-			for(int i = 0; i < net.numberOfPlaces(); i++)
-				stream << child->marking()[i] << ",";
-			stream<<"]";
-			std::cout<<"Firing transition "<<t<<" :== "<<stream.str()<<std::endl;
-
-
 			if(dfsReachable(child, net, child->marking(), child->valuation(), query)) {
 				delete child;
 				child = NULL;
 				return true;
 			}
 		}
+		if(oldStates->parent())
+			this->reportProgress(t/net.numberOfTransitions());
+
 		delete child;
 		child = NULL;
 	}

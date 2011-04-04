@@ -43,7 +43,7 @@ public:
 	static ReachabilitySearchStrategy* createStrategy(const std::string& strategy);
 
 protected:
-	/** Reports the progress of reachability search */
+	/** Reports the progress of reachability search (number between 0 and 1) */
 	void reportProgress(double status){
 		if(_reporter)
 			_reporter->reportProgress(status);
