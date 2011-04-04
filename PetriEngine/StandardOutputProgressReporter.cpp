@@ -20,4 +20,8 @@ void StandardOutputProgressReporter::reportProgress(double status){
 
 }
 
+bool StandardOutputProgressReporter::abortRequested(){
+	return false;
+}
+
 } // PetriEngine

@@ -4,12 +4,17 @@
 #include "../Commands/AddRemoveQueryCommand.h"
 #include "../Commands/EditQueryCommand.h"
 #include "../Dialogs/QueryDialog.h"
+#include "QueryThread.h"
 
 #include <QIcon>
 
 QueryModel::QueryModel(PetriNetScene* net)
 	 : QAbstractTableModel(net){
 	_net = net;
+}
+
+QueryModel::~QueryModel(){
+	//TODO: Stop and delete all threads... :)
 }
 
 int QueryModel::rowCount(const QModelIndex &parent) const{
@@ -123,6 +128,7 @@ int QueryModel::insertQuery(const Query& query, int row){
 		row = _queries.size();
 	//Alert views that we're inserting a row
 	this->beginInsertRows(QModelIndex(), row, row);
+	_threads.insert(row, NULL);
 	_queries.insert(row, query);
 	this->endInsertRows();
 	return row;
@@ -132,6 +138,8 @@ int QueryModel::insertQuery(const Query& query, int row){
 QueryModel::Query QueryModel::takeQuery(int row){
 	Q_ASSERT(0 <= row && row < _queries.size());
 	this->beginRemoveRows(QModelIndex(), row, row);
+	abortThread(row);
+	_threads.removeAt(row);
 	Query q = _queries.takeAt(row);
 	this->endRemoveRows();
 	return q;
@@ -145,6 +153,7 @@ const QueryModel::Query& QueryModel::query(int row){
 
 /** Set a query (no undo command will be created!) */
 void QueryModel::setQuery(const Query& query, int row){
+	abortThread(row);
 	_queries[row] = query;
 	emit dataChanged(this->index(row, 0), this->index(row,2));
 }
@@ -152,13 +161,67 @@ void QueryModel::setQuery(const Query& query, int row){
 /******************** Query Exection Slots ********************/
 
 /** Run all queries */
-void QueryModel::runAll(){}
+void QueryModel::runAll(){
+	for(size_t i = 0; i < _queries.size(); i++)
+		startThread(i);
+}
 
 /** Run a specific query */
-void QueryModel::runQuery(const QModelIndex& index){}
+void QueryModel::runQuery(const QModelIndex& index){
+	if(!index.isValid()) return;
+	startThread(index.row());
+}
 
 /** Break execution of all running queries */
-void QueryModel::stopAll(){}
+void QueryModel::stopAll(){
+	for(size_t i = 0; i < _queries.size(); i++)
+		abortThread(i);
+}
 
 /** Break execution of a specific query */
-void QueryModel::stopQuery(const QModelIndex& index){}
+void QueryModel::stopQuery(const QModelIndex& index){
+	if(!index.isValid()) return;
+	abortThread(index.row());
+}
+
+/******************** Query Exection Methods ********************/
+
+void QueryModel::abortThread(int row){
+	//TODO: Update icon (status)
+	Q_ASSERT(0 <= row && row < _queries.size());
+	if(_threads[row]){
+		disconnect(_threads[row], SIGNAL(completed(QueryThread*)), this, SLOT(completedThread(QueryThread*)));
+		connect(_threads[row], SIGNAL(finished()), _threads[row], SLOT(deleteLater()));
+		connect(_threads[row], SIGNAL(terminated()), _threads[row], SLOT(deleteLater()));
+		_threads[row]->abort();
+	}
+	_threads[row] = NULL;
+}
+
+void QueryModel::startThread(int row){
+	//TODO: Update icon (status)
+	Q_ASSERT(0 <= row && row < _queries.size());
+	abortThread(row);
+	_threads[row] = new QueryThread(_queries[row].query, _queries[row].strategy, _net, NULL);
+	//TODO: Connect to progressChanged signal
+	connect(_threads[row], SIGNAL(completed(QueryThread*)), this, SLOT(completedThread(QueryThread*)));
+	_threads[row]->start();
+}
+
+void QueryModel::completedThread(QueryThread *thread){
+	Q_ASSERT(thread != NULL);
+	thread->deleteLater();
+	int row = _threads.indexOf(thread);
+	if(row < 0)
+		return;
+
+	//TODO: Update icon (status)
+
+	_threads[row] = NULL;
+	if(thread->result().result() == PetriEngine::Reachability::ReachabilityResult::Satisfied)
+		_queries[row].status = Satisfied;
+	else if(thread->result().result() == PetriEngine::Reachability::ReachabilityResult::NotSatisfied)
+		_queries[row].status = NotSatisfiable;
+	else
+		_queries[row].status = Unknown;
+}

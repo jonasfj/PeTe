@@ -8,6 +8,8 @@ class ProgressReporter{
 public:
 	/** Reports progress */
 	virtual void reportProgress(double status) = 0;
+	/** True, if abortion is requested */
+	virtual bool abortRequested() = 0;
 };
 
 } // PetriEngine

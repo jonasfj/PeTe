@@ -4,6 +4,7 @@
 #include <QAbstractTableModel>
 
 class PetriNetScene;
+class QueryThread;
 
 /** Model for presenting the list of queries */
 class QueryModel : public QAbstractTableModel
@@ -32,6 +33,8 @@ public:
 
 	explicit QueryModel(PetriNetScene* net);
 
+	~QueryModel();
+
 	int rowCount(const QModelIndex &parent = QModelIndex()) const;
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
 	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
@@ -53,8 +56,16 @@ public:
 	void setQuery(const Query& query, int row);
 
 private:
+	QList<QueryThread*> _threads;
 	QList<Query> _queries;
 	PetriNetScene* _net;
+
+	/** Abort the thread for a row, if any */
+	void abortThread(int row);
+	/** Start a new thread, abort old if there's one */
+	void startThread(int row);
+private slots:
+	void completedThread(QueryThread* thread);
 signals:
 
 public slots:

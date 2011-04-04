@@ -48,6 +48,13 @@ protected:
 		if(_reporter)
 			_reporter->reportProgress(status);
 	}
+
+	/** Returns, true if abortion have been requested */
+	bool abortRequested(){
+		if(_reporter)
+			return _reporter->abortRequested();
+		return false;
+	}
 private:
 	ProgressReporter* _reporter;
 };

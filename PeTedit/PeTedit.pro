@@ -38,7 +38,8 @@ SOURCES	   += \
     DataFormats/PNMLBuilder.cpp \
     Misc/ValidationIssuesModel.cpp \
     Misc/QueryModel.cpp \
-    Misc/ProgressViewDelegate.cpp
+    Misc/ProgressViewDelegate.cpp \
+    Misc/QueryThread.cpp
 
 
 HEADERS		+= \
@@ -73,7 +74,8 @@ HEADERS		+= \
     DataFormats/PNMLBuilder.h \
     Misc/ValidationIssuesModel.h \
     Misc/QueryModel.h \
-    Misc/ProgressViewDelegate.h
+    Misc/ProgressViewDelegate.h \
+    Misc/QueryThread.h
 
 
 FORMS		+= MainWindow.ui \

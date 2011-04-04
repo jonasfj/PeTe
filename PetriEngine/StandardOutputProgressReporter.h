@@ -14,6 +14,7 @@ public:
 	}
 
 	void reportProgress(double status);
+	bool abortRequested();
 private:
 	int _count;
 };
