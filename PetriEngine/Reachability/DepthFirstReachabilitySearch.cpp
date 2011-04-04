@@ -1,6 +1,7 @@
 #include "DepthFirstReachabilitySearch.h"
 #include <stdio.h>
 #include <iostream>
+#include <sstream>
 #include <stdlib.h>
 #include <string.h>
 
@@ -10,45 +11,6 @@ using namespace PetriEngine::PQL;
 
 namespace PetriEngine{ namespace Reachability {
 
-/*  This is the old shit
-bool reachabilityDFS(CoverabilityTreeNode* tree,
-			   const PetriNet &net,
-			   const MarkVal* m,
-			   const VarVal* a,
-			   PQL::Condition* query){
-	//TODO: Print debug info about marking
-
-	bool old = tree->findDuplicate(net);
-	tree->setOld(old);
-
-	// If the query is satisfied
-	if(query->evaluate(EvaluationContext(m, a)))
-		return true;
-
-	if(!tree->isOld() && !tree->isDeadEnd()){
-		MarkVal* mNew = EMPTY_MARKING(net.numberOfPlaces());
-		VarVal* aNew = EMPTY_ASSIGNMENT(net.numberOfTransitions());
-
-		bool deadEnd = true;
-		for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
-			if(net.fire(t, m, a, mNew, aNew)){
-				printf("Fire t%i \n",t);
-				deadEnd = false;
-
-				// Add child
-				CoverabilityTreeNode* child = new CoverabilityTreeNode(tree, t, mNew, aNew);
-				tree->add(child);
-
-				return reachabilityDFS(child, net, mNew, aNew, query);
-			}
-		}
-		tree->setDeadEnd(deadEnd);
-	} else{
-		printf("m is old \n");
-	}
-	return false;
-}
-*/
 /*This is the new shit*/
 /** Internal recursive reachability searcher */
 bool DepthFirstReachabilitySearch::dfsReachable(State *oldStates,
@@ -72,6 +34,18 @@ bool DepthFirstReachabilitySearch::dfsReachable(State *oldStates,
 
 		if(net.fire(t, m, a, child->marking(), child->valuation())){
 			//Explore this new path
+
+			std::stringstream stream;
+			stream<<"[";
+			for(int i = 0; i < net.numberOfPlaces(); i++)
+				stream << m[i] << ",";
+			stream<<"] -> [";
+			for(int i = 0; i < net.numberOfPlaces(); i++)
+				stream << child->marking()[i] << ",";
+			stream<<"]";
+			std::cout<<"Firing transition "<<t<<" :== "<<stream.str()<<std::endl;
+
+
 			if(dfsReachable(child, net, child->marking(), child->valuation(), query)) {
 				delete child;
 				child = NULL;
@@ -110,9 +84,9 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 	root = NULL;
 	if(result)
 		return ReachabilityResult(ReachabilityResult::Satisfied,
-								  "A state satisfying the queue was found");
+								  "A state satisfying the query was found");
 	return ReachabilityResult(ReachabilityResult::NotSatisfied,
-							  "No state satisfying the queue exists");
+							  "No state satisfying the query exists");
 }
 
 /** Set the progress reporter */

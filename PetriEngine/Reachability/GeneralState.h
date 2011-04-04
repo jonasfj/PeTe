@@ -18,35 +18,36 @@ public:
 
 	/** Check if this state is a loop */
 	bool isLoop(const PetriNet& net){
-		bool isLoop = true;
+
 		GeneralState* parent = this->_parent;
 
 		if(!parent)
 			return false;
 
 		while(parent){
+			bool isLoop = true;
 			//Check assignment
 			for(unsigned int i = 0; i < net.numberOfVariables(); i++){
-				if(_valuation[i] != parent->_valuation[i])
-					isLoop = false;
+				isLoop &= _valuation[i] == parent->_valuation[i];
+				if(!isLoop)
+					break;
 			}
 
 			//Check marking
 			for(unsigned int i = 0; i < net.numberOfPlaces(); i++){
-				if(_marking[i] != parent->_marking[i])
-					isLoop = false;
+				isLoop &= _marking[i] == parent->_marking[i];
+				if(!isLoop)
+					break;
 			}
 
 			//While loop maintenance
-			if(!isLoop){
-				if(parent->_parent)
-					parent = parent->_parent;
-				else
-					parent = NULL;
-			}
+			if(isLoop)
+				return true;
+			parent = parent->_parent;
+
 		}
 
-		return isLoop;
+		return false;
 	}
 
 	/** Create a new state */
