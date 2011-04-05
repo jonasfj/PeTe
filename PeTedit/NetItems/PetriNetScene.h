@@ -14,6 +14,7 @@ class TransitionItem;
 class ArcItem;
 class ValidationIssuesModel;
 class QueryModel;
+class PNMLBuilder;
 
 /** A TAPN document, the model behind the view */
 class PetriNetScene : public QGraphicsScene
@@ -68,6 +69,8 @@ public:
 
 	/** Produce a copy using builder */
 	void produce(PetriEngine::AbstractPetriNetBuilder* builder);
+	/** Save, this extension method will also save queries */
+	void produce(PNMLBuilder* builder);
 
 	/** Add a new variable to the net */
 	void addVariable(QString name, int value, int range);

@@ -11,6 +11,7 @@
 #include "PlaceItem.h"
 #include "TransitionItem.h"
 
+#include "../DataFormats/PNMLBuilder.h"
 #include "../Misc/QueryModel.h"
 #include "../Dialogs/QueryDialog.h"
 #include "../Commands/EditQueryCommand.h"
@@ -406,6 +407,16 @@ void PetriNetScene::keyPressEvent(QKeyEvent *event) {
 }
 
 /******************** Produce using builder ********************/
+
+/** Save, this extension method will also save queries */
+void PetriNetScene::produce(PNMLBuilder* builder){
+	//Produce the usual stuff
+	produce((PetriEngine::AbstractPetriNetBuilder*)builder);
+
+	//Output queries
+	for(size_t i = 0; i < _queries->rowCount(); i++)
+		builder->addQuery(_queries->query(i));
+}
 
 void PetriNetScene::produce(PetriEngine::AbstractPetriNetBuilder* builder){
 

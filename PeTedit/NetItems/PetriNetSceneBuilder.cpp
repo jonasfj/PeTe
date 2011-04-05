@@ -39,6 +39,12 @@ void PetriNetSceneBuilder::addOutputArc(const std::string &transition, const std
 	arcs.append({transition.c_str(), place.c_str(), weight});
 }
 
+
+/** Extension method for loading queries */
+void PetriNetSceneBuilder::addQuery(const QueryModel::Query& query){
+	scene->queries()->insertQuery(query);
+}
+
 PetriNetScene* PetriNetSceneBuilder::makeScene(){
 	foreach(ArcEntry entry, arcs){
 		NetItem* start = scene->findNetItem(entry.src);

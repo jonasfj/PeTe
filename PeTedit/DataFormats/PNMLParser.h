@@ -3,6 +3,8 @@
 
 #include <PetriEngine/AbstractPetriNetBuilder.h>
 
+class PetriNetSceneBuilder;
+
 #include <QXmlStreamReader>
 #include <QIODevice>
 #include <QHash>
@@ -39,11 +41,13 @@ class PNMLParser
 		int weight;
 	};
 public:
-	PNMLParser() { builder = NULL; }
+	PNMLParser() { builder = NULL; qBuilder = NULL; }
 	/** Parse input and build result with builder */
 	void parse(QIODevice* input, PetriEngine::AbstractPetriNetBuilder* builder);
+	void parse(QIODevice* input, PetriNetSceneBuilder* builder);
 private:
 	void pnml();
+	void queries();
 	void net();
 	void variable();
 	void place();
@@ -53,6 +57,8 @@ private:
 	void value(QString& value);
 	/** Builder for creating new petri net */
 	PetriEngine::AbstractPetriNetBuilder* builder;
+	/** Query builder */
+	PetriNetSceneBuilder* qBuilder;
 	QXmlStreamReader xml;
 	QList<ArcEntry> arcs;
 	/** Maps Ids to names */

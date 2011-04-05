@@ -2,6 +2,7 @@
 #define PETRINETSCENEBUILDER_H
 
 #include <PetriEngine/AbstractPetriNetBuilder.h>
+#include "../Misc/QueryModel.h"
 
 #include <QUndoGroup>
 
@@ -26,6 +27,8 @@ public:
 					   double x, double y);
 	void addInputArc(const std::string &place, const std::string &transition, int weight);
 	void addOutputArc(const std::string &transition, const std::string &place, int weight);
+	/** Extension method for loading queries */
+	void addQuery(const QueryModel::Query& query);
 	/** Get the scene created, note you may only call this once */
 	PetriNetScene* makeScene();
 private:

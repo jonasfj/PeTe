@@ -1,7 +1,15 @@
 #include "PNMLParser.h"
+#include "../Misc/QueryModel.h"
+#include "../NetItems/PetriNetSceneBuilder.h"
 
 #include <QtGlobal>
 #include <QDebug>
+
+void PNMLParser::parse(QIODevice* input, PetriNetSceneBuilder* builder){
+	qBuilder = builder;
+	parse(input, (PetriEngine::AbstractPetriNetBuilder*)builder);
+	qBuilder = NULL;
+}
 
 void PNMLParser::parse(QIODevice *input, PetriEngine::AbstractPetriNetBuilder *builder){
 	bool wasOpen = input->isOpen();
@@ -52,14 +60,32 @@ void PNMLParser::parse(QIODevice *input, PetriEngine::AbstractPetriNetBuilder *b
 }
 
 void PNMLParser::pnml(){
+	bool readOneNet = false;
 	while(xml.readNextStartElement()){
-		if(xml.name() == "net"){
+		if(xml.name() == "net" && !readOneNet){
 			net();
-			break;	//Don't read more than one net
+			readOneNet = true;
+		}else if(xml.name() == "queries" && qBuilder){
+			queries();
 		}else
 			xml.skipCurrentElement();
 	}
 }
+
+void PNMLParser::queries(){
+	Q_ASSERT(qBuilder);
+	while(xml.readNextStartElement()){
+		if(xml.name() == "query"){
+			QueryModel::Query query;
+			query.name = xml.attributes().value("name").toString();
+			query.strategy = xml.attributes().value("strategy").toString();
+			query.query = xml.readElementText(QXmlStreamReader::SkipChildElements);
+			qBuilder->addQuery(query);
+		}else
+			xml.skipCurrentElement();
+	}
+}
+
 
 void PNMLParser::net(){
 	while(xml.readNextStartElement()){

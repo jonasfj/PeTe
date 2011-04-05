@@ -65,8 +65,22 @@ void PNMLBuilder::addOutputArc(const std::string &transition, const std::string 
 }
 
 void PNMLBuilder::makePNMLFile(){
-	xml.writeEndElement();
-	xml.writeEndElement();
+	xml.writeEndElement(); //net
+
+	if(_queries.size() > 0){
+		xml.writeStartElement("queries");
+		for(int i = 0; i < _queries.size(); i++){
+			xml.writeStartElement("query");
+			xml.writeAttribute("name", _queries[i].name);
+			xml.writeAttribute("strategy", _queries[i].strategy);
+			xml.writeCharacters(_queries[i].query);
+			xml.writeEndElement();
+		}
+		xml.writeEndElement();
+	}
+	_queries.clear();
+
+	xml.writeEndElement(); //pnml
 	xml.writeEndDocument();
 }
 
@@ -82,4 +96,8 @@ void PNMLBuilder::name(std::string name){
 	xml.writeStartElement("name");
 	xml.writeTextElement("value", name.c_str());
 	xml.writeEndElement();
+}
+
+void PNMLBuilder::addQuery(const QueryModel::Query& query){
+	_queries.append(query);
 }

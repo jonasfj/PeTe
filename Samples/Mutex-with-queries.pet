@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+     <net>
+          <transition id="Exit">
+               <graphics>
+                    <position x="156" y="275"/>
+               </graphics>
+               <name>
+                    <value>Exit</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <place id="LockState">
+               <graphics>
+                    <position x="224" y="202"/>
+               </graphics>
+               <name>
+                    <value>LockState</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <transition id="Enter">
+               <graphics>
+                    <position x="160" y="127"/>
+               </graphics>
+               <name>
+                    <value>Enter</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <place id="Queue">
+               <graphics>
+                    <position x="260" y="87"/>
+               </graphics>
+               <name>
+                    <value>Queue</value>
+               </name>
+               <initialMarking>
+                    <value>10</value>
+               </initialMarking>
+          </place>
+          <place id="CriticalSection">
+               <graphics>
+                    <position x="103" y="201"/>
+               </graphics>
+               <name>
+                    <value>CriticalSection</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <arc source="CriticalSection" target="Exit">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit" target="LockState">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="LockState" target="Enter">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Enter" target="CriticalSection">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Queue" target="Enter">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+     </net>
+     <queries>
+          <query name="Can enter critical section" strategy="Naive Karp-Miller DFS">CriticalSection &gt; 0</query>
+          <query name="Queue can empty" strategy="Naive Karp-Miller DFS">Queue == 0</query>
+          <query name="Two in critical section" strategy="Naive Karp-Miller DFS">CriticalSection == 2</query>
+     </queries>
+</pnml>
