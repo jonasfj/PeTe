@@ -87,7 +87,7 @@ QVariant QueryModel::data(const QModelIndex &index, int role) const{
 			return state.progress;
 		if(state.time == 0)
 			return "-";
-		return tr("finished in %1").arg(state.time);
+		return tr("finished in %1s").arg(state.time);
 	}
 
 	return QVariant();
@@ -281,7 +281,7 @@ void QueryModel::completedThread(QueryThread *thread, qreal time){
 		return;
 
 	_qstate[row].progress = 0;
-	_qstate[row].time = time;
+	_qstate[row].time = time == 0 ? 0.01 : time;
 	_qstate[row].result = thread->result();
 	_qstate[row].thread = NULL;
 	emitDataChanged(row);

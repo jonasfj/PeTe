@@ -69,7 +69,7 @@ void QueryThread::run(){
 	//Run the strategy
 	_result = strategy->reachable(*_net, _m0, _a0, _query);
 
-	_finishTime = ((qreal)(clock() - _startClock)) * (qreal)CLOCKS_PER_SEC;
+	_finishTime = ((qreal)(clock() - _startClock)) / (qreal)CLOCKS_PER_SEC;
 }
 
 void QueryThread::abort(){
@@ -85,7 +85,7 @@ void QueryThread::emitCompleted(){
 
 /** Emit progressChanged signal (used by QueryProgressReporter) */
 void QueryThread::emitProgressChanged(qreal progress){
-	qreal time = ((qreal)(clock() - _startClock)) * (qreal)CLOCKS_PER_SEC;
+	qreal time = ((qreal)(clock() - _startClock)) / (qreal)CLOCKS_PER_SEC;
 	emit progressChanged(this, progress, time);
 }
 
