@@ -44,6 +44,7 @@ private slots:
 	void on_validateAction_triggered();
 	void on_queryView_doubleClicked(QModelIndex index);
 	void on_addQueryAction_triggered();
-	};
+	void on_aboutAction_triggered();
+};
 
 #endif // MAINWINDOW_H

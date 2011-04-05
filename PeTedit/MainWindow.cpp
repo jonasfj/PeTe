@@ -331,3 +331,18 @@ void MainWindow::on_deleteQuery_clicked(){
 		return;
 	currentScene->queries()->removeQuery(ui->queryView->currentIndex());
 }
+
+void MainWindow::on_aboutAction_triggered()
+{
+	QMessageBox* msg = new QMessageBox(this);
+	QString text = "PeTe Petri Net Tool v.0.314<br><br>";
+			text.append("<b>Authors:</b><br>");
+			text.append("Jonas Finnemann Jensen<br>");
+			text.append("Thomas Nielsen<br>");
+			text.append("Lars Kaerlund Oestergaard<br><br>");
+			text.append("<b>Website:</b><br>");
+			text.append("<a href='https://github.com/jopsen/PeTe'>PeTe @ github</a>");
+	msg->setText(text );
+
+	msg->show();
+}
