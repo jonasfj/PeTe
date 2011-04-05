@@ -23,7 +23,7 @@ public:
 
 	void setProgressReporter(ProgressReporter* reporter);
 private:
-	typedef GeneralState State;
+	typedef GenericState State;
 	/** Internal reachability method */
 	bool dfsReachable(State* oldStates,
 				   const PetriNet &net,

@@ -77,6 +77,8 @@ public:
 
 	/** Get the variables */
 	QStandardItemModel* variables() { return this->_variables; }
+	/** Find variable */
+	bool findVariable(QString id) const;
 
 	/** Get query model */
 	QueryModel* queries() { return _queries; }

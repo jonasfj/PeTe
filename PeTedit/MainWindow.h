@@ -47,6 +47,7 @@ private slots:
 	void on_addQueryAction_triggered();
 	void on_runQueryButton_clicked();
 	void on_stopQueryButton_clicked();
-	};
+	void on_aboutAction_triggered();
+};
 
 #endif // MAINWINDOW_H

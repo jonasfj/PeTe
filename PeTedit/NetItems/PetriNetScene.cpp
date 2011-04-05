@@ -159,6 +159,11 @@ QStringList PetriNetScene::variableNames() const{
 	return list;
 }
 
+/** Check if a variable with some id already exists */
+bool PetriNetScene::findVariable(QString id) const{
+	return _variables->findItems(id,Qt::MatchExactly,0).count() != 0;
+}
+
 /** Append a new variable to the list of variables */
 void PetriNetScene::addVariable(QString name, int value, int range){
 	QList<QStandardItem*> row;

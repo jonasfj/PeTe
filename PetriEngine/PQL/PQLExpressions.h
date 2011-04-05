@@ -338,15 +338,15 @@ private:
 		int offset;
 		Expr* expr;
 	};
-	typedef std::vector<VariableAssignment>::iterator iter;
-	typedef std::vector<VariableAssignment>::const_iterator const_iter;
+	typedef std::list<VariableAssignment>::iterator iter;
+	typedef std::list<VariableAssignment>::const_iterator const_iter;
 public:
 	void prepend(const std::string& identifier, Expr* expr){
 		VariableAssignment va;
 		va.offset = -1;
 		va.identifier = identifier;
 		va.expr = expr;
-		assignments.push_back(va);
+		assignments.push_front(va);
 	}
 	void analyze(AnalysisContext& context){
 		for(iter it = assignments.begin(); it != assignments.end(); it++){
@@ -375,7 +375,7 @@ public:
 		return t;
 	}
 private:
-	std::vector<VariableAssignment> assignments;
+	std::list<VariableAssignment> assignments;
 };
 
 }/* PQL */

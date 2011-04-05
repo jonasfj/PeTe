@@ -244,8 +244,17 @@ void MainWindow::on_SaveAction_triggered()
 void MainWindow::on_addVariable_clicked()
 {
 	//TODO: Check if dummy variable exists already
-	if(currentScene)
-		currentScene->addVariable("x1",0,0);
+	int num=0;
+	if(currentScene){
+		while(true){
+			QString id = "x" + QString::number(num);
+			if (!currentScene->findVariable(id)){
+				currentScene->addVariable(id,0,0);
+				break;
+			}else
+				num++;
+		}
+	}
 }
 
 /** Removes a variable from the variableView table */
@@ -341,4 +350,19 @@ void MainWindow::on_deleteQuery_clicked(){
 	if(!currentScene)
 		return;
 	currentScene->queries()->removeQuery(ui->queryView->currentIndex());
+}
+
+void MainWindow::on_aboutAction_triggered()
+{
+	QMessageBox* msg = new QMessageBox(this);
+	QString text = "PeTe Petri Net Tool v.0.314<br><br>";
+			text.append("<b>Authors:</b><br>");
+			text.append("Jonas Finnemann Jensen<br>");
+			text.append("Thomas Nielsen<br>");
+			text.append("Lars Kaerlund Oestergaard<br><br>");
+			text.append("<b>Website:</b><br>");
+			text.append("<a href='https://github.com/jopsen/PeTe'>PeTe @ github</a>");
+	msg->setText(text );
+
+	msg->show();
 }
