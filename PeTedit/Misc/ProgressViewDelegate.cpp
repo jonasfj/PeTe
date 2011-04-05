@@ -1,5 +1,8 @@
 #include "ProgressViewDelegate.h"
+#include "CustomDataRoles.h"
+
 #include <QtGui>
+
 
 ProgressViewDelegate::ProgressViewDelegate(QObject *parent) : QItemDelegate(parent) {}
 
@@ -21,7 +24,12 @@ void ProgressViewDelegate::paint(QPainter *painter,
 	opt.textAlignment = Qt::AlignCenter;
 	opt.textVisible = true;
 	opt.progress = index.data().toDouble() * 100;
-	opt.text = QString().sprintf("%d%%", opt.progress);
+
+	QVariant ptext = index.data(DataRoles::ProgressText);
+	if(ptext.isValid() && !ptext.toString().isEmpty())
+		opt.text = ptext.toString();
+	else
+		opt.text = QString().sprintf("%d%%", opt.progress);
 
 	QApplication::style()->drawControl(QStyle::CE_ProgressBar, &opt, painter);
 }

@@ -7,6 +7,7 @@
 #include "PetriEngine/Reachability/ReachabilitySearchStrategy.h"
 
 #include <string>
+#include <time.h>
 
 class PetriNetScene;
 
@@ -36,9 +37,12 @@ public:
 	}
 	/** True, if abortion have been requested, or forced */
 	bool isAborted() const { return _isAborted; }
+
 protected:
 	void run();
 private:
+	clock_t _startClock;
+	qreal _finishTime;
 	bool _isAborted;
 	QMutex abortLock;
 	std::string _strategy;
@@ -47,15 +51,15 @@ private:
 	PetriEngine::MarkVal* _m0;
 	PetriEngine::VarVal* _a0;
 	PetriEngine::Reachability::ReachabilityResult _result;
-	void emitProgressChanged(double progress);
+	void emitProgressChanged(qreal progress);
 private slots:
 	void emitCompleted();
 signals:
 	/** Occurs when the strategy reports progress */
-	void progressChanged(QueryThread* thread, qreal progress);
+	void progressChanged(QueryThread* thread, qreal progress, qreal time);
 
 	/** Report that this thread was either finished or terminated */
-	void completed(QueryThread* thread);
+	void completed(QueryThread* thread, qreal time);
 public slots:
 	/** Abort this operation, no garentee as to when this happens is provided */
 	void abort();

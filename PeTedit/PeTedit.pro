@@ -75,7 +75,8 @@ HEADERS		+= \
     Misc/ValidationIssuesModel.h \
     Misc/QueryModel.h \
     Misc/ProgressViewDelegate.h \
-    Misc/QueryThread.h
+    Misc/QueryThread.h \
+    Misc/CustomDataRoles.h
 
 
 FORMS		+= MainWindow.ui \

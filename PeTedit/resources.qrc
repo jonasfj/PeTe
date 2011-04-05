@@ -2,4 +2,14 @@
     <qresource prefix="/QueryEdit">
         <file alias="QueryReservedWords.list">Widgets/QueryReservedWords.list</file>
     </qresource>
+    <qresource prefix="/Icons">
+        <file alias="check.svg">Icons/check.svg</file>
+        <file alias="clear.svg">Icons/clear.svg</file>
+        <file alias="clock.svg">Icons/clock.svg</file>
+        <file alias="cross.svg">Icons/cross.svg</file>
+        <file alias="play.svg">Icons/play.svg</file>
+        <file alias="refresh.svg">Icons/refresh.svg</file>
+        <file alias="unknown.svg">Icons/unknown.svg</file>
+        <file alias="stop.svg">Icons/stop.svg</file>
+    </qresource>
 </RCC>

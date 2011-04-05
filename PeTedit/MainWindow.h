@@ -30,6 +30,8 @@ private:
 	QActionGroup* modeActionGroup;
 
 private slots:
+	void validationIssuesFound();
+
 	void on_deleteVariable_clicked();
 	void on_addVariable_clicked();
 	void on_OpenAction_triggered();
@@ -41,9 +43,10 @@ private slots:
 	void modeActionGroup_triggered(QAction* action);
 	void on_actionExport_SVG_triggered();
 	void on_deleteQuery_clicked();
-	void on_validateAction_triggered();
 	void on_queryView_doubleClicked(QModelIndex index);
 	void on_addQueryAction_triggered();
+	void on_runQueryButton_clicked();
+	void on_stopQueryButton_clicked();
 	};
 
 #endif // MAINWINDOW_H

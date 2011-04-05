@@ -3,6 +3,8 @@
 
 #include <QAbstractTableModel>
 
+#include "PetriEngine/Reachability/ReachabilityResult.h"
+
 class PetriNetScene;
 class QueryThread;
 
@@ -10,20 +12,25 @@ class QueryThread;
 class QueryModel : public QAbstractTableModel
 {
     Q_OBJECT
-public:
-	/** Different statuses that a query can have */
-	enum QueryStatus{
-		Satisfied,
-		NotSatisfiable,
-		Inprogress,
-		Unknown
+
+	/** State that a query can be in */
+	struct QueryState{
+		QueryState(){
+			thread = NULL;
+			progress = 0;
+			time = 0;
+		}
+		QueryThread* thread;
+		double progress;
+		double time;
+		PetriEngine::Reachability::ReachabilityResult result;
 	};
+public:
 	/** Internal representation of a query */
 	struct Query{
 		QString name,
 				query,
 				strategy;
-		QueryStatus status;
 		bool operator==(const Query &other){
 			return name == other.name &&
 				   query == other.query &&
@@ -56,16 +63,20 @@ public:
 	void setQuery(const Query& query, int row);
 
 private:
-	QList<QueryThread*> _threads;
+	QList<QueryState> _qstate;
 	QList<Query> _queries;
 	PetriNetScene* _net;
+
+	/** Signal that a row was changed */
+	void emitDataChanged(int row);
 
 	/** Abort the thread for a row, if any */
 	void abortThread(int row);
 	/** Start a new thread, abort old if there's one */
 	void startThread(int row);
 private slots:
-	void completedThread(QueryThread* thread);
+	void completedThread(QueryThread* thread, qreal time);
+	void progressReported(QueryThread* thread, qreal progress, qreal time);
 signals:
 
 public slots:
@@ -75,12 +86,8 @@ public slots:
 	void editQuery(const QModelIndex& index, QWidget* parent);
 	/** Remove query */
 	void removeQuery(const QModelIndex& index);
-	/** Run all queries */
-	void runAll();
 	/** Run a specific query */
 	void runQuery(const QModelIndex& index);
-	/** Break execution of all running queries */
-	void stopAll();
 	/** Break execution of a specific query */
 	void stopQuery(const QModelIndex& index);
 };

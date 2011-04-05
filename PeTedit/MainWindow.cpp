@@ -61,10 +61,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->addQuery->setIcon(QIcon::fromTheme("list-add"));
 	ui->deleteQuery->setIcon(QIcon::fromTheme("list-remove"));
 
-	// Set icons on validation buttons
-	ui->refreshValidationButton->setIcon(QIcon::fromTheme("view-refresh"));
-	ui->clearValidationButton->setIcon(QIcon::fromTheme("edit-delete"));
-
 	// Add actions for toggling dockwidgets
 	QAction* toggleVariablesDock = ui->variableDock->toggleViewAction();
 	toggleVariablesDock->setText(tr("Show variables"));
@@ -170,6 +166,10 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 		currentScene = qobject_cast<PetriNetScene*>(view->scene());
 
 	if(previousScene){
+		disconnect(previousScene, SIGNAL(validationIssuesFound()),
+					this, SLOT(validationIssuesFound()));
+		disconnect(ui->validateAction, SIGNAL(triggered()),
+					previousScene, SLOT(validate()));
 		disconnect(previousScene, SIGNAL(modeChanged(PetriNetScene::Mode)),
 				   this,  SLOT(currentScene_modeChanged(PetriNetScene::Mode)));
 		disconnect(ui->refreshValidationButton, SIGNAL(clicked()),
@@ -189,6 +189,10 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 		ui->queryView->setModel(currentScene->queries());
 		ui->validationView->setModel(currentScene->validationIssues());
 
+		connect(currentScene, SIGNAL(validationIssuesFound()),
+				this, SLOT(validationIssuesFound()));
+		connect(ui->validateAction, SIGNAL(triggered()),
+				currentScene, SLOT(validate()));
 		connect(this->currentScene, SIGNAL(modeChanged(PetriNetScene::Mode)),
 				this, SLOT(currentScene_modeChanged(PetriNetScene::Mode)));
 		connect(ui->refreshValidationButton, SIGNAL(clicked()),
@@ -284,12 +288,11 @@ void MainWindow::on_actionExport_SVG_triggered()
 	}
 }
 
-/** Validate the petri net */
-void MainWindow::on_validateAction_triggered()
+/** Validation found issues */
+void MainWindow::validationIssuesFound()
 {
 	if(!currentScene)
 		return;
-	currentScene->validate();
 	if(ui->validationDock->isHidden() &&
 	   currentScene->validationIssues()->rowCount() > 0){
 		ui->validationDock->show();
@@ -315,6 +318,23 @@ void MainWindow::on_queryView_doubleClicked(QModelIndex index){
 		return;
 	currentScene->queries()->editQuery(index, this);
 }
+
+/** Run query*/
+void MainWindow::on_runQueryButton_clicked()
+{
+	if(!currentScene)
+		return;
+	currentScene->queries()->runQuery(ui->queryView->currentIndex());
+}
+
+/** Stop query */
+void MainWindow::on_stopQueryButton_clicked()
+{
+	if(!currentScene)
+		return;
+	currentScene->queries()->stopQuery(ui->queryView->currentIndex());
+}
+
 
 /** Delete query */
 void MainWindow::on_deleteQuery_clicked(){

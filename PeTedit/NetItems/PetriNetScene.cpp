@@ -455,6 +455,9 @@ void PetriNetScene::validate(){
 	validator.validate();
 
 	_validationIssues->setIssues(validator.errors());
+
+	if(_validationIssues->rowCount() > 0)
+		emit validationIssuesFound();
 }
 
 void PetriNetScene::showValidationIssue(const QModelIndex &index){

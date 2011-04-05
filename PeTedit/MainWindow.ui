@@ -63,7 +63,7 @@
      <x>0</x>
      <y>0</y>
      <width>826</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -246,6 +246,34 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
+        <widget class="QPushButton" name="runQueryButton">
+         <property name="toolTip">
+          <string>Run selected query</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/Icons/play.svg</normaloff>:/Icons/play.svg</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="stopQueryButton">
+         <property name="toolTip">
+          <string>Stop selected query</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/Icons/stop.svg</normaloff>:/Icons/stop.svg</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="addQuery">
          <property name="toolTip">
           <string>Add new query</string>
@@ -363,12 +391,20 @@
          <property name="text">
           <string/>
          </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/Icons/refresh.svg</normaloff>:/Icons/refresh.svg</iconset>
+         </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="clearValidationButton">
          <property name="text">
           <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/Icons/clear.svg</normaloff>:/Icons/clear.svg</iconset>
          </property>
         </widget>
        </item>
@@ -487,7 +523,9 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>addQuery</sender>

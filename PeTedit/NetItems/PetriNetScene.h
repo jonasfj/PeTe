@@ -115,6 +115,7 @@ protected:
 	void keyPressEvent(QKeyEvent* event);
 signals:
 	void modeChanged(PetriNetScene::Mode mode);
+	void validationIssuesFound();
 public slots:
 	void updateSceneRect();
 	/** Refresh the model with validation issues */

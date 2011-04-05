@@ -5,8 +5,20 @@
 #include "../Commands/EditQueryCommand.h"
 #include "../Dialogs/QueryDialog.h"
 #include "QueryThread.h"
+#include "ValidationIssuesModel.h"
+#include "CustomDataRoles.h"
 
 #include <QIcon>
+
+/** Description column number */
+#define COL_DESCRIPTION		0
+
+/** Progress column number */
+#define COL_PROGRESS		1
+
+/** Number of colums */
+#define COL_COUNT			2
+
 
 QueryModel::QueryModel(PetriNetScene* net)
 	 : QAbstractTableModel(net){
@@ -26,34 +38,57 @@ int QueryModel::rowCount(const QModelIndex &parent) const{
 int QueryModel::columnCount(const QModelIndex &parent) const{
 	if(parent.isValid())
 		return 0;
-	return 3;	// Icon, Name, Progress
+	return COL_COUNT;	// Name, Progress
 }
 
 QVariant QueryModel::data(const QModelIndex &index, int role) const{
-	if(!index.isValid() || role != Qt::DisplayRole)
+	if(!index.isValid())
 		return QVariant();
 
 	const Query& query = _queries[index.row()];
+	const QueryState& state = _qstate[index.row()];
 
-	if(index.column() == 0){
-		switch(query.status){
-			case Satisfied:
-			case NotSatisfiable:
-			case Inprogress:
-			case Unknown:
+	if(role == Qt::ToolTipRole){
+		if(state.result.explanation().empty())
+			return "Satisfiability unknown, run query to find it";
+		return state.result.explanation().c_str();
+	}
+
+	if(role == DataRoles::ProgressText &&
+		index.column() == COL_PROGRESS &&
+		state.thread){
+		return tr("elapsed %1").arg(state.time);
+	}
+
+	if(index.column() == COL_DESCRIPTION && role == Qt::DecorationRole){
+		if(state.thread)
+			return QIcon(":/Icons/clock.svg");
+
+		switch(state.result.result()){
+			case PetriEngine::Reachability::ReachabilityResult::Satisfied:
+				return QIcon(":/Icons/check.svg");
+			case PetriEngine::Reachability::ReachabilityResult::NotSatisfied:
+				return QIcon(":/Icons/cross.svg");
+			case PetriEngine::Reachability::ReachabilityResult::Unknown:
 			default:
-				return QIcon::fromTheme("gnome-unknown");
-			//TODO: Find icons here: http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html
-			// or include some in resources and use them here...
+				return QIcon(":/Icons/unknown.svg");
 		}
 	}
 
-	if(index.column() == 1)
+	if(role != Qt::DisplayRole)
+		return QVariant();
+
+	if(index.column() == COL_DESCRIPTION)
 		return query.name;
 
 	//Return double if you want progress bar, text if you wan't text
-	if(index.column() == 2)
-		return 0.5;	//TODO: Do something better than this :)
+	if(index.column() == COL_PROGRESS){
+		if(state.thread)
+			return state.progress;
+		if(state.time == 0)
+			return "-";
+		return tr("finished in %1").arg(state.time);
+	}
 
 	return QVariant();
 }
@@ -61,13 +96,15 @@ QVariant QueryModel::data(const QModelIndex &index, int role) const{
 QVariant QueryModel::headerData(int section, Qt::Orientation orientation, int role) const{
 	if(role != Qt::DisplayRole || orientation != Qt::Horizontal)
 		return QVariant();
-	if(section == 0)
-		return "";
-	else if(section == 1)
+	if(section == COL_DESCRIPTION)
 		return tr("Description");
-	else if(section == 2)
+	else if(section == COL_PROGRESS)
 		return tr("Status");
 	return QVariant();
+}
+
+void QueryModel::emitDataChanged(int row){
+	emit dataChanged(this->index(row, 0), this->index(row, COL_COUNT));
 }
 
 /******************** Query Editing Slots ********************/
@@ -77,7 +114,6 @@ void QueryModel::addQuery(QWidget *parent){
 	Query query;
 	query.name = "New query";
 	query.query = "";
-	query.status = Unknown;
 	query.strategy = "";
 	QueryDialog d(query, parent);
 	d.setIdentifiers(_net->placeNames(), _net->variableNames());
@@ -128,7 +164,7 @@ int QueryModel::insertQuery(const Query& query, int row){
 		row = _queries.size();
 	//Alert views that we're inserting a row
 	this->beginInsertRows(QModelIndex(), row, row);
-	_threads.insert(row, NULL);
+	_qstate.insert(row, QueryState());
 	_queries.insert(row, query);
 	this->endInsertRows();
 	return row;
@@ -139,7 +175,7 @@ QueryModel::Query QueryModel::takeQuery(int row){
 	Q_ASSERT(0 <= row && row < _queries.size());
 	this->beginRemoveRows(QModelIndex(), row, row);
 	abortThread(row);
-	_threads.removeAt(row);
+	_qstate.removeAt(row);
 	Query q = _queries.takeAt(row);
 	this->endRemoveRows();
 	return q;
@@ -155,27 +191,18 @@ const QueryModel::Query& QueryModel::query(int row){
 void QueryModel::setQuery(const Query& query, int row){
 	abortThread(row);
 	_queries[row] = query;
-	emit dataChanged(this->index(row, 0), this->index(row,2));
+	emitDataChanged(row);
 }
 
 /******************** Query Exection Slots ********************/
 
-/** Run all queries */
-void QueryModel::runAll(){
-	for(size_t i = 0; i < _queries.size(); i++)
-		startThread(i);
-}
-
 /** Run a specific query */
 void QueryModel::runQuery(const QModelIndex& index){
 	if(!index.isValid()) return;
+	_net->validate();
+	if(_net->validationIssues()->rowCount() != 0)
+	return;
 	startThread(index.row());
-}
-
-/** Break execution of all running queries */
-void QueryModel::stopAll(){
-	for(size_t i = 0; i < _queries.size(); i++)
-		abortThread(i);
 }
 
 /** Break execution of a specific query */
@@ -187,41 +214,75 @@ void QueryModel::stopQuery(const QModelIndex& index){
 /******************** Query Exection Methods ********************/
 
 void QueryModel::abortThread(int row){
-	//TODO: Update icon (status)
 	Q_ASSERT(0 <= row && row < _queries.size());
-	if(_threads[row]){
-		disconnect(_threads[row], SIGNAL(completed(QueryThread*)), this, SLOT(completedThread(QueryThread*)));
-		connect(_threads[row], SIGNAL(finished()), _threads[row], SLOT(deleteLater()));
-		connect(_threads[row], SIGNAL(terminated()), _threads[row], SLOT(deleteLater()));
-		_threads[row]->abort();
+	QueryThread*& thread = _qstate[row].thread;
+	if(thread){
+		disconnect(thread, SIGNAL(completed(QueryThread*,qreal)),
+				   this, SLOT(completedThread(QueryThread*,qreal)));
+		disconnect(thread, SIGNAL(progressChanged(QueryThread*,qreal,qreal)),
+				  this, SLOT(progressReported(QueryThread*,qreal,qreal)));
+		connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+		connect(thread, SIGNAL(terminated()), thread, SLOT(deleteLater()));
+		thread->abort();
 	}
-	_threads[row] = NULL;
+	//Clear the state
+	_qstate[row] = QueryState();
+	emitDataChanged(row);
 }
 
 void QueryModel::startThread(int row){
-	//TODO: Update icon (status)
 	Q_ASSERT(0 <= row && row < _queries.size());
+	//Abort existing thread and/or clear state
 	abortThread(row);
-	_threads[row] = new QueryThread(_queries[row].query, _queries[row].strategy, _net, NULL);
-	//TODO: Connect to progressChanged signal
-	connect(_threads[row], SIGNAL(completed(QueryThread*)), this, SLOT(completedThread(QueryThread*)));
-	_threads[row]->start();
+	_qstate[row].thread = new QueryThread(_queries[row].query, _queries[row].strategy, _net, NULL);
+
+	connect(_qstate[row].thread, SIGNAL(progressChanged(QueryThread*,qreal,qreal)),
+			this, SLOT(progressReported(QueryThread*,qreal,qreal)));
+	connect(_qstate[row].thread, SIGNAL(completed(QueryThread*,qreal)),
+			this, SLOT(completedThread(QueryThread*,qreal)));
+	_qstate[row].thread->start();
+	emitDataChanged(row);
 }
 
-void QueryModel::completedThread(QueryThread *thread){
+void QueryModel::progressReported(QueryThread *thread, qreal progress, qreal time){
+	Q_ASSERT(thread != NULL);
+	int row = -1;
+	for(int i = 0; i < _qstate.size(); i++){
+		if(_qstate[i].thread == thread){
+			row = i;
+			break;
+		}
+	}
+	if(row == -1){
+		thread->abort();
+		disconnect(thread, SIGNAL(progressChanged(QueryThread*,qreal,qreal)),
+				  this, SLOT(progressReported(QueryThread*,qreal,qreal)));
+		connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+		connect(thread, SIGNAL(terminated()), thread, SLOT(deleteLater()));
+		return;
+	}
+
+	_qstate[row].progress = progress;
+	_qstate[row].time = time;
+	emitDataChanged(row);
+}
+
+void QueryModel::completedThread(QueryThread *thread, qreal time){
 	Q_ASSERT(thread != NULL);
 	thread->deleteLater();
-	int row = _threads.indexOf(thread);
-	if(row < 0)
+	int row = -1;
+	for(int i = 0; i < _qstate.size(); i++){
+		if(_qstate[i].thread == thread){
+			row = i;
+			break;
+		}
+	}
+	if(row == -1)
 		return;
 
-	//TODO: Update icon (status)
-
-	_threads[row] = NULL;
-	if(thread->result().result() == PetriEngine::Reachability::ReachabilityResult::Satisfied)
-		_queries[row].status = Satisfied;
-	else if(thread->result().result() == PetriEngine::Reachability::ReachabilityResult::NotSatisfied)
-		_queries[row].status = NotSatisfiable;
-	else
-		_queries[row].status = Unknown;
+	_qstate[row].progress = 0;
+	_qstate[row].time = time;
+	_qstate[row].result = thread->result();
+	_qstate[row].thread = NULL;
+	emitDataChanged(row);
 }

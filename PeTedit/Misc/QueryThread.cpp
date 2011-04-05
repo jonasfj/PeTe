@@ -18,6 +18,7 @@ QueryThread::QueryThread(QString query,
 						 QObject *parent)
  : QThread(parent), _strategy(strategy.toStdString())
 {
+	_finishTime = 0;
 	_isAborted = false;
 	abortLock.lock();
 
@@ -62,8 +63,13 @@ void QueryThread::run(){
 	QueryProgressReporter reporter(*this);
 	strategy->setProgressReporter(&reporter);
 
+	//Set the start clock
+	_startClock = clock();
+
 	//Run the strategy
 	_result = strategy->reachable(*_net, _m0, _a0, _query);
+
+	_finishTime = ((qreal)(clock() - _startClock)) * (qreal)CLOCKS_PER_SEC;
 }
 
 void QueryThread::abort(){
@@ -74,12 +80,13 @@ void QueryThread::abort(){
 }
 
 void QueryThread::emitCompleted(){
-	emit completed(this);
+	emit completed(this, _finishTime);
 }
 
 /** Emit progressChanged signal (used by QueryProgressReporter) */
-void QueryThread::emitProgressChanged(double progress){
-	emit progressChanged(this, progress);
+void QueryThread::emitProgressChanged(qreal progress){
+	qreal time = ((qreal)(clock() - _startClock)) * (qreal)CLOCKS_PER_SEC;
+	emit progressChanged(this, progress, time);
 }
 
 QueryThread::QueryProgressReporter::QueryProgressReporter(QueryThread &thread)
