@@ -64,6 +64,9 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 	// Create root node of the state space
 	State* root = State::createState(net.numberOfPlaces(), net.numberOfVariables());
 
+	//Report zero
+	this->reportProgress(0);
+
 	// Recursively handle reachability check
 	bool result = dfsReachable(root,
 					 net,

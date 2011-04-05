@@ -7,7 +7,7 @@ namespace PetriEngine { namespace Reachability {
 
 /** GeneralState class for reachability searches.
   * Used in most reachability search cases */
-class GeneralState {
+class GenericState {
 public:
 	MarkVal* marking(){
 		return _marking;
@@ -16,14 +16,14 @@ public:
 		return _valuation;
 	}
 
-	GeneralState* parent(){
+	GenericState* parent(){
 		return _parent;
 	}
 
 	/** Check if this state is a loop */
 	bool isLoop(const PetriNet& net){
 
-		GeneralState* parent = this->_parent;
+		GenericState* parent = this->_parent;
 
 		if(!parent)
 			return false;
@@ -55,17 +55,17 @@ public:
 	}
 
 	/** Create a new state */
-	static inline GeneralState* createState(int nPlaces, int nVars, GeneralState* parent = NULL) {
-		char *d = (char*)calloc(1, sizeof(GeneralState) + sizeof(MarkVal)*nPlaces + sizeof(VarVal)*nVars);
-		GeneralState* s = (GeneralState*)d;
-		s->_marking = (MarkVal*)(d + sizeof(GeneralState));
-		s->_valuation = (VarVal*)(d+ sizeof(GeneralState) + sizeof(MarkVal) * nPlaces);
+	static inline GenericState* createState(int nPlaces, int nVars, GenericState* parent = NULL) {
+		char *d = (char*)calloc(1, sizeof(GenericState) + sizeof(MarkVal)*nPlaces + sizeof(VarVal)*nVars);
+		GenericState* s = (GenericState*)d;
+		s->_marking = (MarkVal*)(d + sizeof(GenericState));
+		s->_valuation = (VarVal*)(d+ sizeof(GenericState) + sizeof(MarkVal) * nPlaces);
 		if(parent)
 			s->_parent = parent;
-		return (GeneralState*)d;
+		return (GenericState*)d;
 	}
 private:
-	GeneralState* _parent;
+	GenericState* _parent;
 	MarkVal* _marking;
 	VarVal* _valuation;
 };
