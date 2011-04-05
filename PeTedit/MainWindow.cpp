@@ -240,8 +240,17 @@ void MainWindow::on_SaveAction_triggered()
 void MainWindow::on_addVariable_clicked()
 {
 	//TODO: Check if dummy variable exists already
-	if(currentScene)
-		currentScene->addVariable("x1",0,0);
+	int num=0;
+	if(currentScene){
+		while(true){
+			QString id = "x" + QString::number(num);
+			if (!currentScene->findVariable(id)){
+				currentScene->addVariable(id,0,0);
+				break;
+			}else
+				num++;
+		}
+	}
 }
 
 /** Removes a variable from the variableView table */
