@@ -1,0 +1,61 @@
+#include "DFRSHash.h"
+
+namespace PetriEngine { namespace Reachability {
+
+bool DFRSHash::dfshreachable(const PetriNet &net,
+							 StateSet *states,
+							 State *currentState,
+							 PQL::Condition *query){
+	//Does this state satisfy the query?
+	if(query->evaluate(PQL::EvaluationContext(currentState->marking(),
+											  currentState->valuation())))
+		return true;
+
+	for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
+
+	}
+}
+
+ReachabilityResult DFRSHash::reachable(const PetriNet &net,
+									   const MarkVal *initialMarking,
+									   const VarVal *initialValuation,
+									   PQL::Condition *query){
+	//Do we initially satisfy query?
+	if(query->evaluate(PQL::EvaluationContext(initialMarking, initialValuation)))
+		return ReachabilityResult(ReachabilityResult::Satisfied,
+								  "A state satisfying the query was found");
+
+	//Iterate through branches
+	for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
+		//Create root node
+		State* root = State::createState(net.numberOfPlaces(),
+										 net.numberOfVariables());
+		//Create branch node
+		State* branch = State::createState(net.numberOfPlaces(),
+										   net.numberOfVariables());
+		//Create StateSet
+		StateSet states(net);
+		states.add(root);
+		//Attempt to fire transition
+		if(net.fire(t, initialMarking, initialValuation,
+		   branch->marking(), branch->valuation())){
+			//Investigate branch
+			if(states.add(branch)){
+				if(dfshreachable(net, &states, branch, query)){
+					return ReachabilityResult(ReachabilityResult::Satisfied,
+								  "A state satisfying the query was found");
+				}
+			}
+			else //Kill the unused branch
+				State::deleteState(branch);
+		} else //Kill the unfirable branch
+			State::deleteState(branch);
+		this->reportProgress(t/net.numberOfTransitions());
+	}
+
+	//No path was found. Unsatisfiable
+	return ReachabilityResult(ReachabilityResult::NotSatisfied,
+							"No state satisfying the query exists");
+}
+
+}}
