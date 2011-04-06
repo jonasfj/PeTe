@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->variableView->setItemDelegate(delegate);
 
 	//Set delegate for query editor
-	ui->queryView->setItemDelegateForColumn(2, new ProgressViewDelegate(this));
+	ui->queryView->setItemDelegateForColumn(1, new ProgressViewDelegate(this));
 
 	// Set icons on variable buttons
 	ui->addVariable->setIcon(QIcon::fromTheme("list-add"));
