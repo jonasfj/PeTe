@@ -15,13 +15,13 @@ SUITE(PQLParserTest){
 
 		Condition* expr1 = ParseQuery(query);
 		CHECK(expr1 != NULL);
-		cout<<"Expression parsed:"<<endl;
-		cout<<expr1->toString()<<endl;
+		//cout<<"Expression parsed:"<<endl;
+		//cout<<expr1->toString()<<endl;
 
 		Condition* expr2 = ParseQuery(expr1->toString());
 		CHECK(expr1->toString() == expr2->toString());
 	}
-
+/*
 	TEST(PQLAssignmentTreeConstruction){
 		string assignment("X2:=5;Excaliber:=4+5*8+(55*7)+1;");
 
@@ -36,7 +36,7 @@ SUITE(PQLParserTest){
 /*
 	TEST(CTLEvaluation){
 
-		string queryString("P1==0&&P2==1");
+		string queryString("PdfsHash1==0&&P2==1");
 
 		PetriNetBuilder builder;
 		builder.addPlace("P1",0,0,0);

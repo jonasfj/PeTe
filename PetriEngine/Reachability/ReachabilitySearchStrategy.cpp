@@ -2,6 +2,7 @@
 
 //#include "KarpMillerL1SearchStrategy.h"
 #include "DepthFirstReachabilitySearch.h"
+#include "DFRSHash.h"
 
 #include <stdio.h>
 
@@ -12,6 +13,7 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 	std::vector<std::string> strategies;
 	//strategies.push_back("Karp-Miller L1");
 	strategies.push_back("Naive Karp-Miller DFS");
+	strategies.push_back("Naive Karp-Millar DFS with hashing");
 	return strategies;
 }
 
@@ -21,6 +23,8 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	//	return new KarpMillerL1SearchStrategy();
 	if(strategy == "Naive Karp-Miller DFS")
 		return new DepthFirstReachabilitySearch();
+	if(strategy == "Naive Karp-Millar DFS with hashing")
+		return new DFRSHash();
 	//If we didn't find it
 	fprintf(stderr, "Reachability strategy: \"%s\" not found!", strategy.c_str());
 	return NULL;

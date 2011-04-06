@@ -6,14 +6,31 @@ bool DFRSHash::dfshreachable(const PetriNet &net,
 							 StateSet *states,
 							 State *currentState,
 							 PQL::Condition *query){
+	if((timer++ % 20) == 0)
+		if(this->abortRequested())
+			return false;
+
 	//Does this state satisfy the query?
 	if(query->evaluate(PQL::EvaluationContext(currentState->marking(),
 											  currentState->valuation())))
 		return true;
 
 	for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
-
+		State* child = State::createState(net.numberOfPlaces(), net.numberOfVariables());
+		if(net.fire(t, currentState->marking(), currentState->valuation(),
+		   child->marking(), child->valuation())){
+			//Investigate branch
+			if(states->add(child)){
+				if(dfshreachable(net, states, child, query)){
+					return true;
+				}
+			} else
+				State::deleteState(child);
+		} else
+			State::deleteState(child);
 	}
+
+	return false;
 }
 
 ReachabilityResult DFRSHash::reachable(const PetriNet &net,
