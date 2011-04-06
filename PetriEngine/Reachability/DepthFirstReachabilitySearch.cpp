@@ -39,7 +39,7 @@ bool DepthFirstReachabilitySearch::dfsReachable(State *oldStates,
 				return true;
 			}
 		}
-		if(oldStates->parent())
+		if(!oldStates->parent())
 			this->reportProgress(t/net.numberOfTransitions());
 
 		delete child;
