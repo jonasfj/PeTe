@@ -11,7 +11,8 @@ PKGCONFIG		+= unittest++
 SOURCES	   +=   main.cpp \
     PetriEngineTests/ParserTest.cpp \
     PetriEngineTests/DFSReachabilityTest.cpp \
-    PetriEngineTests/FireTest.cpp
+    PetriEngineTests/FireTest.cpp \
+    PetriEngineTests/StateSetTest.cpp
 
 HEADERS		+= \
 

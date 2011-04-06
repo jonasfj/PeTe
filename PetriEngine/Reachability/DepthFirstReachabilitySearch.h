@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "ReachabilitySearchStrategy.h"
-#include "GeneralState.h"
+#include "State.h"
 
 namespace PetriEngine { namespace Reachability {
 
@@ -23,7 +23,6 @@ public:
 
 	void setProgressReporter(ProgressReporter* reporter);
 private:
-	typedef GenericState State;
 	/** Internal reachability method */
 	bool dfsReachable(State* oldStates,
 				   const PetriNet &net,

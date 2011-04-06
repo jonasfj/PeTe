@@ -10,7 +10,8 @@ SOURCES		   += \
 	Reachability/DepthFirstReachabilitySearch.cpp \
     PetriNetBuilder.cpp \
     ValidationBuilder.cpp \
-	Reachability/ReachabilitySearchStrategy.cpp
+	Reachability/ReachabilitySearchStrategy.cpp \
+    Reachability/DFRSHash.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -26,7 +27,9 @@ HEADERS		   += \
     ValidationBuilder.h \
     Reachability/KarpMillerL1SearchStrategy.h \
 	Reachability/DepthFirstReachabilitySearch.h \
-    Reachability/GeneralState.h
+    Reachability/State.h \
+    Reachability/StateSet.h \
+    Reachability/DFRSHash.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine
