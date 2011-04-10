@@ -8,7 +8,7 @@
 #include <PetriEngine/PetriNet.h>
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/Reachability/DepthFirstReachabilitySearch.h>
-#include <PetriEngine/PQL/PQLExpressions.h>
+#include <PetriEngine/PQL/PQL.h>
 
 int main(int argc, char *argv[])
 {

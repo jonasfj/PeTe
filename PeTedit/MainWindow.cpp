@@ -19,7 +19,7 @@
 #include "Misc/ProgressViewDelegate.h"
 
 #include <PetriEngine/PQL/PQLParser.h>
-#include <PetriEngine/PQL/PQLExpressions.h>
+#include <PetriEngine/PQL/PQL.h>
 
 #include <QGraphicsView>
 #include <QUndoView>

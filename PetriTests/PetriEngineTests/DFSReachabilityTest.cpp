@@ -3,7 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include "PQL/PQLParser.h"
-#include "PQL/PQLExpressions.h"
+#include "PQL/PQL.h"
 #include "PetriNet.h"
 #include "PetriNetBuilder.h"
 #include "Reachability/DepthFirstReachabilitySearch.h"

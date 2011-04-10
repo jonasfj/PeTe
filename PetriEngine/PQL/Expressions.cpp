@@ -1,15 +1,13 @@
-#include "PQLExpressions.h"
+#include "Expressions.h"
 
 #include <sstream>
 #include <assert.h>
 #include <string.h>
 
-namespace PetriEngine{
+namespace PetriEngine {
 namespace PQL{
 
 /******************** Destructors ********************/
-
-Expr::~Expr(){}
 
 BinaryExpr::~BinaryExpr(){
 	if(_expr1)
@@ -25,8 +23,6 @@ MinusExpr::~MinusExpr(){
 		delete _expr;
 	_expr = NULL;
 }
-
-Condition::~Condition(){}
 
 LogicalCondition::~LogicalCondition(){
 	if(_cond1)
@@ -276,33 +272,5 @@ std::string GreaterThanOrEqualCondition::op() const{
 	return ">=";
 }
 
-/******************** Misc test ********************/
 
-AnalysisContext::ResolutionResult AnalysisContext::resolve(std::string identifier) const{
-	ResolutionResult result;
-	result.offset = -1;
-	result.success = false;
-	for(size_t i = 0; i < _places.size(); i++){
-		if(_places[i] == identifier){
-			result.offset = i;
-			result.isPlace = true;
-			result.success = true;
-			return result;
-		}
-	}
-	for(size_t i = 0; i < _variables.size(); i++){
-		if(_variables[i] == identifier){
-			result.offset = i;
-			result.isPlace = false;
-			result.success = true;
-			return result;
-		}
-	}
-	return result;
-}
-
-/******************** Just-In-Time Compilation ********************/
-
-}/* PQL */
-}/* PetriEngine */
-
+}}

@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
-#include "PQLExpressions.h"
+#include "PQL.h"
+#include "Expressions.h"
 using namespace PetriEngine::PQL;
 
 AssignmentExpression* assignment;

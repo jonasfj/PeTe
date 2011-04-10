@@ -2,7 +2,7 @@
 #define VALIDATIONBUILDER_H
 
 #include "AbstractPetriNetBuilder.h"
-#include "PQL/PQLExpressions.h"
+#include "PQL/PQL.h"
 
 #include <string>
 #include <vector>

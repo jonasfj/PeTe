@@ -3,7 +3,7 @@
 
 #include "ReachabilitySearchStrategy.h"
 #include "ReachabilityResult.h"
-#include "PQL/PQLExpressions.h"
+#include "PQL/PQL.h"
 #include "State.h"
 #include "StateSet.h"
 

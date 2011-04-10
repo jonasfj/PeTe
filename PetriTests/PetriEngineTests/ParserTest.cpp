@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 #include "PQL/PQLParser.h"
-#include "PQL/PQLExpressions.h"
+#include "PQL/PQL.h"
 #include "PetriNetBuilder.h"
 
 using namespace PetriEngine;

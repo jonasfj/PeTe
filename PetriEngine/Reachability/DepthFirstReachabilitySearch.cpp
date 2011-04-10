@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../PQL/PQLExpressions.h"
+#include "../PQL/PQL.h"
 
 using namespace PetriEngine::PQL;
 
