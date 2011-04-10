@@ -21,7 +21,7 @@ SUITE(PQLParserTest){
 		Condition* expr2 = ParseQuery(expr1->toString());
 		CHECK(expr1->toString() == expr2->toString());
 	}
-/*
+
 	TEST(PQLAssignmentTreeConstruction){
 		string assignment("X2:=5;Excaliber:=4+5*8+(55*7)+1;");
 

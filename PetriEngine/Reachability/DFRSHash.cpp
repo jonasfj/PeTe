@@ -6,9 +6,13 @@ bool DFRSHash::dfshreachable(const PetriNet &net,
 							 StateSet *states,
 							 State *currentState,
 							 PQL::Condition *query){
-	if((timer++ % 20) == 0)
-		if(this->abortRequested())
-			return false;
+	if(timer++ == 20){
+		timer = 0;
+		doAbort = this->abortRequested();
+	}
+
+	if(doAbort)
+		return false;
 
 	//Does this state satisfy the query?
 	if(query->evaluate(PQL::EvaluationContext(currentState->marking(),
@@ -41,18 +45,18 @@ ReachabilityResult DFRSHash::reachable(const PetriNet &net,
 	if(query->evaluate(PQL::EvaluationContext(initialMarking, initialValuation)))
 		return ReachabilityResult(ReachabilityResult::Satisfied,
 								  "A state satisfying the query was found");
-
+	this->doAbort = false;
+	//Create root node
+	State* root = State::createState(net.numberOfPlaces(),
+									 net.numberOfVariables());
+	//Create StateSet
+	StateSet states(net);
+	states.add(root);
 	//Iterate through branches
 	for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
-		//Create root node
-		State* root = State::createState(net.numberOfPlaces(),
-										 net.numberOfVariables());
 		//Create branch node
 		State* branch = State::createState(net.numberOfPlaces(),
-										   net.numberOfVariables());
-		//Create StateSet
-		StateSet states(net);
-		states.add(root);
+										   net.numberOfVariables());		
 		//Attempt to fire transition
 		if(net.fire(t, initialMarking, initialValuation,
 		   branch->marking(), branch->valuation())){
@@ -60,19 +64,23 @@ ReachabilityResult DFRSHash::reachable(const PetriNet &net,
 			if(states.add(branch)){
 				if(dfshreachable(net, &states, branch, query)){
 					return ReachabilityResult(ReachabilityResult::Satisfied,
-								  "A state satisfying the query was found");
+								  "A state satisfying the query was found.");
 				}
 			}
 			else //Kill the unused branch
 				State::deleteState(branch);
 		} else //Kill the unfirable branch
 			State::deleteState(branch);
-		this->reportProgress(t/net.numberOfTransitions());
+		this->reportProgress((double)t/(double)net.numberOfTransitions());
 	}
+
+	if(doAbort)
+		return ReachabilityResult(ReachabilityResult::Unknown,
+							"Reachability search was aborted.");
 
 	//No path was found. Unsatisfiable
 	return ReachabilityResult(ReachabilityResult::NotSatisfied,
-							"No state satisfying the query exists");
+							"No state satisfying the query exists.");
 }
 
 }}

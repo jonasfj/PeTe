@@ -78,9 +78,9 @@ public:
 			//TODO: Rotate bits during hashing
 			size_t hash = 0;
 			for(unsigned int i = 0; i < nPlaces; i++)
-				hash ^= state->_marking[i];
+				hash ^=	(state->_marking[i] << i) | (state->_marking[i] >> (32 - i));
 			for(unsigned int i = 0; i < nVariables; i++)
-				hash ^= state->_valuation[i];
+				hash ^= (state->_valuation[i] << i) | (state->_valuation[i] >> (32 - i));
 			return hash;
 		}
 		hash(unsigned int places, unsigned int variables)

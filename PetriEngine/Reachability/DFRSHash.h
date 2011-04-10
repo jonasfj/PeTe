@@ -27,6 +27,7 @@ private:
 					   PQL::Condition* query);
 
 	int timer;
+	bool doAbort;
 };
 
 }} // Reachability .. PetriEngine
