@@ -1,7 +1,9 @@
 TEMPLATE		= lib
 
+QMAKE_CXXFLAGS += $$system(llvm-config --cxxflags all)
 QT			   -= gui core
 CONFIG		   += staticlib
+LIBS		   += $$system(llvm-config --libs all)
 
 SOURCES		   += \
 	StandardOutputProgressReporter.cpp \

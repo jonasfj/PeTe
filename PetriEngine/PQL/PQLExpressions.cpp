@@ -301,8 +301,145 @@ AnalysisContext::ResolutionResult AnalysisContext::resolve(std::string identifie
 	return result;
 }
 
-/******************** Just-In-Time Compilation ********************/
 
 }/* PQL */
 }/* PetriEngine */
+
+
+/******************** Just-In-Time Compilation ********************/
+
+#include <llvm/LLVMContext.h>
+#include <llvm/Module.h>
+#include <llvm/DerivedTypes.h>
+#include <llvm/Constants.h>
+#include <llvm/GlobalVariable.h>
+#include <llvm/Function.h>
+#include <llvm/CallingConv.h>
+#include <llvm/BasicBlock.h>
+#include <llvm/Instructions.h>
+#include <llvm/InlineAsm.h>
+#include <llvm/Support/FormattedStream.h>
+#include <llvm/Support/MathExtras.h>
+#include <llvm/Pass.h>
+#include <llvm/PassManager.h>
+#include <llvm/ADT/SmallVector.h>
+#include <llvm/Analysis/Verifier.h>
+#include <llvm/Assembly/PrintModulePass.h>
+#include <llvm/ExecutionEngine/ExecutionEngine.h>
+#include <llvm/ExecutionEngine/JIT.h>
+#include <llvm/Analysis/Verifier.h>
+#include <llvm/Analysis/Passes.h>
+#include <llvm/Target/TargetData.h>
+#include <llvm/Target/TargetSelect.h>
+#include <llvm/Transforms/Scalar.h>
+
+using namespace llvm;
+
+namespace PetriEngine{
+namespace PQL{
+
+/******************** Code Generation Expressions ********************/
+
+Value* BinaryExpr::codegen(CodeGenerationContext &context) const{
+	Value* v1 = _expr1->codegen(context);
+	Value* v2 = _expr2->codegen(context);
+	return BinaryOperator::Create((Instruction::BinaryOps)this->binaryOp(),
+								  v1,
+								  v2,
+								  this->toString().c_str(),
+								  context.label());
+}
+
+//BinaryExpr::binaryOp implementations
+int PlusExpr::binaryOp() const						{ return Instruction::Add; }
+int SubtractExpr::binaryOp() const					{ return Instruction::Sub; }
+int MultiplyExpr::binaryOp() const					{ return Instruction::Mul; }
+
+
+Value* MinusExpr::codegen(CodeGenerationContext &context) const{
+	Value* value = _expr->codegen(context);
+	Value* zero = ConstantInt::get(IntegerType::get(context.context(), 32),
+								   0,
+								   false);
+	return BinaryOperator::Create(Instruction::Sub,
+								  zero,
+								  value,
+								  this->toString().c_str(),
+								  context.label());
+}
+
+Value* LiteralExpr::codegen(CodeGenerationContext &context) const{
+	return ConstantInt::get(IntegerType::get(context.context(), 32),
+							this->_value,
+							true);
+}
+
+Value* IdentifierExpr::codegen(CodeGenerationContext &context) const{
+	ConstantInt* literalOffset = ConstantInt::get(IntegerType::get(context.context(), 32),
+												  this->_offsetInMarking,
+												  false);
+	GetElementPtrInst* deref;
+	if(this->isPlace){
+		deref = GetElementPtrInst::Create(context.marking(),
+										  literalOffset,
+										  "Deref place" + this->_name,
+										  context.label());
+	}else{
+		deref = GetElementPtrInst::Create(context.valuation(),
+										  literalOffset,
+										  "Deref variable " + this->_name,
+										  context.label());
+	}
+	return new LoadInst(deref, "Load " + this->_name, false, context.label());
+}
+
+
+/******************** Code Generation Conditions ********************/
+
+Value* LogicalCondition::codegen(CodeGenerationContext &context) const{
+	Value* v1 = _cond1->codegen(context);
+	Value* v2 = _cond2->codegen(context);
+	//TODO: Consider using branching...
+	return BinaryOperator::Create((Instruction::BinaryOps)logicalOp(),
+								  v1,
+								  v2,
+								  this->toString().c_str(),
+								  context.label());
+}
+
+//LogicalCondition::logicalOp implementations
+int AndCondition::logicalOp() const					{ return Instruction::And; }
+int OrCondition::logicalOp() const					{ return Instruction::Or;  }
+
+Value* CompareCondition::codegen(CodeGenerationContext& context) const{
+	Value* v1 = _expr1->codegen(context);
+	Value* v2 = _expr2->codegen(context);
+	return new ICmpInst((ICmpInst::Predicate)compareOp(),
+						v1,
+						v2,
+						this->toString().c_str());
+}
+
+//CompareCondition::compareOp implementations
+int EqualCondition::compareOp() const				{ return ICmpInst::ICMP_EQ;  }
+int NotEqualCondition::compareOp() const			{ return ICmpInst::ICMP_NE;  }
+int LessThanCondition::compareOp() const			{ return ICmpInst::ICMP_SLT; }
+int LessThanOrEqualCondition::compareOp() const		{ return ICmpInst::ICMP_SLE; }
+int GreaterThanCondition::compareOp() const			{ return ICmpInst::ICMP_SGT; }
+int GreaterThanOrEqualCondition::compareOp() const	{ return ICmpInst::ICMP_SGE; }
+
+Value* NotCondition::codegen(CodeGenerationContext& context) const{
+	Value* value = _cond->codegen(context);
+	Value* zero = ConstantInt::get(IntegerType::get(context.context(), 1),
+								   0,
+								   false);
+	return new ICmpInst(ICmpInst::ICMP_EQ,
+						value,
+						zero,
+						"Not operation");
+}
+
+}/* PQL */
+}/* PetriEngine */
+
 

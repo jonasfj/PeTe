@@ -3,6 +3,12 @@
 
 #include "../PetriNet.h"
 
+namespace llvm{
+	class Value;
+	class BasicBlock;
+	class LLVMContext;
+}
+
 #include <string>
 #include <list>
 #include <vector>
@@ -88,6 +94,33 @@ private:
 	const VarVal* _assignment;
 };
 
+/** Just-In-Time compilation context */
+class CodeGenerationContext{
+public:
+	CodeGenerationContext(llvm::Value* marking,
+						  llvm::Value* valuation,
+						  llvm::BasicBlock* label,
+						  llvm::LLVMContext& context)
+		: _context(context) {
+		_marking = marking;
+		_valuation = valuation;
+		_label = label;
+	}
+	/** Marking */
+	llvm::Value* marking() { return _marking; }
+	/** Variable valuation */
+	llvm::Value* valuation() { return _valuation; }
+	/** Label for the current code block */
+	llvm::BasicBlock* label() { return _label; }
+	/** LLVM Context that is currently generating */
+	llvm::LLVMContext& context() { return _context; }
+private:
+	llvm::Value* _marking;
+	llvm::Value* _valuation;
+	llvm::BasicBlock* _label;
+	llvm::LLVMContext& _context;
+};
+
 /******************** EXPRESSIONS ********************/
 
 /** Representation of an expression */
@@ -95,10 +128,12 @@ class Expr{
 public:
 	/** Virtual destructor, an expression should know it subexpressions */
 	virtual ~Expr();
-	/** Evaluate the expression given marking and assignment */
-	virtual int evaluate(const EvaluationContext& context) const = 0;
 	/** Perform context analysis */
 	virtual void analyze(AnalysisContext& context) = 0;
+	/** Evaluate the expression given marking and assignment */
+	virtual int evaluate(const EvaluationContext& context) const = 0;
+	/** Generate LLVM intermediate code for this expr  */
+	virtual llvm::Value* codegen(CodeGenerationContext& context) const = 0;
 	/** Convert expression to string */
 	virtual std::string toString() const = 0;
 };
@@ -113,10 +148,13 @@ public:
 	~BinaryExpr();
 	void analyze(AnalysisContext& context);
 	int evaluate(const EvaluationContext& context) const;
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 private:
 	virtual int apply(int v1, int v2) const = 0;
 	virtual std::string op() const = 0;
+	/** LLVM binary operator (llvm::Instruction::BinaryOps) */
+	virtual int binaryOp() const = 0;
 	Expr* _expr1;
 	Expr* _expr2;
 };
@@ -127,6 +165,7 @@ public:
 	PlusExpr(Expr* expr1, Expr* expr2) : BinaryExpr(expr1, expr2) {}
 private:
 	int apply(int v1, int v2) const;
+	int binaryOp() const;
 	std::string op() const;
 };
 
@@ -136,6 +175,7 @@ public:
 	SubtractExpr(Expr* expr1, Expr* expr2) : BinaryExpr(expr1, expr2) {}
 private:
 	int apply(int v1, int v2) const;
+	int binaryOp() const;
 	std::string op() const;
 };
 
@@ -145,6 +185,7 @@ public:
 	MultiplyExpr(Expr* expr1, Expr* expr2) : BinaryExpr(expr1, expr2) {}
 private:
 	int apply(int v1, int v2) const;
+	int binaryOp() const;
 	std::string op() const;
 };
 
@@ -157,6 +198,7 @@ public:
 	~MinusExpr();
 	int evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 private:
 	Expr* _expr;
@@ -168,6 +210,7 @@ public:
 	LiteralExpr(int value) : _value(value){}
 	int evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 private:
 	int _value;
@@ -182,6 +225,7 @@ public:
 	}
 	int evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 private:
 	/** Is this identifier a place? Or a variable.. */
@@ -202,6 +246,8 @@ public:
 	virtual ~Condition();
 	virtual bool evaluate(const EvaluationContext& context) const = 0;
 	virtual void analyze(AnalysisContext& context) = 0;
+	/** Generate LLVM intermediate code for this condition  */
+	virtual llvm::Value* codegen(CodeGenerationContext& context) const = 0;
 	virtual std::string toString() const = 0;
 };
 
@@ -215,10 +261,13 @@ public:
 	~LogicalCondition();
 	bool evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 private:
 	virtual bool apply(bool b1, bool b2) const = 0;
 	virtual std::string op() const = 0;
+	/** LLVM binary operator (llvm::Instruction::BinaryOps) */
+	virtual int logicalOp() const = 0;
 	Condition* _cond1;
 	Condition* _cond2;
 };
@@ -229,6 +278,7 @@ public:
 	AndCondition(Condition* cond1, Condition* cond2) : LogicalCondition(cond1,cond2) {}
 private:
 	bool apply(bool b1, bool b2) const;
+	int logicalOp() const;
 	std::string op() const;
 };
 
@@ -238,6 +288,7 @@ public:
 	OrCondition(Condition* cond1, Condition* cond2) : LogicalCondition(cond1,cond2) {}
 private:
 	bool apply(bool b1, bool b2) const;
+	int logicalOp() const;
 	std::string op() const;
 };
 
@@ -251,10 +302,13 @@ public:
 	~CompareCondition();
 	bool evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 private:
 	virtual bool apply(int v1, int v2) const = 0;
 	virtual std::string op() const = 0;
+	/** LLVM Comparison predicate (llvm::ICmpInst::Predicate) */
+	virtual int compareOp() const = 0;
 	Expr* _expr1;
 	Expr* _expr2;
 };
@@ -265,6 +319,7 @@ public:
 	EqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
 private:
 	bool apply(int v1, int v2) const;
+	int compareOp() const;
 	std::string op() const;
 };
 
@@ -274,6 +329,7 @@ public:
 	NotEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
 private:
 	bool apply(int v1, int v2) const;
+	int compareOp() const;
 	std::string op() const;
 };
 
@@ -283,6 +339,7 @@ public:
 	LessThanCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
 private:
 	bool apply(int v1, int v2) const;
+	int compareOp() const;
 	std::string op() const;
 };
 
@@ -292,6 +349,7 @@ public:
 	LessThanOrEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
 private:
 	bool apply(int v1, int v2) const;
+	int compareOp() const;
 	std::string op() const;
 };
 
@@ -301,6 +359,7 @@ public:
 	GreaterThanCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
 private:
 	bool apply(int v1, int v2) const;
+	int compareOp() const;
 	std::string op() const;
 };
 
@@ -310,6 +369,7 @@ public:
 	GreaterThanOrEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
 private:
 	bool apply(int v1, int v2) const;
+	int compareOp() const;
 	std::string op() const;
 };
 
@@ -322,6 +382,7 @@ public:
 	~NotCondition();
 	bool evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 private:
 	Condition* _cond;

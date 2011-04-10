@@ -6,6 +6,7 @@ INCLUDEPATH		+= ../
 LIBS			+= -L../ -lPetriEngine
 PRE_TARGETDEPS	+= ../PetriEngine
 
+
 SOURCES	   += \
 	Main.cpp \
 	MainWindow.cpp \
