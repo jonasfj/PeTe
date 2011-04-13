@@ -20,7 +20,7 @@ ReachabilityResult DFRSHash::reachable(const PetriNet &net,
 	StateSet states(net);
 	std::list<Step> stack;
 
-	State* s0 = State::createState(net);
+	State* s0 = State::createState(net.numberOfPlaces(),net.numberOfVariables());
 	memcpy(s0->marking(), m0, sizeof(MarkVal)*net.numberOfPlaces());
 	memcpy(s0->valuation(), v0, sizeof(VarVal)*net.numberOfVariables());
 
@@ -43,7 +43,7 @@ ReachabilityResult DFRSHash::reachable(const PetriNet &net,
 
 		//Take first step of the stack
 		State* s = stack.back().state;
-		State* ns = State::createState(net, s);
+		State* ns = State::createState(net.numberOfPlaces(),net.numberOfVariables(), s);
 		bool foundSomething = false;
 		for(unsigned int t = stack.back().t; t < net.numberOfTransitions(); t++){
 			if(net.fire(t, s->marking(), s->valuation(), ns->marking(), ns->valuation())){

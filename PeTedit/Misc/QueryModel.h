@@ -2,6 +2,7 @@
 #define QUERYMODEL_H
 
 #include <QAbstractTableModel>
+#include <QIcon>
 
 #include "PetriEngine/Reachability/ReachabilityResult.h"
 
@@ -74,6 +75,12 @@ private:
 	void abortThread(int row);
 	/** Start a new thread, abort old if there's one */
 	void startThread(int row);
+
+	QIcon _clockIcon;
+	QIcon _checkIcon;
+	QIcon _crossIcon;
+	QIcon _unknownIcon;
+
 private slots:
 	void completedThread(QueryThread* thread, qreal time);
 	void progressReported(QueryThread* thread, qreal progress, qreal time);
