@@ -1,6 +1,5 @@
 #include "PetriNet.h"
 #include "PQL/PQL.h"
-#include "Reachability/State.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

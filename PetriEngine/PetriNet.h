@@ -12,7 +12,7 @@ namespace PQL{
 	class AssignmentExpression;
 }
 
-namespace Reachability{
+namespace Structures{
 	class State;
 }
 

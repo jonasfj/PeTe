@@ -4,7 +4,7 @@
 #include "../PetriNet.h"
 #include <stdlib.h>
 
-namespace PetriEngine { namespace Reachability {
+namespace PetriEngine { namespace Structures {
 
 /** GeneralState class for reachability searches.
   * Used in most reachability search cases */

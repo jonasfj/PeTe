@@ -5,7 +5,7 @@
 #include <iostream>
 #include "State.h"
 
-namespace PetriEngine { namespace Reachability {
+namespace PetriEngine { namespace Structures {
 
 class StateSet: public std::tr1::unordered_set<State*, State::hash, State::equal_to>{
 public:

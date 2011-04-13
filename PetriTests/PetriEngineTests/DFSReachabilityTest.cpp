@@ -8,7 +8,7 @@
 #include "PetriNetBuilder.h"
 #include "Reachability/DepthFirstReachabilitySearch.h"
 #include "Reachability/DFRSHash.h"
-#include "Reachability/StateSet.h"
+#include "Structures/StateSet.h"
 
 using namespace PetriEngine;
 using namespace PetriEngine::Reachability;

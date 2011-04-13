@@ -1,11 +1,12 @@
 #include "DFRSHash.h"
 #include "../PQL/PQL.h"
-#include "StateSet.h"
+#include "../Structures/StateSet.h"
 #include <list>
 #include <string.h>
 
-namespace PetriEngine { namespace Reachability {
+using namespace PetriEngine::Structures;
 
+namespace PetriEngine { namespace Reachability {
 
 ReachabilityResult DFRSHash::reachable(const PetriNet &net,
 									   const MarkVal *m0,

@@ -1,14 +1,12 @@
 #include "DepthFirstReachabilitySearch.h"
-#include "State.h"
 #include "../PQL/PQL.h"
 
 #include <iostream>
 #include <list>
 #include <string.h>
 
-
-
 using namespace PetriEngine::PQL;
+using namespace PetriEngine::Structures;
 
 namespace PetriEngine{ namespace Reachability {
 

@@ -2,9 +2,7 @@
 #define HASHUNDERAPPROXIMATION_H
 
 #include "ReachabilitySearchStrategy.h"
-#include "ReachabilityResult.h"
-#include "State.h"
-#include "StateSet.h"
+#include "../Structures/State.h"
 
 namespace PetriEngine { namespace Reachability {
 
@@ -21,11 +19,11 @@ public:
 private:
 	/** A step in the reachability search */
 	struct Step{
-		Step(State* s, unsigned int t){
+		Step(Structures::State* s, unsigned int t){
 			state = s;
 			this->t = t;
 		}
-		State* state;
+		Structures::State* state;
 		// Transition fired
 		unsigned int t;
 	};

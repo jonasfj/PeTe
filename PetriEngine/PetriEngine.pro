@@ -27,8 +27,8 @@ HEADERS		   += \
     Reachability/ReachabilityResult.h \
     ValidationBuilder.h \
 	Reachability/DepthFirstReachabilitySearch.h \
-    Reachability/State.h \
-    Reachability/StateSet.h \
+	Structures/State.h \
+	Structures/StateSet.h \
     Reachability/DFRSHash.h \
     PQL/PQL.h \
     PQL/Expressions.h \

@@ -1,14 +1,16 @@
 #include "HashUnderApproximation.h"
 #include "../PQL/PQL.h"
+#include "../Structures/StateSet.h"
 #include <iostream>
 #include <list>
 #include <string.h>
+
+using namespace PetriEngine::Structures;
 
 typedef std::tr1::unordered_set<size_t> HashSet;
 typedef std::tr1::unordered_set<size_t>::iterator HashSetIter;
 
 namespace PetriEngine { namespace Reachability {
-
 
 ReachabilityResult HashUnderApproximation::reachable(const PetriNet &net,
 													 const MarkVal *m0,
