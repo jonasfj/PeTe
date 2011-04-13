@@ -31,7 +31,8 @@ HEADERS		   += \
     Reachability/StateSet.h \
     Reachability/DFRSHash.h \
     PQL/PQL.h \
-    PQL/Expressions.h
+    PQL/Expressions.h \
+    Structures/BlockStack.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine
