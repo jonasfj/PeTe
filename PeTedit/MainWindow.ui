@@ -63,7 +63,7 @@
      <x>0</x>
      <y>0</y>
      <width>826</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -468,6 +468,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/add-place.svg</normaloff>:/Icons/add-place.svg</iconset>
+   </property>
    <property name="text">
     <string>New place</string>
    </property>
@@ -493,6 +497,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/add-transition.svg</normaloff>:/Icons/add-transition.svg</iconset>
+   </property>
    <property name="text">
     <string>New transition</string>
    </property>
@@ -503,6 +511,10 @@
   <action name="InsertArcModeAction">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/add-arc.svg</normaloff>:/Icons/add-arc.svg</iconset>
    </property>
    <property name="text">
     <string>New arc</string>
@@ -545,6 +557,10 @@
    </property>
   </action>
   <action name="undoAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/undo.svg</normaloff>:/Icons/undo.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Undo</string>
    </property>
@@ -553,6 +569,10 @@
    </property>
   </action>
   <action name="redoAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/redo.svg</normaloff>:/Icons/redo.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Redo</string>
    </property>

@@ -11,5 +11,10 @@
         <file alias="refresh.svg">Icons/refresh.svg</file>
         <file alias="unknown.svg">Icons/unknown.svg</file>
         <file alias="stop.svg">Icons/stop.svg</file>
+        <file alias="add-arc.svg">Icons/add-arc.svg</file>
+        <file alias="add-place.svg">Icons/add-place.svg</file>
+        <file alias="add-transition.svg">Icons/add-transition.svg</file>
+        <file alias="redo.svg">Icons/redo.svg</file>
+        <file alias="undo.svg">Icons/undo.svg</file>
     </qresource>
 </RCC>
