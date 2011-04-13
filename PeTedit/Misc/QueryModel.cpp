@@ -149,7 +149,7 @@ void QueryModel::editQuery(const QModelIndex& index, QWidget *parent){
 void QueryModel::removeQuery(const QModelIndex& index){
 	if(!index.isValid()) return;
 	Q_ASSERT(index.row() < rowCount());
-	AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(this, _queries[index.row()]);
+	AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(this, index.row());
 	_net->undoStack()->push(cmd);
 }
 

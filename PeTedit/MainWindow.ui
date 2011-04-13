@@ -63,7 +63,7 @@
      <x>0</x>
      <y>0</y>
      <width>826</width>
-     <height>24</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -94,7 +94,15 @@
     </property>
     <addaction name="aboutAction"/>
    </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="undoAction"/>
+    <addaction name="redoAction"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menu_Edit"/>
    <addaction name="menuView"/>
    <addaction name="menu_Analysis"/>
    <addaction name="menuHelp"/>
@@ -110,6 +118,9 @@
    <addaction name="InsertTransitionModeAction"/>
    <addaction name="InsertArcModeAction"/>
    <addaction name="PointerModeAction"/>
+   <addaction name="separator"/>
+   <addaction name="undoAction"/>
+   <addaction name="redoAction"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="variableDock">
@@ -531,6 +542,22 @@
   <action name="aboutAction">
    <property name="text">
     <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="undoAction">
+   <property name="text">
+    <string>&amp;Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="redoAction">
+   <property name="text">
+    <string>&amp;Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
    </property>
   </action>
  </widget>

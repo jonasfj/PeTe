@@ -366,3 +366,13 @@ void MainWindow::on_aboutAction_triggered()
 
 	msg->show();
 }
+
+void MainWindow::on_undoAction_triggered()
+{
+	currentScene->undoStack()->undo();
+}
+
+void MainWindow::on_redoAction_triggered()
+{
+	currentScene->undoStack()->redo();
+}
