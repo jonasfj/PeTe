@@ -25,7 +25,6 @@ HEADERS		   += \
     AbstractPetriNetBuilder.h \
     Reachability/ReachabilityResult.h \
     ValidationBuilder.h \
-    Reachability/KarpMillerL1SearchStrategy.h \
 	Reachability/DepthFirstReachabilitySearch.h \
     Reachability/State.h \
     Reachability/StateSet.h \
