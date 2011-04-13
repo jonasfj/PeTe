@@ -10,17 +10,26 @@ namespace PetriEngine { namespace Reachability {
   * Used in most reachability search cases */
 class State {
 public:
+	/** Getter for the marking */
 	MarkVal* marking(){
 		return _marking;
 	}
+	/** Getter for the valuation */
 	VarVal* valuation(){
 		return _valuation;
 	}
-
+	/** Getter for the parent */
 	State* parent(){
 		return _parent;
 	}
-
+	/** Getter for the transition the parent took to get here */
+	unsigned int transition(){
+		return _parentTransition;
+	}
+	/** Setter for the transition the parent took to get here */
+	void setTransition(unsigned int t){
+		_parentTransition = t;
+	}
 	/** Check if this state is a loop */
 	bool isLoop(const PetriNet& net){
 
@@ -55,10 +64,13 @@ public:
 		return false;
 	}
 
+	/*** Static and non-mission-critical functionality ***/
+
 	/** Create a new state */
 	static inline State* createState(int nPlaces, int nVars, State* parent = NULL) {
 		char *d = (char*)calloc(1, sizeof(State) + sizeof(MarkVal)*nPlaces + sizeof(VarVal)*nVars);
 		State* s = (State*)d;
+		s->_parentTransition = 0;
 		s->_marking = (MarkVal*)(d + sizeof(State));
 		s->_valuation = (VarVal*)(d+ sizeof(State) + sizeof(MarkVal) * nPlaces);
 		if(parent)
@@ -66,12 +78,15 @@ public:
 		return (State*)d;
 	}
 
-	/** Create a new state */
-	static inline State* createState(const PetriNet& net){
+	/** Create a new state from a net */
+	static inline State* createState(const PetriNet& net, State* parent = NULL){
 		char *d = (char*)calloc(1, sizeof(State) + sizeof(MarkVal)*net.numberOfPlaces() + sizeof(VarVal)*net.numberOfVariables());
 		State* s = (State*)d;
+		s->_parentTransition = 0;
 		s->_marking = (MarkVal*)(d + sizeof(State));
 		s->_valuation = (VarVal*)(d+ sizeof(State) + sizeof(MarkVal) * net.numberOfVariables());
+		if(parent)
+			s->_parent = parent;
 		return (State*)d;
 	}
 
@@ -128,6 +143,7 @@ public:
 
 private:
 	State* _parent;
+	unsigned int _parentTransition;
 	MarkVal* _marking;
 	VarVal* _valuation;
 };

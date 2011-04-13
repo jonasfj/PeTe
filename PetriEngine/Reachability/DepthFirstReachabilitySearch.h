@@ -20,19 +20,16 @@ public:
 								 const MarkVal* initialMarking,
 								 const VarVal* initialAssignment,
 								 PQL::Condition* query);
-
-	void setProgressReporter(ProgressReporter* reporter);
 private:
-	/** Internal reachability method */
-	bool dfsReachable(State* oldStates,
-				   const PetriNet &net,
-				   const MarkVal* initialMarking,
-				   const VarVal* initialAssignment,
-				   PQL::Condition* query);
-
-	/** The report to report progress too */
-	ProgressReporter* _reporter;
-
+	/** A step in the reachability search */
+	struct Step{
+		Step(State* s, unsigned int t){
+			state = s;
+			this->t = t;
+		}
+		State* state;
+		unsigned int t;
+	};
 };
 } // Reachability
 } // PetriEngine

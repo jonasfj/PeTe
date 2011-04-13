@@ -1,7 +1,6 @@
 #include "DepthFirstReachabilitySearch.h"
-#include <stdio.h>
 #include <iostream>
-#include <sstream>
+#include <list>
 #include <stdlib.h>
 #include <string.h>
 
@@ -11,81 +10,64 @@ using namespace PetriEngine::PQL;
 
 namespace PetriEngine{ namespace Reachability {
 
-/*This is the new shit*/
-/** Internal recursive reachability searcher */
-bool DepthFirstReachabilitySearch::dfsReachable(State *oldStates,
-									const PetriNet &net,
-									const MarkVal *m,
-									const VarVal *a,
-									PQL::Condition *query){
-	// Check for duplicate
-	if(oldStates->isLoop(net))
-		return false;
-
-	// If not duplicate, check if evaluates
-	if(query->evaluate(EvaluationContext(m, a)))
-		return true;
-
-	// If not duplicate and does not evaluate, fire a transition, and call recursively
-	for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
-		//New state for firing
-		State* child = State::createState(net.numberOfPlaces(), net.numberOfVariables(), oldStates);
-
-		if(net.fire(t, m, a, child->marking(), child->valuation())){
-			//Explore this new path
-			if(dfsReachable(child, net, child->marking(), child->valuation(), query)) {
-				delete child;
-				child = NULL;
-				return true;
-			}
-		}
-		if(!oldStates->parent())
-			this->reportProgress((double)t/(double)net.numberOfTransitions());
-
-		delete child;
-		child = NULL;
-	}
-
-	// If no result has been found, return false
-	return false;
-}
-
-/** Checks for reachability with DFS */
 ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
-									const MarkVal* initialMarking,
-									const VarVal* initialAssignment,
-									PQL::Condition* query){
-	// Create copies of the marking and variable assignment
-	MarkVal* m0 = new MarkVal[net.numberOfPlaces()];
-	memcpy(m0, initialMarking, net.numberOfPlaces()*sizeof(MarkVal));
-	VarVal* a0 = new VarVal[net.numberOfVariables()];
-	memcpy(a0, initialAssignment, net.numberOfVariables()*sizeof(VarVal));
-
-	// Create root node of the state space
-	State* root = State::createState(net.numberOfPlaces(), net.numberOfVariables());
-
-	//Report zero
-	this->reportProgress(0);
-
-	// Recursively handle reachability check
-	bool result = dfsReachable(root,
-					 net,
-					 initialMarking,
-					 initialAssignment,
-					 query);
-	delete root;
-	root = NULL;
-	if(result)
+														   const MarkVal *m0,
+														   const VarVal *v0,
+														   PQL::Condition *query){
+	//Do we initially satisfy the query?
+	if(query->evaluate(PQL::EvaluationContext(m0,v0)))
 		return ReachabilityResult(ReachabilityResult::Satisfied,
 								  "A state satisfying the query was found");
+
+	//Step stack
+	std::list<Step> stack;
+
+	State* s0 = State::createState(net);
+	memcpy(s0->marking(), m0, sizeof(MarkVal)*net.numberOfPlaces());
+	memcpy(s0->valuation(), v0, sizeof(VarVal)*net.numberOfVariables());
+
+	stack.push_back(Step(s0, 0));
+
+	unsigned int max = 0;
+	int count = 0;
+	while(!stack.empty()){
+		if(count++ & 1<<17){
+			if(stack.size() > max)
+				max = stack.size();
+			count = 0;
+			//Report progress
+			reportProgress((double)(max - stack.size() / (double)max));
+			//check abort
+			if(abortRequested())
+				return ReachabilityResult(ReachabilityResult::Unknown,
+										  "Search was aborted.");
+		}
+
+		State* s = stack.back().state;
+		State* ns = State::createState(net, s);
+		bool foundSomething = false;
+		for(unsigned int t = stack.back().t; t < net.numberOfTransitions(); t++){
+			if(net.fire(t, s->marking(), s->valuation(), ns->marking(), ns->valuation())){
+				if(!ns->isLoop(net)){
+					ns->setTransition(t);
+					if(query->evaluate(PQL::EvaluationContext(ns->marking(), ns->valuation())))
+						return ReachabilityResult(ReachabilityResult::Satisfied,
+												  "A state satisfying the query was found");
+					stack.back().t = t + 1;
+					stack.push_back(Step(ns, 0));
+					foundSomething = true;
+					break;
+				}
+			}
+		}
+		if(!foundSomething){
+			State::deleteState(ns);
+			ns = NULL;
+			stack.pop_back();;
+		}
+	}
 	return ReachabilityResult(ReachabilityResult::NotSatisfied,
-							  "No state satisfying the query exists");
+							  "No state satisfying the query exists.");
 }
-
-/** Set the progress reporter */
-void DepthFirstReachabilitySearch::setProgressReporter(ProgressReporter *reporter){
-	_reporter = reporter;
-}
-
 } // Reachability
 } // PetriEngine

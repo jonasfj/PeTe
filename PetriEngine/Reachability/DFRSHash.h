@@ -28,15 +28,6 @@ private:
 		State* state;
 		unsigned int t;
 	};
-
-	/** Performs reachability search on a branch */
-	bool dfshreachable(const PetriNet& net,
-					   StateSet* states,
-					   State* currentState,
-					   PQL::Condition* query);
-
-	int timer;
-	bool doAbort;
 };
 
 }} // Reachability .. PetriEngine
