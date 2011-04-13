@@ -1,10 +1,12 @@
 #include "DepthFirstReachabilitySearch.h"
+#include "State.h"
+#include "../PQL/PQL.h"
+
 #include <iostream>
 #include <list>
-#include <stdlib.h>
 #include <string.h>
 
-#include "../PQL/PQL.h"
+
 
 using namespace PetriEngine::PQL;
 
@@ -31,12 +33,12 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 	unsigned int max = 0;
 	int count = 0;
 	while(!stack.empty()){
-		if(count++ & 1<<17){
+		if(count++ & 1<<10){
 			if(stack.size() > max)
 				max = stack.size();
 			count = 0;
 			//Report progress
-			reportProgress((double)(max - stack.size() / (double)max));
+			reportProgress((double)(max - stack.size()) / (double)max);
 			//check abort
 			if(abortRequested())
 				return ReachabilityResult(ReachabilityResult::Unknown,

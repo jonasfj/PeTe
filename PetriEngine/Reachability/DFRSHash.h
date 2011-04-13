@@ -2,9 +2,7 @@
 #define DFRSHASH_H
 
 #include "ReachabilitySearchStrategy.h"
-#include "ReachabilityResult.h"
 #include "State.h"
-#include "StateSet.h"
 
 namespace PetriEngine { namespace Reachability {
 

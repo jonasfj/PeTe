@@ -1,9 +1,6 @@
 #ifndef DEPTHFIRSTREACHABILITYSEARCH_H
 #define DEPTHFIRSTREACHABILITYSEARCH_H
 
-#include <stdlib.h>
-#include <string.h>
-
 #include "ReachabilitySearchStrategy.h"
 #include "State.h"
 
