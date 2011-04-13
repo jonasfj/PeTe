@@ -16,5 +16,6 @@
         <file alias="add-transition.svg">Icons/add-transition.svg</file>
         <file alias="redo.svg">Icons/redo.svg</file>
         <file alias="undo.svg">Icons/undo.svg</file>
+        <file alias="pointer.svg">Icons/pointer.svg</file>
     </qresource>
 </RCC>

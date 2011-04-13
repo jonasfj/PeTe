@@ -486,6 +486,10 @@
    <property name="checked">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/pointer.svg</normaloff>:/Icons/pointer.svg</iconset>
+   </property>
    <property name="text">
     <string>Pointer mode</string>
    </property>
