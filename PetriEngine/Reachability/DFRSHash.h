@@ -3,7 +3,6 @@
 
 #include "ReachabilitySearchStrategy.h"
 #include "ReachabilityResult.h"
-#include "PQL/PQL.h"
 #include "State.h"
 #include "StateSet.h"
 
@@ -20,6 +19,16 @@ public:
 								 const VarVal* initialValuation,
 								 PQL::Condition* query);
 private:
+	/** A step in the reachability search */
+	struct Step{
+		Step(State* s, unsigned int t){
+			state = s;
+			this->t = t;
+		}
+		State* state;
+		unsigned int t;
+	};
+
 	/** Performs reachability search on a branch */
 	bool dfshreachable(const PetriNet& net,
 					   StateSet* states,

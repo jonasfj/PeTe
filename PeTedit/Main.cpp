@@ -8,6 +8,7 @@
 #include <PetriEngine/PetriNet.h>
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/Reachability/DepthFirstReachabilitySearch.h>
+#include <PetriEngine/Reachability/DFRSHash.h>
 #include <PetriEngine/PQL/PQL.h>
 
 int main(int argc, char *argv[])
@@ -58,7 +59,7 @@ int main(int argc, char *argv[])
 		std::cout<<context.errors()[i].toString()<<std::endl;
 	}
 	//Load up reachability engine
-	PetriEngine::Reachability::DepthFirstReachabilitySearch dfs;
+	PetriEngine::Reachability::DFRSHash dfs;
 	PetriEngine::Reachability::ReachabilityResult result;
 	result = dfs.reachable(*net, m0, a0, query);
 	delete query;

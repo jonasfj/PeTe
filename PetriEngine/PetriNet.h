@@ -12,6 +12,10 @@ namespace PQL{
 	class AssignmentExpression;
 }
 
+namespace Reachability{
+	class State;
+}
+
 class PetriNetBuilder;
 
 /** Type used for holding markings values */

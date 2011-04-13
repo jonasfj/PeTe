@@ -66,6 +66,15 @@ public:
 		return (State*)d;
 	}
 
+	/** Create a new state */
+	static inline State* createState(const PetriNet& net){
+		char *d = (char*)calloc(1, sizeof(State) + sizeof(MarkVal)*net.numberOfPlaces() + sizeof(VarVal)*net.numberOfVariables());
+		State* s = (State*)d;
+		s->_marking = (MarkVal*)(d + sizeof(State));
+		s->_valuation = (VarVal*)(d+ sizeof(State) + sizeof(MarkVal) * net.numberOfVariables());
+		return (State*)d;
+	}
+
 	/** Deletes a state */
 	static inline void deleteState(State* state){
 		free(state);
@@ -78,9 +87,9 @@ public:
 			//TODO: Rotate bits during hashing
 			size_t hash = 0;
 			for(unsigned int i = 0; i < nPlaces; i++)
-				hash ^=	(state->_marking[i] << i) | (state->_marking[i] >> (32 - i));
+				hash ^=	(state->_marking[i] << (i*4 % (sizeof(MarkVal)*8))) | (state->_marking[i] >> (32 - (i*4 % (sizeof(MarkVal)*8))));
 			for(unsigned int i = 0; i < nVariables; i++)
-				hash ^= (state->_valuation[i] << i) | (state->_valuation[i] >> (32 - i));
+				hash ^= (state->_valuation[i] << (i*4 % (sizeof(VarVal)*8))) | (state->_valuation[i] >> (32 - (i*4 % (sizeof(VarVal)*8))));
 			return hash;
 		}
 		hash(unsigned int places, unsigned int variables)

@@ -2,11 +2,12 @@
 #define STATESET_H
 
 #include <tr1/unordered_set>
+#include <iostream>
 #include "State.h"
 
 namespace PetriEngine { namespace Reachability {
 
-class StateSet: std::tr1::unordered_set<State*, State::hash, State::equal_to>{
+class StateSet: public std::tr1::unordered_set<State*, State::hash, State::equal_to>{
 public:
 	StateSet(const PetriNet& net)
 		: std::tr1::unordered_set<State*, State::hash, State::equal_to>

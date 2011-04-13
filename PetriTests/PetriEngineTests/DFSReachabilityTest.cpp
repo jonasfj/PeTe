@@ -140,4 +140,20 @@ TEST(Test2){
 	CHECK(result.result() == result.NotSatisfied);
 }
 
+TEST(UNORDERED_SET){
+	StateSet states(12,0);
+
+	for(int i = 0; i < 100000; i++){
+		State* s0 = State::createState(12, 0);
+		s0->marking()[0] = i;
+		CHECK(states.add(s0));
+	}
+	for(int i = 0; i < 5000; i++){
+		State* s0 = State::createState(12, 0);
+		s0->marking()[0] = i;
+		CHECK(!states.add(s0));
+	}
+}
+
+
 }
