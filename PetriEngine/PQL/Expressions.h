@@ -112,7 +112,14 @@ public:
 	bool evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
 	std::string toString() const;
+	double distance(const EvaluationContext& context,
+					DistanceStrategy strategy,
+					bool negated) const;
 private:
+	virtual double distance(double d1,
+					double d2,
+					DistanceStrategy strategy,
+					bool negated) const = 0;
 	virtual bool apply(bool b1, bool b2) const = 0;
 	virtual std::string op() const = 0;
 	Condition* _cond1;
@@ -126,6 +133,10 @@ public:
 private:
 	bool apply(bool b1, bool b2) const;
 	std::string op() const;
+	double distance(double d1,
+					double d2,
+					DistanceStrategy strategy,
+					bool negated) const;
 };
 
 /* Disjunctive or conditon */
@@ -135,6 +146,10 @@ public:
 private:
 	bool apply(bool b1, bool b2) const;
 	std::string op() const;
+	double distance(double d1,
+					double d2,
+					DistanceStrategy strategy,
+					bool negated) const;
 };
 
 /* Comparison conditon */
@@ -148,9 +163,13 @@ public:
 	bool evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
 	std::string toString() const;
+	double distance(const EvaluationContext& context,
+					DistanceStrategy strategy,
+					bool negated) const;
 private:
 	virtual bool apply(int v1, int v2) const = 0;
 	virtual std::string op() const = 0;
+	virtual double distance(int v1, int v2, bool negated) const = 0;
 	Expr* _expr1;
 	Expr* _expr2;
 };
@@ -159,6 +178,7 @@ private:
 class EqualCondition : public CompareCondition{
 public:
 	EqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
+	double distance(int v1, int v2, bool negated) const;
 private:
 	bool apply(int v1, int v2) const;
 	std::string op() const;
@@ -168,6 +188,7 @@ private:
 class NotEqualCondition : public CompareCondition{
 public:
 	NotEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
+	double distance(int v1, int v2, bool negated) const;
 private:
 	bool apply(int v1, int v2) const;
 	std::string op() const;
@@ -177,6 +198,7 @@ private:
 class LessThanCondition : public CompareCondition{
 public:
 	LessThanCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
+	double distance(int v1, int v2, bool negated) const;
 private:
 	bool apply(int v1, int v2) const;
 	std::string op() const;
@@ -186,6 +208,7 @@ private:
 class LessThanOrEqualCondition : public CompareCondition{
 public:
 	LessThanOrEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
+	double distance(int v1, int v2, bool negated) const;
 private:
 	bool apply(int v1, int v2) const;
 	std::string op() const;
@@ -195,6 +218,7 @@ private:
 class GreaterThanCondition : public CompareCondition{
 public:
 	GreaterThanCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
+	double distance(int v1, int v2, bool negated) const;
 private:
 	bool apply(int v1, int v2) const;
 	std::string op() const;
@@ -204,6 +228,7 @@ private:
 class GreaterThanOrEqualCondition : public CompareCondition{
 public:
 	GreaterThanOrEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
+	double distance(int v1, int v2, bool negated) const;
 private:
 	bool apply(int v1, int v2) const;
 	std::string op() const;
@@ -219,6 +244,9 @@ public:
 	bool evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
 	std::string toString() const;
+	double distance(const EvaluationContext& context,
+					DistanceStrategy strategy,
+					bool negated) const;
 private:
 	Condition* _cond;
 };

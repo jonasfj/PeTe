@@ -273,4 +273,100 @@ std::string GreaterThanOrEqualCondition::op() const{
 }
 
 
+/******************** Distance Condition ********************/
+
+#define MAX(v1, v2)		(v1 > v2 ? v1 : v2)
+#define MIN(v1, v2)		(v1 > v2 ? v1 : v2)
+
+double NotCondition::distance(const EvaluationContext& context,
+							  DistanceStrategy strategy,
+							  bool negated) const{
+	return _cond->distance(context, strategy, !negated);
+}
+
+double LogicalCondition::distance(const EvaluationContext& context,
+								  DistanceStrategy strategy,
+								  bool negated) const{
+	double d1 = _cond1->distance(context, strategy, negated);
+	double d2 = _cond2->distance(context, strategy, negated);
+	return distance(d1, d2, strategy, negated);
+}
+
+double AndCondition::distance(double d1,
+							  double d2,
+							  DistanceStrategy strategy,
+							  bool negated) const{
+	if(strategy & Condition::AndExtreme)
+		if(negated)
+			return MIN(d1, d2);
+		else
+			return MAX(d1, d2);
+	else
+		return (d1 + d2) / 2;
+}
+
+double OrCondition::distance(double d1,
+							 double d2,
+							 DistanceStrategy strategy,
+							 bool negated) const{
+	if(strategy & Condition::OrExtreme)
+		if(negated)
+			return MAX(d1, d2);
+		else
+			return MIN(d1, d2);
+	else
+		return (d1 + d2) / 2;
+}
+
+double CompareCondition::distance(const EvaluationContext& context,
+								  DistanceStrategy,
+								  bool negated) const{
+	int v1 = _expr1->evaluate(context);
+	int v2 = _expr2->evaluate(context);
+	return distance(v1, v2, negated);
+}
+
+double EqualCondition::distance(int v1, int v2, bool negated) const{
+	if(!negated)
+		return v1 - v2;
+	else
+		return v1 == v2 ? 1 : 0;
+}
+
+double NotEqualCondition::distance(int v1, int v2, bool negated) const{
+	if(negated)
+		return v1 - v2;
+	else
+		return v1 == v2 ? 1 : 0;
+}
+
+double LessThanCondition::distance(int v1, int v2, bool negated) const{
+	if(!negated)
+		return v1 < v2 ? 0 : v1 - v2 + 1;
+	else
+		return v1 >= v2 ? 0 : v2 - v1;
+}
+
+double LessThanOrEqualCondition::distance(int v1, int v2, bool negated) const{
+	if(!negated)
+		return v1 <= v2 ? 0 : v1 - v2;
+	else
+		return v1 > v2 ? 0 : v2 - v1 + 1;
+}
+
+double GreaterThanCondition::distance(int v1, int v2, bool negated) const{
+	if(!negated)
+		return v1 > v2 ? 0 : v2 - v1 + 1;
+	else
+		return v1 <= v2 ? 0 : v1 - v2;
+}
+
+double GreaterThanOrEqualCondition::distance(int v1, int v2, bool negated) const{
+	if(!negated)
+		return v1 >= v2 ? 0 : v2 - v1;
+	else
+		return v1 < v2 ? 0 : v1 - v2 + 1;
+}
+
+
 }}

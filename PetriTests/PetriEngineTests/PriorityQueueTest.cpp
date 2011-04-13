@@ -1,6 +1,6 @@
 #include <UnitTest++.h>
 #include "PetriNet.h"
-#include "Structures/PriorityQueue.h".h"
+#include "Structures/PriorityQueue.h"
 
 using namespace PetriEngine;
 using namespace PetriEngine::Structures;

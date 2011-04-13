@@ -123,10 +123,26 @@ public:
 /** Base condition */
 class Condition{
 public:
+	/** Strategy flags for distance computation */
+	enum DistanceStrategy{
+		AndExtreme	= 0x1,
+		AndAverage	= 0x2,
+		OrExtreme	= 0x4,
+		OrAverage	= 0x8
+	};
+
+	/** Virtual destructor */
 	virtual ~Condition();
+	/** Evaluate condition */
 	virtual bool evaluate(const EvaluationContext& context) const = 0;
+	/** Perform context analysis  */
 	virtual void analyze(AnalysisContext& context) = 0;
+	/** Convert condition to string */
 	virtual std::string toString() const = 0;
+	/** Get distance to query */
+	virtual double distance(const EvaluationContext& context,
+							DistanceStrategy strategy,
+							bool negated = false) const = 0;
 };
 
 /** Assignment expression */
