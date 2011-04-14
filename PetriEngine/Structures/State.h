@@ -10,26 +10,22 @@ namespace PetriEngine { namespace Structures {
   * Used in most reachability search cases */
 class State {
 public:
-	/** Getter for the marking */
-	MarkVal* marking(){
-		return _marking;
-	}
-	/** Getter for the valuation */
-	VarVal* valuation(){
-		return _valuation;
-	}
+	MarkVal* marking(){return _marking;}
+	const MarkVal* marking() const{return _marking;}
+
+	VarVal* valuation(){return _valuation; }
+	const VarVal* valuation() const{return _valuation; }
+
 	/** Getter for the parent */
-	State* parent(){
-		return _parent;
-	}
+	State* parent(){ return _parent; }
+	/** Setter for the parent*/
+	void setParent(State* parent){ _parent = parent; }
+
 	/** Getter for the transition the parent took to get here */
-	unsigned int transition(){
-		return _parentTransition;
-	}
+	unsigned int transition(){ return _parentTransition; }
 	/** Setter for the transition the parent took to get here */
-	void setTransition(unsigned int t){
-		_parentTransition = t;
-	}
+	void setTransition(unsigned int t){ _parentTransition = t; }
+
 	/** Check if this state is a loop */
 	bool isLoop(const PetriNet& net){
 

@@ -16,9 +16,10 @@ public:
 								 const VarVal* v0,
 								 PQL::Condition* query);
 private:
-	virtual unsigned int priority(const State* state,
-								  const PQL::Condition* query,
-								  const PetriNet& net) = 0;
+	/** Method for prioritizing different states, lower priority is better */
+	virtual double priority(const Structures::State* state,
+							const PQL::Condition* query,
+							const PetriNet& net) = 0;
 };
 
 } // Reachability
