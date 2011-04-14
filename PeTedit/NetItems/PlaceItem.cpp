@@ -72,6 +72,8 @@ QPainterPath PlaceItem::opaqueArea() const{
 
 QPointF PlaceItem::nearestPoint(QPointF to) const{
 	QLineF line = QLineF(this->pos(), to);
+	if(line.length() == 0)	//Avoid bugs with NaN
+		return to;
 	line = line.unitVector();
 	line.setLength(CIRCLE_SIZE);
 	return line.p2();
