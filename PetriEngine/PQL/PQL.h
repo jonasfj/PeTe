@@ -1,6 +1,7 @@
 #ifndef PQL_H
 #define PQL_H
 #include "../PetriNet.h"
+#include "../Structures/State.h"
 #include <string>
 #include <list>
 #include <vector>
@@ -133,6 +134,12 @@ public:
 
 	/** Virtual destructor */
 	virtual ~Condition();
+
+	/** Evaluate condition */
+	bool evaluate(Structures::State& state) const{
+		return evaluate(EvaluationContext(state.marking(), state.valuation()));
+	}
+
 	/** Evaluate condition */
 	virtual bool evaluate(const EvaluationContext& context) const = 0;
 	/** Perform context analysis  */

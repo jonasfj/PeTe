@@ -8,11 +8,13 @@ namespace PetriEngine{
 namespace Structures{
 
 
-/** Implementation of simple priority queue, that uses unsigned int as priority */
+/** Implementation of simple priority queue, that uses double as priority
+ * @remarks Lower priority is better, e.g. lowest priority comes out first!
+ */
 template<class Item>
 class PriorityQueue{
 private:
-	typedef std::multimap<unsigned int, Item> queue;
+	typedef std::multimap<double, Item> queue;
 	typedef typename queue::iterator iter;
 	/** Underlying queue */
 	queue _queue;
@@ -33,8 +35,8 @@ public:
 	}
 
 	/** Put a new item in the queue */
-	void push(unsigned int priority, const Item& item){
-		_queue.insert(std::pair<unsigned int, Item>(priority, item));
+	void push(double priority, const Item& item){
+		_queue.insert(std::pair<double, Item>(priority, item));
 	}
 
 	/** Iterator over a set of elements from PriorityQueue */
@@ -61,7 +63,7 @@ public:
 			_end = queue._queue.upper_bound(_i->first);
 		}
 		/** Iterate through elements with specified tablesize */
-		Iterator(PriorityQueue& queue, unsigned int priority) {
+		Iterator(PriorityQueue& queue, double priority) {
 			std::pair<iter,iter> r = queue._queue.equal_range(priority);
 			_i = r.first;
 			_end = r.second;
@@ -105,7 +107,7 @@ public:
 		it = Iterator();
 	}
 	/** Get iterator for elements with specified priority */
-	Iterator range(unsigned int priority){
+	Iterator range(double priority){
 		return Iterator(*this, priority);
 	}
 	/** Get iterator for elements with lowest priority

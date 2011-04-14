@@ -13,7 +13,9 @@ SOURCES		   += \
     Reachability/DFRSHash.cpp \
     PQL/Expressions.cpp \
     PQL/PQL.cpp \
-    Reachability/HashUnderApproximation.cpp
+    Reachability/HashUnderApproximation.cpp \
+    Reachability/BestFirstReachabilityStrategy.cpp \
+    Reachability/ClosestFirstReachability.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -34,7 +36,9 @@ HEADERS		   += \
     PQL/Expressions.h \
     Structures/BlockStack.h \
     Structures/PriorityQueue.h \
-    Reachability/HashUnderApproximation.h
+    Reachability/HashUnderApproximation.h \
+    Reachability/BestFirstReachabilityStrategy.h \
+    Reachability/ClosestFirstReachability.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine
