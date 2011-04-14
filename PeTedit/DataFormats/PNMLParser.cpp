@@ -109,10 +109,10 @@ void PNMLParser::variable(){
 	QString vname = xml.attributes().value("name").toString();
 	bool good = true;
 	int initialValue = xml.attributes().value("initial-value").toString().toInt(&good);
-	if(good)
+	if(!good)
 		initialValue = 0;
 	int range = xml.attributes().value("range").toString().toInt(&good);
-	if(good)
+	if(!good)
 		range = initialValue;
 	builder->addVariable(vname.toStdString(), initialValue, range);
 
