@@ -30,6 +30,9 @@ private:
 	QActionGroup* modeActionGroup;
 
 private slots:
+	void resizeQueryView();
+	void resizeVariableView();
+	void resizeValidationView();
 	void validationIssuesFound();
 
 	void on_deleteVariable_clicked();
@@ -48,6 +51,8 @@ private slots:
 	void on_runQueryButton_clicked();
 	void on_stopQueryButton_clicked();
 	void on_aboutAction_triggered();
+	void on_undoAction_triggered();
+	void on_redoAction_triggered();
 };
 
 #endif // MAINWINDOW_H

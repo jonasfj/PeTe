@@ -1,5 +1,5 @@
 #include "PetriNet.h"
-#include "PQL/PQLExpressions.h"
+#include "PQL/PQL.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

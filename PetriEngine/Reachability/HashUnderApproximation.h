@@ -1,17 +1,17 @@
-#ifndef DFRSHASH_H
-#define DFRSHASH_H
+#ifndef HASHUNDERAPPROXIMATION_H
+#define HASHUNDERAPPROXIMATION_H
 
 #include "ReachabilitySearchStrategy.h"
 #include "../Structures/State.h"
 
 namespace PetriEngine { namespace Reachability {
 
-/** Implements reachability check in a DFS manner, using a hash table */
-class DFRSHash : public ReachabilitySearchStrategy {
+/** Implements reachability check with under approximation using hashing */
+class HashUnderApproximation : public ReachabilitySearchStrategy {
 public:
-	DFRSHash() : ReachabilitySearchStrategy(){}
+	HashUnderApproximation() : ReachabilitySearchStrategy(){}
 
-	/** Perform reachability check using DFS with hash table */
+	/** Perform reachability check using under-approximation */
 	ReachabilityResult reachable(const PetriNet& net,
 								 const MarkVal* initialMarking,
 								 const VarVal* initialValuation,
@@ -24,10 +24,11 @@ private:
 			this->t = t;
 		}
 		Structures::State* state;
+		// Transition fired
 		unsigned int t;
 	};
 };
 
 }} // Reachability .. PetriEngine
 
-#endif // DFRSHASH_H
+#endif // HASHUNDERAPPROXIMATION_H

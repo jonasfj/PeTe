@@ -1,15 +1,13 @@
-#include "PQLExpressions.h"
+#include "Expressions.h"
 
 #include <sstream>
 #include <assert.h>
 #include <string.h>
 
-namespace PetriEngine{
+namespace PetriEngine {
 namespace PQL{
 
 /******************** Destructors ********************/
-
-Expr::~Expr(){}
 
 BinaryExpr::~BinaryExpr(){
 	if(_expr1)
@@ -25,8 +23,6 @@ MinusExpr::~MinusExpr(){
 		delete _expr;
 	_expr = NULL;
 }
-
-Condition::~Condition(){}
 
 LogicalCondition::~LogicalCondition(){
 	if(_cond1)
@@ -276,34 +272,105 @@ std::string GreaterThanOrEqualCondition::op() const{
 	return ">=";
 }
 
-/******************** Misc test ********************/
 
-AnalysisContext::ResolutionResult AnalysisContext::resolve(std::string identifier) const{
-	ResolutionResult result;
-	result.offset = -1;
-	result.success = false;
-	for(size_t i = 0; i < _places.size(); i++){
-		if(_places[i] == identifier){
-			result.offset = i;
-			result.isPlace = true;
-			result.success = true;
-			return result;
-		}
-	}
-	for(size_t i = 0; i < _variables.size(); i++){
-		if(_variables[i] == identifier){
-			result.offset = i;
-			result.isPlace = false;
-			result.success = true;
-			return result;
-		}
-	}
-	return result;
+/******************** Distance Condition ********************/
+
+#define MAX(v1, v2)		(v1 > v2 ? v1 : v2)
+#define MIN(v1, v2)		(v1 > v2 ? v1 : v2)
+
+double NotCondition::distance(const EvaluationContext& context,
+							  DistanceStrategy strategy,
+							  bool negated) const{
+	return _cond->distance(context, strategy, !negated);
+}
+
+double LogicalCondition::distance(const EvaluationContext& context,
+								  DistanceStrategy strategy,
+								  bool negated) const{
+	double d1 = _cond1->distance(context, strategy, negated);
+	double d2 = _cond2->distance(context, strategy, negated);
+	return delta(d1, d2, strategy, negated);
+}
+
+double AndCondition::delta(double d1,
+							  double d2,
+							  DistanceStrategy strategy,
+							  bool negated) const{
+	if(strategy & Condition::AndExtreme)
+		if(negated)
+			return MIN(d1, d2);
+		else
+			return MAX(d1, d2);
+	else
+		return (d1 + d2) / 2;
 }
 
 
-}/* PQL */
-}/* PetriEngine */
+double OrCondition::delta(double d1,
+							 double d2,
+							 DistanceStrategy strategy,
+							 bool negated) const{
+	if(strategy & Condition::OrExtreme)
+		if(negated)
+			return MAX(d1, d2);
+		else
+			return MIN(d1, d2);
+	else
+		return (d1 + d2) / 2;
+}
+
+double CompareCondition::distance(const EvaluationContext& context,
+								  DistanceStrategy,
+								  bool negated) const{
+	int v1 = _expr1->evaluate(context);
+	int v2 = _expr2->evaluate(context);
+	return delta(v1, v2, negated);
+}
+
+double EqualCondition::delta(int v1, int v2, bool negated) const{
+	if(!negated)
+		return v1 - v2;
+	else
+		return v1 == v2 ? 1 : 0;
+}
+
+double NotEqualCondition::delta(int v1, int v2, bool negated) const{
+	if(negated)
+		return v1 - v2;
+	else
+		return v1 == v2 ? 1 : 0;
+}
+
+double LessThanCondition::delta(int v1, int v2, bool negated) const{
+	if(!negated)
+		return v1 < v2 ? 0 : v1 - v2 + 1;
+	else
+		return v1 >= v2 ? 0 : v2 - v1;
+}
+
+double LessThanOrEqualCondition::delta(int v1, int v2, bool negated) const{
+	if(!negated)
+		return v1 <= v2 ? 0 : v1 - v2;
+	else
+		return v1 > v2 ? 0 : v2 - v1 + 1;
+}
+
+double GreaterThanCondition::delta(int v1, int v2, bool negated) const{
+	if(!negated)
+		return v1 > v2 ? 0 : v2 - v1 + 1;
+	else
+		return v1 <= v2 ? 0 : v1 - v2;
+}
+
+double GreaterThanOrEqualCondition::delta(int v1, int v2, bool negated) const{
+	if(!negated)
+		return v1 >= v2 ? 0 : v2 - v1;
+	else
+		return v1 < v2 ? 0 : v1 - v2 + 1;
+}
+
+} // PQL
+} // PetriEngine
 
 
 /******************** Just-In-Time Compilation ********************/
@@ -439,7 +506,6 @@ Value* NotCondition::codegen(CodeGenerationContext& context) const{
 						"Not operation");
 }
 
-}/* PQL */
-}/* PetriEngine */
-
+} // PQL
+} // PetriEngine
 

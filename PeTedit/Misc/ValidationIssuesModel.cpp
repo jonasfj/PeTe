@@ -98,7 +98,7 @@ void ValidationIssuesModel::showValidationIssue(PetriNetScene *scene,
 
 	NetItem* start = scene->findNetItem(issue.startIdentifier().c_str());
 	QGraphicsItem* item = start;
-	if(issue.endIdentifier().empty()){
+	if(!issue.endIdentifier().empty()){
 		NetItem* end = scene->findNetItem(issue.endIdentifier().c_str());
 		if(start && end)
 			item = scene->findArc(start, end);

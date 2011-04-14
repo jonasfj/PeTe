@@ -6,7 +6,7 @@
 
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/Reachability/ReachabilitySearchStrategy.h>
-#include <PetriEngine/PQL/PQLExpressions.h>
+#include <PetriEngine/PQL/PQL.h>
 
 QueryDialog::QueryDialog(const QueryModel::Query& query, QWidget *parent)
 	: QDialog(parent), ui(new Ui::QueryDialog)

@@ -12,7 +12,9 @@ SOURCES	   +=   main.cpp \
     PetriEngineTests/ParserTest.cpp \
     PetriEngineTests/DFSReachabilityTest.cpp \
     PetriEngineTests/FireTest.cpp \
-    PetriEngineTests/StateSetTest.cpp
+    PetriEngineTests/StateSetTest.cpp \
+    PetriEngineTests/BlockStackTest.cpp \
+    PetriEngineTests/PriorityQueueTest.cpp
 
 HEADERS		+= \
 

@@ -1,10 +1,10 @@
 #include <UnitTest++.h>
 #include "PetriNet.h"
-#include "Reachability/State.h"
-#include "Reachability/StateSet.h"
+#include "Structures/State.h"
+#include "Structures/StateSet.h"
 
 using namespace PetriEngine;
-using namespace PetriEngine::Reachability;
+using namespace PetriEngine::Structures;
 
 SUITE(StateSetTest){
 	TEST(StateSetDuplicationDetection){

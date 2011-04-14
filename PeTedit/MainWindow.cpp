@@ -19,7 +19,7 @@
 #include "Misc/ProgressViewDelegate.h"
 
 #include <PetriEngine/PQL/PQLParser.h>
-#include <PetriEngine/PQL/PQLExpressions.h>
+#include <PetriEngine/PQL/PQL.h>
 
 #include <QGraphicsView>
 #include <QUndoView>
@@ -41,10 +41,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 	undoGroup = new QUndoGroup(this);
 	currentScene = NULL;
-
-	//Add undoview to panel... We Should probably do a nicer panel
-	//QLayout* layout = new QHBoxLayout(ui->panel);
-	//layout->addWidget(new QUndoView(undoGroup, this));
 
 	// Variable editor
 	VariableDelegate* delegate = new VariableDelegate(this);
@@ -178,6 +174,19 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 					previousScene->validationIssues(), SLOT(clear()));
 		disconnect(ui->validationView, SIGNAL(doubleClicked(QModelIndex)),
 					previousScene, SLOT(showValidationIssue(QModelIndex)));
+
+		//Disconnect from query model (resizing)
+		disconnect(previousScene->queries(), SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+				this, SLOT(resizeQueryView()));
+		disconnect(previousScene->queries(), SIGNAL(rowsInserted(const QModelIndex&, int, int)),
+				this, SLOT(resizeQueryView()));
+
+		//Disconnect from variable model (resizing)
+		disconnect(previousScene->variables(), SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+				this, SLOT(resizeVariableView()));
+		disconnect(previousScene->variables(), SIGNAL(rowsInserted(const QModelIndex&, int, int)),
+				this, SLOT(resizeVariableView()));
+
 		ui->variableView->setModel(NULL);
 		ui->queryView->setModel(NULL);
 		ui->validationView->setModel(NULL);
@@ -201,6 +210,22 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 				currentScene->validationIssues(), SLOT(clear()));
 		connect(ui->validationView, SIGNAL(doubleClicked(QModelIndex)),
 				currentScene, SLOT(showValidationIssue(QModelIndex)));
+
+		//Set resize properties for headers, as the model must be added first
+		connect(currentScene->queries(), SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+				this, SLOT(resizeQueryView()));
+		connect(currentScene->queries(), SIGNAL(rowsInserted(const QModelIndex&, int, int)),
+				this, SLOT(resizeQueryView()));
+		resizeQueryView();
+
+		//Set resize mode for headers, as the model must be added first
+		connect(currentScene->variables(), SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+				this, SLOT(resizeVariableView()));
+		connect(currentScene->variables(), SIGNAL(rowsInserted(const QModelIndex&, int, int)),
+				this, SLOT(resizeVariableView()));
+		resizeVariableView();
+
+		resizeValidationView();
 
 		this->currentScene_modeChanged(this->currentScene->mode());
 	}
@@ -240,6 +265,16 @@ void MainWindow::on_SaveAction_triggered()
 	}
 }
 
+
+/******************** Variables ********************/
+
+/** Set resize mode for VariableView */
+void MainWindow::resizeVariableView(){
+	ui->variableView->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
+	ui->variableView->horizontalHeader()->setResizeMode(1, QHeaderView::ResizeToContents);
+	ui->variableView->horizontalHeader()->setResizeMode(2, QHeaderView::ResizeToContents);
+}
+
 /** Adds a new variable to the variableView table */
 void MainWindow::on_addVariable_clicked()
 {
@@ -272,6 +307,8 @@ void MainWindow::on_deleteVariable_clicked()
 }
 
 
+/******************** Export ********************/
+
 /** Save current scene to SVG */
 void MainWindow::on_actionExport_SVG_triggered()
 {
@@ -297,6 +334,14 @@ void MainWindow::on_actionExport_SVG_triggered()
 	}
 }
 
+/******************** Validation ********************/
+
+/** Set resize mode for ValidationView */
+void MainWindow::resizeValidationView(){
+	ui->validationView->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
+	ui->validationView->horizontalHeader()->setResizeMode(1, QHeaderView::ResizeToContents);
+}
+
 /** Validation found issues */
 void MainWindow::validationIssuesFound()
 {
@@ -305,9 +350,16 @@ void MainWindow::validationIssuesFound()
 	if(ui->validationDock->isHidden() &&
 	   currentScene->validationIssues()->rowCount() > 0){
 		ui->validationDock->show();
-		//TODO: Call this method when appropriate
-		ui->validationView->resizeColumnsToContents();
+		resizeValidationView();
 	}
+}
+
+/******************** Queries ********************/
+
+/** Set resize mode for QueryView */
+void MainWindow::resizeQueryView(){
+	ui->queryView->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
+	ui->queryView->horizontalHeader()->setResizeMode(1, QHeaderView::ResizeToContents);
 }
 
 
@@ -365,4 +417,14 @@ void MainWindow::on_aboutAction_triggered()
 	msg->setText(text );
 
 	msg->show();
+}
+
+void MainWindow::on_undoAction_triggered()
+{
+	currentScene->undoStack()->undo();
+}
+
+void MainWindow::on_redoAction_triggered()
+{
+	currentScene->undoStack()->redo();
 }

@@ -1,5 +1,7 @@
 TEMPLATE	 = app
 
+QMAKE_CXXFLAGS += $$system(llvm-config --cxxflags all)
+LIBS		   += $$system(llvm-config --libs all)
 QMAKE_CXXFLAGS	+= -std=c++0x
 QT		  		+= core gui svg
 INCLUDEPATH		+= ../

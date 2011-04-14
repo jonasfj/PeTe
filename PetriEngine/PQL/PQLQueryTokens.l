@@ -1,6 +1,6 @@
 %{
 #include <string>
-#include "PQLExpressions.h"
+#include "PQL.h"
 #include "PQLQueryParser.parser.hpp"
 #define SAVE_TOKEN pqlqlval.string = new std::string(pqlqtext, pqlqleng)
 #define TOKEN(t) (pqlqlval.token = t)

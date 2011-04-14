@@ -5,7 +5,7 @@
 #include "PetriEngine/PetriNetBuilder.h"
 
 #include "PetriEngine/PQL/PQLParser.h"
-#include "PetriEngine/PQL/PQLExpressions.h"
+#include "PetriEngine/PQL/PQL.h"
 
 
 using namespace PetriEngine;

@@ -23,10 +23,16 @@
 QueryModel::QueryModel(PetriNetScene* net)
 	 : QAbstractTableModel(net){
 	_net = net;
+
+	_clockIcon = QIcon(":/Icons/clock.svg");
+	_checkIcon = QIcon(":/Icons/check.svg");
+	_crossIcon = QIcon(":/Icons/cross.svg");
+	_unknownIcon = QIcon(":/Icons/unknown.svg");
 }
 
 QueryModel::~QueryModel(){
-	//TODO: Stop and delete all threads... :)
+	for(int i = 0; i < _qstate.length(); i++)
+		abortThread(i);
 }
 
 int QueryModel::rowCount(const QModelIndex &parent) const{
@@ -62,16 +68,16 @@ QVariant QueryModel::data(const QModelIndex &index, int role) const{
 
 	if(index.column() == COL_DESCRIPTION && role == Qt::DecorationRole){
 		if(state.thread)
-			return QIcon(":/Icons/clock.svg");
+			return _clockIcon;
 
 		switch(state.result.result()){
 			case PetriEngine::Reachability::ReachabilityResult::Satisfied:
-				return QIcon(":/Icons/check.svg");
+				return _checkIcon;
 			case PetriEngine::Reachability::ReachabilityResult::NotSatisfied:
-				return QIcon(":/Icons/cross.svg");
+				return _crossIcon;
 			case PetriEngine::Reachability::ReachabilityResult::Unknown:
 			default:
-				return QIcon(":/Icons/unknown.svg");
+				return _unknownIcon;
 		}
 	}
 
@@ -149,7 +155,7 @@ void QueryModel::editQuery(const QModelIndex& index, QWidget *parent){
 void QueryModel::removeQuery(const QModelIndex& index){
 	if(!index.isValid()) return;
 	Q_ASSERT(index.row() < rowCount());
-	AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(this, _queries[index.row()]);
+	AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(this, index.row());
 	_net->undoStack()->push(cmd);
 }
 

@@ -45,7 +45,7 @@
         <string> tokens</string>
        </property>
        <property name="maximum">
-        <number>99</number>
+        <number>9999</number>
        </property>
       </widget>
      </item>

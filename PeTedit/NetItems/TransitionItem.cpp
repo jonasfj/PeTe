@@ -59,6 +59,8 @@ QPainterPath TransitionItem::textPath() const {
 
 QPointF TransitionItem::nearestPoint(QPointF to) const{
 	QLineF line = QLineF(this->pos(), to);
+	if(line.length() == 0)	//Avoid bugs with NaN
+		return to;
 	line = line.unitVector();
 	qreal x = line.dx() * RECT_W / 2;
 	qreal y = line.dy() * RECT_H / 2;

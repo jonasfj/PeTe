@@ -94,7 +94,15 @@
     </property>
     <addaction name="aboutAction"/>
    </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="undoAction"/>
+    <addaction name="redoAction"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menu_Edit"/>
    <addaction name="menuView"/>
    <addaction name="menu_Analysis"/>
    <addaction name="menuHelp"/>
@@ -110,6 +118,9 @@
    <addaction name="InsertTransitionModeAction"/>
    <addaction name="InsertArcModeAction"/>
    <addaction name="PointerModeAction"/>
+   <addaction name="separator"/>
+   <addaction name="undoAction"/>
+   <addaction name="redoAction"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="variableDock">
@@ -221,6 +232,9 @@
      </property>
      <item>
       <widget class="QTableView" name="queryView">
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>
@@ -239,11 +253,11 @@
        <property name="selectionBehavior">
         <enum>QAbstractItemView::SelectRows</enum>
        </property>
-       <attribute name="horizontalHeaderCascadingSectionResizes">
-        <bool>true</bool>
+       <attribute name="horizontalHeaderHighlightSections">
+        <bool>false</bool>
        </attribute>
        <attribute name="horizontalHeaderStretchLastSection">
-        <bool>true</bool>
+        <bool>false</bool>
        </attribute>
        <attribute name="verticalHeaderVisible">
         <bool>false</bool>
@@ -368,17 +382,11 @@
        <attribute name="horizontalHeaderVisible">
         <bool>false</bool>
        </attribute>
-       <attribute name="horizontalHeaderCascadingSectionResizes">
-        <bool>true</bool>
-       </attribute>
        <attribute name="horizontalHeaderDefaultSectionSize">
         <number>100</number>
        </attribute>
        <attribute name="horizontalHeaderHighlightSections">
         <bool>false</bool>
-       </attribute>
-       <attribute name="horizontalHeaderStretchLastSection">
-        <bool>true</bool>
        </attribute>
        <attribute name="verticalHeaderVisible">
         <bool>false</bool>
@@ -457,6 +465,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/add-place.svg</normaloff>:/Icons/add-place.svg</iconset>
+   </property>
    <property name="text">
     <string>New place</string>
    </property>
@@ -471,6 +483,10 @@
    <property name="checked">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/pointer.svg</normaloff>:/Icons/pointer.svg</iconset>
+   </property>
    <property name="text">
     <string>Pointer mode</string>
    </property>
@@ -482,6 +498,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/add-transition.svg</normaloff>:/Icons/add-transition.svg</iconset>
+   </property>
    <property name="text">
     <string>New transition</string>
    </property>
@@ -492,6 +512,10 @@
   <action name="InsertArcModeAction">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/add-arc.svg</normaloff>:/Icons/add-arc.svg</iconset>
    </property>
    <property name="text">
     <string>New arc</string>
@@ -531,6 +555,30 @@
   <action name="aboutAction">
    <property name="text">
     <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="undoAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/undo.svg</normaloff>:/Icons/undo.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="redoAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/redo.svg</normaloff>:/Icons/redo.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
    </property>
   </action>
  </widget>

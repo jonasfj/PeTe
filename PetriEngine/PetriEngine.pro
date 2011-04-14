@@ -2,36 +2,45 @@ TEMPLATE		= lib
 
 QMAKE_CXXFLAGS += $$system(llvm-config --cxxflags all)
 QT			   -= gui core
-CONFIG		   += staticlib
-LIBS		   += $$system(llvm-config --libs all)
+CONFIG		   += staticlib #dll
+#LIBS		   += -static $$system(llvm-config --libs all)
 
 SOURCES		   += \
 	StandardOutputProgressReporter.cpp \
 	PetriNet.cpp \
-	PQL/PQLExpressions.cpp \  
 	Reachability/DepthFirstReachabilitySearch.cpp \
     PetriNetBuilder.cpp \
     ValidationBuilder.cpp \
 	Reachability/ReachabilitySearchStrategy.cpp \
-    Reachability/DFRSHash.cpp
+    Reachability/DFRSHash.cpp \
+    PQL/Expressions.cpp \
+    PQL/PQL.cpp \
+    Reachability/HashUnderApproximation.cpp \
+    Reachability/BestFirstReachabilityStrategy.cpp \
+    Reachability/ClosestFirstReachability.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
 	ProgressReporter.h \
 	PetriNet.h \
 	StandardOutputProgressReporter.h \
-	PQL/PQLExpressions.h \
     PQL/PQLParser.h \
     Reachability/ReachabilitySearchStrategy.h \
     PetriNetBuilder.h \
     AbstractPetriNetBuilder.h \
     Reachability/ReachabilityResult.h \
     ValidationBuilder.h \
-    Reachability/KarpMillerL1SearchStrategy.h \
 	Reachability/DepthFirstReachabilitySearch.h \
-    Reachability/State.h \
-    Reachability/StateSet.h \
-    Reachability/DFRSHash.h
+	Structures/State.h \
+	Structures/StateSet.h \
+    Reachability/DFRSHash.h \
+    PQL/PQL.h \
+    PQL/Expressions.h \
+    Structures/BlockStack.h \
+    Structures/PriorityQueue.h \
+    Reachability/HashUnderApproximation.h \
+    Reachability/BestFirstReachabilityStrategy.h \
+    Reachability/ClosestFirstReachability.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine
