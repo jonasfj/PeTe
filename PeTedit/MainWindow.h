@@ -32,6 +32,7 @@ private:
 private slots:
 	void resizeQueryView();
 	void resizeVariableView();
+	void resizeValidationView();
 	void validationIssuesFound();
 
 	void on_deleteVariable_clicked();

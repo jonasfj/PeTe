@@ -225,6 +225,8 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 				this, SLOT(resizeVariableView()));
 		resizeVariableView();
 
+		resizeValidationView();
+
 		this->currentScene_modeChanged(this->currentScene->mode());
 	}
 }
@@ -334,6 +336,12 @@ void MainWindow::on_actionExport_SVG_triggered()
 
 /******************** Validation ********************/
 
+/** Set resize mode for ValidationView */
+void MainWindow::resizeValidationView(){
+	ui->validationView->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
+	ui->validationView->horizontalHeader()->setResizeMode(1, QHeaderView::ResizeToContents);
+}
+
 /** Validation found issues */
 void MainWindow::validationIssuesFound()
 {
@@ -342,8 +350,7 @@ void MainWindow::validationIssuesFound()
 	if(ui->validationDock->isHidden() &&
 	   currentScene->validationIssues()->rowCount() > 0){
 		ui->validationDock->show();
-		//TODO: Call this method when appropriate
-		ui->validationView->resizeColumnsToContents();
+		resizeValidationView();
 	}
 }
 
