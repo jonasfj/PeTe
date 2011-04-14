@@ -76,14 +76,7 @@ public:
 
 	/** Create a new state from a net */
 	static inline State* createState(const PetriNet& net, State* parent = NULL){
-		char *d = (char*)calloc(1, sizeof(State) + sizeof(MarkVal)*net.numberOfPlaces() + sizeof(VarVal)*net.numberOfVariables());
-		State* s = (State*)d;
-		s->_parentTransition = 0;
-		s->_marking = (MarkVal*)(d + sizeof(State));
-		s->_valuation = (VarVal*)(d+ sizeof(State) + sizeof(MarkVal) * net.numberOfVariables());
-		if(parent)
-			s->_parent = parent;
-		return (State*)d;
+		return createState(net.numberOfPlaces(), net.numberOfVariables(), parent);
 	}
 
 	/** Deletes a state */
