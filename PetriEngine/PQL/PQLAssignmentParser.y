@@ -14,6 +14,7 @@ void pqlaerror(const char *s) {printf("ERROR: %s\n", s);}
 /* Possible data representation */
 %union {
 	PetriEngine::PQL::Expr* expr;
+	PetriEngine::PQL::AssignmentExpression* assExpr;
 	std::string *string;
 	int token;
 }
@@ -27,17 +28,26 @@ void pqlaerror(const char *s) {printf("ERROR: %s\n", s);}
 
 /* Nonterminal type definition */
 %type <expr> expr term factor
+%type <assExpr> assignment
 
 /* Operator precedence, more possibly coming */
 
-%start assignment
+%start root
 
 %%
 
-assignment	: ID ASSIGN expr SEMI assignment 	{ assignment->prepend(*$1, $3); delete $1;}
-			| ID ASSIGN expr SEMI				{ assignment = new AssignmentExpression();
-												  assignment->prepend(*$1, $3); delete $1;}
-			| error								{ yyerrok; }
+root 	: assignment			{ assignment = (AssignmentExpression*)$1; }
+		| error					{ assignment = NULL; yyerrok; }
+		;
+
+assignment	: ID ASSIGN expr SEMI assignment 	{ ((AssignmentExpression*)$5)->prepend(*$1, $3); delete $1;
+												  $$ = ((AssignmentExpression*)$5)}
+			| ID ASSIGN expr SEMI				{ AssignmentExpression* a = new AssignmentExpression();
+												  a->prepend(*$1, $3); delete $1;
+												  $$ = a;}
+			| ID ASSIGN expr					{ AssignmentExpression* a = new AssignmentExpression();
+												  a->prepend(*$1, $3); delete $1;
+												  $$ = a;}
 			;
 
 expr	: expr PLUS term	{ $$ = new PlusExpr($1, $3); }

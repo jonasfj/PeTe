@@ -23,15 +23,21 @@ SUITE(PQLParserTest){
 	}
 
 	TEST(PQLAssignmentTreeConstruction){
+		//This works
 		string assignment("X2:=5;Excaliber:=4+5*8+(55*7)+1;");
 
 		AssignmentExpression* ass1 = ParseAssignment(assignment);
 		CHECK(ass1 != NULL);
-		cout<<"Assignment parsed:"<<endl;
-		cout<<ass1->toString()<<endl;
 
 		AssignmentExpression* ass2 = ParseAssignment(ass1->toString());
 		CHECK(ass1->toString() == ass2->toString());
+
+		//This shouldn't
+		//string assignment1("X2:=5:Excaliber:=4+5*8+(55*7)+1;");
+
+		//AssignmentExpression* ass3 = ParseAssignment(assignment1);
+		//CHECK(ass1 == NULL);
+
 	}
 /*
 	TEST(CTLEvaluation){

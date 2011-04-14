@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pnml>
      <net>
+          <variable name="X11" initial-value="0" range="3"/>
+          <variable name="X12" initial-value="0" range="3"/>
+          <variable name="X21" initial-value="0" range="3"/>
+          <variable name="X22" initial-value="0" range="3"/>
           <transition id="T1">
                <graphics>
                     <position x="103" y="118"/>
@@ -8,8 +12,8 @@
                <name>
                     <value>T1</value>
                </name>
-               <conditions></conditions>
-               <assignments></assignments>
+               <conditions>Px11 &gt; 0 &amp;&amp; 1 &lt;= X11 &amp;&amp; X11 &lt;= 2 &amp;&amp; P1 == 1 &amp;&amp; P2 == 0</conditions>
+               <assignments>X21 := 0;</assignments>
           </transition>
           <transition id="T2">
                <graphics>
@@ -18,8 +22,8 @@
                <name>
                     <value>T2</value>
                </name>
-               <conditions></conditions>
-               <assignments></assignments>
+               <conditions>Px11 &gt; 0 &amp;&amp; 1 &lt;= X11 &amp;&amp; X11 &lt;= 2 &amp;&amp; P1 == 1 &amp;&amp; P2 == 1</conditions>
+               <assignments>X22 := 0;</assignments>
           </transition>
           <transition id="T3">
                <graphics>
@@ -28,8 +32,8 @@
                <name>
                     <value>T3</value>
                </name>
-               <conditions></conditions>
-               <assignments></assignments>
+               <conditions>Px11 &gt; 0 &amp;&amp; 1 &lt;= X11 &amp;&amp; X11 &lt;= 2 &amp;&amp; P1 == 2 &amp;&amp; P2 == 0</conditions>
+               <assignments>X21 := 0; X11 := X12;</assignments>
           </transition>
           <transition id="T4">
                <graphics>
@@ -38,8 +42,8 @@
                <name>
                     <value>T4</value>
                </name>
-               <conditions></conditions>
-               <assignments></assignments>
+               <conditions>Px11 &gt; 0 &amp;&amp; 1 &lt;= X11 &amp;&amp; X11 &lt;= 2 &amp;&amp; P1 == 2 &amp;&amp; P2 == 1</conditions>
+               <assignments>X22 := 0; X11 := X12;</assignments>
           </transition>
           <transition id="T5">
                <graphics>
@@ -48,8 +52,8 @@
                <name>
                     <value>T5</value>
                </name>
-               <conditions></conditions>
-               <assignments></assignments>
+               <conditions>Px11 &gt; 0 &amp;&amp; 1 &lt;= X12 &amp;&amp; X12 &lt;= 2 &amp;&amp; P1 == 2 &amp;&amp; P2 == 0</conditions>
+               <assignments>X21 := 0;</assignments>
           </transition>
           <transition id="T6">
                <graphics>
@@ -58,8 +62,8 @@
                <name>
                     <value>T6</value>
                </name>
-               <conditions></conditions>
-               <assignments></assignments>
+               <conditions>Px11 &gt; 0 &amp;&amp; 1 &lt;= X12 &amp;&amp; X12 &lt;= 2 &amp;&amp; P1 == 2 &amp;&amp; P2 == 1</conditions>
+               <assignments>X22 := 0;</assignments>
           </transition>
           <place id="P1">
                <graphics>
@@ -69,7 +73,7 @@
                     <value>P1</value>
                </name>
                <initialMarking>
-                    <value>0</value>
+                    <value>2</value>
                </initialMarking>
           </place>
           <place id="P2">
@@ -83,6 +87,210 @@
                     <value>0</value>
                </initialMarking>
           </place>
+          <place id="Px11">
+               <graphics>
+                    <position x="663" y="115"/>
+               </graphics>
+               <name>
+                    <value>Px11</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="Px12">
+               <graphics>
+                    <position x="663" y="231"/>
+               </graphics>
+               <name>
+                    <value>Px12</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Px21">
+               <graphics>
+                    <position x="664" y="333"/>
+               </graphics>
+               <name>
+                    <value>Px21</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Px22">
+               <graphics>
+                    <position x="664" y="441"/>
+               </graphics>
+               <name>
+                    <value>Px22</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <transition id="T7">
+               <graphics>
+                    <position x="584" y="168"/>
+               </graphics>
+               <name>
+                    <value>T7</value>
+               </name>
+               <conditions>X11 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T8">
+               <graphics>
+                    <position x="736" y="169"/>
+               </graphics>
+               <name>
+                    <value>T8</value>
+               </name>
+               <conditions>X11 &lt; 3</conditions>
+               <assignments>X11 := X11 + 1;</assignments>
+          </transition>
+          <transition id="T9">
+               <graphics>
+                    <position x="587" y="279"/>
+               </graphics>
+               <name>
+                    <value>T9</value>
+               </name>
+               <conditions>X12 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T10">
+               <graphics>
+                    <position x="738" y="289"/>
+               </graphics>
+               <name>
+                    <value>T10</value>
+               </name>
+               <conditions>X12 &lt; 3</conditions>
+               <assignments>X12 := X12 + 1;</assignments>
+          </transition>
+          <transition id="T11">
+               <graphics>
+                    <position x="587" y="389"/>
+               </graphics>
+               <name>
+                    <value>T11</value>
+               </name>
+               <conditions>X21 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T12">
+               <graphics>
+                    <position x="735" y="392"/>
+               </graphics>
+               <name>
+                    <value>T12</value>
+               </name>
+               <conditions>X21 &lt; 3</conditions>
+               <assignments>X21 := X21 + 1;</assignments>
+          </transition>
+          <transition id="T13">
+               <graphics>
+                    <position x="591" y="507"/>
+               </graphics>
+               <name>
+                    <value>T13</value>
+               </name>
+               <conditions>X22 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T14">
+               <graphics>
+                    <position x="735" y="510"/>
+               </graphics>
+               <name>
+                    <value>T14</value>
+               </name>
+               <conditions>X22 &lt; 3</conditions>
+               <assignments>X22 := X22 +1;</assignments>
+          </transition>
+          <arc source="T14" target="Px11">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T13" target="Px11">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Px22" target="T14">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Px22" target="T13">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T12" target="Px22">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T11" target="Px22">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Px21" target="T12">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Px21" target="T11">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T10" target="Px21">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T9" target="Px21">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Px12" target="T10">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Px12" target="T9">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T8" target="Px12">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7" target="Px12">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Px11" target="T8">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Px11" target="T7">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
           <arc source="P1" target="T6">
                <inscription>
                     <value>1</value>
@@ -113,5 +321,39 @@
                     <value>1</value>
                </inscription>
           </arc>
+          <arc source="T6" target="P2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T5" target="P2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T4" target="P2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T3" target="P2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T2" target="P2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1" target="P2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
      </net>
+     <queries>
+          <query name="Transition is firable" strategy="Naive Karp-Millar DFS with hashing">P2 == 2</query>
+          <query name="New query" strategy="Naive Karp-Miller DFS">P2 == 3</query>
+     </queries>
 </pnml>
