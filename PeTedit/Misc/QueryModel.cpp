@@ -31,7 +31,8 @@ QueryModel::QueryModel(PetriNetScene* net)
 }
 
 QueryModel::~QueryModel(){
-	//TODO: Stop and delete all threads... :)
+	for(int i = 0; i < _qstate.length(); i++)
+		abortThread(i);
 }
 
 int QueryModel::rowCount(const QModelIndex &parent) const{

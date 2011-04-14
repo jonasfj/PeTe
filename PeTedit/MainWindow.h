@@ -30,6 +30,7 @@ private:
 	QActionGroup* modeActionGroup;
 
 private slots:
+	void resizeQueryView();
 	void validationIssuesFound();
 
 	void on_deleteVariable_clicked();

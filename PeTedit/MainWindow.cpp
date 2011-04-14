@@ -178,6 +178,13 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 					previousScene->validationIssues(), SLOT(clear()));
 		disconnect(ui->validationView, SIGNAL(doubleClicked(QModelIndex)),
 					previousScene, SLOT(showValidationIssue(QModelIndex)));
+
+		//Disconnect from query model resizing
+		disconnect(previousScene->queries(), SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+				this, SLOT(resizeQueryView()));
+		disconnect(previousScene->queries(), SIGNAL(rowsInserted(const QModelIndex&, int, int)),
+				this, SLOT(resizeQueryView()));
+
 		ui->variableView->setModel(NULL);
 		ui->queryView->setModel(NULL);
 		ui->validationView->setModel(NULL);
@@ -201,6 +208,13 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 				currentScene->validationIssues(), SLOT(clear()));
 		connect(ui->validationView, SIGNAL(doubleClicked(QModelIndex)),
 				currentScene, SLOT(showValidationIssue(QModelIndex)));
+
+		//Set resize properties for headers, as the model must be added first
+		connect(currentScene->queries(), SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+				this, SLOT(resizeQueryView()));
+		connect(currentScene->queries(), SIGNAL(rowsInserted(const QModelIndex&, int, int)),
+				this, SLOT(resizeQueryView()));
+		resizeQueryView();
 
 		this->currentScene_modeChanged(this->currentScene->mode());
 	}
@@ -240,6 +254,9 @@ void MainWindow::on_SaveAction_triggered()
 	}
 }
 
+
+/******************** Variables ********************/
+
 /** Adds a new variable to the variableView table */
 void MainWindow::on_addVariable_clicked()
 {
@@ -272,6 +289,8 @@ void MainWindow::on_deleteVariable_clicked()
 }
 
 
+/******************** Export ********************/
+
 /** Save current scene to SVG */
 void MainWindow::on_actionExport_SVG_triggered()
 {
@@ -297,6 +316,8 @@ void MainWindow::on_actionExport_SVG_triggered()
 	}
 }
 
+/******************** Validation ********************/
+
 /** Validation found issues */
 void MainWindow::validationIssuesFound()
 {
@@ -308,6 +329,14 @@ void MainWindow::validationIssuesFound()
 		//TODO: Call this method when appropriate
 		ui->validationView->resizeColumnsToContents();
 	}
+}
+
+/******************** Queries ********************/
+
+/** Set resize mode for QueryView */
+void MainWindow::resizeQueryView(){
+	ui->queryView->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
+	ui->queryView->horizontalHeader()->setResizeMode(1, QHeaderView::ResizeToContents);
 }
 
 
