@@ -19,7 +19,6 @@ namespace PetriEngine { namespace Reachability {
 /** List all reachability strategies, return unqiue display names */
 std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 	std::vector<std::string> strategies;
-	//strategies.push_back("Karp-Miller L1");
 	strategies.push_back(NAME_DFS);
 	strategies.push_back(NAME_DFS_Hash);
 	strategies.push_back(NAME_HashUnderApproximation);
@@ -30,8 +29,6 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 
 /** Create a reachability strategy from string, NULL if not found */
 ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std::string& strategy){
-	//if(strategy == "Karp-Miller L1")
-	//	return new KarpMillerL1SearchStrategy();
 	if(strategy == NAME_DFS)
 		return new DepthFirstReachabilitySearch();
 	if(strategy == NAME_DFS_Hash)
