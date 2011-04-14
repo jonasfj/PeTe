@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+     <net>
+          <transition id="T1">
+               <graphics>
+                    <position x="103" y="118"/>
+               </graphics>
+               <name>
+                    <value>T1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T2">
+               <graphics>
+                    <position x="151" y="171"/>
+               </graphics>
+               <name>
+                    <value>T2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T3">
+               <graphics>
+                    <position x="203" y="231"/>
+               </graphics>
+               <name>
+                    <value>T3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T4">
+               <graphics>
+                    <position x="250" y="281"/>
+               </graphics>
+               <name>
+                    <value>T4</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T5">
+               <graphics>
+                    <position x="304" y="341"/>
+               </graphics>
+               <name>
+                    <value>T5</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="T6">
+               <graphics>
+                    <position x="363" y="401"/>
+               </graphics>
+               <name>
+                    <value>T6</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <place id="P1">
+               <graphics>
+                    <position x="411" y="107"/>
+               </graphics>
+               <name>
+                    <value>P1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P2">
+               <graphics>
+                    <position x="95" y="408"/>
+               </graphics>
+               <name>
+                    <value>P2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <arc source="P1" target="T6">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1" target="T5">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1" target="T4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1" target="T3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1" target="T2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1" target="T1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+     </net>
+</pnml>
