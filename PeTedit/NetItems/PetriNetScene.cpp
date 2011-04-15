@@ -34,6 +34,7 @@
 #include <QMessageBox>
 #include <QPainterPath>
 #include <QDebug>
+#include "../Misc/VariableModel.h"
 
 
 PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, QObject* parent) :
@@ -44,10 +45,7 @@ PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, QObject* parent) :
 	undoGroup->addStack(this->_undoStack);
 
 	// Create variable model (name,value,range)
-	this->_variables = new QStandardItemModel(0, 3, this);
-	this->_variables->setHeaderData(0, Qt::Horizontal, "Name");
-	this->_variables->setHeaderData(1, Qt::Horizontal, "Value");
-	this->_variables->setHeaderData(2, Qt::Horizontal, "Range");
+	this->_variables = new VariableModel(this);
 
 	// Create query model
 	this->_queries = new QueryModel(this);
@@ -153,28 +151,7 @@ ArcItem* PetriNetScene::findArc(NetItem *start, NetItem *end){
 /******************** Variables ********************/
 
 QStringList PetriNetScene::variableNames() const{
-	QStringList list;
-	for(int row = 0; row < this->_variables->rowCount(); row++)
-		list.append(this->_variables->data(this->_variables->index(row, 0)).toString());
-	return list;
-}
-
-/** Check if a variable with some id already exists */
-bool PetriNetScene::findVariable(QString id) const{
-	return _variables->findItems(id,Qt::MatchExactly,0).count() != 0;
-}
-
-/** Append a new variable to the list of variables */
-void PetriNetScene::addVariable(QString name, int value, int range){
-	QList<QStandardItem*> row;
-	row.append( new QStandardItem());
-	row.append( new QStandardItem());
-	row.append( new QStandardItem());
-	row.at(0)->setData(name,Qt::EditRole);
-	row.at(1)->setData(value,Qt::EditRole);
-	row.at(2)->setData(range,Qt::EditRole);
-
-	this->_variables->appendRow(row);
+	return _variables->variableNames();
 }
 
 /******************** Mouse event handling ********************/
@@ -426,10 +403,8 @@ void PetriNetScene::produce(PNMLBuilder* builder){
 void PetriNetScene::produce(PetriEngine::AbstractPetriNetBuilder* builder){
 
 	for(int row = 0; row < this->_variables->rowCount(); row++){
-		QString name = this->_variables->data(this->_variables->index(row, 0)).toString();
-		int value = this->_variables->data(this->_variables->index(row, 1)).toInt();
-		int range = this->_variables->data(this->_variables->index(row, 2)).toInt();
-		builder->addVariable(name.toStdString(), value, range);
+		const VariableModel::Variable& var = _variables->variable(row);
+		builder->addVariable(var.name.toStdString(), var.value, var.range);
 	}
 
 	foreach(QGraphicsItem* item, this->items()) {

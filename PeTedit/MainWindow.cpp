@@ -17,6 +17,7 @@
 #include "Misc/ValidationIssuesModel.h"
 #include "Misc/QueryModel.h"
 #include "Misc/ProgressViewDelegate.h"
+#include "Misc/VariableModel.h"
 
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/PQL/PQL.h>
@@ -223,6 +224,7 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 				this, SLOT(resizeVariableView()));
 		connect(currentScene->variables(), SIGNAL(rowsInserted(const QModelIndex&, int, int)),
 				this, SLOT(resizeVariableView()));
+
 		resizeVariableView();
 
 		resizeValidationView();
@@ -278,31 +280,15 @@ void MainWindow::resizeVariableView(){
 /** Adds a new variable to the variableView table */
 void MainWindow::on_addVariable_clicked()
 {
-	//TODO: Check if dummy variable exists already
-	int num=0;
-	if(currentScene){
-		while(true){
-			QString id = "x" + QString::number(num);
-			if (!currentScene->findVariable(id)){
-				currentScene->addVariable(id,0,0);
-				break;
-			}else
-				num++;
-		}
-	}
+	if(currentScene)
+		currentScene->variables()->addVariable();
 }
 
 /** Removes a variable from the variableView table */
 void MainWindow::on_deleteVariable_clicked()
 {
 	if(currentScene){
-		const QModelIndexList selection = ui->variableView->selectionModel()->selectedIndexes();
-		if(selection.length()>0){
-			QModelIndex index = selection.at(0);
-			if(currentScene->variables()->rowCount() > index.row()){
-				currentScene->variables()->removeRow(index.row());
-			}
-		}
+		currentScene->variables()->removeVariable(ui->variableView->currentIndex());
 	}
 }
 

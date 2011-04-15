@@ -15,6 +15,7 @@ class ArcItem;
 class ValidationIssuesModel;
 class QueryModel;
 class PNMLBuilder;
+class VariableModel;
 
 /** A TAPN document, the model behind the view */
 class PetriNetScene : public QGraphicsScene
@@ -72,13 +73,8 @@ public:
 	/** Save, this extension method will also save queries */
 	void produce(PNMLBuilder* builder);
 
-	/** Add a new variable to the net */
-	void addVariable(QString name, int value, int range);
-
 	/** Get the variables */
-	QStandardItemModel* variables() { return this->_variables; }
-	/** Find variable */
-	bool findVariable(QString id) const;
+	VariableModel* variables() { return this->_variables; }
 
 	/** Get query model */
 	QueryModel* queries() { return _queries; }
@@ -98,7 +94,7 @@ private:
 	void arcItemDoubleClickEvent(ArcItem* arc);
 
 	/** Model representing the variables of the net */
-	QStandardItemModel* _variables;
+	VariableModel* _variables;
 
 	/** Model holding queries */
 	QueryModel* _queries;

@@ -4,6 +4,7 @@
 #include "PlaceItem.h"
 #include "ArcItem.h"
 #include "TransitionItem.h"
+#include "../Misc/VariableModel.h"
 
 PetriNetSceneBuilder::PetriNetSceneBuilder(QUndoGroup* undoGroup, QObject* sceneParent){
 	scene = new PetriNetScene(undoGroup, sceneParent);
@@ -16,7 +17,7 @@ void PetriNetSceneBuilder::addPlace(const std::string &name, int tokens, double 
 }
 
 void PetriNetSceneBuilder::addVariable(const std::string& name, int initialValue, int range){
-	scene->addVariable(name.c_str(), initialValue, range);
+	scene->variables()->addVariable(name.c_str(), initialValue, range);
 }
 
 void PetriNetSceneBuilder::addTransition(const std::string &name,

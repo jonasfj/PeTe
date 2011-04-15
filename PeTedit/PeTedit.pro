@@ -39,7 +39,8 @@ SOURCES	   += \
     Misc/ValidationIssuesModel.cpp \
     Misc/QueryModel.cpp \
     Misc/ProgressViewDelegate.cpp \
-    Misc/QueryThread.cpp
+    Misc/QueryThread.cpp \
+    Misc/VariableModel.cpp
 
 
 HEADERS		+= \
@@ -76,7 +77,8 @@ HEADERS		+= \
     Misc/QueryModel.h \
     Misc/ProgressViewDelegate.h \
     Misc/QueryThread.h \
-    Misc/CustomDataRoles.h
+    Misc/CustomDataRoles.h \
+    Misc/VariableModel.h
 
 
 FORMS		+= MainWindow.ui \
