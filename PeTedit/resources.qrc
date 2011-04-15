@@ -17,5 +17,7 @@
         <file alias="redo.svg">Icons/redo.svg</file>
         <file alias="undo.svg">Icons/undo.svg</file>
         <file alias="pointer.svg">Icons/pointer.svg</file>
+        <file alias="pete.svg">Icons/pete.svg</file>
+        <file alias="validate.svg">Icons/validate.svg</file>
     </qresource>
 </RCC>

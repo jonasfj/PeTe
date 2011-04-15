@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>PeTe</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/Icons/pete.svg</normaloff>:/Icons/pete.svg</iconset>
+  </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
   </property>
@@ -543,6 +547,10 @@
    </property>
   </action>
   <action name="validateAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/validate.svg</normaloff>:/Icons/validate.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Validate</string>
    </property>
