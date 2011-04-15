@@ -237,6 +237,7 @@ private:
 	std::list<VariableAssignment> assignments;
 };
 
-}}
+} // PQL
+} // PetriEngine
 
 #endif // PQL_H

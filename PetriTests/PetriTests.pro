@@ -14,7 +14,8 @@ SOURCES	   +=   main.cpp \
     PetriEngineTests/FireTest.cpp \
     PetriEngineTests/StateSetTest.cpp \
     PetriEngineTests/BlockStackTest.cpp \
-    PetriEngineTests/PriorityQueueTest.cpp
+    PetriEngineTests/PriorityQueueTest.cpp \
+    PetriEngineTests/CompiledConditionTest.cpp
 
 HEADERS		+= \
 

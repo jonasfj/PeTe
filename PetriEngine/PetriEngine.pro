@@ -16,7 +16,8 @@ SOURCES		   += \
     PQL/PQL.cpp \
     Reachability/HashUnderApproximation.cpp \
     Reachability/BestFirstReachabilityStrategy.cpp \
-    Reachability/ClosestFirstReachability.cpp
+    Reachability/ClosestFirstReachability.cpp \
+    PQL/CompiledCondition.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -39,7 +40,8 @@ HEADERS		   += \
     Structures/PriorityQueue.h \
     Reachability/HashUnderApproximation.h \
     Reachability/BestFirstReachabilityStrategy.h \
-    Reachability/ClosestFirstReachability.h
+    Reachability/ClosestFirstReachability.h \
+    PQL/CompiledCondition.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine
