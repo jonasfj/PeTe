@@ -11,7 +11,7 @@ using namespace std;
 
 SUITE(CompiledConditionTest){
 	TEST(SimpleCompiledConditionTest){
-		Condition* cond = ParseQuery("5 == 10");// or P2 == 5
+		Condition* cond = ParseQuery("P1 == 10 or P2 == 5");
 		vector<string> places;
 		vector<string> vars;
 		places.push_back("P1");

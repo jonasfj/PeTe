@@ -481,7 +481,8 @@ int OrCondition::logicalOp() const					{ return Instruction::Or;  }
 Value* CompareCondition::codegen(CodeGenerationContext& context) const{
 	Value* v1 = _expr1->codegen(context);
 	Value* v2 = _expr2->codegen(context);
-	return new ICmpInst((ICmpInst::Predicate)compareOp(),
+	return new ICmpInst(*context.label(),
+						(ICmpInst::Predicate)compareOp(),
 						v1,
 						v2,
 						this->toString().c_str());
