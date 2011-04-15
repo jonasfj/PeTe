@@ -1,10 +1,11 @@
 TEMPLATE	 = app
 
-QMAKE_CXXFLAGS	+= -std=c++0x
+QMAKE_CXXFLAGS	+= -std=c++0x $$system(llvm-config --cxxflags all)
 QT		  		+= core gui svg
 INCLUDEPATH		+= ../
-LIBS			+= -L../ -lPetriEngine
+LIBS			+= -L../ -lPetriEngine $$system(llvm-config --libs all)
 PRE_TARGETDEPS	+= ../PetriEngine
+
 
 SOURCES	   += \
 	Main.cpp \

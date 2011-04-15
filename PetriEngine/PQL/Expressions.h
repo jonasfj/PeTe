@@ -18,9 +18,12 @@ public:
 	~BinaryExpr();
 	void analyze(AnalysisContext& context);
 	int evaluate(const EvaluationContext& context) const;
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 private:
 	virtual int apply(int v1, int v2) const = 0;
+	/** LLVM binary operator (llvm::Instruction::BinaryOps) */
+	virtual int binaryOp() const = 0;
 	virtual std::string op() const = 0;
 	Expr* _expr1;
 	Expr* _expr2;
@@ -32,6 +35,7 @@ public:
 	PlusExpr(Expr* expr1, Expr* expr2) : BinaryExpr(expr1, expr2) {}
 private:
 	int apply(int v1, int v2) const;
+	int binaryOp() const;
 	std::string op() const;
 };
 
@@ -41,6 +45,7 @@ public:
 	SubtractExpr(Expr* expr1, Expr* expr2) : BinaryExpr(expr1, expr2) {}
 private:
 	int apply(int v1, int v2) const;
+	int binaryOp() const;
 	std::string op() const;
 };
 
@@ -50,6 +55,7 @@ public:
 	MultiplyExpr(Expr* expr1, Expr* expr2) : BinaryExpr(expr1, expr2) {}
 private:
 	int apply(int v1, int v2) const;
+	int binaryOp() const;
 	std::string op() const;
 };
 
@@ -60,8 +66,9 @@ public:
 		_expr = expr;
 	}
 	~MinusExpr();
-	int evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
+	int evaluate(const EvaluationContext& context) const;
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 private:
 	Expr* _expr;
@@ -71,8 +78,9 @@ private:
 class LiteralExpr : public Expr {
 public:
 	LiteralExpr(int value) : _value(value){}
-	int evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
+	int evaluate(const EvaluationContext& context) const;
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 private:
 	int _value;
@@ -85,8 +93,9 @@ public:
 		_offsetInMarking = -1;
 		_srcOffset = srcOffset;
 	}
-	int evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
+	int evaluate(const EvaluationContext& context) const;
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 private:
 	/** Is this identifier a place? Or a variable.. */
@@ -109,18 +118,21 @@ public:
 		_cond2 = cond2;
 	}
 	~LogicalCondition();
-	bool evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
-	std::string toString() const;
+	bool evaluate(const EvaluationContext& context) const;
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	double distance(const EvaluationContext& context,
 					DistanceStrategy strategy,
 					bool negated) const;
+	std::string toString() const;
 private:
-	virtual double distance(double d1,
-					double d2,
-					DistanceStrategy strategy,
-					bool negated) const = 0;
 	virtual bool apply(bool b1, bool b2) const = 0;
+	/** LLVM binary operator (llvm::Instruction::BinaryOps) */
+	virtual int logicalOp() const = 0;
+	virtual double delta(double d1,
+							double d2,
+							DistanceStrategy strategy,
+							bool negated) const = 0;
 	virtual std::string op() const = 0;
 	Condition* _cond1;
 	Condition* _cond2;
@@ -132,11 +144,12 @@ public:
 	AndCondition(Condition* cond1, Condition* cond2) : LogicalCondition(cond1,cond2) {}
 private:
 	bool apply(bool b1, bool b2) const;
-	std::string op() const;
-	double distance(double d1,
+	int logicalOp() const;
+	double delta(double d1,
 					double d2,
 					DistanceStrategy strategy,
 					bool negated) const;
+	std::string op() const;
 };
 
 /* Disjunctive or conditon */
@@ -145,11 +158,12 @@ public:
 	OrCondition(Condition* cond1, Condition* cond2) : LogicalCondition(cond1,cond2) {}
 private:
 	bool apply(bool b1, bool b2) const;
-	std::string op() const;
-	double distance(double d1,
+	int logicalOp() const;
+	double delta(double d1,
 					double d2,
 					DistanceStrategy strategy,
 					bool negated) const;
+	std::string op() const;
 };
 
 /* Comparison conditon */
@@ -160,16 +174,19 @@ public:
 		_expr2 = expr2;
 	}
 	~CompareCondition();
-	bool evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
-	std::string toString() const;
+	bool evaluate(const EvaluationContext& context) const;
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	double distance(const EvaluationContext& context,
 					DistanceStrategy strategy,
 					bool negated) const;
+	std::string toString() const;
 private:
 	virtual bool apply(int v1, int v2) const = 0;
+	/** LLVM Comparison predicate (llvm::ICmpInst::Predicate) */
+	virtual int compareOp() const = 0;
+	virtual double delta(int v1, int v2, bool negated) const = 0;
 	virtual std::string op() const = 0;
-	virtual double distance(int v1, int v2, bool negated) const = 0;
 	Expr* _expr1;
 	Expr* _expr2;
 };
@@ -178,9 +195,10 @@ private:
 class EqualCondition : public CompareCondition{
 public:
 	EqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
-	double distance(int v1, int v2, bool negated) const;
 private:
 	bool apply(int v1, int v2) const;
+	int compareOp() const;
+	double delta(int v1, int v2, bool negated) const;
 	std::string op() const;
 };
 
@@ -188,9 +206,10 @@ private:
 class NotEqualCondition : public CompareCondition{
 public:
 	NotEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
-	double distance(int v1, int v2, bool negated) const;
 private:
 	bool apply(int v1, int v2) const;
+	int compareOp() const;
+	double delta(int v1, int v2, bool negated) const;
 	std::string op() const;
 };
 
@@ -198,9 +217,10 @@ private:
 class LessThanCondition : public CompareCondition{
 public:
 	LessThanCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
-	double distance(int v1, int v2, bool negated) const;
 private:
 	bool apply(int v1, int v2) const;
+	int compareOp() const;
+	double delta(int v1, int v2, bool negated) const;
 	std::string op() const;
 };
 
@@ -208,9 +228,10 @@ private:
 class LessThanOrEqualCondition : public CompareCondition{
 public:
 	LessThanOrEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
-	double distance(int v1, int v2, bool negated) const;
 private:
 	bool apply(int v1, int v2) const;
+	int compareOp() const;
+	double delta(int v1, int v2, bool negated) const;
 	std::string op() const;
 };
 
@@ -218,9 +239,10 @@ private:
 class GreaterThanCondition : public CompareCondition{
 public:
 	GreaterThanCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
-	double distance(int v1, int v2, bool negated) const;
 private:
 	bool apply(int v1, int v2) const;
+	int compareOp() const;
+	double delta(int v1, int v2, bool negated) const;
 	std::string op() const;
 };
 
@@ -228,9 +250,10 @@ private:
 class GreaterThanOrEqualCondition : public CompareCondition{
 public:
 	GreaterThanOrEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
-	double distance(int v1, int v2, bool negated) const;
 private:
 	bool apply(int v1, int v2) const;
+	int compareOp() const;
+	double delta(int v1, int v2, bool negated) const;
 	std::string op() const;
 };
 
@@ -241,12 +264,13 @@ public:
 		_cond = cond;
 	}
 	~NotCondition();
-	bool evaluate(const EvaluationContext& context) const;
 	void analyze(AnalysisContext& context);
-	std::string toString() const;
+	bool evaluate(const EvaluationContext& context) const;
+	llvm::Value* codegen(CodeGenerationContext& context) const;
 	double distance(const EvaluationContext& context,
 					DistanceStrategy strategy,
 					bool negated) const;
+	std::string toString() const;
 private:
 	Condition* _cond;
 };

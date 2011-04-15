@@ -6,6 +6,12 @@
 #include <list>
 #include <vector>
 
+namespace llvm{
+	class Value;
+	class BasicBlock;
+	class LLVMContext;
+}
+
 namespace PetriEngine{
 namespace PQL{
 
@@ -108,15 +114,44 @@ private:
 	const VarVal* _assignment;
 };
 
+/** Just-In-Time compilation context */
+class CodeGenerationContext{
+public:
+	CodeGenerationContext(llvm::Value* marking,
+						  llvm::Value* valuation,
+						  llvm::BasicBlock* label,
+						  llvm::LLVMContext& context)
+		: _context(context) {
+		_marking = marking;
+		_valuation = valuation;
+		_label = label;
+	}
+	/** Marking */
+	llvm::Value* marking() { return _marking; }
+	/** Variable valuation */
+	llvm::Value* valuation() { return _valuation; }
+	/** Label for the current code block */
+	llvm::BasicBlock* label() { return _label; }
+	/** LLVM Context that is currently generating */
+	llvm::LLVMContext& context() { return _context; }
+private:
+	llvm::Value* _marking;
+	llvm::Value* _valuation;
+	llvm::BasicBlock* _label;
+	llvm::LLVMContext& _context;
+};
+
 /** Representation of an expression */
 class Expr{
 public:
 	/** Virtual destructor, an expression should know it subexpressions */
 	virtual ~Expr();
-	/** Evaluate the expression given marking and assignment */
-	virtual int evaluate(const EvaluationContext& context) const = 0;
 	/** Perform context analysis */
 	virtual void analyze(AnalysisContext& context) = 0;
+	/** Evaluate the expression given marking and assignment */
+	virtual int evaluate(const EvaluationContext& context) const = 0;
+	/** Generate LLVM intermediate code for this expr  */
+	virtual llvm::Value* codegen(CodeGenerationContext& context) const = 0;
 	/** Convert expression to string */
 	virtual std::string toString() const = 0;
 };
@@ -140,10 +175,12 @@ public:
 		return evaluate(EvaluationContext(state.marking(), state.valuation()));
 	}
 
-	/** Evaluate condition */
-	virtual bool evaluate(const EvaluationContext& context) const = 0;
 	/** Perform context analysis  */
 	virtual void analyze(AnalysisContext& context) = 0;
+	/** Evaluate condition */
+	virtual bool evaluate(const EvaluationContext& context) const = 0;
+	/** Generate LLVM intermediate code for this condition  */
+	virtual llvm::Value* codegen(CodeGenerationContext& context) const = 0;
 	/** Convert condition to string */
 	virtual std::string toString() const = 0;
 	/** Get distance to query */
@@ -200,6 +237,7 @@ private:
 	std::list<VariableAssignment> assignments;
 };
 
-}}
+} // PQL
+} // PetriEngine
 
 #endif // PQL_H

@@ -289,10 +289,10 @@ double LogicalCondition::distance(const EvaluationContext& context,
 								  bool negated) const{
 	double d1 = _cond1->distance(context, strategy, negated);
 	double d2 = _cond2->distance(context, strategy, negated);
-	return distance(d1, d2, strategy, negated);
+	return delta(d1, d2, strategy, negated);
 }
 
-double AndCondition::distance(double d1,
+double AndCondition::delta(double d1,
 							  double d2,
 							  DistanceStrategy strategy,
 							  bool negated) const{
@@ -305,7 +305,8 @@ double AndCondition::distance(double d1,
 		return (d1 + d2) / 2;
 }
 
-double OrCondition::distance(double d1,
+
+double OrCondition::delta(double d1,
 							 double d2,
 							 DistanceStrategy strategy,
 							 bool negated) const{
@@ -323,50 +324,189 @@ double CompareCondition::distance(const EvaluationContext& context,
 								  bool negated) const{
 	int v1 = _expr1->evaluate(context);
 	int v2 = _expr2->evaluate(context);
-	return distance(v1, v2, negated);
+	return delta(v1, v2, negated);
 }
 
-double EqualCondition::distance(int v1, int v2, bool negated) const{
+double EqualCondition::delta(int v1, int v2, bool negated) const{
 	if(!negated)
 		return v1 - v2;
 	else
 		return v1 == v2 ? 1 : 0;
 }
 
-double NotEqualCondition::distance(int v1, int v2, bool negated) const{
+double NotEqualCondition::delta(int v1, int v2, bool negated) const{
 	if(negated)
 		return v1 - v2;
 	else
 		return v1 == v2 ? 1 : 0;
 }
 
-double LessThanCondition::distance(int v1, int v2, bool negated) const{
+double LessThanCondition::delta(int v1, int v2, bool negated) const{
 	if(!negated)
 		return v1 < v2 ? 0 : v1 - v2 + 1;
 	else
 		return v1 >= v2 ? 0 : v2 - v1;
 }
 
-double LessThanOrEqualCondition::distance(int v1, int v2, bool negated) const{
+double LessThanOrEqualCondition::delta(int v1, int v2, bool negated) const{
 	if(!negated)
 		return v1 <= v2 ? 0 : v1 - v2;
 	else
 		return v1 > v2 ? 0 : v2 - v1 + 1;
 }
 
-double GreaterThanCondition::distance(int v1, int v2, bool negated) const{
+double GreaterThanCondition::delta(int v1, int v2, bool negated) const{
 	if(!negated)
 		return v1 > v2 ? 0 : v2 - v1 + 1;
 	else
 		return v1 <= v2 ? 0 : v1 - v2;
 }
 
-double GreaterThanOrEqualCondition::distance(int v1, int v2, bool negated) const{
+double GreaterThanOrEqualCondition::delta(int v1, int v2, bool negated) const{
 	if(!negated)
 		return v1 >= v2 ? 0 : v2 - v1;
 	else
 		return v1 < v2 ? 0 : v1 - v2 + 1;
 }
 
+} // PQL
+} // PetriEngine
 
-}}
+
+/******************** Just-In-Time Compilation ********************/
+
+#include <llvm/LLVMContext.h>
+#include <llvm/Module.h>
+#include <llvm/DerivedTypes.h>
+#include <llvm/Constants.h>
+#include <llvm/GlobalVariable.h>
+#include <llvm/Function.h>
+#include <llvm/CallingConv.h>
+#include <llvm/BasicBlock.h>
+#include <llvm/Instructions.h>
+#include <llvm/InlineAsm.h>
+#include <llvm/Support/FormattedStream.h>
+#include <llvm/Support/MathExtras.h>
+#include <llvm/Pass.h>
+#include <llvm/PassManager.h>
+#include <llvm/ADT/SmallVector.h>
+#include <llvm/Analysis/Verifier.h>
+#include <llvm/Assembly/PrintModulePass.h>
+#include <llvm/ExecutionEngine/ExecutionEngine.h>
+#include <llvm/ExecutionEngine/JIT.h>
+#include <llvm/Analysis/Verifier.h>
+#include <llvm/Analysis/Passes.h>
+#include <llvm/Target/TargetData.h>
+#include <llvm/Target/TargetSelect.h>
+#include <llvm/Transforms/Scalar.h>
+
+using namespace llvm;
+
+namespace PetriEngine{
+namespace PQL{
+
+/******************** Code Generation Expressions ********************/
+
+Value* BinaryExpr::codegen(CodeGenerationContext &context) const{
+	Value* v1 = _expr1->codegen(context);
+	Value* v2 = _expr2->codegen(context);
+	return BinaryOperator::Create((Instruction::BinaryOps)this->binaryOp(),
+								  v1,
+								  v2,
+								  this->toString().c_str(),
+								  context.label());
+}
+
+//BinaryExpr::binaryOp implementations
+int PlusExpr::binaryOp() const						{ return Instruction::Add; }
+int SubtractExpr::binaryOp() const					{ return Instruction::Sub; }
+int MultiplyExpr::binaryOp() const					{ return Instruction::Mul; }
+
+
+Value* MinusExpr::codegen(CodeGenerationContext &context) const{
+	Value* value = _expr->codegen(context);
+	Value* zero = ConstantInt::get(IntegerType::get(context.context(), 32),
+								   0,
+								   false);
+	return BinaryOperator::Create(Instruction::Sub,
+								  zero,
+								  value,
+								  this->toString().c_str(),
+								  context.label());
+}
+
+Value* LiteralExpr::codegen(CodeGenerationContext &context) const{
+	return ConstantInt::get(IntegerType::get(context.context(), 32),
+							this->_value,
+							true);
+}
+
+Value* IdentifierExpr::codegen(CodeGenerationContext &context) const{
+	ConstantInt* literalOffset = ConstantInt::get(IntegerType::get(context.context(), 32),
+												  this->_offsetInMarking,
+												  false);
+	GetElementPtrInst* deref;
+	if(this->isPlace){
+		deref = GetElementPtrInst::Create(context.marking(),
+										  literalOffset,
+										  "Deref place" + this->_name,
+										  context.label());
+	}else{
+		deref = GetElementPtrInst::Create(context.valuation(),
+										  literalOffset,
+										  "Deref variable " + this->_name,
+										  context.label());
+	}
+	return new LoadInst(deref, "Load " + this->_name, false, context.label());
+}
+
+
+/******************** Code Generation Conditions ********************/
+
+Value* LogicalCondition::codegen(CodeGenerationContext &context) const{
+	Value* v1 = _cond1->codegen(context);
+	Value* v2 = _cond2->codegen(context);
+	//TODO: Consider using branching...
+	return BinaryOperator::Create((Instruction::BinaryOps)logicalOp(),
+								  v1,
+								  v2,
+								  this->toString().c_str(),
+								  context.label());
+}
+
+//LogicalCondition::logicalOp implementations
+int AndCondition::logicalOp() const					{ return Instruction::And; }
+int OrCondition::logicalOp() const					{ return Instruction::Or;  }
+
+Value* CompareCondition::codegen(CodeGenerationContext& context) const{
+	Value* v1 = _expr1->codegen(context);
+	Value* v2 = _expr2->codegen(context);
+	return new ICmpInst(*context.label(),
+						(ICmpInst::Predicate)compareOp(),
+						v1,
+						v2,
+						this->toString().c_str());
+}
+
+//CompareCondition::compareOp implementations
+int EqualCondition::compareOp() const				{ return ICmpInst::ICMP_EQ;  }
+int NotEqualCondition::compareOp() const			{ return ICmpInst::ICMP_NE;  }
+int LessThanCondition::compareOp() const			{ return ICmpInst::ICMP_SLT; }
+int LessThanOrEqualCondition::compareOp() const		{ return ICmpInst::ICMP_SLE; }
+int GreaterThanCondition::compareOp() const			{ return ICmpInst::ICMP_SGT; }
+int GreaterThanOrEqualCondition::compareOp() const	{ return ICmpInst::ICMP_SGE; }
+
+Value* NotCondition::codegen(CodeGenerationContext& context) const{
+	Value* value = _cond->codegen(context);
+	Value* zero = ConstantInt::get(IntegerType::get(context.context(), 1),
+								   0,
+								   false);
+	return new ICmpInst(ICmpInst::ICMP_EQ,
+						value,
+						zero,
+						"Not operation");
+}
+
+} // PQL
+} // PetriEngine
+
