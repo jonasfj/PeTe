@@ -25,6 +25,7 @@ public:
 	QString name() const;
 	QString query() const;
 	QString strategy() const;
+	bool jit() const;
 
 	void accept();
 

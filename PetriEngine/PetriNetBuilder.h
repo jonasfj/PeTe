@@ -19,7 +19,7 @@ class PetriNetBuilder : public AbstractPetriNetBuilder
 		int weight;
 	};
 public:
-	PetriNetBuilder();
+	PetriNetBuilder(bool JIT = false);
 	void addVariable(const std::string& name, int initialValue, int range);
 	void addPlace(const std::string& name, int tokens, double x, double y);
 	void addTransition(const std::string& name,
@@ -48,6 +48,7 @@ private:
 	std::vector<Arc> inputArcs;
 	std::vector<Arc> outputArcs;
 	std::vector<int> initialMarking;
+	bool _jit;
 };
 
 }

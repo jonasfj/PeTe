@@ -117,17 +117,19 @@ void QueryModel::emitDataChanged(int row){
 
 /** Add a new query (opens a dialog) */
 void QueryModel::addQuery(QWidget *parent){
-	Query query;
-	query.name = "New query";
-	query.query = "";
-	query.strategy = "";
-	QueryDialog d(query, parent);
+	Query q;
+	q.name = "New query";
+	q.query = "";
+	q.strategy = "";
+	q.jit = false;
+	QueryDialog d(q, parent);
 	d.setIdentifiers(_net->placeNames(), _net->variableNames());
 	if(d.exec() == QDialog::Accepted){
-		query.name = d.name();
-		query.query = d.query();
-		query.strategy = d.strategy();
-		AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(this, query);
+		q.name = d.name();
+		q.query = d.query();
+		q.strategy = d.strategy();
+		q.jit = d.jit();
+		AddRemoveQueryCommand* cmd = new AddRemoveQueryCommand(this, q);
 		_net->undoStack()->push(cmd);
 	}
 }
@@ -144,6 +146,7 @@ void QueryModel::editQuery(const QModelIndex& index, QWidget *parent){
 		q.name = d.name();
 		q.query = d.query();
 		q.strategy = d.strategy();
+		q.jit = d.jit();
 		if(q == _queries[index.row()])
 			return; //There's no changes
 		EditQueryCommand* cmd = new EditQueryCommand(this, index.row(), q);
@@ -240,7 +243,11 @@ void QueryModel::startThread(int row){
 	Q_ASSERT(0 <= row && row < _queries.size());
 	//Abort existing thread and/or clear state
 	abortThread(row);
-	_qstate[row].thread = new QueryThread(_queries[row].query, _queries[row].strategy, _net, NULL);
+	_qstate[row].thread = new QueryThread(_queries[row].query,
+										  _queries[row].strategy,
+										  _net,
+										  _queries[row].jit,
+										  NULL);
 
 	connect(_qstate[row].thread, SIGNAL(progressChanged(QueryThread*,qreal,qreal)),
 			this, SLOT(progressReported(QueryThread*,qreal,qreal)));

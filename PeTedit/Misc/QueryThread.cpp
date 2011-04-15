@@ -6,7 +6,7 @@
 
 #include "PetriEngine/PQL/PQLParser.h"
 #include "PetriEngine/PQL/PQL.h"
-
+#include "PetriEngine/PQL/CompiledCondition.h"
 
 using namespace PetriEngine;
 using namespace PetriEngine::PQL;
@@ -15,6 +15,7 @@ using namespace PetriEngine::Reachability;
 QueryThread::QueryThread(QString query,
 						 QString strategy,
 						 PetriNetScene *net,
+						 bool jit,
 						 QObject *parent)
  : QThread(parent), _strategy(strategy.toStdString())
 {
@@ -23,7 +24,7 @@ QueryThread::QueryThread(QString query,
 	abortLock.lock();
 
 	//Build petri net
-	PetriNetBuilder builder;
+	PetriNetBuilder builder(jit);
 	net->produce(&builder);
 	_net = builder.makePetriNet();
 	_m0 = builder.makeInitialMarking();
@@ -33,10 +34,28 @@ QueryThread::QueryThread(QString query,
 	_query = ParseQuery(query.toStdString());
 	if(_query){
 		AnalysisContext context(*_net);
-		_query->analyze(context);
-		if(context.errors().size() > 0){
-			delete _query;
-			_query = NULL;
+		if(jit){
+			CompiledCondition* CC = new CompiledCondition(_query);
+			CC->analyze(context);
+			if(context.errors().size() > 0){
+				delete CC;
+				CC = NULL;
+				_query = NULL;
+			}else{
+				if(CC->compile()){
+					_query = CC;
+				}else{
+					delete CC;
+					CC = NULL;
+					_query = NULL;
+				}
+			}
+		}else{
+			_query->analyze(context);
+			if(context.errors().size() > 0){
+				delete _query;
+				_query = NULL;
+			}
 		}
 	}
 	connect(this, SIGNAL(finished()), this, SLOT(emitCompleted()));

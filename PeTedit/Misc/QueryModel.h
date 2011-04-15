@@ -32,10 +32,12 @@ public:
 		QString name,
 				query,
 				strategy;
+		bool jit;
 		bool operator==(const Query &other){
 			return name == other.name &&
 				   query == other.query &&
-				   strategy == other.strategy;
+				   strategy == other.strategy &&
+				   jit == other.jit;
 		}
 	};
 

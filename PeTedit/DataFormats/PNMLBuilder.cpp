@@ -73,6 +73,7 @@ void PNMLBuilder::makePNMLFile(){
 			xml.writeStartElement("query");
 			xml.writeAttribute("name", _queries[i].name);
 			xml.writeAttribute("strategy", _queries[i].strategy);
+			xml.writeAttribute("jit", _queries[i].jit ? "true" : "false");
 			xml.writeCharacters(_queries[i].query);
 			xml.writeEndElement();
 		}

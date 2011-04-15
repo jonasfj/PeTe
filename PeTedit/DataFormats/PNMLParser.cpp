@@ -79,6 +79,7 @@ void PNMLParser::queries(){
 			QueryModel::Query query;
 			query.name = xml.attributes().value("name").toString();
 			query.strategy = xml.attributes().value("strategy").toString();
+			query.jit = xml.attributes().value("jit") == "true";
 			query.query = xml.readElementText(QXmlStreamReader::SkipChildElements);
 			qBuilder->addQuery(query);
 		}else

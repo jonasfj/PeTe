@@ -14,6 +14,7 @@ QueryDialog::QueryDialog(const QueryModel::Query& query, QWidget *parent)
     ui->setupUi(this);
 	ui->nameEdit->setText(query.name);
 	ui->queryEdit->setPlainText(query.query);
+	ui->jitCheckBox->setChecked(query.jit);
 
 	int strategyIndex  = 0;
 	std::vector<std::string> strats = PetriEngine::Reachability::ReachabilitySearchStrategy::listStrategies();
@@ -63,6 +64,10 @@ QString QueryDialog::query() const{
 
 QString QueryDialog::strategy() const{
 	return ui->strategyBox->currentText();
+}
+
+bool QueryDialog::jit() const{
+	return ui->jitCheckBox->isChecked();
 }
 
 void QueryDialog::setIdentifiers(const QStringList &places, const QStringList& variables){

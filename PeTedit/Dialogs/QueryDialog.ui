@@ -73,6 +73,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QCheckBox" name="jitCheckBox">
+       <property name="text">
+        <string>Just-In-Time Compile</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>

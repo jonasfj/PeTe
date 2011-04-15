@@ -3,6 +3,7 @@
 
 #include "PQL/PQLParser.h"
 #include "PQL/PQL.h"
+#include "PQL/CompiledCondition.h"
 
 #include <assert.h>
 
@@ -10,7 +11,8 @@ using namespace std;
 
 namespace PetriEngine{
 
-PetriNetBuilder::PetriNetBuilder() : AbstractPetriNetBuilder(){
+PetriNetBuilder::PetriNetBuilder(bool JIT) : AbstractPetriNetBuilder(){
+	_jit = JIT;
 }
 
 void PetriNetBuilder::addPlace(const string &name, int tokens, double, double){
@@ -63,25 +65,46 @@ PetriNet* PetriNetBuilder::makePetriNet(){
 	//Create transition names
 	for(i = 0; i < transitions.size(); i++)
 		net->_transitions[i] = transitions[i];
-	PQL::AnalysisContext context(*net);
 	//Parse conditions and assignments
 	for(i = 0; i < transitions.size(); i++){
 		if(conditions[i] != ""){
 			net->_conditions[i] = PQL::ParseQuery(conditions[i]);
-			if(net->_conditions[i])
-				net->_conditions[i]->analyze(context);
-			else
-				assert(false);	//Shouldn't experience parse errors here
+			if(net->_conditions[i]){
+				PQL::AnalysisContext context(*net);
+				if(_jit){
+					PQL::CompiledCondition* CC = new PQL::CompiledCondition(net->_conditions[i]);
+					CC->analyze(context);
+					if(CC->compile())
+						net->_conditions[i] = CC;
+					else{
+						delete CC;
+						CC = NULL;
+						//TODO: Print to stderr
+					}
+				}else
+					net->_conditions[i]->analyze(context);
+
+				//Delete if there we're errors
+				if(context.errors().size() > 0){
+					delete net->_conditions[i];
+					net->_conditions[i] = NULL;
+					//TODO: Print to stderr
+				}
+			}
 		}
 		if(assignments[i] != ""){
 			net->_assignments[i] = PQL::ParseAssignment(assignments[i]);
-			if(net->_assignments[i])
+			if(net->_assignments[i]){
+				PQL::AnalysisContext context(*net);
 				net->_assignments[i]->analyze(context);
-			else
-				assert(false);	//Shouldn't experience parse errors here
+				//Delete if there we're errors
+				if(context.errors().size() > 0){
+					delete net->_assignments[i];
+					net->_assignments[i] = NULL;
+					//TODO: Print to stderr
+				}
+			}
 		}
-		//We shouldn't have context errors here
-		assert(context.errors().size() == 0);
 	}
 	//Create input arcs
 	vector<Arc>::iterator arc;

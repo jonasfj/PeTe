@@ -29,7 +29,8 @@ public:
 	explicit QueryThread(QString query,
 						 QString strategy,
 						 PetriNetScene* net,
-						QObject *parent);
+						 bool jit,
+						 QObject *parent);
 
 	/** Get the result of this query, assuming it finished, otherwise undefined */
 	const PetriEngine::Reachability::ReachabilityResult& result() const{
