@@ -15,6 +15,12 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+	//Set metadata (Used by QSettings, etc)
+	QCoreApplication::setApplicationName("PeTe");
+	QCoreApplication::setApplicationVersion("0.1");
+	QCoreApplication::setOrganizationName("PeTe Development Team");
+	QCoreApplication::setOrganizationDomain("https://github.com/jopsen/PeTe");
+
 	//Parsed Arguments:
 	QString queryString;
 	QString fileName;

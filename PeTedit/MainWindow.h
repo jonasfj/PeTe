@@ -29,6 +29,9 @@ private:
 	/** Action group for selecting mode */
 	QActionGroup* modeActionGroup;
 
+	void loadSettings();
+	void saveSettings();
+	void closeEvent(QCloseEvent *e);
 private slots:
 	void resizeQueryView();
 	void resizeVariableView();
@@ -53,6 +56,13 @@ private slots:
 	void on_aboutAction_triggered();
 	void on_undoAction_triggered();
 	void on_redoAction_triggered();
+
+private:
+	/******************** Cached Settings ********************/
+	/** Last folder loaded or saved to (handled by load-/saveSettings) */
+	QString lastLoadSavePath;
+	/** Last folder exported to (handled by load-/saveSettings) */
+	QString lastExportPath;
 };
 
 #endif // MAINWINDOW_H

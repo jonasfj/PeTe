@@ -32,6 +32,7 @@
 #include <QMessageBox>
 #include <QStandardItemModel>
 #include <QTableView>
+#include <QSettings>
 
 #include <QSvgGenerator>
 #include <QPainter>
@@ -95,10 +96,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	// Create new document
 	ui->NewTapnAction->trigger();
+
+	//Load settings
+	loadSettings();
 }
 
 MainWindow::~MainWindow(){
     delete ui;
+}
+
+void MainWindow::closeEvent(QCloseEvent *e){
+	saveSettings();
+	//TODO: Ask user if he wan't to quit do e->ignore() if not
+	e->accept();
 }
 
 /** Create new document-tab */
@@ -127,11 +137,12 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index){
 
 /** Load petri net from file */
 void MainWindow::on_OpenAction_triggered(){
-	QString fname = QFileDialog::getOpenFileName(this, "Open Petri Net", QDir::homePath());
+	QString fname = QFileDialog::getOpenFileName(this, "Open Petri Net", lastLoadSavePath);
 	if(fname != ""){
 		QFile file(fname);
 		if(!file.open(QIODevice::ReadOnly))
 			return;
+		lastLoadSavePath = QFileInfo(fname).absoluteDir().absolutePath();
 		QGraphicsView* view = new PetriNetView();
 		PetriNetSceneBuilder builder(this->undoGroup, view);
 		PNMLParser p;
@@ -255,11 +266,12 @@ void MainWindow::on_SaveAction_triggered()
 {
 	if(!currentScene)
 		return;
-	QString fname = QFileDialog::getSaveFileName(this, "Save Petri Net as PNML");
+	QString fname = QFileDialog::getSaveFileName(this, "Save Petri Net as PNML", lastLoadSavePath);
 	if(fname != ""){
 		QFile file(fname);
 		if(!file.open(QIODevice::WriteOnly))
 			return;
+		lastLoadSavePath = QFileInfo(fname).absoluteDir().absolutePath();
 		PNMLBuilder builder(&file);
 		currentScene->produce(&builder);
 		builder.makePNMLFile();
@@ -300,11 +312,12 @@ void MainWindow::on_actionExport_SVG_triggered()
 {
 	if(!currentScene)
 		return;
-	QString fname = QFileDialog::getSaveFileName(this, "Export Petri Net to SVG");
+	QString fname = QFileDialog::getSaveFileName(this, "Export Petri Net to SVG", lastExportPath);
 	if(fname != ""){
 		QFile file(fname);
 		if(!file.open(QIODevice::WriteOnly))
 			return;
+		lastExportPath = QFileInfo(fname).absoluteDir().absolutePath();
 
 		QSvgGenerator generator;
 		generator.setOutputDevice(&file);
@@ -393,7 +406,7 @@ void MainWindow::on_deleteQuery_clicked(){
 void MainWindow::on_aboutAction_triggered()
 {
 	QMessageBox* msg = new QMessageBox(this);
-	QString text = "PeTe Petri Net Tool v.0.314<br><br>";
+	QString text = "PeTe Petri Net Tool v.0.1<br><br>";
 			text.append("<b>Authors:</b><br>");
 			text.append("Jonas Finnemann Jensen<br>");
 			text.append("Thomas Nielsen<br>");
@@ -405,12 +418,33 @@ void MainWindow::on_aboutAction_triggered()
 	msg->show();
 }
 
-void MainWindow::on_undoAction_triggered()
-{
-	currentScene->undoStack()->undo();
+void MainWindow::on_undoAction_triggered(){
+	undoGroup->undo();
 }
 
-void MainWindow::on_redoAction_triggered()
-{
-	currentScene->undoStack()->redo();
+void MainWindow::on_redoAction_triggered(){
+	undoGroup->redo();
 }
+
+/******************** Settings ********************/
+
+void MainWindow::saveSettings(){
+	QSettings s;
+	s.beginGroup("MainWindow");
+	s.setValue("geometry",	this->saveGeometry());
+	s.setValue("state",		this->saveState());
+	s.setValue("LastLoadSavePath", lastLoadSavePath);
+	s.setValue("LastExportPath", lastExportPath);
+	s.endGroup();
+}
+
+void MainWindow::loadSettings(){
+	QSettings s;
+	s.beginGroup("MainWindow");
+	this->restoreGeometry(		s.value("geometry").toByteArray());
+	this->restoreState(			s.value("state").toByteArray());
+	this->lastLoadSavePath =	s.value("LastLoadSavePath", QDir::homePath()).toString();
+	this->lastExportPath =		s.value("LastExportPath", QDir::homePath()).toString();
+	s.endGroup();
+}
+
