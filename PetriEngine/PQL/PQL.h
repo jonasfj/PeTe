@@ -148,6 +148,8 @@ public:
 	virtual ~Expr();
 	/** Perform context analysis */
 	virtual void analyze(AnalysisContext& context) = 0;
+	/** True, if the expression is p-free */
+	virtual bool pfree() const = 0;
 	/** Evaluate the expression given marking and assignment */
 	virtual int evaluate(const EvaluationContext& context) const = 0;
 	/** Generate LLVM intermediate code for this expr  */

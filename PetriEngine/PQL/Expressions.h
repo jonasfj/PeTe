@@ -17,6 +17,7 @@ public:
 	}
 	~BinaryExpr();
 	void analyze(AnalysisContext& context);
+	bool pfree() const;
 	int evaluate(const EvaluationContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
@@ -67,6 +68,7 @@ public:
 	}
 	~MinusExpr();
 	void analyze(AnalysisContext& context);
+	bool pfree() const;
 	int evaluate(const EvaluationContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
@@ -79,6 +81,7 @@ class LiteralExpr : public Expr {
 public:
 	LiteralExpr(int value) : _value(value){}
 	void analyze(AnalysisContext& context);
+	bool pfree() const;
 	int evaluate(const EvaluationContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
@@ -94,6 +97,7 @@ public:
 		_srcOffset = srcOffset;
 	}
 	void analyze(AnalysisContext& context);
+	bool pfree() const;
 	int evaluate(const EvaluationContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;

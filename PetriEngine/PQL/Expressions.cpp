@@ -272,6 +272,13 @@ std::string GreaterThanOrEqualCondition::op() const{
 	return ">=";
 }
 
+/******************** p-free Expression ********************/
+
+bool BinaryExpr::pfree() const		{ return _expr1->pfree() && _expr2->pfree(); }
+bool MinusExpr::pfree() const		{ return _expr->pfree(); }
+bool LiteralExpr::pfree() const		{ return true; }
+bool IdentifierExpr::pfree() const	{ return !this->isPlace; }
+
 
 /******************** Distance Condition ********************/
 
