@@ -279,6 +279,14 @@ bool MinusExpr::pfree() const		{ return _expr->pfree(); }
 bool LiteralExpr::pfree() const		{ return true; }
 bool IdentifierExpr::pfree() const	{ return !this->isPlace; }
 
+/******************** Expr::type() implementation ********************/
+
+Expr::Types PlusExpr::type() const			{ return Expr::PlusExpr;		}
+Expr::Types SubtractExpr::type() const		{ return Expr::SubtractExpr;	}
+Expr::Types MultiplyExpr::type() const		{ return Expr::MinusExpr;		}
+Expr::Types MinusExpr::type() const			{ return Expr::MinusExpr;		}
+Expr::Types LiteralExpr::type() const		{ return Expr::LiteralExpr;		}
+Expr::Types IdentifierExpr::type() const	{ return Expr::IdentifierExpr;	}
 
 /******************** Distance Condition ********************/
 

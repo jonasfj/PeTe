@@ -144,6 +144,22 @@ private:
 /** Representation of an expression */
 class Expr{
 public:
+	/** Types of expressions */
+	enum Types{
+		/** Binary addition expression */
+		PlusExpr,
+		/** Binary subtraction expression */
+		SubtractExpr,
+		/** Binary multiplication expression */
+		MultiplyExpr,
+		/** Unary minus expression */
+		MinusExpr,
+		/** Literal integer expression */
+		LiteralExpr,
+		/** Identifier expression */
+		IdentifierExpr
+	};
+public:
 	/** Virtual destructor, an expression should know it subexpressions */
 	virtual ~Expr();
 	/** Perform context analysis */
@@ -156,6 +172,8 @@ public:
 	virtual llvm::Value* codegen(CodeGenerationContext& context) const = 0;
 	/** Convert expression to string */
 	virtual std::string toString() const = 0;
+	/** Expression type */
+	virtual Types type() const = 0;
 };
 
 /** Base condition */

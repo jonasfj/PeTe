@@ -34,6 +34,7 @@ private:
 class PlusExpr : public BinaryExpr{
 public:
 	PlusExpr(Expr* expr1, Expr* expr2) : BinaryExpr(expr1, expr2) {}
+	Expr::Types type() const;
 private:
 	int apply(int v1, int v2) const;
 	int binaryOp() const;
@@ -44,6 +45,7 @@ private:
 class SubtractExpr : public BinaryExpr{
 public:
 	SubtractExpr(Expr* expr1, Expr* expr2) : BinaryExpr(expr1, expr2) {}
+	Expr::Types type() const;
 private:
 	int apply(int v1, int v2) const;
 	int binaryOp() const;
@@ -54,6 +56,7 @@ private:
 class MultiplyExpr : public BinaryExpr{
 public:
 	MultiplyExpr(Expr* expr1, Expr* expr2) : BinaryExpr(expr1, expr2) {}
+	Expr::Types type() const;
 private:
 	int apply(int v1, int v2) const;
 	int binaryOp() const;
@@ -72,6 +75,7 @@ public:
 	int evaluate(const EvaluationContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
+	Expr::Types type() const;
 private:
 	Expr* _expr;
 };
@@ -85,6 +89,7 @@ public:
 	int evaluate(const EvaluationContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
+	Expr::Types type() const;
 private:
 	int _value;
 };
@@ -101,6 +106,7 @@ public:
 	int evaluate(const EvaluationContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
+	Expr::Types type() const;
 private:
 	/** Is this identifier a place? Or a variable.. */
 	bool isPlace;
