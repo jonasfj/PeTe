@@ -183,8 +183,9 @@ public:
 	enum DistanceStrategy{
 		AndExtreme	= 0x1,
 		AndAverage	= 0x2,
-		OrExtreme	= 0x4,
-		OrAverage	= 0x8
+		AndSum		= 0x4,
+		OrExtreme	= 0x8,
+		OrAverage	= 0x16
 	};
 
 	/** Virtual destructor */

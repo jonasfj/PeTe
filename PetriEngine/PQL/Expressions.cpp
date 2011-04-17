@@ -258,6 +258,8 @@ double AndCondition::delta(double d1,
 			return MIN(d1, d2);
 		else
 			return MAX(d1, d2);
+	else if(strategy & Condition::AndSum)
+		return d1 + d2;
 	else
 		return (d1 + d2) / 2;
 }
