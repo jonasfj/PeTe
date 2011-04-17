@@ -176,101 +176,43 @@ void AssignmentExpression::evaluate(const MarkVal* m,
 
 /******************** Apply (BinaryExpr subclasses) ********************/
 
-int PlusExpr::apply(int v1, int v2) const{
-	return v1 + v2;
-}
-
-int SubtractExpr::apply(int v1, int v2) const{
-	return v1 - v2;
-}
-
-int MultiplyExpr::apply(int v1, int v2) const{
-	return v1 * v2;
-}
+int PlusExpr::apply(int v1, int v2) const		{ return v1 + v2; }
+int SubtractExpr::apply(int v1, int v2) const	{ return v1 - v2; }
+int MultiplyExpr::apply(int v1, int v2) const	{ return v1 * v2; }
 
 /******************** Apply (LogicalCondition subclasses) ********************/
 
-bool AndCondition::apply(bool b1, bool b2) const{
-	return b1 && b2;
-}
-
-bool OrCondition::apply(bool b1, bool b2) const{
-	return b1 || b2;
-}
+bool AndCondition::apply(bool b1, bool b2) const	{ return b1 && b2; }
+bool OrCondition::apply(bool b1, bool b2) const		{ return b1 || b2; }
 
 /******************** Apply (CompareCondition subclasses) ********************/
 
-bool EqualCondition::apply(int v1, int v2) const{
-	return v1 == v2;
-}
+bool EqualCondition::apply(int v1, int v2) const				{ return v1 == v2;	}
+bool NotEqualCondition::apply(int v1, int v2) const				{ return v1 != v2;	}
+bool LessThanCondition::apply(int v1, int v2) const				{ return v1 < v2;	}
+bool LessThanOrEqualCondition::apply(int v1, int v2) const		{ return v1 <= v2;	}
+bool GreaterThanCondition::apply(int v1, int v2) const			{ return v1 > v2;	}
+bool GreaterThanOrEqualCondition::apply(int v1, int v2) const	{ return v1 >= v2;	}
 
-bool NotEqualCondition::apply(int v1, int v2) const{
-	return v1 != v2;
-}
-
-bool LessThanCondition::apply(int v1, int v2) const{
-	return v1 < v2;
-}
-
-bool LessThanOrEqualCondition::apply(int v1, int v2) const{
-	return v1 <= v2;
-}
-
-bool GreaterThanCondition::apply(int v1, int v2) const{
-	return v1 > v2;
-}
-
-bool GreaterThanOrEqualCondition::apply(int v1, int v2) const{
-	return v1 >= v2;
-}
 /******************** Op (BinaryExpr subclasses) ********************/
 
-std::string PlusExpr::op() const{
-	return "+";
-}
-
-std::string SubtractExpr::op() const{
-	return "-";
-}
-
-std::string MultiplyExpr::op() const{
-	return "*";
-}
+std::string PlusExpr::op() const		{ return "+"; }
+std::string SubtractExpr::op() const	{ return "-"; }
+std::string MultiplyExpr::op() const	{ return "*"; }
 
 /******************** Op (LogicalCondition subclasses) ********************/
 
-std::string AndCondition::op() const{
-	return "and";
-}
-
-std::string OrCondition::op() const{
-	return "or";
-}
+std::string AndCondition::op() const	{ return "and";	}
+std::string OrCondition::op() const		{ return "or";	}
 
 /******************** Op (CompareCondition subclasses) ********************/
-std::string EqualCondition::op() const{
-	return "==";
-}
 
-std::string NotEqualCondition::op() const{
-	return "!=";
-}
-
-std::string LessThanCondition::op() const{
-	return "<";
-}
-
-std::string LessThanOrEqualCondition::op() const{
-	return "<=";
-}
-
-std::string GreaterThanCondition::op() const{
-	return ">";
-}
-
-std::string GreaterThanOrEqualCondition::op() const{
-	return ">=";
-}
+std::string EqualCondition::op() const				{ return "==";	}
+std::string NotEqualCondition::op() const			{ return "!=";	}
+std::string LessThanCondition::op() const			{ return "<";	}
+std::string LessThanOrEqualCondition::op() const	{ return "<=";	}
+std::string GreaterThanCondition::op() const		{ return ">";	}
+std::string GreaterThanOrEqualCondition::op() const	{ return ">=";	}
 
 /******************** p-free Expression ********************/
 
@@ -308,9 +250,9 @@ double LogicalCondition::distance(const EvaluationContext& context,
 }
 
 double AndCondition::delta(double d1,
-							  double d2,
-							  DistanceStrategy strategy,
-							  bool negated) const{
+						   double d2,
+						   DistanceStrategy strategy,
+						   bool negated) const{
 	if(strategy & Condition::AndExtreme)
 		if(negated)
 			return MIN(d1, d2);
@@ -322,9 +264,9 @@ double AndCondition::delta(double d1,
 
 
 double OrCondition::delta(double d1,
-							 double d2,
-							 DistanceStrategy strategy,
-							 bool negated) const{
+						  double d2,
+						  DistanceStrategy strategy,
+						  bool negated) const{
 	if(strategy & Condition::OrExtreme)
 		if(negated)
 			return MAX(d1, d2);
@@ -384,11 +326,11 @@ double GreaterThanOrEqualCondition::delta(int v1, int v2, bool negated) const{
 		return v1 < v2 ? 0 : v1 - v2 + 1;
 }
 
-} // PQL
-} // PetriEngine
-
 
 /******************** Just-In-Time Compilation ********************/
+
+} // PQL
+} // PetriEngine
 
 #include <llvm/LLVMContext.h>
 #include <llvm/Module.h>
