@@ -51,7 +51,9 @@ include(bison.pri)
 
 FLEXSOURCES		+= \
 	PQL/PQLQueryTokens.l \
-	PQL/PQLAssignmentTokens.l
+	PQL/PQLAssignmentTokens.l \
+	PQL/SUMoQueryTokens.l
 BISONSOURCES	+= \
 	PQL/PQLQueryParser.y \
-	PQL/PQLAssignmentParser.y
+	PQL/PQLAssignmentParser.y \
+	PQL/SUMoQueryParser.y

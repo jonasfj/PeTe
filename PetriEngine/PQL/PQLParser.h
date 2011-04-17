@@ -9,6 +9,7 @@ class Condition;
 class AssignmentExpression;
 
 Condition* ParseQuery(const std::string& queryString);
+Condition* ParseSUMoQuery(const std::string& queryString);
 AssignmentExpression* ParseAssignment(const std::string& assignmentString);
 
 }}

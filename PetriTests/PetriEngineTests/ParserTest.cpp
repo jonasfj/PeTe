@@ -39,6 +39,12 @@ SUITE(PQLParserTest){
 		//CHECK(ass1 == NULL);
 
 	}
+
+	TEST(SUMoConstruction){
+		string query("fOK541016 = reachable (Pout4 equals {3*[.]}) and (Pout2 equals {1*[.]}) and (Pout3 equals { }) and (Pout1 equals {1*[.]}) and (P4 equals { }) and (P1 equals {2*[.]}) and (Pm3 equals { }) and (Pm4 equals {1*[.]}) and (P3 equals { }) and (Pm1 equals {1*[.]}) and (Pm2 equals {1*[.]}) and (P2 equals { }) and (Pback1 equals {1*[.]}) and (Pback2 equals {3*[.]}) and (Pback3 equals {5*[.]}) and (Pback4 equals {1*[.]})");
+
+	}
+
 /*
 	TEST(CTLEvaluation){
 
