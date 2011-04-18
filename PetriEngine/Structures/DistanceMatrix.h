@@ -3,6 +3,9 @@
 
 #include "../PetriNet.h"
 
+#include <string.h>
+#include <set>
+
 namespace PetriEngine{
 namespace Structures{
 
@@ -18,17 +21,19 @@ public:
 		generate(net);
 	}
 	unsigned int distance(unsigned int p1, unsigned int p2) const{
-		return d(p1, p2);
+		if(p1 < p2)
+			return _matrix[p1 * _dim + p2];
+		return _matrix[p2 * _dim + p1];
 	}
-	double tokenCost(unsigned int p, int n, const MarkVal* m) const{
+	double tokenCost(unsigned int p, int tokens, const MarkVal* m) const{
 		double cost = 0;
 		// Iterate distance vector for p
 		for(size_t i = 0; i < _dim; i++){
 			unsigned int place = pm[p * _dim + i];
 			if(m[place]){
-				if(d(p, place) == INFINITE_DISTANCE)
+				if(distance(p, place) == INFINITE_DISTANCE)
 					return INFINITE_DISTANCE;
-				cost += (m[place] < tokens ? m[place] : tokens)  * d(p, place);
+				cost += (m[place] < tokens ? m[place] : tokens)  * distance(p, place);
 				tokens -= m[place];
 				if(tokens <= 0)
 					return cost;
@@ -86,7 +91,7 @@ private:
 		return _matrix[p2 * _dim + p1];
 	}
 	/** Underlying distance matrix */
-	uint32_t* _matrix;
+	unsigned int* _matrix;
 	/** Place matrix ordered by increasing relative distance
 	 * p1 : p1 ...
 	 * p2 : p2 ...
