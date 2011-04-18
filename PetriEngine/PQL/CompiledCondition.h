@@ -24,9 +24,7 @@ public:
 	bool compile();
 	llvm::Value* codegen(CodeGenerationContext &context) const;
 	bool evaluate(const EvaluationContext &context) const;
-	double distance(const EvaluationContext &context,
-					DistanceStrategy strategy,
-					bool negated) const;
+	double distance(DistanceContext& context) const;
 	std::string toString() const;
 private:
 	Condition* _cond;

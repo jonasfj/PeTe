@@ -236,30 +236,28 @@ Expr::Types IdentifierExpr::type() const	{ return Expr::IdentifierExpr;	}
 #define MAX(v1, v2)		(v1 > v2 ? v1 : v2)
 #define MIN(v1, v2)		(v1 > v2 ? v1 : v2)
 
-double NotCondition::distance(const EvaluationContext& context,
-							  DistanceStrategy strategy,
-							  bool negated) const{
-	return _cond->distance(context, strategy, !negated);
+double NotCondition::distance(DistanceContext& context) const{
+	context.negate();
+	double retval = _cond->distance(context);
+	context.negate();
+	return retval;
 }
 
-double LogicalCondition::distance(const EvaluationContext& context,
-								  DistanceStrategy strategy,
-								  bool negated) const{
-	double d1 = _cond1->distance(context, strategy, negated);
-	double d2 = _cond2->distance(context, strategy, negated);
-	return delta(d1, d2, strategy, negated);
+double LogicalCondition::distance(DistanceContext& context) const{
+	double d1 = _cond1->distance(context);
+	double d2 = _cond2->distance(context);
+	return delta(d1, d2, context);
 }
 
 double AndCondition::delta(double d1,
 						   double d2,
-						   DistanceStrategy strategy,
-						   bool negated) const{
-	if(strategy & Condition::AndExtreme)
-		if(negated)
+						   const DistanceContext& context) const{
+	if(context.strategy() & DistanceContext::AndExtreme)
+		if(context.negated())
 			return MIN(d1, d2);
 		else
 			return MAX(d1, d2);
-	else if(strategy & Condition::AndSum)
+	else if(context.strategy() & DistanceContext::AndSum)
 		return d1 + d2;
 	else
 		return (d1 + d2) / 2;
@@ -268,10 +266,9 @@ double AndCondition::delta(double d1,
 
 double OrCondition::delta(double d1,
 						  double d2,
-						  DistanceStrategy strategy,
-						  bool negated) const{
-	if(strategy & Condition::OrExtreme)
-		if(negated)
+						  const DistanceContext& context) const{
+	if(context.strategy() & DistanceContext::OrExtreme)
+		if(context.negated())
 			return MAX(d1, d2);
 		else
 			return MIN(d1, d2);
@@ -279,12 +276,10 @@ double OrCondition::delta(double d1,
 		return (d1 + d2) / 2;
 }
 
-double CompareCondition::distance(const EvaluationContext& context,
-								  DistanceStrategy,
-								  bool negated) const{
+double CompareCondition::distance(DistanceContext& context) const{
 	int v1 = _expr1->evaluate(context);
 	int v2 = _expr2->evaluate(context);
-	return delta(v1, v2, negated);
+	return delta(v1, v2, context.negated());
 }
 
 double EqualCondition::delta(int v1, int v2, bool negated) const{

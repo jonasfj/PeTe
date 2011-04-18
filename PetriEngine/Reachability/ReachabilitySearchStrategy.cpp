@@ -5,6 +5,7 @@
 #include "DFRSHash.h"
 #include "HashUnderApproximation.h"
 #include "ClosestFirstReachability.h"
+#include "../PQL/Contexts.h"
 
 #define NAME_DFS								"Naive Karp-Miller DFS"
 #define NAME_DFS_Hash							"Naive Karp-Millar DFS with hashing"
@@ -38,16 +39,16 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	if(strategy == NAME_HashUnderApproximation)
 		return new HashUnderApproximation();
 	if(strategy == NAME_ClosestFirstReachabilityAvg){
-		int flags = PQL::Condition::AndAverage | PQL::Condition::OrAverage;
-		return new ClosestFirstReachability((PQL::Condition::DistanceStrategy)flags);
+		int flags = PQL::DistanceContext::AndAverage | PQL::DistanceContext::OrAverage;
+		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	if(strategy == NAME_ClosestFirstReachabilityExt){
-		int flags = PQL::Condition::AndExtreme | PQL::Condition::OrExtreme;
-		return new ClosestFirstReachability((PQL::Condition::DistanceStrategy)flags);
+		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme;
+		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	if(strategy == NAME_ClosestFirstReachabilitySum){
-		int flags = PQL::Condition::AndSum | PQL::Condition::OrExtreme;
-		return new ClosestFirstReachability((PQL::Condition::DistanceStrategy)flags);
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	//If we didn't find it
 	fprintf(stderr, "Reachability strategy: \"%s\" not found!", strategy.c_str());

@@ -133,10 +133,8 @@ Value* CompiledCondition::codegen(CodeGenerationContext &context) const{
 	return  _cond->codegen(context);
 }
 
-double CompiledCondition::distance(const EvaluationContext &context,
-								   DistanceStrategy strategy,
-								   bool negated) const{
-	return _cond->distance(context, strategy, negated);
+double CompiledCondition::distance(DistanceContext& context) const{
+	return _cond->distance(context);
 }
 
 string CompiledCondition::toString() const{

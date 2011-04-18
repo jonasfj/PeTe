@@ -88,21 +88,10 @@ public:
 /** Base condition */
 class Condition{
 public:
-	/** Strategy flags for distance computation */
-	enum DistanceStrategy{
-		AndExtreme	= 0x1,
-		AndAverage	= 0x2,
-		AndSum		= 0x4,
-		OrExtreme	= 0x8,
-		OrAverage	= 0x16
-	};
-
 	/** Virtual destructor */
 	virtual ~Condition();
-
 	/** Evaluate condition */
 	bool evaluate(Structures::State& state) const;
-
 	/** Perform context analysis  */
 	virtual void analyze(AnalysisContext& context) = 0;
 	/** Evaluate condition */
@@ -112,9 +101,7 @@ public:
 	/** Convert condition to string */
 	virtual std::string toString() const = 0;
 	/** Get distance to query */
-	virtual double distance(const EvaluationContext& context,
-							DistanceStrategy strategy,
-							bool negated = false) const = 0;
+	virtual double distance(DistanceContext& context) const = 0;
 };
 
 /** Assignment expression */

@@ -6,9 +6,12 @@ namespace Reachability{
 
 double ClosestFirstReachability::priority(const Structures::State *state,
 												const PQL::Condition *query,
-												const PetriNet&){
-	PQL::EvaluationContext context(state->marking(), state->valuation());
-	return query->distance(context, _distanceStrategy);
+												const PetriNet& net){
+	PQL::DistanceContext context(net,
+								 _distanceStrategy,
+								 state->marking(),
+								 state->valuation());
+	return query->distance(context);
 }
 
 } // Reachability

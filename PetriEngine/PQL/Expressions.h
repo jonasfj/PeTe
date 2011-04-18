@@ -131,18 +131,13 @@ public:
 	void analyze(AnalysisContext& context);
 	bool evaluate(const EvaluationContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
-	double distance(const EvaluationContext& context,
-					DistanceStrategy strategy,
-					bool negated) const;
+	double distance(DistanceContext& context) const;
 	std::string toString() const;
 private:
 	virtual bool apply(bool b1, bool b2) const = 0;
 	/** LLVM binary operator (llvm::Instruction::BinaryOps) */
 	virtual int logicalOp() const = 0;
-	virtual double delta(double d1,
-							double d2,
-							DistanceStrategy strategy,
-							bool negated) const = 0;
+	virtual double delta(double d1, double d2, const DistanceContext& context) const = 0;
 	virtual std::string op() const = 0;
 	Condition* _cond1;
 	Condition* _cond2;
@@ -155,10 +150,7 @@ public:
 private:
 	bool apply(bool b1, bool b2) const;
 	int logicalOp() const;
-	double delta(double d1,
-					double d2,
-					DistanceStrategy strategy,
-					bool negated) const;
+	double delta(double d1, double d2, const DistanceContext& context) const;
 	std::string op() const;
 };
 
@@ -169,10 +161,7 @@ public:
 private:
 	bool apply(bool b1, bool b2) const;
 	int logicalOp() const;
-	double delta(double d1,
-					double d2,
-					DistanceStrategy strategy,
-					bool negated) const;
+	double delta(double d1, double d2, const DistanceContext& context) const;
 	std::string op() const;
 };
 
@@ -187,9 +176,7 @@ public:
 	void analyze(AnalysisContext& context);
 	bool evaluate(const EvaluationContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
-	double distance(const EvaluationContext& context,
-					DistanceStrategy strategy,
-					bool negated) const;
+	double distance(DistanceContext& context) const;
 	std::string toString() const;
 private:
 	virtual bool apply(int v1, int v2) const = 0;
@@ -277,9 +264,7 @@ public:
 	void analyze(AnalysisContext& context);
 	bool evaluate(const EvaluationContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
-	double distance(const EvaluationContext& context,
-					DistanceStrategy strategy,
-					bool negated) const;
+	double distance(DistanceContext& context) const;
 	std::string toString() const;
 private:
 	Condition* _cond;
