@@ -27,7 +27,6 @@ id				{letter}({letter}|{digit})*
 "invariant"					{return TOKEN(INVARIANT);}
 "contains"					{return TOKEN(CONTAINS);}
 "equals"					{return TOKEN(EQUALS);}
-"equals"
 {letter}({letter}|{digit})*	{SAVE_TOKEN; return ID;}
 {digit}+					{SAVE_TOKEN; return INT;}
  "["("."|({digit}+(","{digit}+)*)|({id}(","{id})*))"]"	{return TOKEN(VALUE);}
