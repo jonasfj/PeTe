@@ -292,8 +292,8 @@ int dfsArcLen(const PetriNet& net,
 	places.push_back(s);
 	visited.insert(place);
 	while(!places.empty()){
-		s = places.back();
-		places.pop_back();
+		s = places.front();
+		places.pop_front();
 		for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
 			if(net.outArc(t, place)){
 				for(unsigned int p = 0; p < net.numberOfPlaces(); p++){
@@ -312,7 +312,7 @@ int dfsArcLen(const PetriNet& net,
 			}
 		}
 	}
-	return -1;
+	return s.d + 1;
 }
 
 double CompareCondition::distance(DistanceContext& context) const{
@@ -334,14 +334,14 @@ double CompareCondition::distance(DistanceContext& context) const{
 
 double EqualCondition::delta(int v1, int v2, bool negated) const{
 	if(!negated)
-		return v1 - v2;
+		return v1 > v2 ? v1 - v2 : v2 - v1;
 	else
 		return v1 == v2 ? 1 : 0;
 }
 
 double NotEqualCondition::delta(int v1, int v2, bool negated) const{
 	if(negated)
-		return v1 - v2;
+		return v1 > v2 ? v1 - v2 : v2 - v1;
 	else
 		return v1 == v2 ? 1 : 0;
 }
