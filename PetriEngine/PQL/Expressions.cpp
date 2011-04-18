@@ -328,6 +328,16 @@ double CompareCondition::distance(DistanceContext& context) const{
 			IdentifierExpr* id = (IdentifierExpr*)_expr1;
 			return dfsArcLen(context.net(), context.marking(), id->offset()) * d;
 		}
+	} else if(context.strategy() & DistanceContext::TokenCost){
+		int d = delta(v1, v2, context.negated());
+		if(d == 0) return 0;
+		if(_expr1->pfree() && !_expr2->pfree() && _expr2->type() == Expr::IdentifierExpr){
+			IdentifierExpr* id = (IdentifierExpr*)_expr2;
+			return dfsArcLen(context.net(), context.marking(), id->offset()) * d;
+		}else if(_expr2->pfree() && !_expr1->pfree() && _expr1->type() == Expr::IdentifierExpr){
+			IdentifierExpr* id = (IdentifierExpr*)_expr1;
+			return dfsArcLen(context.net(), context.marking(), id->offset()) * d;
+		}
 	}
 	return delta(v1, v2, context.negated());
 }

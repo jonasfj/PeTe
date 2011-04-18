@@ -3,6 +3,7 @@
 
 #include "../PetriNet.h"
 #include "PQL.h"
+#include "Structures/DistanceMatrix.h"
 
 #include <string>
 #include <vector>
@@ -92,7 +93,8 @@ public:
 		AndSum		= 0x4,
 		OrExtreme	= 0x8,
 		OrAverage	= 0x16,
-		ArcCount	= 0x32
+		ArcCount	= 0x32,
+		TokenCost	= 0x64
 	};
 
 	DistanceContext(const PetriNet& net,
@@ -102,15 +104,21 @@ public:
 		: EvaluationContext(marking, valuation), _net(net) {
 		_strategy = strategy;
 		_negated = false;
+		_dm = NULL;
 	}
 	DistanceStrategy strategy() const { return _strategy; }
 	const PetriNet& net() const { return _net; }
 	void negate() { _negated = !_negated; }
 	bool negated() const { return _negated; }
+	DistanceMatrix* distanceMatrix() const{
+		if(!_dm)
+			_dm = new Structures::DistanceMatrix(_net);
+	}
 private:
 	const PetriNet& _net;
 	DistanceStrategy _strategy;
 	bool _negated;
+	Structures::DistanceMatrix* _dm;
 };
 
 /** Just-In-Time compilation context */
