@@ -56,7 +56,6 @@ private slots:
 	void on_aboutAction_triggered();
 	void on_undoAction_triggered();
 	void on_redoAction_triggered();
-
 	void on_importSUMoQueriesAction_triggered();
 
 private:

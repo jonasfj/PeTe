@@ -42,7 +42,8 @@ HEADERS		   += \
     Reachability/BestFirstReachabilityStrategy.h \
     Reachability/ClosestFirstReachability.h \
     PQL/CompiledCondition.h \
-    PQL/Contexts.h
+    PQL/Contexts.h \
+    Structures/DistanceMatrix.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine
