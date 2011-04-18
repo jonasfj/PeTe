@@ -7,6 +7,7 @@
 #include <QUndoGroup>
 
 class PetriNetScene;
+class PetriNetView;
 
 /** Builder for PetriNetScene */
 class PetriNetSceneBuilder : public PetriEngine::AbstractPetriNetBuilder
@@ -18,7 +19,7 @@ class PetriNetSceneBuilder : public PetriEngine::AbstractPetriNetBuilder
 	};
 public:
 	/** undogroup for the scene, and parent for the scene */
-	PetriNetSceneBuilder(QUndoGroup* undoGroup, QObject* sceneParent);
+	PetriNetSceneBuilder(QUndoGroup* undoGroup, PetriNetView* sceneParent);
 	void addPlace(const std::string &name, int tokens, double x, double y);
 	void addVariable(const std::string& name, int initialValue, int range);
 	void addTransition(const std::string &name,

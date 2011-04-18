@@ -6,7 +6,7 @@
 #include "TransitionItem.h"
 #include "../Misc/VariableModel.h"
 
-PetriNetSceneBuilder::PetriNetSceneBuilder(QUndoGroup* undoGroup, QObject* sceneParent){
+PetriNetSceneBuilder::PetriNetSceneBuilder(QUndoGroup* undoGroup, PetriNetView* sceneParent){
 	scene = new PetriNetScene(undoGroup, sceneParent);
 }
 

@@ -16,6 +16,7 @@ class ValidationIssuesModel;
 class QueryModel;
 class PNMLBuilder;
 class VariableModel;
+class PetriNetView;
 
 /** A TAPN document, the model behind the view */
 class PetriNetScene : public QGraphicsScene
@@ -38,7 +39,7 @@ public:
 	 * @param undoGroup		UndoGroup to add undostack to
 	 * @param parent		Widget to die, with unless killed otherwise.
 	 */
-	explicit PetriNetScene(QUndoGroup* undoGroup, QObject *parent = 0);
+	explicit PetriNetScene(QUndoGroup* undoGroup, PetriNetView *parent = 0);
 
 	/** Notify the document that it's active  */
 	void setActive(){
@@ -46,10 +47,7 @@ public:
 	}
 
 	Mode mode() {return _mode;}
-	void setMode(Mode mode) {
-		_mode = mode;
-		emit modeChanged(mode);
-	}
+	void setMode(Mode mode);
 
 	/** Get the undo stack for this scene */
 	QUndoStack* undoStack() { return _undoStack; }
@@ -104,6 +102,9 @@ private:
 
 	/** Undo stack */
 	QUndoStack* _undoStack;
+
+	/** The view for this scene */
+	PetriNetView* view;
 
 	Mode _mode;
 	/** Unselect item at mouseReleaseEvent if ControlModifier is down */

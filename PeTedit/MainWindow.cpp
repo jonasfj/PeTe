@@ -114,7 +114,7 @@ void MainWindow::closeEvent(QCloseEvent *e){
 
 /** Create new document-tab */
 void MainWindow::on_NewTapnAction_triggered(){
-	QGraphicsView* view = new PetriNetView();
+	PetriNetView* view = new PetriNetView();
 	PetriNetScene* scene = new PetriNetScene(&undoGroup, view);
 	ui->variableView->setModel(scene->variables());
 	view->setScene(scene);
@@ -144,7 +144,7 @@ void MainWindow::on_OpenAction_triggered(){
 		if(!file.open(QIODevice::ReadOnly))
 			return;
 		lastLoadSavePath = QFileInfo(fname).absoluteDir().absolutePath();
-		QGraphicsView* view = new PetriNetView();
+		PetriNetView* view = new PetriNetView();
 		PetriNetSceneBuilder builder(&undoGroup, view);
 		PNMLParser p;
 		p.parse(&file, &builder);

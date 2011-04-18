@@ -23,6 +23,7 @@
 #include "../Dialogs/EditTransitionDialog.h"
 
 #include "PetriNetScene.h"
+#include "PetriNetView.h"
 
 #include "../Misc/ValidationIssuesModel.h"
 
@@ -37,9 +38,11 @@
 #include "../Misc/VariableModel.h"
 
 
-PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, QObject* parent) :
+PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, PetriNetView* parent) :
     QGraphicsScene(parent)
 {
+	view = parent;
+
 	//Create undostack for this document
 	this->_undoStack = new QUndoStack(this);
 	undoGroup->addStack(this->_undoStack);
@@ -66,6 +69,22 @@ void PetriNetScene::updateSceneRect(){
 		rect.setY(0);
 	rect.adjust(0, 0, 50, 50);
 	this->setSceneRect(rect);
+}
+
+void PetriNetScene::setMode(Mode mode){
+	switch(mode){
+	case InsertArcMode:
+		view->setCursor(Qt::CrossCursor);
+		break;
+	case InsertPlaceMode:
+	case InsertTransitionMode:
+	case PointerMode:
+	default:
+		view->setCursor(Qt::ArrowCursor);
+		break;
+	}
+	_mode = mode;
+	emit modeChanged(mode);
 }
 
 /** Check if this is a valid available identifier */

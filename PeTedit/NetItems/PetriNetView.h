@@ -13,6 +13,7 @@ public:
 signals:
 
 public slots:
+
 protected:
 	void wheelEvent(QWheelEvent *event);
 };
