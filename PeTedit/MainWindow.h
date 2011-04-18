@@ -57,12 +57,16 @@ private slots:
 	void on_undoAction_triggered();
 	void on_redoAction_triggered();
 
+	void on_importSUMoQueriesAction_triggered();
+
 private:
 	/******************** Cached Settings ********************/
 	/** Last folder loaded or saved to (handled by load-/saveSettings) */
 	QString lastLoadSavePath;
 	/** Last folder exported to (handled by load-/saveSettings) */
 	QString lastExportPath;
+	/** Last folder imported from (handled by load-/saveSettings) */
+	QString lastImportPath;
 };
 
 #endif // MAINWINDOW_H

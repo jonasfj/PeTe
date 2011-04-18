@@ -6,7 +6,7 @@
 #include <QtGlobal>
 #include <QDebug>
 
-#define ARROW_SIZE	10
+#define ARROW_SIZE	5
 
 ArcItem::ArcItem(NetItem* start, NetItem* end){
 	Q_ASSERT(start != NULL);
@@ -28,7 +28,40 @@ QRectF ArcItem::boundingRect() const{
 	return shape().controlPointRect();
 }
 
-QPainterPath ArcItem::shape() const{
+QPainterPath ArcItem::textPath() const{
+	QPainterPath path;
+	if((_endItem && _startItem->collidesWithItem(_endItem)) ||
+	   (!_endItem && _startItem->contains(_end)))
+		return path;
+	QPointF start(0,0),
+			point = _end - pos();
+
+	//The arrow line and reverse liune
+	QLineF line(start, point);
+	QLineF revline(point, start);
+
+	//Make some text
+	if(this->weight() != 1){
+		QFont font;
+		font.setPointSizeF(6);
+		path.addText(QPointF(0,0), font, QString::number(this->weight()));
+		//Move it into some reasonable position
+		path.translate(-path.boundingRect().width()/2, -3);
+		QTransform rotation;
+		qreal angle = line.angle();
+		if(angle > 90 && angle < 270)
+			angle = 180 - angle;
+		else
+			angle = 360 - angle;
+		rotation.rotate(angle);
+
+		path = rotation.map(path);
+		path.translate(point/2);
+	}
+	return path;
+}
+
+QPainterPath ArcItem::arrowPath() const{
 	QPainterPath path;
 	if((_endItem && _startItem->collidesWithItem(_endItem)) ||
 	   (!_endItem && _startItem->contains(_end)))
@@ -61,24 +94,13 @@ QPainterPath ArcItem::shape() const{
 	path.lineTo(side2);
 	path.lineTo(head);
 
-	//Make some text
-	QFont font;
-	QPainterPath textpath;
-	textpath.addText(QPointF(0,0), font, QString::number(this->weight()));
-	//Move it into some reasonable position
-	textpath.translate(-textpath.boundingRect().width()/2, -3);
-	QTransform rotation;
-	qreal angle = line.angle();
-	if(angle > 90 && angle < 270)
-		angle = 180 - angle;
-	else
-		angle = 360 - angle;
-	rotation.rotate(angle);
+	return path;
+}
 
-	textpath = rotation.map(textpath);
-	textpath.translate(point/2);
-	path.addPath(textpath);
-
+QPainterPath ArcItem::shape() const{
+	QPainterPath path;
+	path.addPath(arrowPath());
+	path.addPath(textPath());
 	return path;
 }
 
@@ -88,7 +110,9 @@ QPainterPath ArcItem::opaqueArea() const{
 
 void ArcItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*){
 	painter->setBrush(Qt::SolidPattern);
-	painter->drawPath(shape());
+	painter->drawPath(arrowPath());
+	painter->setPen(Qt::NoPen);
+	painter->drawPath(textPath());
 }
 
 void ArcItem::updateEndPoints(){

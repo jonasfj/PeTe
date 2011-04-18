@@ -77,6 +77,7 @@
     <addaction name="NewTapnAction"/>
     <addaction name="OpenAction"/>
     <addaction name="SaveAction"/>
+    <addaction name="importSUMoQueriesAction"/>
     <addaction name="actionExport_SVG"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -587,6 +588,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+Z</string>
+   </property>
+  </action>
+  <action name="importSUMoQueriesAction">
+   <property name="text">
+    <string>&amp;Import SUMo Queries</string>
    </property>
   </action>
  </widget>

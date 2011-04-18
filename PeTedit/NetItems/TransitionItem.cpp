@@ -86,13 +86,7 @@ QPainterPath TransitionItem::opaqueArea() const{
 }
 
 void TransitionItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*){
-
-	if(enabled()){
-		painter->setBrush(QBrush(Qt::green));
-		//painter->setPen(QPen(Qt::green));
-	}else{
-		painter->setBrush(Qt::SolidPattern);
-	}
+	painter->setBrush(Qt::SolidPattern);
 
 	QPainterPath path;
 	path.addRect(-RECT_W/2, -RECT_H/2, RECT_W, RECT_H);

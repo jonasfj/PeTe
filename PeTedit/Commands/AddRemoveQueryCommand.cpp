@@ -4,8 +4,8 @@
 
 AddRemoveQueryCommand::AddRemoveQueryCommand(QueryModel* model,
 											 const QueryModel::Query& query,
-											 QUndoCommand* parent = NULL)
-											 : QUndoCommand(parent){
+											 QUndoCommand* parent)
+	: QUndoCommand(parent){
 	_model = model;
 	_query = query;
 	_add = true;

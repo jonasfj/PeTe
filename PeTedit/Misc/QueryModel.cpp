@@ -167,9 +167,9 @@ void QueryModel::importSUMoQueries(QIODevice &f){
 		f.open(QIODevice::ReadOnly);
 	int count = 0;
 	QUndoCommand* cmdStack = new QUndoCommand();
-	QByteArray line = f.readLine(1<<20);
-	while(f.atEnd()){
-		if(line.size() > 0)
+	while(!f.atEnd()){
+		QByteArray line = f.readLine(1<<10);
+		if(line.size() == 0)
 			continue;
 		PetriEngine::PQL::Condition* c = PetriEngine::PQL::ParseSUMoQuery(line.data());
 		if(!c)
@@ -180,7 +180,6 @@ void QueryModel::importSUMoQueries(QIODevice &f){
 		q.strategy = "";
 		q.jit = false;
 		new AddRemoveQueryCommand(this, q, cmdStack);
-		line = f.readLine(1<<20);
 	}
 	if(count == 0)
 		delete cmdStack;

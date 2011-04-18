@@ -367,41 +367,51 @@ void MainWindow::resizeQueryView(){
  *			also handled here...
  */
 void MainWindow::on_addQueryAction_triggered(){
-	if(!currentScene)
-		return;
-	currentScene->queries()->addQuery(this);
+	if(currentScene)
+		currentScene->queries()->addQuery(this);
 }
 
 /** Edit query */
 void MainWindow::on_queryView_doubleClicked(QModelIndex index){
-	if(!currentScene)
-		return;
-	currentScene->queries()->editQuery(index, this);
+	if(currentScene)
+		currentScene->queries()->editQuery(index, this);
 }
 
 /** Run query*/
-void MainWindow::on_runQueryButton_clicked()
-{
-	if(!currentScene)
-		return;
-	currentScene->queries()->runQuery(ui->queryView->currentIndex());
+void MainWindow::on_runQueryButton_clicked(){
+	if(currentScene)
+		currentScene->queries()->runQuery(ui->queryView->currentIndex());
 }
 
 /** Stop query */
-void MainWindow::on_stopQueryButton_clicked()
-{
-	if(!currentScene)
-		return;
-	currentScene->queries()->stopQuery(ui->queryView->currentIndex());
+void MainWindow::on_stopQueryButton_clicked(){
+	if(currentScene)
+		currentScene->queries()->stopQuery(ui->queryView->currentIndex());
 }
 
 
 /** Delete query */
 void MainWindow::on_deleteQuery_clicked(){
-	if(!currentScene)
-		return;
-	currentScene->queries()->removeQuery(ui->queryView->currentIndex());
+	if(currentScene)
+		currentScene->queries()->removeQuery(ui->queryView->currentIndex());
 }
+
+
+void MainWindow::on_importSUMoQueriesAction_triggered(){
+	if(currentScene){
+		QString fname = QFileDialog::getOpenFileName(this, "Import SUMo Queries", lastImportPath);
+		if(!fname.isEmpty()){
+			lastImportPath = QFileInfo(fname).absoluteDir().absolutePath();
+			QFile f(fname);
+			f.open(QFile::ReadOnly);
+			currentScene->queries()->importSUMoQueries(f);
+			f.close();
+		}
+	}
+}
+
+/******************** Misc ********************/
+
 
 void MainWindow::on_aboutAction_triggered()
 {
@@ -435,6 +445,7 @@ void MainWindow::saveSettings(){
 	s.setValue("state",		this->saveState());
 	s.setValue("LastLoadSavePath", lastLoadSavePath);
 	s.setValue("LastExportPath", lastExportPath);
+	s.setValue("LastImportPath", lastImportPath);
 	s.endGroup();
 }
 
@@ -443,8 +454,8 @@ void MainWindow::loadSettings(){
 	s.beginGroup("MainWindow");
 	this->restoreGeometry(		s.value("geometry").toByteArray());
 	this->restoreState(			s.value("state").toByteArray());
-	this->lastLoadSavePath =	s.value("LastLoadSavePath", QDir::homePath()).toString();
-	this->lastExportPath =		s.value("LastExportPath", QDir::homePath()).toString();
+	this->lastLoadSavePath	=	s.value("LastLoadSavePath", QDir::homePath()).toString();
+	this->lastExportPath	=	s.value("LastExportPath", QDir::homePath()).toString();
+	this->lastImportPath	=	s.value("LastImportPath", QDir::homePath()).toString();
 	s.endGroup();
 }
-

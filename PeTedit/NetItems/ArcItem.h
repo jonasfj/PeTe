@@ -31,6 +31,8 @@ public:
 				end()->update();
 	}
 private:
+	QPainterPath arrowPath() const;
+	QPainterPath textPath() const;
 	NetItem* _startItem;
 	NetItem* _endItem;
 	QPointF _end;
