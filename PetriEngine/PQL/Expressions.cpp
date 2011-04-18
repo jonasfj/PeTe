@@ -333,10 +333,10 @@ double CompareCondition::distance(DistanceContext& context) const{
 		if(d == 0) return 0;
 		if(_expr1->pfree() && !_expr2->pfree() && _expr2->type() == Expr::IdentifierExpr){
 			IdentifierExpr* id = (IdentifierExpr*)_expr2;
-			return dfsArcLen(context.net(), context.marking(), id->offset()) * d;
+			return context.distanceMatrix()->tokenCost(id->offset(), d, context.marking());
 		}else if(_expr2->pfree() && !_expr1->pfree() && _expr1->type() == Expr::IdentifierExpr){
 			IdentifierExpr* id = (IdentifierExpr*)_expr1;
-			return dfsArcLen(context.net(), context.marking(), id->offset()) * d;
+			return context.distanceMatrix()->tokenCost(id->offset(), d, context.marking());
 		}
 	}
 	return delta(v1, v2, context.negated());
