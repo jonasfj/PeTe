@@ -25,19 +25,19 @@ private:
 	/** Current scene, NULL if none */
 	PetriNetScene* currentScene;
 	/** Undogroup for the documents */
-	QUndoGroup* undoGroup;
+	QUndoGroup undoGroup;
 	/** Action group for selecting mode */
 	QActionGroup* modeActionGroup;
 
 	void loadSettings();
 	void saveSettings();
 	void closeEvent(QCloseEvent *e);
+	void createUndoActions();
 private slots:
 	void resizeQueryView();
 	void resizeVariableView();
 	void resizeValidationView();
 	void validationIssuesFound();
-
 	void on_deleteVariable_clicked();
 	void on_addVariable_clicked();
 	void on_OpenAction_triggered();
@@ -54,8 +54,6 @@ private slots:
 	void on_runQueryButton_clicked();
 	void on_stopQueryButton_clicked();
 	void on_aboutAction_triggered();
-	void on_undoAction_triggered();
-	void on_redoAction_triggered();
 	void on_importSUMoQueriesAction_triggered();
 
 private:

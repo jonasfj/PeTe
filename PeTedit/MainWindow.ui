@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>826</width>
-    <height>630</height>
+    <width>821</width>
+    <height>591</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,7 +66,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>826</width>
+     <width>821</width>
      <height>24</height>
     </rect>
    </property>
@@ -103,8 +103,6 @@
     <property name="title">
      <string>&amp;Edit</string>
     </property>
-    <addaction name="undoAction"/>
-    <addaction name="redoAction"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menu_Edit"/>
@@ -123,9 +121,6 @@
    <addaction name="InsertTransitionModeAction"/>
    <addaction name="InsertArcModeAction"/>
    <addaction name="PointerModeAction"/>
-   <addaction name="separator"/>
-   <addaction name="undoAction"/>
-   <addaction name="redoAction"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="variableDock">
@@ -564,30 +559,6 @@
   <action name="aboutAction">
    <property name="text">
     <string>&amp;About</string>
-   </property>
-  </action>
-  <action name="undoAction">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/Icons/undo.svg</normaloff>:/Icons/undo.svg</iconset>
-   </property>
-   <property name="text">
-    <string>&amp;Undo</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Z</string>
-   </property>
-  </action>
-  <action name="redoAction">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/Icons/redo.svg</normaloff>:/Icons/redo.svg</iconset>
-   </property>
-   <property name="text">
-    <string>&amp;Redo</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+Z</string>
    </property>
   </action>
   <action name="importSUMoQueriesAction">

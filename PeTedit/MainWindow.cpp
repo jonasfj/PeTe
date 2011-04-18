@@ -41,7 +41,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow){
     ui->setupUi(this);
-	undoGroup = new QUndoGroup(this);
 	currentScene = NULL;
 
 	// Variable editor
@@ -94,6 +93,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(this->modeActionGroup, SIGNAL(triggered(QAction*)),
 			this, SLOT(modeActionGroup_triggered(QAction*)));
 
+	createUndoActions();
+
 	// Create new document
 	ui->NewTapnAction->trigger();
 
@@ -114,7 +115,7 @@ void MainWindow::closeEvent(QCloseEvent *e){
 /** Create new document-tab */
 void MainWindow::on_NewTapnAction_triggered(){
 	QGraphicsView* view = new PetriNetView();
-	PetriNetScene* scene = new PetriNetScene(this->undoGroup, view);
+	PetriNetScene* scene = new PetriNetScene(&undoGroup, view);
 	ui->variableView->setModel(scene->variables());
 	view->setScene(scene);
 	view->setRenderHints(QPainter::Antialiasing |
@@ -144,7 +145,7 @@ void MainWindow::on_OpenAction_triggered(){
 			return;
 		lastLoadSavePath = QFileInfo(fname).absoluteDir().absolutePath();
 		QGraphicsView* view = new PetriNetView();
-		PetriNetSceneBuilder builder(this->undoGroup, view);
+		PetriNetSceneBuilder builder(&undoGroup, view);
 		PNMLParser p;
 		p.parse(&file, &builder);
 		file.close();
@@ -428,12 +429,16 @@ void MainWindow::on_aboutAction_triggered()
 	msg->show();
 }
 
-void MainWindow::on_undoAction_triggered(){
-	undoGroup->undo();
-}
+/******************** Undo/Redo Handling ********************/
 
-void MainWindow::on_redoAction_triggered(){
-	undoGroup->redo();
+void MainWindow::createUndoActions(){
+	ui->mainToolBar->addSeparator();
+	QAction* undo = undoGroup.createUndoAction(this, tr("Undo"));
+	QAction* redo = undoGroup.createRedoAction(this, tr("Redo"));
+	undo->setIcon(QIcon(":/Icons/undo.svg"));
+	redo->setIcon(QIcon(":/Icons/redo.svg"));
+	ui->mainToolBar->addAction(undo);
+	ui->mainToolBar->addAction(redo);
 }
 
 /******************** Settings ********************/
