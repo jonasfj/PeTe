@@ -63,7 +63,7 @@ QVariant QueryModel::data(const QModelIndex &index, int role) const{
 	if(role == DataRoles::ProgressText &&
 		index.column() == COL_PROGRESS &&
 		state.thread){
-		return tr("elapsed %1").arg(state.time);
+		return tr("elapsed %1").arg(state.time, 3);
 	}
 
 	if(index.column() == COL_DESCRIPTION && role == Qt::DecorationRole){
