@@ -49,6 +49,8 @@ public:
 	unsigned int numberOfTransitions() const {return _nTransitions;}
 	unsigned int numberOfVariables() const {return _nVariables;}
 	unsigned int numberOfPlaces() const {return _nPlaces;}
+	int inArc(unsigned int place, unsigned int transition) const;
+	int outArc(unsigned int transition, unsigned int place) const;
 	/** Get vector place names, don't use this to get the number of places */
 	const std::vector<std::string>& placeNames() const {return _places;}
 	/** Get vector variable names, don't use this to get the number of variable */

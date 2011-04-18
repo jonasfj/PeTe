@@ -12,7 +12,7 @@
 #define NAME_HashUnderApproximation				"Hash under-approximation"
 #define NAME_ClosestFirstReachabilityAvg		"Closest-First (Avg)"
 #define NAME_ClosestFirstReachabilityExt		"Closest-First (Extreme)"
-#define NAME_ClosestFirstReachabilitySum		"Closest-First (AndSum)"
+#define NAME_ClosestFirstReachabilitySum		"Closest-First (Extreme, ArcCount)"
 
 #include <stdio.h>
 
@@ -47,7 +47,7 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	if(strategy == NAME_ClosestFirstReachabilitySum){
-		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme | PQL::DistanceContext::ArcCount;
 		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	//If we didn't find it

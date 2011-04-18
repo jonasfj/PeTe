@@ -4,6 +4,7 @@
 #include <sstream>
 #include <assert.h>
 #include <string.h>
+#include <set>
 
 namespace PetriEngine {
 namespace PQL{
@@ -263,7 +264,6 @@ double AndCondition::delta(double d1,
 		return (d1 + d2) / 2;
 }
 
-
 double OrCondition::delta(double d1,
 						  double d2,
 						  const DistanceContext& context) const{
@@ -276,9 +276,59 @@ double OrCondition::delta(double d1,
 		return (d1 + d2) / 2;
 }
 
+struct S{
+	int d;
+	unsigned int p;
+};
+
+int dfsArcLen(const PetriNet& net,
+			  const MarkVal *m,
+			  unsigned int place){
+	std::list<S> places;
+	std::set<unsigned int> visited;
+	S s;
+	s.d = 0;
+	s.p = place;
+	places.push_back(s);
+	visited.insert(place);
+	while(!places.empty()){
+		s = places.back();
+		places.pop_back();
+		for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
+			if(net.outArc(t, place)){
+				for(unsigned int p = 0; p < net.numberOfPlaces(); p++){
+					if(net.inArc(p, t)){
+						if(!visited.count(p)){
+							if(m[p])
+								return s.d + 1;
+							visited.insert(p);
+							S sp;
+							sp.d = s.d + 1;
+							sp.p = p;
+							places.push_back(sp);
+						}
+					}
+				}
+			}
+		}
+	}
+	return -1;
+}
+
 double CompareCondition::distance(DistanceContext& context) const{
 	int v1 = _expr1->evaluate(context);
 	int v2 = _expr2->evaluate(context);
+	if(context.strategy() & DistanceContext::ArcCount){
+		int d = delta(v1, v2, context.negated());
+		if(!d) return 0;
+		if(_expr1->pfree() && !_expr2->pfree() && _expr2->type() == Expr::IdentifierExpr){
+			IdentifierExpr* id = (IdentifierExpr*)_expr2;
+			return dfsArcLen(context.net(), context.marking(), id->offset()) * d;
+		}else if(_expr2->pfree() && !_expr1->pfree() && _expr1->type() == Expr::IdentifierExpr){
+			IdentifierExpr* id = (IdentifierExpr*)_expr1;
+			return dfsArcLen(context.net(), context.marking(), id->offset()) * d;
+		}
+	}
 	return delta(v1, v2, context.negated());
 }
 

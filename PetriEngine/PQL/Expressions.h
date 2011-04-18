@@ -107,6 +107,8 @@ public:
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 	Expr::Types type() const;
+	/** Offset in marking or valuation */
+	int offset() const{ return _offsetInMarking; }
 private:
 	/** Is this identifier a place? Or a variable.. */
 	bool isPlace;

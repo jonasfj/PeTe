@@ -91,7 +91,8 @@ public:
 		AndAverage	= 0x2,
 		AndSum		= 0x4,
 		OrExtreme	= 0x8,
-		OrAverage	= 0x16
+		OrAverage	= 0x16,
+		ArcCount	= 0x32
 	};
 
 	DistanceContext(const PetriNet& net,
@@ -103,6 +104,7 @@ public:
 		_negated = false;
 	}
 	DistanceStrategy strategy() const { return _strategy; }
+	const PetriNet& net() const { return _net; }
 	void negate() { _negated = !_negated; }
 	bool negated() const { return _negated; }
 private:

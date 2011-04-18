@@ -106,4 +106,12 @@ bool PetriNet::fireWithMarkInf(unsigned int t,
 	return true;
 }
 
+int PetriNet::inArc(unsigned int place, unsigned int transition) const{
+	return _tv(transition)[place];
+}
+
+int PetriNet::outArc(unsigned int transition, unsigned int place) const{
+	return _tv(transition)[place + _nPlaces];
+}
+
 } // PetriEngine
