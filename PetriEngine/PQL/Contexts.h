@@ -3,7 +3,7 @@
 
 #include "../PetriNet.h"
 #include "PQL.h"
-#include "Structures/DistanceMatrix.h"
+#include "../Structures/DistanceMatrix.h"
 
 #include <string>
 #include <vector>
