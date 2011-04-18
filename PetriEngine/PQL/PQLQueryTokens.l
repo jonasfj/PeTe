@@ -11,7 +11,7 @@ extern int pqlqparse();
 %option prefix="pqlq"
 
 digit         [0-9]
-letter        [a-zA-Z]
+letter        [a-zA-Z_]
 
 %%
 

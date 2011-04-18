@@ -11,19 +11,23 @@ extern int sumoparse();
 %option prefix="sumo"
 
 digit			[0-9]
-letter			[a-zA-Z]
+letter			[_a-zA-Z]
 id				{letter}({letter}|{digit})*
 
 %%
 
 [ \t\n\r]					;
 "and"						{return TOKEN(AND);}
+"AND"						{return TOKEN(AND);}
 "or"						{return TOKEN(OR);}
+"OR"						{return TOKEN(OR);}
 "not"						{return TOKEN(NOT);}
+"NOT"						{return TOKEN(NOT);}
 "reachable"					{return TOKEN(REACHABLE);}
 "invariant"					{return TOKEN(INVARIANT);}
 "contains"					{return TOKEN(CONTAINS);}
 "equals"					{return TOKEN(EQUALS);}
+"equals"
 {letter}({letter}|{digit})*	{SAVE_TOKEN; return ID;}
 {digit}+					{SAVE_TOKEN; return INT;}
  "["("."|({digit}+(","{digit}+)*)|({id}(","{id})*))"]"	{return TOKEN(VALUE);}

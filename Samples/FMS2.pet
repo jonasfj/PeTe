@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+     <net>
+          <transition id="tP3M2">
+               <graphics>
+                    <position x="738" y="248"/>
+               </graphics>
+               <name>
+                    <value>tP3M2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP3s">
+               <graphics>
+                    <position x="797" y="226"/>
+               </graphics>
+               <name>
+                    <value>tP3s</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP2">
+               <graphics>
+                    <position x="603" y="139"/>
+               </graphics>
+               <name>
+                    <value>tP2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP12s">
+               <graphics>
+                    <position x="529" y="728"/>
+               </graphics>
+               <name>
+                    <value>tP12s</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP2M2">
+               <graphics>
+                    <position x="603" y="286"/>
+               </graphics>
+               <name>
+                    <value>tP2M2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tM2">
+               <graphics>
+                    <position x="603" y="210"/>
+               </graphics>
+               <name>
+                    <value>tM2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP2e">
+               <graphics>
+                    <position x="629" y="362"/>
+               </graphics>
+               <name>
+                    <value>tP2e</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP2j">
+               <graphics>
+                    <position x="576" y="362"/>
+               </graphics>
+               <name>
+                    <value>tP2j</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP3">
+               <graphics>
+                    <position x="738" y="154"/>
+               </graphics>
+               <name>
+                    <value>tP3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP2s">
+               <graphics>
+                    <position x="629" y="438"/>
+               </graphics>
+               <name>
+                    <value>tP2s</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP1e">
+               <graphics>
+                    <position x="430" y="362"/>
+               </graphics>
+               <name>
+                    <value>tP1e</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP1M1">
+               <graphics>
+                    <position x="457" y="286"/>
+               </graphics>
+               <name>
+                    <value>tP1M1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP1j">
+               <graphics>
+                    <position x="483" y="362"/>
+               </graphics>
+               <name>
+                    <value>tP1j</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP1s">
+               <graphics>
+                    <position x="430" y="438"/>
+               </graphics>
+               <name>
+                    <value>tP1s</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP12">
+               <graphics>
+                    <position x="529" y="480"/>
+               </graphics>
+               <name>
+                    <value>tP12</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tx">
+               <graphics>
+                    <position x="529" y="400"/>
+               </graphics>
+               <name>
+                    <value>tx</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP12M3">
+               <graphics>
+                    <position x="529" y="642"/>
+               </graphics>
+               <name>
+                    <value>tP12M3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tM3">
+               <graphics>
+                    <position x="529" y="561"/>
+               </graphics>
+               <name>
+                    <value>tM3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tP1">
+               <graphics>
+                    <position x="457" y="139"/>
+               </graphics>
+               <name>
+                    <value>tP1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tM1">
+               <graphics>
+                    <position x="457" y="210"/>
+               </graphics>
+               <name>
+                    <value>tM1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <place id="P2s">
+               <graphics>
+                    <position x="630" y="394"/>
+               </graphics>
+               <name>
+                    <value>P2s</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P3">
+               <graphics>
+                    <position x="739" y="100"/>
+               </graphics>
+               <name>
+                    <value>P3</value>
+               </name>
+               <initialMarking>
+                    <value>2</value>
+               </initialMarking>
+          </place>
+          <place id="P2d">
+               <graphics>
+                    <position x="604" y="318"/>
+               </graphics>
+               <name>
+                    <value>P2d</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P2wP1">
+               <graphics>
+                    <position x="577" y="394"/>
+               </graphics>
+               <name>
+                    <value>P2wP1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P3M2">
+               <graphics>
+                    <position x="739" y="196"/>
+               </graphics>
+               <name>
+                    <value>P3M2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P3s">
+               <graphics>
+                    <position x="739" y="318"/>
+               </graphics>
+               <name>
+                    <value>P3s</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="M3">
+               <graphics>
+                    <position x="575" y="598"/>
+               </graphics>
+               <name>
+                    <value>M3</value>
+               </name>
+               <initialMarking>
+                    <value>2</value>
+               </initialMarking>
+          </place>
+          <place id="P12s">
+               <graphics>
+                    <position x="530" y="679"/>
+               </graphics>
+               <name>
+                    <value>P12s</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P12wM3">
+               <graphics>
+                    <position x="530" y="517"/>
+               </graphics>
+               <name>
+                    <value>P12wM3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P12M3">
+               <graphics>
+                    <position x="530" y="598"/>
+               </graphics>
+               <name>
+                    <value>P12M3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P2M2">
+               <graphics>
+                    <position x="604" y="242"/>
+               </graphics>
+               <name>
+                    <value>P2M2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="M2">
+               <graphics>
+                    <position x="642" y="242"/>
+               </graphics>
+               <name>
+                    <value>M2</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="P2">
+               <graphics>
+                    <position x="604" y="100"/>
+               </graphics>
+               <name>
+                    <value>P2</value>
+               </name>
+               <initialMarking>
+                    <value>2</value>
+               </initialMarking>
+          </place>
+          <place id="P2wM2">
+               <graphics>
+                    <position x="604" y="166"/>
+               </graphics>
+               <name>
+                    <value>P2wM2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="M1">
+               <graphics>
+                    <position x="418" y="242"/>
+               </graphics>
+               <name>
+                    <value>M1</value>
+               </name>
+               <initialMarking>
+                    <value>3</value>
+               </initialMarking>
+          </place>
+          <place id="P1M1">
+               <graphics>
+                    <position x="458" y="242"/>
+               </graphics>
+               <name>
+                    <value>P1M1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P1wM1">
+               <graphics>
+                    <position x="458" y="166"/>
+               </graphics>
+               <name>
+                    <value>P1wM1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P1">
+               <graphics>
+                    <position x="458" y="100"/>
+               </graphics>
+               <name>
+                    <value>P1</value>
+               </name>
+               <initialMarking>
+                    <value>2</value>
+               </initialMarking>
+          </place>
+          <place id="P12">
+               <graphics>
+                    <position x="530" y="432"/>
+               </graphics>
+               <name>
+                    <value>P12</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P1wP2">
+               <graphics>
+                    <position x="484" y="394"/>
+               </graphics>
+               <name>
+                    <value>P1wP2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P1s">
+               <graphics>
+                    <position x="431" y="394"/>
+               </graphics>
+               <name>
+                    <value>P1s</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P1d">
+               <graphics>
+                    <position x="458" y="318"/>
+               </graphics>
+               <name>
+                    <value>P1d</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <arc source="tP3M2" target="P3s">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP3M2" target="M2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P3s" target="tP3s">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP3s" target="P3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP2j" target="P2wP1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2d" target="tP2j">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP2M2" target="M2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP2M2" target="P2d">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2M2" target="tP2M2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tM2" target="P2M2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="M2" target="tM2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2wM2" target="tM2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="M2" target="tP3M2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P3M2" target="tP3M2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP3" target="P3M2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P3" target="tP3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP2s" target="P2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2s" target="tP2s">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP2e" target="P2s">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2d" target="tP2e">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="M3" target="tM3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tM3" target="P12M3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP12" target="P12wM3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P12wM3" target="tM3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tx" target="P12">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P12" target="tP12">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1wP2" target="tx">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2wP1" target="tx">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2" target="tP2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP2" target="P2wM2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP12s" target="P1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP12s" target="P2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP12M3" target="M3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P12s" target="tP12s">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P12M3" target="tP12M3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP12M3" target="P12s">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP1M1" target="M1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP1M1" target="P1d">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1d" target="tP1e">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP1e" target="P1s">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1s" target="tP1s">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP1s" target="P1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1d" target="tP1j">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP1j" target="P1wP2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1" target="tP1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tP1" target="P1wM1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1wM1" target="tM1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="M1" target="tM1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tM1" target="P1M1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1M1" target="tP1M1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+     </net>
+     <queries>
+          <query name="SUMo Query 0" strategy="Naive Karp-Millar DFS with hashing" jit="false">((P12 == 0) and ((P1wP2 == 1) and ((P12wM3 == 0) and ((P3s == 1) and ((P12s == 0) and ((P2s == 0) and ((P1 == 0) and ((M3 == 2) and ((P1s == 0) and ((M2 == 0) and ((P3 == 1) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 0) and ((P2wP1 == 1) and ((P1wM1 == 1) and ((P1M1 == 0) and ((P2M2 == 1) and ((P1d == 0) and ((P3M2 == 0) and (P12M3 == 0))))))))))))))))))))))</query>
+          <query name="SUMo Query 1" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 0) and ((P12wM3 == 0) and ((P3s == 1) and ((P12s == 0) and ((P2s == 0) and ((P1 == 0) and ((M3 == 2) and ((P1s == 0) and ((M2 == 0) and ((P3 == 0) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 0) and ((P2wP1 == 1) and ((P1wM1 == 2) and ((P1M1 == 0) and ((P2M2 == 1) and ((P1d == 0) and ((P3M2 == 1) and (P12M3 == 0))))))))))))))))))))))</query>
+          <query name="SUMo Query 2" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 1) and ((P12wM3 == 1) and ((P3s == 2) and ((P12s == 0) and ((P2s == 0) and ((P1 == 0) and ((M3 == 2) and ((P1s == 0) and ((M2 == 0) and ((P3 == 0) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 0) and ((P2wP1 == 0) and ((P1wM1 == 0) and ((P1M1 == 0) and ((P2M2 == 1) and ((P1d == 0) and ((P3M2 == 0) and (P12M3 == 0))))))))))))))))))))))</query>
+          <query name="SUMo Query 3" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 0) and ((P12wM3 == 0) and ((P3s == 1) and ((P12s == 0) and ((P2s == 0) and ((P1 == 1) and ((M3 == 2) and ((P1s == 1) and ((M2 == 1) and ((P3 == 0) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 1) and ((P2d == 1) and ((P2wP1 == 0) and ((P1wM1 == 0) and ((P1M1 == 0) and ((P2M2 == 0) and ((P1d == 0) and ((P3M2 == 1) and (P12M3 == 0))))))))))))))))))))))</query>
+          <query name="SUMo Query 4" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 0) and ((P12wM3 == 0) and ((P3s == 0) and ((P12s == 0) and ((P2s == 0) and ((P1 == 0) and ((M3 == 1) and ((P1s == 0) and ((M2 == 1) and ((P3 == 1) and ((P2 == 1) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 0) and ((P2wP1 == 0) and ((P1wM1 == 1) and ((P1M1 == 0) and ((P2M2 == 0) and ((P1d == 0) and ((P3M2 == 1) and (P12M3 == 1))))))))))))))))))))))</query>
+          <query name="SUMo Query 5" strategy="" jit="false">((P12 == 1) and ((P1wP2 == 0) and ((P12wM3 == 0) and ((P3s == 0) and ((P12s == 0) and ((P2s == 1) and ((P1 == 0) and ((M3 == 2) and ((P1s == 0) and ((M2 == 1) and ((P3 == 1) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 0) and ((P2wP1 == 0) and ((P1wM1 == 0) and ((P1M1 == 0) and ((P2M2 == 0) and ((P1d == 1) and ((P3M2 == 1) and (P12M3 == 0))))))))))))))))))))))</query>
+          <query name="SUMo Query 6" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 1) and ((P12wM3 == 0) and ((P3s == 0) and ((P12s == 0) and ((P2s == 0) and ((P1 == 0) and ((M3 == 2) and ((P1s == 1) and ((M2 == 0) and ((P3 == 2) and ((P2 == 1) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 0) and ((P2wP1 == 0) and ((P1wM1 == 0) and ((P1M1 == 0) and ((P2M2 == 1) and ((P1d == 0) and ((P3M2 == 0) and (P12M3 == 0))))))))))))))))))))))</query>
+          <query name="SUMo Query 7" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 0) and ((P12wM3 == 0) and ((P3s == 1) and ((P12s == 0) and ((P2s == 1) and ((P1 == 0) and ((M3 == 2) and ((P1s == 0) and ((M2 == 1) and ((P3 == 1) and ((P2 == 0) and ((M1 == 2) and ((P2wM2 == 1) and ((P2d == 0) and ((P2wP1 == 0) and ((P1wM1 == 1) and ((P1M1 == 1) and ((P2M2 == 0) and ((P1d == 0) and ((P3M2 == 0) and (P12M3 == 0))))))))))))))))))))))</query>
+          <query name="SUMo Query 8" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 1) and ((P12wM3 == 0) and ((P3s == 1) and ((P12s == 0) and ((P2s == 1) and ((P1 == 0) and ((M3 == 2) and ((P1s == 0) and ((M2 == 1) and ((P3 == 0) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 1) and ((P2wP1 == 0) and ((P1wM1 == 0) and ((P1M1 == 0) and ((P2M2 == 0) and ((P1d == 1) and ((P3M2 == 1) and (P12M3 == 0))))))))))))))))))))))</query>
+          <query name="SUMo Query 9" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 0) and ((P12wM3 == 0) and ((P3s == 1) and ((P12s == 0) and ((P2s == 0) and ((P1 == 1) and ((M3 == 2) and ((P1s == 1) and ((M2 == 1) and ((P3 == 0) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 1) and ((P2d == 0) and ((P2wP1 == 1) and ((P1wM1 == 0) and ((P1M1 == 0) and ((P2M2 == 0) and ((P1d == 0) and ((P3M2 == 1) and (P12M3 == 0))))))))))))))))))))))</query>
+     </queries>
+</pnml>
