@@ -4,6 +4,7 @@
 #include <sstream>
 #include "PQL/PQLParser.h"
 #include "PQL/PQL.h"
+#include "PQL/Contexts.h"
 #include "PetriNet.h"
 #include "PetriNetBuilder.h"
 #include "Reachability/DepthFirstReachabilitySearch.h"

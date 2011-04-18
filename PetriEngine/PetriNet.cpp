@@ -1,5 +1,6 @@
 #include "PetriNet.h"
 #include "PQL/PQL.h"
+#include "PQL/Contexts.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

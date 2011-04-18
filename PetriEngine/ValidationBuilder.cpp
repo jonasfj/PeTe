@@ -1,6 +1,7 @@
 #include "ValidationBuilder.h"
 
 #include "PQL/PQLParser.h"
+#include "PQL/Contexts.h"
 
 #include <assert.h>
 #include <sstream>

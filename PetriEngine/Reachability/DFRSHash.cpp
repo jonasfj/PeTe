@@ -1,5 +1,6 @@
 #include "DFRSHash.h"
 #include "../PQL/PQL.h"
+#include "../PQL/Contexts.h"
 #include "../Structures/StateSet.h"
 #include <list>
 #include <string.h>

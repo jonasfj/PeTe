@@ -2,11 +2,12 @@
 
 #include "../NetItems/PetriNetScene.h"
 
-#include "PetriEngine/PetriNetBuilder.h"
+#include <PetriEngine/PetriNetBuilder.h>
 
-#include "PetriEngine/PQL/PQLParser.h"
-#include "PetriEngine/PQL/PQL.h"
-#include "PetriEngine/PQL/CompiledCondition.h"
+#include <PetriEngine/PQL/PQLParser.h>
+#include <PetriEngine/PQL/PQL.h>
+#include <PetriEngine/PQL/CompiledCondition.h>
+#include <PetriEngine/PQL/Contexts.h>
 
 using namespace PetriEngine;
 using namespace PetriEngine::PQL;

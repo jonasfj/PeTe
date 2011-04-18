@@ -1,4 +1,5 @@
 #include "CompiledCondition.h"
+#include "Contexts.h"
 
 #include <assert.h>
 #include <string>

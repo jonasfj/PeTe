@@ -10,6 +10,7 @@
 #include <PetriEngine/Reachability/DepthFirstReachabilitySearch.h>
 #include <PetriEngine/Reachability/DFRSHash.h>
 #include <PetriEngine/PQL/PQL.h>
+#include <PetriEngine/PQL/Contexts.h>
 
 int main(int argc, char *argv[])
 {

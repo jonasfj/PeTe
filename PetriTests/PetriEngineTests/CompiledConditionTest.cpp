@@ -3,6 +3,7 @@
 #include "PetriNet.h"
 #include "PQL/PQLParser.h"
 #include "PQL/PQL.h"
+#include "PQL/Contexts.h"
 #include "PQL/CompiledCondition.h"
 
 using namespace PetriEngine;

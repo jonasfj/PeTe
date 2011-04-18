@@ -1,5 +1,6 @@
 #include "DepthFirstReachabilitySearch.h"
 #include "../PQL/PQL.h"
+#include "../PQL/Contexts.h"
 
 #include <iostream>
 #include <list>

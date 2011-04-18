@@ -1,5 +1,6 @@
 #include "HashUnderApproximation.h"
 #include "../PQL/PQL.h"
+#include "../PQL/Contexts.h"
 #include "../Structures/StateSet.h"
 #include <iostream>
 #include <list>

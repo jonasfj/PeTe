@@ -1,4 +1,5 @@
 #include "ClosestFirstReachability.h"
+#include "../PQL/Contexts.h"
 
 namespace PetriEngine{
 namespace Reachability{
