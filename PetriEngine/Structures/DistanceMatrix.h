@@ -3,6 +3,9 @@
 
 #include "../PetriNet.h"
 
+namespace PetriEngine{
+namespace Structures{
+
 #define INFINITE_DISTANCE		(1<<20)
 
 class DistanceMatrix {
@@ -94,5 +97,8 @@ private:
 	unsigned int* pm;
 	size_t _dim;
 };
+
+} // Structures
+} // PetriEngine
 
 #endif // DISTANCEMATRIX_H
