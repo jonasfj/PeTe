@@ -17,7 +17,8 @@ SOURCES		   += \
     Reachability/HashUnderApproximation.cpp \
     Reachability/BestFirstReachabilityStrategy.cpp \
     Reachability/ClosestFirstReachability.cpp \
-    PQL/CompiledCondition.cpp
+    PQL/CompiledCondition.cpp \
+    Structures/DistanceMatrix.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
