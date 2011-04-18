@@ -436,7 +436,9 @@ void MainWindow::createUndoActions(){
 	QAction* undo = undoGroup.createUndoAction(this, tr("Undo"));
 	QAction* redo = undoGroup.createRedoAction(this, tr("Redo"));
 	undo->setIcon(QIcon(":/Icons/undo.svg"));
+	undo->setShortcut(QKeySequence::Undo);
 	redo->setIcon(QIcon(":/Icons/redo.svg"));
+	redo->setShortcut(QKeySequence::Redo);
 	ui->mainToolBar->addAction(undo);
 	ui->mainToolBar->addAction(redo);
 }
