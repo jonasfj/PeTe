@@ -37,6 +37,7 @@ void sumoerror(const char *s) {printf("ERROR: %s\n", s);}
 %%
 
 root	: ID EQUAL REACHABLE subformula		{ sumoQuery = $4; }
+		| ID EQUAL INVARIANT subformula		{ sumoQuery = NULL; /*TODO: Fix later*/ }
 		;
 
 subformula : subformula AND subformula		{ $$ = new AndCondition($1, $3); }
@@ -48,6 +49,7 @@ subformula : subformula AND subformula		{ $$ = new AndCondition($1, $3); }
 
 atomic : idexpr CONTAINS LBRACKET expr RBRACKET { $$ = new GreaterThanOrEqualCondition($1, $4); }
 	   | idexpr EQUALS LBRACKET expr RBRACKET { $$ = new EqualCondition($1, $4); }
+	   | idexpr EQUALS LBRACKET RBRACKET {$$ = new EqualCondition($1, new LiteralExpr(0)); }
 	   ;
 
 idexpr : ID		{ $$ = new IdentifierExpr(*$1, @1.first_column); delete $1; }

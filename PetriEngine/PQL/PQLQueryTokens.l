@@ -4,7 +4,7 @@
 #include "PQLQueryParser.parser.hpp"
 #define SAVE_TOKEN pqlqlval.string = new std::string(pqlqtext, pqlqleng)
 #define TOKEN(t) (pqlqlval.token = t)
-extern "C" int pqlqwrap(){}
+extern "C" int pqlqwrap(){return 1;}
 extern PetriEngine::PQL::Condition* query;
 extern int pqlqparse();
 %}

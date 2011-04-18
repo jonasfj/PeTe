@@ -4,6 +4,7 @@
 #include "SUMoQueryParser.parser.hpp"
 #define SAVE_TOKEN sumolval.string = new std::string(sumotext, sumoleng)
 #define TOKEN(t) (sumolval.token = t)
+extern "C" int sumowrap(){return 1;}
 extern PetriEngine::PQL::Condition* sumoQuery;
 extern int sumoparse();
 %}

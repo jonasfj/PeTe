@@ -4,7 +4,7 @@
 #include "PQLAssignmentParser.parser.hpp"
 #define SAVE_TOKEN pqlalval.string = new std::string(pqlatext, pqlaleng)
 #define TOKEN(t) (pqlalval.token = t)
-extern "C" int pqlawrap(){}
+extern "C" int pqlawrap(){return 1;}
 extern PetriEngine::PQL::AssignmentExpression* assignment;
 extern int pqlaparse();
 %}

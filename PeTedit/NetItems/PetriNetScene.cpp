@@ -291,8 +291,8 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 			path.addEllipse(event->scenePos(),5,5);
 			QList<QGraphicsItem*> gi = items(path,Qt::IntersectsItemShape);
 			if(!gi.isEmpty()){
-				qDebug()<<"Was here!";
-				item = gi.first();}
+				item = gi.first();
+			}
 		}
 
 		if(item && item->type() == NetEntity::ArcItem){
