@@ -3,6 +3,7 @@
 
 #include <QAbstractTableModel>
 #include <QIcon>
+#include <QIODevice>
 
 #include "PetriEngine/Reachability/ReachabilityResult.h"
 
@@ -64,6 +65,8 @@ public:
 	const Query& query(int row);
 	/** Set a query (no undo command will be created!) */
 	void setQuery(const Query& query, int row);
+	/** Import a number of SUMo queries */
+	void importSUMoQueries(QIODevice& f);
 
 private:
 	QList<QueryState> _qstate;

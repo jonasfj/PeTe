@@ -12,7 +12,7 @@ class AddRemoveQueryCommand : public QUndoCommand
 {
 public:
 	/** Add new query */
-	AddRemoveQueryCommand(QueryModel* model, const QueryModel::Query& query);
+	AddRemoveQueryCommand(QueryModel* model, const QueryModel::Query& query, QUndoCommand* parent = NULL);
 	/** Remove query at row */
 	AddRemoveQueryCommand(QueryModel* model, int row);
 	~AddRemoveQueryCommand();

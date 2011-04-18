@@ -162,6 +162,32 @@ void QueryModel::removeQuery(const QModelIndex& index){
 	_net->undoStack()->push(cmd);
 }
 
+void QueryModel::importSUMoQueries(QIODevice &f){
+	if(!f.isOpen())
+		f.open(QIODevice::ReadOnly);
+	int count = 0;
+	QUndoCommand* cmdStack = new QUndoCommand();
+	QByteArray line = f.readLine(1<<20);
+	while(f.atEnd()){
+		if(line.size() > 0)
+			continue;
+		PetriEngine::PQL::Condition* c = PetriEngine::PQL::ParseSUMoQuery(line.data());
+		if(!c)
+			continue;
+		Query q;
+		q.name = tr("SUMo Query %1").arg(count++);
+		q.query = c->toString().c_str();
+		q.strategy = "";
+		q.jit = false;
+		new AddRemoveQueryCommand(this, q, cmdStack);
+		line = f.readLine(1<<20);
+	}
+	if(count == 0)
+		delete cmdStack;
+	else
+		_net->undoStack()->push(cmdStack);
+}
+
 /******************** Query Editing Methods ********************/
 
 /** Insert query (no undo command will be created!)
