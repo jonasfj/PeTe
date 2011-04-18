@@ -13,6 +13,9 @@
 #define NAME_ClosestFirstReachabilityAvg		"Closest-First (Avg)"
 #define NAME_ClosestFirstReachabilityExt		"Closest-First (Extreme)"
 #define NAME_ClosestFirstReachabilitySum		"Closest-First (Extreme, ArcCount)"
+#define NAME_ClosestFirstReachabilityTokenCost	"Closest-First (Extreme, TokenCost)"
+
+
 
 #include <stdio.h>
 
@@ -27,6 +30,7 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 	strategies.push_back(NAME_ClosestFirstReachabilityAvg);
 	strategies.push_back(NAME_ClosestFirstReachabilityExt);
 	strategies.push_back(NAME_ClosestFirstReachabilitySum);
+	strategies.push_back(NAME_ClosestFirstReachabilityTokenCost);
 	return strategies;
 }
 
@@ -48,6 +52,10 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	}
 	if(strategy == NAME_ClosestFirstReachabilitySum){
 		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme | PQL::DistanceContext::ArcCount;
+		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
+	}
+	if(strategy == NAME_ClosestFirstReachabilityTokenCost){
+		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme | PQL::DistanceContext::TokenCost;
 		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	//If we didn't find it
