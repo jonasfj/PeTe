@@ -165,7 +165,6 @@ void QueryModel::removeQuery(const QModelIndex& index){
 void QueryModel::importSUMoQueries(QIODevice &f){
 	if(!f.isOpen())
 		f.open(QIODevice::ReadOnly);
-	int count = 0;
 	QUndoCommand* cmdStack = new QUndoCommand();
 	while(!f.atEnd()){
 		QByteArray line = f.readLine(1<<10);

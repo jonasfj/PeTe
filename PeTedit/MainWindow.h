@@ -33,6 +33,7 @@ private:
 	void saveSettings();
 	void closeEvent(QCloseEvent *e);
 	void createUndoActions();
+	void createToggleToolsbars();
 private slots:
 	void resizeQueryView();
 	void resizeVariableView();

@@ -94,6 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
 			this, SLOT(modeActionGroup_triggered(QAction*)));
 
 	createUndoActions();
+	createToggleToolsbars();
 
 	// Create new document
 	ui->NewTapnAction->trigger();
@@ -429,18 +430,24 @@ void MainWindow::on_aboutAction_triggered()
 	msg->show();
 }
 
+void MainWindow::createToggleToolsbars(){
+	ui->menuView->addSeparator();
+	ui->menuView->addAction(ui->editingToolBar->toggleViewAction());
+	ui->menuView->addAction(ui->toolsToolBar->toggleViewAction());
+}
+
 /******************** Undo/Redo Handling ********************/
 
 void MainWindow::createUndoActions(){
-	ui->mainToolBar->addSeparator();
+	ui->editingToolBar->addSeparator();
 	QAction* undo = undoGroup.createUndoAction(this, tr("Undo"));
 	QAction* redo = undoGroup.createRedoAction(this, tr("Redo"));
 	undo->setIcon(QIcon(":/Icons/undo.svg"));
 	undo->setShortcut(QKeySequence::Undo);
 	redo->setIcon(QIcon(":/Icons/redo.svg"));
 	redo->setShortcut(QKeySequence::Redo);
-	ui->mainToolBar->addAction(undo);
-	ui->mainToolBar->addAction(redo);
+	ui->editingToolBar->addAction(undo);
+	ui->editingToolBar->addAction(redo);
 	ui->menuEdit->addAction(undo);
 	ui->menuEdit->addAction(redo);
 }
