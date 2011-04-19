@@ -170,12 +170,12 @@ void QueryModel::importSUMoQueries(QIODevice &f){
 		QByteArray line = f.readLine(1<<10);
 		if(line.size() == 0)
 			continue;
-		PetriEngine::PQL::SUMoQuery* c = PetriEngine::PQL::ParseSUMoQuery(line.data());
-		if(!c)
+		PetriEngine::PQL::SUMoQuery c = PetriEngine::PQL::ParseSUMoQuery(line.data());
+		if(!c.query)
 			continue;
 		Query q;
-		q.name = c->name.c_str();
-		q.query = c->query->toString().c_str();
+		q.name = c.name.c_str();
+		q.query = c.query->toString().c_str();
 		q.strategy = "";
 		q.jit = false;
 		new AddRemoveQueryCommand(this, q, cmdStack);

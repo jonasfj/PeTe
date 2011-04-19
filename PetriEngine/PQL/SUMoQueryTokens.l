@@ -1,6 +1,7 @@
 %{
 #include <string>
 #include "PQL.h"
+#include "PQLParser.h"
 #include "SUMoQueryParser.parser.hpp"
 #define SAVE_TOKEN sumolval.string = new std::string(sumotext, sumoleng)
 #define TOKEN(t) (sumolval.token = t)
@@ -41,22 +42,20 @@ id				{letter}({letter}|{digit})*
 
 %%
 namespace PetriEngine{ namespace PQL{
-SUMoQuery* ParseSUMoQuery(const std::string& queryString){
+SUMoQuery ParseSUMoQuery(const std::string& queryString){
 	sumoQuery = NULL;
 	
 	//Load up input buffer in Flex
 	YY_BUFFER_STATE buf = sumo_scan_string(queryString.c_str());
-
-	if(sumoparse() != 0)
-		return NULL;
-
+	SUMoQuery q;
+	q.name = "";
+	q.query = NULL;
+	if(sumoparse() == 0){
+		q.query = sumoQuery;
+		q.name = sumoName;
+	}
 	//Delete buffer
 	sumo_delete_buffer(buf);
-
-	SUMoQuery* q = new SUMoQuery();
-	q->query = sumoQuery;
-	q->name = sumoName;
-
 	return q;
 }
 }}

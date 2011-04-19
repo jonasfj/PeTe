@@ -7,10 +7,15 @@ namespace PetriEngine { namespace PQL {
 
 class Condition;
 class AssignmentExpression;
-struct SUMoQuery;
+
+/** Return value for SUMo import */
+struct SUMoQuery{
+	Condition* query;
+	std::string name;
+};
 
 Condition* ParseQuery(const std::string& queryString);
-SUMoQuery* ParseSUMoQuery(const std::string& queryString);
+SUMoQuery ParseSUMoQuery(const std::string& queryString);
 AssignmentExpression* ParseAssignment(const std::string& assignmentString);
 
 }}
