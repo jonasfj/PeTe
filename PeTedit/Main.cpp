@@ -81,6 +81,7 @@ int main(int argc, char *argv[])
 		MarkVal* m0 = builder.makeInitialMarking();
 		VarVal* a0 = builder.makeInitialAssignment();
 
+		queryString = "P5==1";
 		PQL::Condition* query;
 		if(sumoQuery)
 			query = PQL::ParseSUMoQuery(queryString.toStdString()).query;
