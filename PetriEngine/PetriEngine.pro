@@ -18,7 +18,8 @@ SOURCES		   += \
     Reachability/BestFirstReachabilityStrategy.cpp \
     Reachability/ClosestFirstReachability.cpp \
     PQL/CompiledCondition.cpp \
-    Structures/DistanceMatrix.cpp
+    Structures/DistanceMatrix.cpp \
+    Reachability/RandomPrioritizedReachability.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -44,7 +45,8 @@ HEADERS		   += \
     Reachability/ClosestFirstReachability.h \
     PQL/CompiledCondition.h \
     PQL/Contexts.h \
-    Structures/DistanceMatrix.h
+    Structures/DistanceMatrix.h \
+    Reachability/RandomPrioritizedReachability.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine

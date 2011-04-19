@@ -5,6 +5,7 @@
 #include "DFRSHash.h"
 #include "HashUnderApproximation.h"
 #include "ClosestFirstReachability.h"
+#include "RandomPrioritizedReachability.h"
 #include "../PQL/Contexts.h"
 
 #define NAME_DFS								"Naive Karp-Miller DFS"
@@ -14,7 +15,7 @@
 #define NAME_ClosestFirstReachabilityExt		"Closest-First (Extreme)"
 #define NAME_ClosestFirstReachabilitySum		"Closest-First (Extreme, ArcCount)"
 #define NAME_ClosestFirstReachabilityTokenCost	"Closest-First (Extreme, TokenCost)"
-
+#define NAME_RandomPrioritizedReachability		"Random-First"
 
 
 #include <stdio.h>
@@ -31,6 +32,7 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 	strategies.push_back(NAME_ClosestFirstReachabilityExt);
 	strategies.push_back(NAME_ClosestFirstReachabilitySum);
 	strategies.push_back(NAME_ClosestFirstReachabilityTokenCost);
+	strategies.push_back(NAME_RandomPrioritizedReachability);
 	return strategies;
 }
 
@@ -58,6 +60,8 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme | PQL::DistanceContext::TokenCost;
 		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
 	}
+	if(strategy == NAME_RandomPrioritizedReachability)
+		return new RandomPrioritizedReachability();
 	//If we didn't find it
 	fprintf(stderr, "Reachability strategy: \"%s\" not found!", strategy.c_str());
 	return new DFRSHash();
