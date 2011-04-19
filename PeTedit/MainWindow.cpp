@@ -441,6 +441,8 @@ void MainWindow::createUndoActions(){
 	redo->setShortcut(QKeySequence::Redo);
 	ui->mainToolBar->addAction(undo);
 	ui->mainToolBar->addAction(redo);
+	ui->menuEdit->addAction(undo);
+	ui->menuEdit->addAction(redo);
 }
 
 /******************** Settings ********************/
