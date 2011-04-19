@@ -20,6 +20,12 @@ class EvaluationContext;
 class DistanceContext;
 class CodeGenerationContext;
 
+/** Return value for SUMo import */
+struct SUMoQuery{
+	Condition* query;
+	std::string name;
+};
+
 /** Representation of a PQL error */
 class ExprError{
 	std::string _text;

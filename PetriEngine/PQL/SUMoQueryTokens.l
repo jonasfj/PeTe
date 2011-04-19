@@ -6,6 +6,7 @@
 #define TOKEN(t) (sumolval.token = t)
 extern "C" int sumowrap(){return 1;}
 extern PetriEngine::PQL::Condition* sumoQuery;
+extern std::string sumoName;
 extern int sumoparse();
 %}
 %option prefix="sumo"
@@ -40,7 +41,7 @@ id				{letter}({letter}|{digit})*
 
 %%
 namespace PetriEngine{ namespace PQL{
-Condition* ParseSUMoQuery(const std::string& queryString){
+SUMoQuery* ParseSUMoQuery(const std::string& queryString){
 	sumoQuery = NULL;
 	
 	//Load up input buffer in Flex
@@ -52,7 +53,11 @@ Condition* ParseSUMoQuery(const std::string& queryString){
 	//Delete buffer
 	sumo_delete_buffer(buf);
 
-	return sumoQuery;
+	SUMoQuery* q = new SUMoQuery();
+	q->query = sumoQuery;
+	q->name = sumoName;
+
+	return q;
 }
 }}
 

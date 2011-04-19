@@ -1,10 +1,12 @@
 %{
 #include <stdio.h>
+#include <string>
 #include "PQL.h"
 #include "Expressions.h"
 using namespace PetriEngine::PQL;
 
 Condition* sumoQuery;
+std::string sumoName;
 extern int sumolex();
 extern char* sumotext;
 void sumoerror(const char *s) {printf("ERROR: %s: %s\n", s, sumotext);}
@@ -37,7 +39,7 @@ void sumoerror(const char *s) {printf("ERROR: %s: %s\n", s, sumotext);}
 
 %%
 
-root	: ID EQUAL REACHABLE subformula		{ sumoQuery = $4; }
+root	: ID EQUAL REACHABLE subformula		{ sumoQuery = $4; sumoName = *$1; delete $1;}
 		| ID EQUAL INVARIANT subformula		{ sumoQuery = NULL; /*TODO: Fix later*/ }
 		;
 
