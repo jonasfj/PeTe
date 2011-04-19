@@ -47,13 +47,14 @@ AssignmentExpression* ParseAssignment(const std::string& assignmentString) {
 
 	//Load up input buffer in Flex
 	YY_BUFFER_STATE buf = pqla_scan_string(assignmentString.c_str());
-
-	if(pqlaparse() != 0)
-		return NULL;
-
+	
+	int result = pqlaparse();
 	//Delete the buffer
 	pqla_delete_buffer(buf);
-
-	return assignment;
+	
+	if(result != 0)
+		return NULL;
+	else
+		return assignment;
 } 
 }}
