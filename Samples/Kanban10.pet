@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+     <net>
+          <transition id="tok2">
+               <graphics>
+                    <position x="398" y="357"/>
+               </graphics>
+               <name>
+                    <value>tok2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tback2">
+               <graphics>
+                    <position x="313" y="433"/>
+               </graphics>
+               <name>
+                    <value>tback2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tback1">
+               <graphics>
+                    <position x="218" y="619"/>
+               </graphics>
+               <name>
+                    <value>tback1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tredo1">
+               <graphics>
+                    <position x="218" y="543"/>
+               </graphics>
+               <name>
+                    <value>tredo1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tsynch4_23">
+               <graphics>
+                    <position x="254" y="261"/>
+               </graphics>
+               <name>
+                    <value>tsynch4_23</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tok1">
+               <graphics>
+                    <position x="291" y="543"/>
+               </graphics>
+               <name>
+                    <value>tok1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tout1">
+               <graphics>
+                    <position x="291" y="619"/>
+               </graphics>
+               <name>
+                    <value>tout1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tsynch1_23">
+               <graphics>
+                    <position x="254" y="465"/>
+               </graphics>
+               <name>
+                    <value>tsynch1_23</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tback4">
+               <graphics>
+                    <position x="187" y="239"/>
+               </graphics>
+               <name>
+                    <value>tback4</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tok4">
+               <graphics>
+                    <position x="254" y="153"/>
+               </graphics>
+               <name>
+                    <value>tok4</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tin4">
+               <graphics>
+                    <position x="221" y="72"/>
+               </graphics>
+               <name>
+                    <value>tin4</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tredo4">
+               <graphics>
+                    <position x="187" y="153"/>
+               </graphics>
+               <name>
+                    <value>tredo4</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tok3">
+               <graphics>
+                    <position x="115" y="357"/>
+               </graphics>
+               <name>
+                    <value>tok3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tredo2">
+               <graphics>
+                    <position x="313" y="357"/>
+               </graphics>
+               <name>
+                    <value>tredo2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tredo3">
+               <graphics>
+                    <position x="203" y="357"/>
+               </graphics>
+               <name>
+                    <value>tredo3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tback3">
+               <graphics>
+                    <position x="203" y="428"/>
+               </graphics>
+               <name>
+                    <value>tback3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <place id="Pback2">
+               <graphics>
+                    <position x="314" y="389"/>
+               </graphics>
+               <name>
+                    <value>Pback2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pout2">
+               <graphics>
+                    <position x="399" y="389"/>
+               </graphics>
+               <name>
+                    <value>Pout2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P2">
+               <graphics>
+                    <position x="64" y="364"/>
+               </graphics>
+               <name>
+                    <value>P2</value>
+               </name>
+               <initialMarking>
+                    <value>10</value>
+               </initialMarking>
+          </place>
+          <place id="Pm2">
+               <graphics>
+                    <position x="357" y="305"/>
+               </graphics>
+               <name>
+                    <value>Pm2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pback1">
+               <graphics>
+                    <position x="219" y="575"/>
+               </graphics>
+               <name>
+                    <value>Pback1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pout1">
+               <graphics>
+                    <position x="292" y="575"/>
+               </graphics>
+               <name>
+                    <value>Pout1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P1">
+               <graphics>
+                    <position x="337" y="526"/>
+               </graphics>
+               <name>
+                    <value>P1</value>
+               </name>
+               <initialMarking>
+                    <value>10</value>
+               </initialMarking>
+          </place>
+          <place id="Pm1">
+               <graphics>
+                    <position x="255" y="499"/>
+               </graphics>
+               <name>
+                    <value>Pm1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pout4">
+               <graphics>
+                    <position x="255" y="190"/>
+               </graphics>
+               <name>
+                    <value>Pout4</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pback4">
+               <graphics>
+                    <position x="188" y="190"/>
+               </graphics>
+               <name>
+                    <value>Pback4</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pm4">
+               <graphics>
+                    <position x="222" y="109"/>
+               </graphics>
+               <name>
+                    <value>Pm4</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P4">
+               <graphics>
+                    <position x="307" y="153"/>
+               </graphics>
+               <name>
+                    <value>P4</value>
+               </name>
+               <initialMarking>
+                    <value>10</value>
+               </initialMarking>
+          </place>
+          <place id="Pout3">
+               <graphics>
+                    <position x="116" y="389"/>
+               </graphics>
+               <name>
+                    <value>Pout3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pback3">
+               <graphics>
+                    <position x="204" y="389"/>
+               </graphics>
+               <name>
+                    <value>Pback3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pm3">
+               <graphics>
+                    <position x="161" y="305"/>
+               </graphics>
+               <name>
+                    <value>Pm3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P3">
+               <graphics>
+                    <position x="456" y="367"/>
+               </graphics>
+               <name>
+                    <value>P3</value>
+               </name>
+               <initialMarking>
+                    <value>10</value>
+               </initialMarking>
+          </place>
+          <arc source="tsynch4_23" target="Pm2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tsynch4_23" target="Pm3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P3" target="tsynch4_23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tsynch4_23" target="P4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pout4" target="tsynch4_23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2" target="tsynch4_23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm1" target="tok1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tok1" target="Pout1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pout1" target="tout1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tout1" target="P1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tsynch1_23" target="P2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tsynch1_23" target="Pm1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1" target="tsynch1_23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tsynch1_23" target="P3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pout3" target="tsynch1_23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pout2" target="tsynch1_23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pback2" target="tback2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tback2" target="Pm2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm2" target="tok2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tok2" target="Pout2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm1" target="tredo1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tredo1" target="Pback1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pback1" target="tback1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tback1" target="Pm1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm3" target="tredo3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tredo3" target="Pback3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pback3" target="tback3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tback3" target="Pm3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm3" target="tok3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tok3" target="Pout3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm2" target="tredo2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tredo2" target="Pback2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tin4" target="Pm4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P4" target="tin4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tredo4" target="Pback4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm4" target="tredo4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tback4" target="Pm4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pback4" target="tback4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tok4" target="Pout4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm4" target="tok4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+     </net>
+     <queries>
+          <query name="fOK541016" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 6) and ((Pout2 == 2) and ((Pout3 == 0) and ((Pout1 == 2) and ((P4 == 0) and ((P1 == 4) and ((Pm3 == 0) and ((Pm4 == 2) and ((P3 == 0) and ((Pm1 == 2) and ((Pm2 == 2) and ((P2 == 0) and ((Pback1 == 2) and ((Pback2 == 6) and ((Pback3 == 10) and (Pback4 == 2))))))))))))))))</query>
+          <query name="fOK546289" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 2) and ((Pout2 == 0) and ((Pout3 == 0) and ((Pout1 == 4) and ((P4 == 0) and ((P1 == 4) and ((Pm3 == 8) and ((Pm4 == 6) and ((P3 == 2) and ((Pm1 == 2) and ((Pm2 == 2) and ((P2 == 2) and ((Pback1 == 0) and ((Pback2 == 6) and ((Pback3 == 0) and (Pback4 == 2))))))))))))))))</query>
+          <query name="fOK540199" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 6) and ((Pout2 == 6) and ((Pout3 == 2) and ((Pout1 == 2) and ((P4 == 2) and ((P1 == 4) and ((Pm3 == 0) and ((Pm4 == 0) and ((P3 == 0) and ((Pm1 == 2) and ((Pm2 == 2) and ((P2 == 0) and ((Pback1 == 2) and ((Pback2 == 2) and ((Pback3 == 8) and (Pback4 == 2))))))))))))))))</query>
+          <query name="fOK543180" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 2) and ((Pout2 == 0) and ((Pout3 == 4) and ((Pout1 == 6) and ((P4 == 0) and ((P1 == 4) and ((Pm3 == 6) and ((Pm4 == 6) and ((P3 == 0) and ((Pm1 == 0) and ((Pm2 == 2) and ((P2 == 0) and ((Pback1 == 0) and ((Pback2 == 8) and ((Pback3 == 0) and (Pback4 == 2))))))))))))))))</query>
+          <query name="fOK547802" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 0) and ((Pout2 == 4) and ((Pout3 == 8) and ((Pout1 == 2) and ((P4 == 8) and ((P1 == 4) and ((Pm3 == 2) and ((Pm4 == 0) and ((P3 == 0) and ((Pm1 == 4) and ((Pm2 == 2) and ((P2 == 0) and ((Pback1 == 0) and ((Pback2 == 4) and ((Pback3 == 0) and (Pback4 == 2))))))))))))))))</query>
+          <query name="fOK547894" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 2) and ((Pout2 == 0) and ((Pout3 == 0) and ((Pout1 == 2) and ((P4 == 2) and ((P1 == 4) and ((Pm3 == 2) and ((Pm4 == 4) and ((P3 == 6) and ((Pm1 == 4) and ((Pm2 == 2) and ((P2 == 6) and ((Pback1 == 0) and ((Pback2 == 2) and ((Pback3 == 2) and (Pback4 == 2))))))))))))))))</query>
+          <query name="fOK543026" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 6) and ((Pout2 == 2) and ((Pout3 == 0) and ((Pout1 == 6) and ((P4 == 0) and ((P1 == 4) and ((Pm3 == 6) and ((Pm4 == 2) and ((P3 == 0) and ((Pm1 == 0) and ((Pm2 == 2) and ((P2 == 0) and ((Pback1 == 0) and ((Pback2 == 6) and ((Pback3 == 4) and (Pback4 == 2))))))))))))))))</query>
+          <query name="fOK543863" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 0) and ((Pout2 == 6) and ((Pout3 == 4) and ((Pout1 == 0) and ((P4 == 4) and ((P1 == 4) and ((Pm3 == 4) and ((Pm4 == 4) and ((P3 == 2) and ((Pm1 == 6) and ((Pm2 == 2) and ((P2 == 2) and ((Pback1 == 0) and ((Pback2 == 0) and ((Pback3 == 0) and (Pback4 == 2))))))))))))))))</query>
+          <query name="fOK548296" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 6) and ((Pout2 == 6) and ((Pout3 == 4) and ((Pout1 == 2) and ((P4 == 2) and ((P1 == 4) and ((Pm3 == 2) and ((Pm4 == 0) and ((P3 == 2) and ((Pm1 == 4) and ((Pm2 == 2) and ((P2 == 2) and ((Pback1 == 0) and ((Pback2 == 0) and ((Pback3 == 2) and (Pback4 == 2))))))))))))))))</query>
+          <query name="fOK546741" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 2) and ((Pout2 == 4) and ((Pout3 == 2) and ((Pout1 == 4) and ((P4 == 6) and ((P1 == 4) and ((Pm3 == 2) and ((Pm4 == 0) and ((P3 == 2) and ((Pm1 == 2) and ((Pm2 == 2) and ((P2 == 2) and ((Pback1 == 0) and ((Pback2 == 2) and ((Pback3 == 4) and (Pback4 == 2))))))))))))))))</query>
+     </queries>
+</pnml>

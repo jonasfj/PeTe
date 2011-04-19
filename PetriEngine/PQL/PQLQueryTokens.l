@@ -20,10 +20,13 @@ letter        [a-zA-Z_]
 "AND"						{return TOKEN(AND);}
 "or"						{return TOKEN(OR);}
 "OR"						{return TOKEN(OR);}
+"not"						{return TOKEN(NOT);}
+"NOT"						{return TOKEN(NOT);}
 {letter}({letter}|{digit})*	{SAVE_TOKEN; return ID;}
 {digit}+					{SAVE_TOKEN; return INT;}
 "&&"						{return TOKEN(AND);}
 "||"						{return TOKEN(OR);}
+"!"							{return TOKEN(NOT);}
 "=="						{return TOKEN(EQUAL);}
 "!="						{return TOKEN(NEQUAL);}
 "<"							{return TOKEN(LESS);}
