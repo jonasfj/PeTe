@@ -48,6 +48,7 @@ public:
 			offset = blocksize;
 			Block* b = block;
 			block = block->parent;
+			delete b;
 			return true;
 		}else if(offset == 1){
 			offset = 0;
