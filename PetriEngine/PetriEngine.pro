@@ -46,7 +46,8 @@ HEADERS		   += \
     PQL/CompiledCondition.h \
     PQL/Contexts.h \
     Structures/DistanceMatrix.h \
-    Reachability/RandomPrioritizedReachability.h
+    Reachability/RandomPrioritizedReachability.h \
+    Structures/StateAllocator.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine

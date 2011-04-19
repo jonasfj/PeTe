@@ -6,6 +6,8 @@
 
 namespace PetriEngine { namespace Structures {
 
+template<size_t blocksize> class StateAllocator;
+
 /** GeneralState class for reachability searches.
   * Used in most reachability search cases */
 class State {
@@ -81,7 +83,7 @@ public:
 
 	/** Deletes a state */
 	static inline void deleteState(State* state){
-		free(state);
+		free((char*)state);
 	}
 
 	/** State specialisation of std::hash */
@@ -129,7 +131,7 @@ public:
 		unsigned int nPlaces;
 		unsigned int nVariables;
 	};
-
+	template<size_t blocksize> friend class StateAllocator;
 private:
 	State* _parent;
 	unsigned int _parentTransition;

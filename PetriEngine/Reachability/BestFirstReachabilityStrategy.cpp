@@ -2,6 +2,7 @@
 #include "../PQL/PQL.h"
 #include "../Structures/PriorityQueue.h"
 #include "../Structures/StateSet.h"
+#include "../Structures/StateAllocator.h"
 
 #include <string.h>
 
@@ -30,8 +31,10 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 	PriorityQueue<State*> queue;
 	queue.push(0, s0);
 
+	StateAllocator<10> allocator(net);
+
 	//Allocate new state
-	State* ns = State::createState(net);
+	State* ns = allocator.createState();//State::createState(net);
 	int count = 0;
 	size_t max = 1;
 	while(!queue.empty()){
@@ -69,7 +72,7 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 					queue.push(priority(ns, query, net), ns);
 
 					//Allocate new stake, as states take ownership
-					ns = State::createState(net);
+					ns = allocator.createState();//State::createState(net);
 				}
 			}
 		}

@@ -16,9 +16,9 @@ void RandomPrioritizedReachability::initialize(const PQL::Condition *,
 	srand(SEED);
 }
 
-double RandomPrioritizedReachability::priority(const Structures::State *state,
-											   const PQL::Condition *query,
-											   const PetriNet &net){
+double RandomPrioritizedReachability::priority(const Structures::State *,
+											   const PQL::Condition *,
+											   const PetriNet &){
 	return (double)rand() / RAND_MAX;
 }
 
