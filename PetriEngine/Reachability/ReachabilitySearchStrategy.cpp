@@ -55,7 +55,7 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	if(strategy == NAME_ClosestFirstReachabilityTokenCost){
-		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme | PQL::DistanceContext::TokenCost;
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme | PQL::DistanceContext::TokenCost;
 		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	//If we didn't find it

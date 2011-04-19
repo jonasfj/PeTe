@@ -16,6 +16,7 @@ public:
 								 const VarVal* v0,
 								 PQL::Condition* query);
 private:
+	virtual void initialize(const PQL::Condition* query, const PetriNet& net);
 	/** Method for prioritizing different states, lower priority is better */
 	virtual double priority(const Structures::State* state,
 							const PQL::Condition* query,

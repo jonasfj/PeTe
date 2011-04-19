@@ -10,8 +10,14 @@ double ClosestFirstReachability::priority(const Structures::State *state,
 	PQL::DistanceContext context(net,
 								 _distanceStrategy,
 								 state->marking(),
-								 state->valuation());
+								 state->valuation(),
+								 _dm);
 	return query->distance(context);
+}
+
+void ClosestFirstReachability::initialize(const PQL::Condition*,
+										  const PetriNet& net){
+	_dm = new Structures::DistanceMatrix(net);
 }
 
 } // Reachability

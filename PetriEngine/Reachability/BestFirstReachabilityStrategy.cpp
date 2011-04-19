@@ -22,6 +22,9 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 	if(query->evaluate(*s0))
 		return ReachabilityResult(ReachabilityResult::Satisfied, "Satisfied initially");
 
+	//Initialize subclasses
+	initialize(query, net);
+
 	StateSet states(net);
 	states.add(s0);
 	PriorityQueue<State*> queue;
@@ -75,6 +78,9 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 	return ReachabilityResult(ReachabilityResult::NotSatisfied,
 							  "Query cannot be satisfied!");
 }
+
+//Empty default implementation
+void BestFirstReachabilityStrategy::initialize(const PQL::Condition*, const PetriNet&){}
 
 } // Reachability
 } // PetriEngine

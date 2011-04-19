@@ -4,6 +4,7 @@
 #include "BestFirstReachabilityStrategy.h"
 #include "../PQL/PQL.h"
 #include "../PQL/Contexts.h"
+#include "../Structures/DistanceMatrix.h"
 
 namespace PetriEngine{
 namespace Reachability{
@@ -19,12 +20,15 @@ public:
 	 */
 	ClosestFirstReachability(PQL::DistanceContext::DistanceStrategy distanceStrategy){
 		_distanceStrategy = distanceStrategy;
+		_dm = NULL;
 	}
 private:
+	void initialize(const PQL::Condition* query, const PetriNet& net);
 	double priority(const Structures::State *state,
 					const PQL::Condition *query,
 					const PetriNet &net);
 	PQL::DistanceContext::DistanceStrategy _distanceStrategy;
+	Structures::DistanceMatrix* _dm;
 };
 
 } // Reachability

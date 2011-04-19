@@ -100,21 +100,23 @@ public:
 	DistanceContext(const PetriNet& net,
 					DistanceStrategy strategy,
 					const MarkVal* marking,
-					const VarVal* valuation)
-		: EvaluationContext(marking, valuation), _net(net), _dm(net) {
+					const VarVal* valuation,
+					Structures::DistanceMatrix* dm)
+		: EvaluationContext(marking, valuation), _net(net) {
 		_strategy = strategy;
 		_negated = false;
+		_dm = dm;
 	}
 	DistanceStrategy strategy() const { return _strategy; }
 	const PetriNet& net() const { return _net; }
 	void negate() { _negated = !_negated; }
 	bool negated() const { return _negated; }
-	const Structures::DistanceMatrix* distanceMatrix() const { return &_dm; }
+	const Structures::DistanceMatrix* distanceMatrix() const { return _dm; }
 private:
 	const PetriNet& _net;
 	DistanceStrategy _strategy;
 	bool _negated;
-	Structures::DistanceMatrix _dm;
+	Structures::DistanceMatrix* _dm;
 };
 
 /** Just-In-Time compilation context */
