@@ -3,7 +3,7 @@ TEMPLATE	 = app
 QMAKE_CXXFLAGS	+= -std=c++0x $$system(llvm-config --cxxflags all)
 QT		  		+= core gui svg
 INCLUDEPATH		+= ../
-LIBS			+= -L../ -lPetriEngine $$system(llvm-config --libs all)
+LIBS			+= -L../ -lPetriEngine $$system(llvm-config --libs all) -lproc
 PRE_TARGETDEPS	+= ../PetriEngine
 
 
@@ -41,7 +41,8 @@ SOURCES	   += \
     Misc/QueryModel.cpp \
     Misc/ProgressViewDelegate.cpp \
     Misc/QueryThread.cpp \
-    Misc/VariableModel.cpp
+    Misc/VariableModel.cpp \
+    Widgets/MemoryMonitor.cpp
 
 
 HEADERS		+= \
@@ -79,7 +80,8 @@ HEADERS		+= \
     Misc/ProgressViewDelegate.h \
     Misc/QueryThread.h \
     Misc/CustomDataRoles.h \
-    Misc/VariableModel.h
+    Misc/VariableModel.h \
+    Widgets/MemoryMonitor.h
 
 
 FORMS		+= MainWindow.ui \

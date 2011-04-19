@@ -13,6 +13,7 @@
 #include "DataFormats/PNMLBuilder.h"
 #include "NetItems/PetriNetSceneBuilder.h"
 #include "Widgets/VariableDelegate.h"
+#include "Widgets/MemoryMonitor.h"
 
 #include "Misc/ValidationIssuesModel.h"
 #include "Misc/QueryModel.h"
@@ -42,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow){
     ui->setupUi(this);
 	currentScene = NULL;
+	ui->statusBar->addPermanentWidget(new MemoryMonitor(this));
 
 	// Variable editor
 	VariableDelegate* delegate = new VariableDelegate(this);
