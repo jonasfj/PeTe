@@ -124,6 +124,8 @@ public slots:
 	void validate();
 	/** Scroll to, select or otherwise highlight the issue */
 	void showValidationIssue(const QModelIndex& index);
+	/** Automatically arrange the layout */
+	void autoArrange();
 };
 
 #endif // PETRINETSCENE_H

@@ -27,7 +27,7 @@ class LayoutBuilder : public AbstractPetriNetBuilder
 	struct Place{
 		std::string name;
 		int tokens;
-		int x, y;
+		double x, y;
 	};
 	typedef std::list<Place> PlaceList;
 	typedef std::list<Place>::iterator PlaceIter;
@@ -36,7 +36,7 @@ class LayoutBuilder : public AbstractPetriNetBuilder
 		std::string name;
 		std::string conditions;
 		std::string assignments;
-		int x, y;
+		double x, y;
 	};
 	typedef std::list<Transition> TransitionList;
 	typedef std::list<Transition>::iterator TransitionIter;
@@ -49,7 +49,11 @@ class LayoutBuilder : public AbstractPetriNetBuilder
 	typedef std::list<Arc> ArcList;
 	typedef std::list<Arc>::iterator ArcIter;
 public:
-    LayoutBuilder();
+	LayoutBuilder(){
+		startFromCurrentPositions = true;
+		factor = 50;
+		margin = 50;
+	}
 	void addVariable(const std::string &name, int initialValue, int range);
 	void addPlace(const std::string &name, int tokens, double x, double y);
 	void addTransition(const std::string &name, const std::string &conditions, const std::string &assignments, double x, double y);
@@ -59,6 +63,8 @@ public:
 	void produce(AbstractPetriNetBuilder* builder);
 private:
 	bool startFromCurrentPositions;
+	int factor;
+	int margin;
 	VarList vars;
 	PlaceList places;
 	TransitionList transitions;

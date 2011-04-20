@@ -438,6 +438,11 @@ void MainWindow::createToggleToolsbars(){
 	ui->menuView->addAction(ui->toolsToolBar->toggleViewAction());
 }
 
+void MainWindow::on_autoArrangeAction_triggered(){
+	if(currentScene)
+		currentScene->autoArrange();
+}
+
 /******************** Undo/Redo Handling ********************/
 
 void MainWindow::createUndoActions(){

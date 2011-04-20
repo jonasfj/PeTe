@@ -57,6 +57,8 @@ private slots:
 	void on_aboutAction_triggered();
 	void on_importSUMoQueriesAction_triggered();
 
+	void on_autoArrangeAction_triggered();
+
 private:
 	/******************** Cached Settings ********************/
 	/** Last folder loaded or saved to (handled by load-/saveSettings) */

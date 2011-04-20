@@ -5,10 +5,6 @@
 
 namespace PetriEngine{
 
-LayoutBuilder::LayoutBuilder(){
-	startFromCurrentPositions = true;
-}
-
 void LayoutBuilder::addVariable(const std::string &name, int initialValue, int range){
 	Var v;
 	v.name = name;
@@ -101,31 +97,48 @@ void LayoutBuilder::produce(AbstractPetriNetBuilder *builder){
 	if(startFromCurrentPositions){
 		int i = 0;
 		for(PlaceIter it = places.begin(); it != places.end(); it++){
-			MATRIX(pos, i, 0) = it->x;
-			MATRIX(pos, i, 1) = it->y;
+			MATRIX(pos, i, 0) = (int)it->x;
+			MATRIX(pos, i, 1) = (int)it->y;
 			i++;
 		}
 		for(TransitionIter it = transitions.begin(); it != transitions.end(); it++){
-			MATRIX(pos, i, 0) = it->x;
-			MATRIX(pos, i, 1) = it->y;
+			MATRIX(pos, i, 0) = (int)it->x;
+			MATRIX(pos, i, 1) = (int)it->y;
 			i++;
 		}
 	}
 
 	// Run kamada kawai, with reasonable parameters
-	igraph_layout_kamada_kawai(&graph, &pos, 1000, N/4, 10, 0.99, V*V, startFromCurrentPositions);
+	igraph_layout_kamada_kawai(&graph, &pos, 1000, ((double)N)/4.0, 10, 0.99, N*N, startFromCurrentPositions);
+	//igraph_layout_grid_fruchterman_reingold(&graph, &pos, 500, N, N*N, 1.5, N*N*N, N*N/4, true);
 
 	// Extract results
 	i = 0;
+	double minx = 0, miny = 0;
 	for(PlaceIter it = places.begin(); it != places.end(); it++){
-		it->x = MATRIX(pos, i, 0);
-		it->y = MATRIX(pos, i, 1);
+		it->x = (double)MATRIX(pos, i, 0) * factor;
+		it->y = (double)MATRIX(pos, i, 1) * factor;
+		minx = minx < it->x ? minx : it->x;
+		miny = miny < it->y ? miny : it->y;
 		i++;
 	}
 	for(TransitionIter it = transitions.begin(); it != transitions.end(); it++){
-		it->x = MATRIX(pos, i, 0);
-		it->y = MATRIX(pos, i, 1);
+		it->x = (double)MATRIX(pos, i, 0) * factor;
+		it->y = (double)MATRIX(pos, i, 1) * factor;
+		minx = minx < it->x ? minx : it->x;
+		miny = miny < it->y ? miny : it->y;
 		i++;
+	}
+	//Translated the coordinates
+	double tx = margin - minx;
+	double ty = margin - minx;
+	for(PlaceIter it = places.begin(); it != places.end(); it++){
+		it->x += tx;
+		it->y += ty;
+	}
+	for(TransitionIter it = transitions.begin(); it != transitions.end(); it++){
+		it->x += tx;
+		it->y += ty;
 	}
 
 	// Destroy the result
