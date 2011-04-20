@@ -4,6 +4,10 @@
 #include "../PetriNet.h"
 #include "State.h"
 
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
 namespace PetriEngine {
 namespace Structures {
 
@@ -60,6 +64,7 @@ private:
 	}
 	void createNewBlock(){
 		size_t s = sizeof(Block) + stateSize() * blocksize;
+		fprintf(stderr, "size: %i\n", s);
 		char* m = (char*)malloc(s);
 		memset(m, 0, s);
 		Block* b = (Block*)m;

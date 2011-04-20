@@ -31,7 +31,7 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 	PriorityQueue<State*> queue;
 	queue.push(0, s0);
 
-	StateAllocator<10> allocator(net);
+	StateAllocator<1000> allocator(net);
 
 	//Allocate new state
 	State* ns = allocator.createState();//State::createState(net);
