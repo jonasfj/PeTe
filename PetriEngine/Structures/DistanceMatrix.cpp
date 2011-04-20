@@ -5,10 +5,16 @@ namespace Structures{
 
 DistanceMatrix::DistanceMatrix(const PetriNet& net){
 	_dim = net.numberOfPlaces();
-	_matrix = (unsigned int*)malloc(((_dim * _dim - _dim) / 2) * sizeof(unsigned int) + (_dim * _dim) * sizeof(unsigned int));
+	_matrix = new unsigned int[((_dim * _dim - _dim) / 2) + (_dim * _dim)];
 	pm = _matrix + ((_dim * _dim - _dim) / 2);
 	memset(_matrix, INFINITE_DISTANCE, (_dim * _dim - _dim) / 2);
 	generate(net);
+}
+
+DistanceMatrix::~DistanceMatrix(){
+	if(_matrix)
+		delete[] _matrix;
+	_matrix = NULL;
 }
 
 void DistanceMatrix::generate(const PetriNet& net){

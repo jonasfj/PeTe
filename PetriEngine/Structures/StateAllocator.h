@@ -6,7 +6,6 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
 namespace PetriEngine {
 namespace Structures {
@@ -15,13 +14,6 @@ namespace Structures {
 template<size_t blocksize>
 class StateAllocator{
 	struct Block{
-		void cleanup(){
-			if(parent){
-				parent->cleanup();
-				free(parent);
-			}
-			parent = NULL;
-		}
 		Block* parent;
 		char* m;
 	} __attribute__((__packed__));
@@ -39,15 +31,15 @@ public:
 		createNewBlock();
 	}
 	~StateAllocator(){
-		if(_b){
-			_b->cleanup();
-			free(_b);
+		while(_b){
+			Block* nb = _b->parent;
+			delete[] (char*)_b;
+			_b = nb;
 		}
-		_b = NULL;
 	}
 	/** Create new state */
 	State* createState(){
-		if(_offset == blocksize)
+		if(_offset == blocksize-2)
 			createNewBlock();
 		char* d = (_b->m + sizeof(Block) + stateSize() * _offset);
 		State* s = (State*)d;
@@ -64,8 +56,7 @@ private:
 	}
 	void createNewBlock(){
 		size_t s = sizeof(Block) + stateSize() * blocksize;
-		fprintf(stderr, "size: %i\n", s);
-		char* m = (char*)malloc(s);
+		char* m = new char[s];
 		memset(m, 0, s);
 		Block* b = (Block*)m;
 		b->parent = _b;

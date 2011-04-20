@@ -19,8 +19,6 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-
-
 	//Set metadata (Used by QSettings, etc)
 	QCoreApplication::setApplicationName("PeTe");
 	QCoreApplication::setApplicationVersion("0.1");
@@ -31,8 +29,6 @@ int main(int argc, char *argv[])
 	QString queryString;
 	QString fileName;
 	QString strategy;
-	//QString queryString = "P1==1";
-	//QString fileName = "/home/thomas/DAT4/PeTe-build-desktop/Testnetwork";
 
 	bool sumoQuery = false;
 	bool showGUI = true;
@@ -97,6 +93,7 @@ int main(int argc, char *argv[])
 		for(size_t i = 0; i < context.errors().size(); i++){
 			std::cout<<context.errors()[i].toString()<<std::endl;
 		}
+
 		//Load up reachability engine
 		ReachabilitySearchStrategy* strat;
 		if(!strategy.isEmpty())
@@ -113,7 +110,6 @@ int main(int argc, char *argv[])
 
 		//Print result
 		std::cout<<result.explanation()<<std::endl;
-		while(true){}
 	}
 	return 0;
 }

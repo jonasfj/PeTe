@@ -3,6 +3,7 @@
 
 #include "../PetriNet.h"
 #include <stdlib.h>
+#include <string.h>
 
 namespace PetriEngine { namespace Structures {
 
@@ -66,7 +67,9 @@ public:
 
 	/** Create a new state */
 	static inline State* createState(int nPlaces, int nVars, State* parent = NULL) {
-		char *d = (char*)calloc(1, sizeof(State) + sizeof(MarkVal)*nPlaces + sizeof(VarVal)*nVars);
+		size_t size = sizeof(State) + sizeof(MarkVal)*nPlaces + sizeof(VarVal)*nVars;
+		char *d = new char[size];
+		memset(d, 0, size);
 		State* s = (State*)d;
 		s->_parentTransition = 0;
 		s->_marking = (MarkVal*)(d + sizeof(State));
@@ -83,7 +86,8 @@ public:
 
 	/** Deletes a state */
 	static inline void deleteState(State* state){
-		free((char*)state);
+		char* d = (char*)state;
+		delete[] d;
 	}
 
 	/** State specialisation of std::hash */

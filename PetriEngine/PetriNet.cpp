@@ -19,24 +19,28 @@ PetriNet::PetriNet(int places, int transitions, int variables)
 	_ranges = new VarVal[variables];
 
 	//Allocate space for conditions and assignments
-	_conditions = (PQL::Condition**)calloc(sizeof(PQL::Condition*) + sizeof(PQL::AssignmentExpression*),
-										  transitions);
-	_assignments = (PQL::AssignmentExpression**)(_conditions + transitions);
+	size_t s = (sizeof(PQL::Condition*) + sizeof(PQL::AssignmentExpression*)) * transitions;
+	char* d = new char[s];
+	memset(d, 0, s);
+	_conditions = (PQL::Condition**)d;
+	_assignments = (PQL::AssignmentExpression**)(d + sizeof(PQL::Condition*)*transitions);
 
 	//Allocate transition matrix
-	_tm = (MarkVal*)calloc(sizeof(MarkVal), places * transitions * 2);
+	_tm = new MarkVal[places * transitions * 2];
+	for(int i = 0; i < places * transitions * 2; i++)
+		_tm[i] = 0;
 }
 
 PetriNet::~PetriNet(){
 	if(_ranges)
-		delete _ranges;
+		delete[] _ranges;
 	_ranges = NULL;
 	if(_tm)
-		free(_tm);
+		delete[] _tm;
 	_tm = NULL;
 	//Conditions and assignments is allocated in the same block
 	if(_conditions)
-		free(_conditions);
+		delete[] (char*)_conditions;
 	_conditions = NULL;
 	_assignments = NULL;
 }

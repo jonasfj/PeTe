@@ -15,6 +15,7 @@ namespace Structures{
 class DistanceMatrix {
 public:
 	DistanceMatrix(const PetriNet& net);
+	~DistanceMatrix();
 	unsigned int distance(unsigned int p1, unsigned int p2) const{
 		if(p1 < p2)
 			return _matrix[p1 * _dim + p2];

@@ -2,6 +2,8 @@
 #include "../PQL/PQL.h"
 #include "../PQL/Contexts.h"
 #include "../Structures/StateSet.h"
+#include "../Structures/StateAllocator.h"
+
 #include <list>
 #include <string.h>
 
@@ -21,7 +23,9 @@ ReachabilityResult DFRSHash::reachable(const PetriNet &net,
 	StateSet states(net);
 	std::list<Step> stack;
 
-	State* s0 = State::createState(net.numberOfPlaces(),net.numberOfVariables());
+	StateAllocator<10000> allocator(net);
+
+	State* s0 = allocator.createState();
 	memcpy(s0->marking(), m0, sizeof(MarkVal)*net.numberOfPlaces());
 	memcpy(s0->valuation(), v0, sizeof(VarVal)*net.numberOfVariables());
 
@@ -29,6 +33,7 @@ ReachabilityResult DFRSHash::reachable(const PetriNet &net,
 
 	unsigned int max = 0;
 	int count = 0;
+	State* ns = allocator.createState();
 	while(!stack.empty()){
 		if(count++ & 1<<17){
 			if(stack.size() > max)
@@ -44,7 +49,7 @@ ReachabilityResult DFRSHash::reachable(const PetriNet &net,
 
 		//Take first step of the stack
 		State* s = stack.back().state;
-		State* ns = State::createState(net.numberOfPlaces(),net.numberOfVariables(), s);
+		ns->setParent(s);
 		bool foundSomething = false;
 		for(unsigned int t = stack.back().t; t < net.numberOfTransitions(); t++){
 			if(net.fire(t, s->marking(), s->valuation(), ns->marking(), ns->valuation())){
@@ -56,15 +61,13 @@ ReachabilityResult DFRSHash::reachable(const PetriNet &net,
 					stack.back().t = t + 1;
 					stack.push_back(Step(ns, 0));
 					foundSomething = true;
+					ns = allocator.createState();
 					break;
 				}
 			}
 		}
-		if(!foundSomething){
-			State::deleteState(ns);
-			ns = NULL;
+		if(!foundSomething)
 			stack.pop_back();
-		}
 	}
 	return ReachabilityResult(ReachabilityResult::NotSatisfied,
 							"No state satisfying the query exists.");
