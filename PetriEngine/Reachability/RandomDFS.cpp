@@ -32,9 +32,24 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 	memcpy(s0->valuation(), v0, sizeof(VarVal)*net.numberOfVariables());
 
 	stack.push_back(s0);
-
 	State* ns = allocator.createState();
+
+	unsigned int max = 0;
+	int count = 0;
 	while(!stack.empty()){
+		// Progress reporting and abort checking
+		if(count++ & 1<<17){
+			if(stack.size() > max)
+				max = stack.size();
+			count = 0;
+			// Report progress
+			reportProgress((double)(max - stack.size())/(double)max);
+			// Check abort
+			if(abortRequested())
+				return ReachabilityResult(ReachabilityResult::Unknown,
+										"Search was aborted.");
+		}
+
 		State* s = stack.back();
 		stack.pop_back();
 		State* succ[net.numberOfTransitions()];

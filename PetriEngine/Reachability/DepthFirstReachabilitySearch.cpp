@@ -24,7 +24,7 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 	StateSet states(net);
 	std::list<Step> stack;
 
-	StateAllocator<> allocator(net);
+	StateAllocator<1000000> allocator(net);
 
 	State* s0 = allocator.createState();
 	memcpy(s0->marking(), m0, sizeof(MarkVal)*net.numberOfPlaces());
@@ -36,7 +36,7 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 	int count = 0;
 	State* ns = allocator.createState();
 	while(!stack.empty()){
-		if(count++ & 1<<17){
+		if(count++ & 1<<18){
 			if(stack.size() > max)
 				max = stack.size();
 			count = 0;
