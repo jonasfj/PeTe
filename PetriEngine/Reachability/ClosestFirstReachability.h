@@ -18,7 +18,8 @@ public:
 	/** Create instance of ClosestFirstReachability
 	 * @param distanceStrategy Distance strategy, for computation of distance to query
 	 */
-	ClosestFirstReachability(PQL::DistanceContext::DistanceStrategy distanceStrategy){
+	ClosestFirstReachability(PQL::DistanceContext::DistanceStrategy distanceStrategy, bool fireUntillNoBetter = false)
+	 : BestFirstReachabilityStrategy(fireUntillNoBetter) {
 		_distanceStrategy = distanceStrategy;
 		_dm = NULL;
 	}

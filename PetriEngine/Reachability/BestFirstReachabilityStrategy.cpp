@@ -34,7 +34,9 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 	queue.push(0, s0);
 
 	//Allocate new state
-	State* ns = allocator.createState();//State::createState(net);
+	State* ns = allocator.createState();
+	State* ns2 = allocator.createState();
+	State* ns3 = allocator.createState();
 	int count = 0;
 	size_t max = 1;
 	while(!queue.empty()){
@@ -64,15 +66,40 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 					ns->setTransition(t);
 
 					//Test query
-					if(query->evaluate(*s))
+					if(query->evaluate(*ns))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
 												  "Query was satified!");
 
 					// Insert in queue, with given priority
-					queue.push(priority(ns, query, net), ns);
+					double bestp = priority(ns, query, net);
+					queue.push(bestp, ns);
+
+
+					if(fireUntillNoBetter && net.fire(t, ns, ns2)){
+						if(query->evaluate(*ns2))
+							return ReachabilityResult(ReachabilityResult::Satisfied,
+												  "Query was satified!");
+						double p = priority(ns2, query, net);
+						if(p <= bestp){
+							bestp = p;
+							while(net.fire(t, ns2, ns3) && (p = priority(ns3, query, net)) <= bestp){
+								bestp = p;
+								State* tmp = ns2;	//SWAP ns2 and ns3
+								ns2 = ns3;
+								ns3 = tmp;
+								if(query->evaluate(*ns2))
+									return ReachabilityResult(ReachabilityResult::Satisfied,
+													  "Query was satified!");
+							}
+							if(states.add(ns2)){
+								queue.push(priority(ns2, query, net), ns2);
+								ns2 = allocator.createState();
+							}
+						}
+					}
 
 					//Allocate new stake, as states take ownership
-					ns = allocator.createState();//State::createState(net);
+					ns = allocator.createState();
 				}
 			}
 		}

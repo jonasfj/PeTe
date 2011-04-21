@@ -11,6 +11,9 @@ namespace Reachability{
 class BestFirstReachabilityStrategy : public ReachabilitySearchStrategy
 {
 public:
+	BestFirstReachabilityStrategy(bool fireUntillNoBetter = false){
+		this->fireUntillNoBetter = fireUntillNoBetter;
+	}
 	ReachabilityResult reachable(const PetriNet &net,
 								 const MarkVal* m0,
 								 const VarVal* v0,
@@ -21,6 +24,7 @@ private:
 	virtual double priority(const Structures::State* state,
 							const PQL::Condition* query,
 							const PetriNet& net) = 0;
+	bool fireUntillNoBetter;
 };
 
 } // Reachability

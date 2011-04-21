@@ -16,6 +16,7 @@
 #define NAME_ClosestFirstReachabilityExt		"Closest-First (Extreme)"
 #define NAME_ClosestFirstReachabilitySum		"Closest-First (Extreme, ArcCount)"
 #define NAME_ClosestFirstReachabilityTokenCost	"Closest-First (Extreme, TokenCost)"
+#define NAME_TokenCostDeep						"Token Cost Deep!"
 #define NAME_RandomPrioritizedReachability		"Random-First"
 #define NAME_HeuristicDFSTokenCost				"Heuristic DFS (TokenCost)"
 
@@ -34,6 +35,7 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_ClosestFirstReachabilityExt,
 		NAME_ClosestFirstReachabilitySum,
 		NAME_ClosestFirstReachabilityTokenCost,
+		NAME_TokenCostDeep,
 		NAME_RandomPrioritizedReachability,
 		NAME_HeuristicDFSTokenCost
 	};
@@ -63,6 +65,10 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	if(strategy == NAME_ClosestFirstReachabilityTokenCost){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme | PQL::DistanceContext::TokenCost;
 		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
+	}
+	if(strategy == NAME_TokenCostDeep){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme | PQL::DistanceContext::TokenCost;
+		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags, true);
 	}
 	if(strategy == NAME_RandomPrioritizedReachability)
 		return new RandomPrioritizedReachability();
