@@ -19,7 +19,7 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 	//Do we initially satisfy query?
 	if(query->evaluate(PQL::EvaluationContext(m0, v0)))
 		return ReachabilityResult(ReachabilityResult::Satisfied,
-								  "A state satisfying the query was found");
+								  "A state satisfying the query was found", 0);
 	//Create StateSet
 	StateSet states(net);
 	std::list<Step> stack;
@@ -34,6 +34,7 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 
 	unsigned int max = 0;
 	int count = 0;
+	int expandedStates = 0;
 	State* ns = allocator.createState();
 	while(!stack.empty()){
 		if(count++ & 1<<18){
@@ -58,7 +59,7 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 					ns->setTransition(t);
 					if(query->evaluate(PQL::EvaluationContext(ns->marking(), ns->valuation())))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-									  "A state satisfying the query was found");
+									  "A state satisfying the query was found", expandedStates);
 					stack.back().t = t + 1;
 					stack.push_back(Step(ns, 0));
 					foundSomething = true;
@@ -67,11 +68,13 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 				}
 			}
 		}
-		if(!foundSomething)
+		if(!foundSomething){
+			expandedStates++;
 			stack.pop_back();
+		}
 	}
 	return ReachabilityResult(ReachabilityResult::NotSatisfied,
-							"No state satisfying the query exists.");
+							"No state satisfying the query exists.", expandedStates);
 }
 
 } // Reachability
