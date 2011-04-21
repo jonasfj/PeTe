@@ -10,6 +10,7 @@ void pqlaerror(const char *s) {printf("ERROR: %s\n", s);}
 %}
 
 %name-prefix "pqla"
+%expect 1
 
 /* Possible data representation */
 %union {
