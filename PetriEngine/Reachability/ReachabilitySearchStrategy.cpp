@@ -2,6 +2,7 @@
 
 //#include "KarpMillerL1SearchStrategy.h"
 #include "DepthFirstReachabilitySearch.h"
+#include "BreadthFirstReachabilitySearch.h"
 #include "HashUnderApproximation.h"
 #include "ClosestFirstReachability.h"
 #include "RandomPrioritizedReachability.h"
@@ -9,7 +10,8 @@
 #include "../PQL/Contexts.h"
 
 #define NAME_DFS								"Naive DFS with Hash"
-#define NAME_RandomDFS							"Random DFS with hash"
+#define NAME_RandomDFS							"Random DFS with Hash"
+#define NAME_BFS								"Naive BFS with Hash"
 #define NAME_HashUnderApproximation				"Hash under-approximation"
 #define NAME_ClosestFirstReachabilityAvg		"Closest-First (Avg)"
 #define NAME_ClosestFirstReachabilityExt		"Closest-First (Extreme)"
@@ -27,6 +29,7 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 	std::string strats[] = {
 		NAME_DFS,
 		NAME_RandomDFS,
+		NAME_BFS,
 		NAME_HashUnderApproximation,
 		NAME_ClosestFirstReachabilityAvg,
 		NAME_ClosestFirstReachabilityExt,
@@ -43,6 +46,8 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 		return new DepthFirstReachabilitySearch();
 	if(strategy == NAME_RandomDFS)
 		return new RandomDFS();
+	if(strategy == NAME_BFS)
+		return new BreadthFirstReachabilitySearch();
 	if(strategy == NAME_HashUnderApproximation)
 		return new HashUnderApproximation();
 	if(strategy == NAME_ClosestFirstReachabilityAvg){

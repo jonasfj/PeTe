@@ -22,7 +22,8 @@ SOURCES		   += \
     Reachability/RandomPrioritizedReachability.cpp \
     LayoutBuilder.cpp \
     Reachability/RandomDFS.cpp \
-    Reachability/HeuristicDFS.cpp
+    Reachability/HeuristicDFS.cpp \
+    Reachability/BreadthFirstReachabilitySearch.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -52,7 +53,8 @@ HEADERS		   += \
     Structures/StateAllocator.h \
     LayoutBuilder.h \
     Reachability/RandomDFS.h \
-    Reachability/HeuristicDFS.h
+    Reachability/HeuristicDFS.h \
+    Reachability/BreadthFirstReachabilitySearch.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine

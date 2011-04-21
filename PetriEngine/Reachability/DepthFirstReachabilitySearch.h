@@ -4,8 +4,6 @@
 #include "ReachabilitySearchStrategy.h"
 #include "../Structures/State.h"
 
-using namespace PetriEngine::Structures;
-
 namespace PetriEngine { namespace Reachability {
 
 /** Implements reachability check in a DFS manner, using a hash table */
