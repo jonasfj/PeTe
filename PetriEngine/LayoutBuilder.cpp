@@ -2,6 +2,9 @@
 
 #include <igraph/igraph.h>
 #include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
 namespace PetriEngine{
 
@@ -60,6 +63,14 @@ int LayoutBuilder::numberFromName(const std::string& name){
 	return -1;
 }
 
+void free_subgraphs(igraph_vector_ptr_t *subgraphs) {
+  long int i;
+  for (i=0; i<igraph_vector_ptr_size(subgraphs); i++) {
+	igraph_destroy((igraph_t*)VECTOR(*subgraphs)[i]);
+	free(VECTOR(*subgraphs)[i]);
+  }
+}
+
 void LayoutBuilder::produce(AbstractPetriNetBuilder *builder){
 	size_t N = places.size() + transitions.size();
 	size_t V = inArcs.size() + outArcs.size();
@@ -110,7 +121,9 @@ void LayoutBuilder::produce(AbstractPetriNetBuilder *builder){
 
 	// Run kamada kawai, with reasonable parameters
 	igraph_layout_kamada_kawai(&graph, &pos, 1000, ((double)N)/4.0, 10, 0.99, N*N, startFromCurrentPositions);
-	//igraph_layout_grid_fruchterman_reingold(&graph, &pos, 500, N, N*N, 1.5, N*N*N, N*N/4, true);
+	//igraph_layout_grid_fruchterman_reingold(&graph, &pos, 500, N, N*N, 1.5, N*N*N, N*N/4, startFromCurrentPositions);
+	//igraph_layout_fruchterman_reingold(&graph, &pos, 500, N, N*N, 1.5, N*N*N, startFromCurrentPositions, NULL);
+	//igraph_layout_lgl(&graph, &pos, 150, N, N*N, 1.5, N*N*N, sqrt(N), -1);
 
 	// Extract results
 	i = 0;
