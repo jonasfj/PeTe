@@ -23,7 +23,7 @@ ReachabilityResult DFRSHash::reachable(const PetriNet &net,
 	StateSet states(net);
 	std::list<Step> stack;
 
-	StateAllocator<10000> allocator(net);
+	StateAllocator<> allocator(net);
 
 	State* s0 = allocator.createState();
 	memcpy(s0->marking(), m0, sizeof(MarkVal)*net.numberOfPlaces());

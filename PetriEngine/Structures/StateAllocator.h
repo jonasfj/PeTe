@@ -11,7 +11,7 @@ namespace PetriEngine {
 namespace Structures {
 
 /** Class for allocating states in blocks */
-template<size_t blocksize>
+template<size_t blocksize = 100000>
 class StateAllocator{
 	struct Block{
 		Block* parent;
@@ -39,7 +39,7 @@ public:
 	}
 	/** Create new state */
 	State* createState(){
-		if(_offset == blocksize-2)
+		if(_offset == blocksize-1)
 			createNewBlock();
 		char* d = (_b->m + sizeof(Block) + stateSize() * _offset);
 		State* s = (State*)d;

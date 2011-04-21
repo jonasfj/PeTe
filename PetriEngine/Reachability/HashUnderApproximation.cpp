@@ -2,6 +2,7 @@
 #include "../PQL/PQL.h"
 #include "../PQL/Contexts.h"
 #include "../Structures/StateSet.h"
+#include "../Structures/StateAllocator.h"
 #include <iostream>
 #include <list>
 #include <string.h>
@@ -26,7 +27,9 @@ ReachabilityResult HashUnderApproximation::reachable(const PetriNet &net,
 	HashSet states;
 	std::list<Step> stack;
 
-	State* s0 = State::createState(net.numberOfPlaces(),net.numberOfVariables());
+	StateAllocator<> allocator(net);
+
+	State* s0 = allocator.createState();
 	memcpy(s0->marking(),m0,sizeof(MarkVal)*net.numberOfPlaces());
 	memcpy(s0->valuation(),v0,sizeof(VarVal)*net.numberOfVariables());
 	stack.push_back(Step(s0,0));
@@ -52,7 +55,8 @@ ReachabilityResult HashUnderApproximation::reachable(const PetriNet &net,
 
 		//Take first step of the stack
 		State* s = stack.back().state;
-		State* ns = State::createState(net.numberOfPlaces(),net.numberOfVariables(), s);
+		State* ns = allocator.createState();
+		ns->setParent(s);
 		bool foundSomething = false;
 		for(unsigned int t = stack.back().t; t < net.numberOfTransitions(); t++){
 			if(net.fire(t, s->marking(), s->valuation(), ns->marking(), ns->valuation())){
@@ -69,12 +73,8 @@ ReachabilityResult HashUnderApproximation::reachable(const PetriNet &net,
 				}
 			}
 		}
-		if(!foundSomething){
-			State::deleteState(s);
-			State::deleteState(ns);
-			ns = NULL;
+		if(!foundSomething)
 			stack.pop_back();
-		}
 	}
 	return ReachabilityResult(ReachabilityResult::Unknown,
 							"Could not disprove the existence of a state not satisfying the query.");
