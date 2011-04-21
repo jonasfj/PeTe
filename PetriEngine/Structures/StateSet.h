@@ -19,11 +19,6 @@ public:
 			(8, State::hash(places, variables),
 			 State::equal_to(places, variables))
 		{}
-	~StateSet(){
-		//for(iter it = this->begin(); it != this->end(); it++)
-		//	State::deleteState(*it);
-		//TODO: Make sure StateAllocator is used everywhere
-	}
 	bool add(State* state) {
 		std::pair<iter, bool> result = this->insert(state);
 		return result.second;

@@ -2,6 +2,7 @@
 #define GENERALSTATE_H
 
 #include "../PetriNet.h"
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -28,40 +29,6 @@ public:
 	unsigned int transition(){ return _parentTransition; }
 	/** Setter for the transition the parent took to get here */
 	void setTransition(unsigned int t){ _parentTransition = t; }
-
-	/** Check if this state is a loop */
-	bool isLoop(const PetriNet& net){
-
-		State* parent = this->_parent;
-
-		if(!parent)
-			return false;
-
-		while(parent){
-			bool isLoop = true;
-			//Check assignment
-			for(unsigned int i = 0; i < net.numberOfVariables(); i++){
-				isLoop &= _valuation[i] == parent->_valuation[i];
-				if(!isLoop)
-					break;
-			}
-
-			//Check marking
-			for(unsigned int i = 0; i < net.numberOfPlaces(); i++){
-				isLoop &= _marking[i] == parent->_marking[i];
-				if(!isLoop)
-					break;
-			}
-
-			//While loop maintenance
-			if(isLoop)
-				return true;
-			parent = parent->_parent;
-
-		}
-
-		return false;
-	}
 
 	/** State specialisation of std::hash */
 	class hash : public std::unary_function<State*, size_t>{
