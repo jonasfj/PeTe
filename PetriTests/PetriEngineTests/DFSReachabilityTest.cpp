@@ -13,7 +13,9 @@
 
 
 using namespace PetriEngine;
+using namespace PetriEngine::Structures;
 using namespace PetriEngine::Reachability;
+
 
 SUITE(DepthFirstReachabilitySearch) {
 

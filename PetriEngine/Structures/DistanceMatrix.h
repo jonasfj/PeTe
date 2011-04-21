@@ -17,9 +17,9 @@ public:
 	DistanceMatrix(const PetriNet& net);
 	~DistanceMatrix();
 	unsigned int distance(unsigned int p1, unsigned int p2) const{
-		if(p1 < p2)
+		//if(p1 < p2)
 			return _matrix[p1 * _dim + p2];
-		return _matrix[p2 * _dim + p1];
+		//return _matrix[p2 * _dim + p1];
 	}
 	double tokenCost(unsigned int p, int tokens, const MarkVal* m) const{
 		double cost = 0;
@@ -42,9 +42,9 @@ private:
 	void generate(const PetriNet& net);
 	/** Gets the distance between two places */
 	unsigned int& d(unsigned int p1, unsigned int p2){
-		if(p1 < p2)
+		//if(p1 < p2)
 			return _matrix[p1 * _dim + p2];
-		return _matrix[p2 * _dim + p1];
+		//return _matrix[p2 * _dim + p1];
 	}
 	/** Underlying distance matrix */
 	unsigned int* _matrix;

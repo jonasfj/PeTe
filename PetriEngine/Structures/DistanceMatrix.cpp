@@ -5,9 +5,9 @@ namespace Structures{
 
 DistanceMatrix::DistanceMatrix(const PetriNet& net){
 	_dim = net.numberOfPlaces();
-	_matrix = new unsigned int[((_dim * _dim - _dim) / 2) + (_dim * _dim)];
-	pm = _matrix + ((_dim * _dim - _dim) / 2);
-	memset(_matrix, INFINITE_DISTANCE, (_dim * _dim - _dim) / 2);
+	_matrix = new unsigned int[(_dim * _dim - _dim) + (_dim * _dim)];
+	pm = _matrix + (_dim * _dim - _dim);
+	memset(_matrix, INFINITE_DISTANCE, _dim * _dim - _dim);
 	generate(net);
 }
 
