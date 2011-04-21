@@ -2,7 +2,8 @@ TEMPLATE		= lib
 
 QMAKE_CXXFLAGS += $$system(llvm-config --cxxflags all)
 QT			   -= gui core
-CONFIG		   += staticlib
+CONFIG		   += staticlib link_pkgconfig
+PKGCONFIG	   += igraph
 
 SOURCES		   += \
 	StandardOutputProgressReporter.cpp \
@@ -19,7 +20,8 @@ SOURCES		   += \
     Reachability/ClosestFirstReachability.cpp \
     PQL/CompiledCondition.cpp \
     Structures/DistanceMatrix.cpp \
-    Reachability/RandomPrioritizedReachability.cpp
+    Reachability/RandomPrioritizedReachability.cpp \
+    LayoutBuilder.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -47,7 +49,8 @@ HEADERS		   += \
     PQL/Contexts.h \
     Structures/DistanceMatrix.h \
     Reachability/RandomPrioritizedReachability.h \
-    Structures/StateAllocator.h
+    Structures/StateAllocator.h \
+    LayoutBuilder.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine

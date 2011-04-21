@@ -8,6 +8,7 @@
 #include "../Commands/EditArcCommand.h"
 #include "../Commands/DeleteItemCommand.h"
 #include "../Commands/EditTransitionCommand.h"
+#include "../Commands/AutoArrangeNetCommand.h"
 #include "PlaceItem.h"
 #include "TransitionItem.h"
 
@@ -473,3 +474,43 @@ void PetriNetScene::validate(){
 void PetriNetScene::showValidationIssue(const QModelIndex &index){
 	_validationIssues->showValidationIssue(this, index);
 }
+
+/******************** Auto arrange ********************/
+
+void PetriNetScene::autoArrange(){
+	//Validate, as we can't have validation issues
+	validate();
+	if(validationIssues()->rowCount() != 0)
+		return;
+
+	_undoStack->push(new AutoArrangeNetCommand(this));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

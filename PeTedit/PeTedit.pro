@@ -5,7 +5,8 @@ QT		  		+= core gui svg
 INCLUDEPATH		+= ../
 LIBS			+= -L../ -lPetriEngine $$system(llvm-config --libs all) -lproc
 PRE_TARGETDEPS	+= ../PetriEngine
-
+CONFIG			+= link_pkgconfig
+PKGCONFIG		+= igraph
 
 SOURCES	   += \
 	Main.cpp \
@@ -42,7 +43,8 @@ SOURCES	   += \
     Misc/ProgressViewDelegate.cpp \
     Misc/QueryThread.cpp \
     Misc/VariableModel.cpp \
-    Widgets/MemoryMonitor.cpp
+    Widgets/MemoryMonitor.cpp \
+    Commands/AutoArrangeNetCommand.cpp
 
 
 HEADERS		+= \
@@ -81,7 +83,8 @@ HEADERS		+= \
     Misc/QueryThread.h \
     Misc/CustomDataRoles.h \
     Misc/VariableModel.h \
-    Widgets/MemoryMonitor.h
+    Widgets/MemoryMonitor.h \
+    Commands/AutoArrangeNetCommand.h
 
 
 FORMS		+= MainWindow.ui \
