@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <float.h>
 
 namespace PetriEngine{
 
@@ -63,25 +64,24 @@ int LayoutBuilder::numberFromName(const std::string& name){
 	return -1;
 }
 
-void free_subgraphs(igraph_vector_ptr_t *subgraphs) {
-  long int i;
-  for (i=0; i<igraph_vector_ptr_size(subgraphs); i++) {
-	igraph_destroy((igraph_t*)VECTOR(*subgraphs)[i]);
-	free(VECTOR(*subgraphs)[i]);
-  }
-}
+bool attrTableAttached = false;
 
 void LayoutBuilder::produce(AbstractPetriNetBuilder *builder){
-	size_t N = places.size() + transitions.size();
-	size_t V = inArcs.size() + outArcs.size();
+	if(!attrTableAttached){
+		igraph_i_set_attribute_table(&igraph_cattribute_table);
+		attrTableAttached = true;
+	}
+	size_t V = places.size() + transitions.size();
+	size_t E = inArcs.size() + outArcs.size();
 	igraph_t graph;
 	// Create a directed graph
-	igraph_empty(&graph, N, true);
+	igraph_empty(&graph, V, true);
 
 	// Create vector with all edges
 	igraph_vector_t edges;
-	igraph_vector_init(&edges, V * 2);
+	igraph_vector_init(&edges, E * 2);
 
+	// Add edges to vector
 	int i = 0;
 	for(ArcIter it = inArcs.begin(); it != inArcs.end(); it++){
 		VECTOR(edges)[i++] = numberFromName(it->start);
@@ -92,74 +92,164 @@ void LayoutBuilder::produce(AbstractPetriNetBuilder *builder){
 		VECTOR(edges)[i++] = numberFromName(it->end);
 	}
 
-	// Add the edges
+	// Add the edges to graph
 	igraph_add_edges(&graph, &edges, 0);
 
 	// Delete the vector with edges
 	igraph_vector_destroy(&edges);
 
-	// Allocate result matrix
-	igraph_matrix_t pos;
+	// Arrays to store result in
+	double posx[V];
+	double posy[V];
 
-	// I assume this is the right size
-	igraph_matrix_init(&pos, N, 2);
-
-	// Provide current positions, if someone wants to use them
+	// Provide current positions, if they're used at all
 	if(startFromCurrentPositions){
 		int i = 0;
 		for(PlaceIter it = places.begin(); it != places.end(); it++){
-			MATRIX(pos, i, 0) = (int)it->x;
-			MATRIX(pos, i, 1) = (int)it->y;
+			posx[i] = it->x;
+			posy[i] = it->y;
+			igraph_cattribute_VAN_set(&graph, "id", i, i);
 			i++;
 		}
 		for(TransitionIter it = transitions.begin(); it != transitions.end(); it++){
-			MATRIX(pos, i, 0) = (int)it->x;
-			MATRIX(pos, i, 1) = (int)it->y;
+			posx[i] = it->x;
+			posy[i] = it->y;
+			igraph_cattribute_VAN_set(&graph, "id", i, i);
 			i++;
 		}
 	}
 
-	// Run kamada kawai, with reasonable parameters
-	igraph_layout_kamada_kawai(&graph, &pos, 1000, ((double)N)/4.0, 10, 0.99, N*N, startFromCurrentPositions);
-	//igraph_layout_grid_fruchterman_reingold(&graph, &pos, 500, N, N*N, 1.5, N*N*N, N*N/4, startFromCurrentPositions);
-	//igraph_layout_fruchterman_reingold(&graph, &pos, 500, N, N*N, 1.5, N*N*N, startFromCurrentPositions, NULL);
-	//igraph_layout_lgl(&graph, &pos, 150, N, N*N, 1.5, N*N*N, sqrt(N), -1);
+	// Decompose the graph, and layout subgraphs induvidually
+	igraph_vector_ptr_t subgraphs;
+	igraph_vector_ptr_init(&subgraphs, 0);
+	igraph_decompose(&graph, &subgraphs, IGRAPH_WEAK, -1, 0);
 
-	// Extract results
-	i = 0;
-	double minx = 0, miny = 0;
-	for(PlaceIter it = places.begin(); it != places.end(); it++){
-		it->x = (double)MATRIX(pos, i, 0) * factor;
-		it->y = (double)MATRIX(pos, i, 1) * factor;
-		minx = minx < it->x ? minx : it->x;
-		miny = miny < it->y ? miny : it->y;
-		i++;
-	}
-	for(TransitionIter it = transitions.begin(); it != transitions.end(); it++){
-		it->x = (double)MATRIX(pos, i, 0) * factor;
-		it->y = (double)MATRIX(pos, i, 1) * factor;
-		minx = minx < it->x ? minx : it->x;
-		miny = miny < it->y ? miny : it->y;
-		i++;
-	}
-	//Translated the coordinates
-	double tx = margin - minx;
-	double ty = margin - minx;
-	for(PlaceIter it = places.begin(); it != places.end(); it++){
-		it->x += tx;
-		it->y += ty;
-	}
-	for(TransitionIter it = transitions.begin(); it != transitions.end(); it++){
-		it->x += tx;
-		it->y += ty;
+	// Offset for places subgraphs
+	double offsetx = 0;
+	double offsety = 0;
+
+	// Layout, translate and extract results for each subgraph
+	for(int i = 0; i < igraph_vector_ptr_size(&subgraphs); i++){
+		//Get the subgraph
+		igraph_t* subgraph = (igraph_t*)VECTOR(subgraphs)[i];
+
+		// Allocate result matrix
+		igraph_matrix_t sublayout;
+		igraph_matrix_init(&sublayout, 0, 0);
+
+		// Vertex selector and iterator
+		igraph_vs_t vs;
+		igraph_vit_t vit;
+		// Select all and create iterator
+		igraph_vs_all(&vs);
+		igraph_vit_create(subgraph, vs, &vit);
+
+		// Initialize sublayout, using original positions
+		if(startFromCurrentPositions){
+			// Count vertices
+			int vertices = 0;
+			// Iterator over vertices to count them, hacked but it works
+			while(!IGRAPH_VIT_END(vit)){
+				vertices++;
+				IGRAPH_VIT_NEXT(vit);
+			}
+			//Reset vertex iterator
+			IGRAPH_VIT_RESET(vit);
+			// Resize sublayout
+			igraph_matrix_resize(&sublayout, vertices, 2);
+			// Iterator over vertices
+			while(!IGRAPH_VIT_END(vit)){
+				int subindex = (int)IGRAPH_VIT_GET(vit);
+				int index = (int)igraph_cattribute_VAN(subgraph, "id", subindex);
+				MATRIX(sublayout, subindex, 0) = posx[index];
+				MATRIX(sublayout, subindex, 1) = posy[index];
+				IGRAPH_VIT_NEXT(vit);
+			}
+			//Reset vertex iterator
+			IGRAPH_VIT_RESET(vit);
+		}
+
+		igraph_layout_kamada_kawai(subgraph, &sublayout, 1000, ((double)V)/4.0, 10, 0.99, V*V, startFromCurrentPositions);
+		// Other layout algorithms with reasonable parameters
+		//igraph_layout_kamada_kawai(subgraph, &sublayout, 1000, ((double)V)/4.0, 10, 0.99, V*V, startFromCurrentPositions);
+		//igraph_layout_grid_fruchterman_reingold(subgraph, &sublayout, 500, V, V*V, 1.5, V*V*V, V*V/4, startFromCurrentPositions);
+		//igraph_layout_fruchterman_reingold(subgraph, &sublayout, 500, V, V*V, 1.5, V*V*V, startFromCurrentPositions, NULL);
+		//igraph_layout_lgl(subgraph, &sublayout, 150, V, V*V, 1.5, V*V*V, sqrt(V), -1);
+
+		//Find min and max values:
+		double minx = DBL_MAX,
+			   miny = DBL_MAX,
+			   maxx = -DBL_MAX,
+			   maxy = -DBL_MAX;
+		//Iterator over all vertices
+		while(!IGRAPH_VIT_END(vit)){
+			int subindex = (int)IGRAPH_VIT_GET(vit);
+			double x = MATRIX(sublayout, subindex, 0) * factor;
+			double y = MATRIX(sublayout, subindex, 1) * factor;
+			minx = minx < x ? minx : x;
+			miny = miny < y ? miny : y;
+			maxx = maxx > x ? maxx : x;
+			maxy = maxy > y ? maxy : y;
+			IGRAPH_VIT_NEXT(vit);
+		}
+		//Reset vertex iterator
+		IGRAPH_VIT_RESET(vit);
+
+		// Compute translation
+		double tx = margin - minx;
+		double ty = margin - miny;
+		// Decide whether to put it below or left of current content
+		if(maxx - minx + offsetx < maxy - miny + offsety){
+			tx += offsetx;
+			offsetx += maxx - minx + margin;
+			if(offsety < maxy - miny + margin)
+				offsety = maxy - miny + margin;
+		}else{
+			ty += offsety;
+			offsety += maxy - miny + margin;
+			if(offsetx < maxx - minx + margin)
+				offsetx = maxx - minx + margin;
+		}
+		// Translate and extract results
+		while(!IGRAPH_VIT_END(vit)){
+			int subindex = (int)IGRAPH_VIT_GET(vit);
+			int index = (int)igraph_cattribute_VAN(subgraph, "id", subindex);
+			double x = MATRIX(sublayout, subindex, 0) * factor;
+			double y = MATRIX(sublayout, subindex, 1) * factor;
+			posx[index] = x + tx;
+			posy[index] = y + ty;
+			IGRAPH_VIT_NEXT(vit);
+		}
+		// Destroy iterator and selector
+		igraph_vit_destroy(&vit);
+		igraph_vs_destroy(&vs);
+
+		// Destroy the sublayout
+		igraph_matrix_destroy(&sublayout);
+
+		// Destroy subgraph
+		igraph_destroy(subgraph);
+		free(VECTOR(subgraphs)[i]);
 	}
 
-	// Destroy the result
-	igraph_matrix_destroy(&pos);
+	// Remove the attributes
+	igraph_cattribute_remove_v(&graph, "id");
 
 	// Destroy the graph
 	igraph_destroy(&graph);
 
+	// Insert results
+	i = 0;
+	for(PlaceIter it = places.begin(); it != places.end(); it++){
+		it->x = posx[i];
+		it->y = posy[i];
+		i++;
+	}
+	for(TransitionIter it = transitions.begin(); it != transitions.end(); it++){
+		it->x = posx[i];
+		it->y = posy[i];
+		i++;
+	}
 
 	// Produce variables
 	for(VarIter it = vars.begin(); it != vars.end(); it++)
