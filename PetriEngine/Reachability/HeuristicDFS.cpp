@@ -37,7 +37,22 @@ ReachabilityResult HeuristicDFS::reachable(const PetriNet& net,
 	Structures::DistanceMatrix distanceMatrix(net);
 
 	State* ns = allocator.createState();
+	unsigned int max = 0;
+	int count = 0;
 	while(!stack.empty()){
+		// Progress reporting and abort checking
+		if(count++ & 1<<16){
+			if(stack.size() > max)
+				max = stack.size();
+			count = 0;
+			// Report progress
+			reportProgress((double)(max - stack.size())/(double)max);
+			// Check abort
+			if(abortRequested())
+				return ReachabilityResult(ReachabilityResult::Unknown,
+										"Search was aborted.");
+		}
+
 		State* s = stack.back();
 		stack.pop_back();
 		State* succ[net.numberOfTransitions()];
@@ -68,8 +83,10 @@ ReachabilityResult HeuristicDFS::reachable(const PetriNet& net,
 			bool foundSomething = false;
 			unsigned int min = 0;
 			for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
-				if((foundSomething = succ[t] && (!foundSomething || distances[t] < distances[min])))
+				if(succ[t] && (!foundSomething || distances[t] < distances[min])){
 					min = t;
+					foundSomething = true;
+				}
 			}
 			if(foundSomething){
 				stack.push_back(succ[min]);

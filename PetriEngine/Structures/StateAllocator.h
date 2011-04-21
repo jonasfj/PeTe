@@ -11,7 +11,7 @@ namespace PetriEngine {
 namespace Structures {
 
 /** Class for allocating states in blocks */
-template<size_t blocksize = 100000>
+template<size_t blocksize = 500000>
 class StateAllocator{
 	struct Block{
 		Block* parent;
