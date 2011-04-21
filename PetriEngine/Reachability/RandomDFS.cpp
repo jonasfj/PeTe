@@ -60,15 +60,18 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 			t = random;
 			do{
 				if(succ[t]){
-					stack.push_back(succ[t]));
+					stack.push_back(succ[t]);
 					succ[t] = NULL;
 					t++;
 					break;
 				}
-				t = t+1 % net.numberOfTransitions()
-			}while(t != random);
+				t = (t+1) % net.numberOfTransitions();
+			} while(t != random);
 		} while(t != random);
 	}
+
+	return ReachabilityResult(ReachabilityResult::NotSatisfied,
+						"No state satisfying the query exists.");
 }
 
 }} // Namespaces

@@ -5,9 +5,11 @@
 #include "HashUnderApproximation.h"
 #include "ClosestFirstReachability.h"
 #include "RandomPrioritizedReachability.h"
+#include "RandomDFS.h"
 #include "../PQL/Contexts.h"
 
 #define NAME_DFS								"Naive DFS with Hash"
+#define NAME_RandomDFS							"Random DFS with hash"
 #define NAME_HashUnderApproximation				"Hash under-approximation"
 #define NAME_ClosestFirstReachabilityAvg		"Closest-First (Avg)"
 #define NAME_ClosestFirstReachabilityExt		"Closest-First (Extreme)"
@@ -24,6 +26,7 @@ namespace PetriEngine { namespace Reachability {
 std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 	std::vector<std::string> strategies;
 	strategies.push_back(NAME_DFS);
+	strategies.push_back(NAME_RandomDFS);
 	strategies.push_back(NAME_HashUnderApproximation);
 	strategies.push_back(NAME_ClosestFirstReachabilityAvg);
 	strategies.push_back(NAME_ClosestFirstReachabilityExt);
@@ -37,6 +40,8 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std::string& strategy){
 	if(strategy == NAME_DFS)
 		return new DepthFirstReachabilitySearch();
+	if(strategy == NAME_RandomDFS)
+		return new RandomDFS();
 	if(strategy == NAME_HashUnderApproximation)
 		return new HashUnderApproximation();
 	if(strategy == NAME_ClosestFirstReachabilityAvg){
