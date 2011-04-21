@@ -20,7 +20,8 @@ SOURCES		   += \
     PQL/CompiledCondition.cpp \
     Structures/DistanceMatrix.cpp \
     Reachability/RandomPrioritizedReachability.cpp \
-    LayoutBuilder.cpp
+    LayoutBuilder.cpp \
+    Reachability/RandomDFS.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -48,7 +49,8 @@ HEADERS		   += \
     Structures/DistanceMatrix.h \
     Reachability/RandomPrioritizedReachability.h \
     Structures/StateAllocator.h \
-    LayoutBuilder.h
+    LayoutBuilder.h \
+    Reachability/RandomDFS.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine

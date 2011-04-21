@@ -2,7 +2,6 @@
 
 //#include "KarpMillerL1SearchStrategy.h"
 #include "DepthFirstReachabilitySearch.h"
-#include "DFRSHash.h"
 #include "HashUnderApproximation.h"
 #include "ClosestFirstReachability.h"
 #include "RandomPrioritizedReachability.h"
