@@ -71,7 +71,13 @@ void free_subgraphs(igraph_vector_ptr_t *subgraphs) {
   }
 }
 
+bool attrTableAttached = false;
+
 void LayoutBuilder::produce(AbstractPetriNetBuilder *builder){
+	if(!attrTableAttached){
+		igraph_i_set_attribute_table(&igraph_cattribute_table);
+		attrTableAttached = true;
+	}
 	size_t N = places.size() + transitions.size();
 	size_t V = inArcs.size() + outArcs.size();
 	igraph_t graph;
@@ -110,14 +116,63 @@ void LayoutBuilder::produce(AbstractPetriNetBuilder *builder){
 		for(PlaceIter it = places.begin(); it != places.end(); it++){
 			MATRIX(pos, i, 0) = (int)it->x;
 			MATRIX(pos, i, 1) = (int)it->y;
+			igraph_cattribute_VAN_set(&graph, "id", i, i);
 			i++;
 		}
 		for(TransitionIter it = transitions.begin(); it != transitions.end(); it++){
 			MATRIX(pos, i, 0) = (int)it->x;
 			MATRIX(pos, i, 1) = (int)it->y;
+			igraph_cattribute_VAN_set(&graph, "id", i, i);
 			i++;
 		}
 	}
+
+	// test decomposition
+
+
+	igraph_vector_ptr_t subgraphs;
+	igraph_vector_ptr_init(&subgraphs, 0);
+	igraph_decompose(&graph, &subgraphs, IGRAPH_WEAK, -1, 0);
+
+	fprintf(stderr, "Decompositions: %i\n", igraph_vector_ptr_size(&subgraphs));
+
+	for(int i = 0; i < igraph_vector_ptr_size(&subgraphs); i++){
+		igraph_t* g = (igraph_t*)VECTOR(subgraphs)[i];
+		fprintf(stderr, "Subgraph %i: %i\n", i, igraph_vcount((igraph_t*)VECTOR(subgraphs)[i]));
+		fprintf(stderr, "Subgraph %i: %i\n", i, igraph_ecount((igraph_t*)VECTOR(subgraphs)[i]));
+		igraph_write_graph_edgelist((igraph_t*)VECTOR(subgraphs)[i], stderr);
+
+		// Vertex selector
+		igraph_vs_t vs;
+		// Vertex iterator
+		igraph_vit_t vit;
+		igraph_vs_all(&vs);
+		igraph_vit_create(g, vs, &vit);
+
+		while(!IGRAPH_VIT_END(vit)){
+			fprintf(stderr, "%li = %i \n", (long int)IGRAPH_VIT_GET(vit),
+										(int)igraph_cattribute_VAN(g, "id", IGRAPH_VIT_GET(vit)));
+			IGRAPH_VIT_NEXT(vit);
+		}
+		igraph_vit_destroy(&vit);
+		igraph_vs_destroy(&vs);
+
+		/*// Allocate result matrix
+		igraph_matrix_t pos2;
+		// I assume this is the right size
+		igraph_matrix_init(&pos2, 0, 0);
+		igraph_layout_kamada_kawai(&graph, &pos2, 1000, ((double)N)/4.0, 10, 0.99, N*N, false);
+		*/
+
+		fprintf(stderr, "-----\n");
+	}
+
+
+
+	free_subgraphs(&subgraphs);
+
+
+	// test decomposition
 
 	// Run kamada kawai, with reasonable parameters
 	igraph_layout_kamada_kawai(&graph, &pos, 1000, ((double)N)/4.0, 10, 0.99, N*N, startFromCurrentPositions);
@@ -156,6 +211,9 @@ void LayoutBuilder::produce(AbstractPetriNetBuilder *builder){
 
 	// Destroy the result
 	igraph_matrix_destroy(&pos);
+
+	// Destroy the attributes
+	igraph_cattribute_remove_v(&graph, "id");
 
 	// Destroy the graph
 	igraph_destroy(&graph);
