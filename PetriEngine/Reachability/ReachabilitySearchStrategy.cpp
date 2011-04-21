@@ -7,6 +7,7 @@
 #include "ClosestFirstReachability.h"
 #include "RandomPrioritizedReachability.h"
 #include "RandomDFS.h"
+#include "HeuristicDFS.h"
 #include "../PQL/Contexts.h"
 
 #define NAME_DFS								"Naive DFS with Hash"
@@ -18,6 +19,7 @@
 #define NAME_ClosestFirstReachabilitySum		"Closest-First (Extreme, ArcCount)"
 #define NAME_ClosestFirstReachabilityTokenCost	"Closest-First (Extreme, TokenCost)"
 #define NAME_RandomPrioritizedReachability		"Random-First"
+#define NAME_HeuristicDFSTokenCost				"Heuristic DFS (TokenCost)"
 
 
 #include <stdio.h>
@@ -35,7 +37,8 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_ClosestFirstReachabilityExt,
 		NAME_ClosestFirstReachabilitySum,
 		NAME_ClosestFirstReachabilityTokenCost,
-		NAME_RandomPrioritizedReachability
+		NAME_RandomPrioritizedReachability,
+		NAME_HeuristicDFSTokenCost
 	};
 	return std::vector<std::string>(strats, strats + sizeof(strats) / sizeof(std::string));
 }
@@ -68,6 +71,10 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	}
 	if(strategy == NAME_RandomPrioritizedReachability)
 		return new RandomPrioritizedReachability();
+	if(strategy == NAME_HeuristicDFSTokenCost){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme | PQL::DistanceContext::TokenCost;
+		return new HeuristicDFS((PQL::DistanceContext::DistanceStrategy)flags);
+	}
 	//If we didn't find it
 	fprintf(stderr, "Reachability strategy: \"%s\" not found!", strategy.c_str());
 	return new DepthFirstReachabilitySearch();
