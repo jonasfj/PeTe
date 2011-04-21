@@ -9,6 +9,7 @@ extern PetriEngine::PQL::Condition* query;
 extern int pqlqparse();
 %}
 %option prefix="pqlq"
+%option nounput
 
 digit         [0-9]
 letter        [a-zA-Z_]

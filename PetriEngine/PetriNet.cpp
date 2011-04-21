@@ -1,6 +1,8 @@
 #include "PetriNet.h"
 #include "PQL/PQL.h"
 #include "PQL/Contexts.h"
+#include "Structures/State.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -73,6 +75,10 @@ bool PetriNet::fire(unsigned int t,
 		memcpy(result_a, a, sizeof(VarVal) * _nVariables);
 
 	return true;
+}
+
+bool PetriNet::fire(unsigned int transition, const Structures::State* s, Structures::State* ns) const{
+	return fire(transition, s->marking(), s->valuation(), ns->marking(), ns->valuation());
 }
 
 bool PetriNet::fireWithMarkInf(unsigned int t,

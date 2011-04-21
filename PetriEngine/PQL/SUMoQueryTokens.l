@@ -11,6 +11,7 @@ extern std::string sumoName;
 extern int sumoparse();
 %}
 %option prefix="sumo"
+%option nounput
 
 digit			[0-9]
 letter			[_a-zA-Z]

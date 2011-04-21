@@ -9,6 +9,7 @@ extern PetriEngine::PQL::AssignmentExpression* assignment;
 extern int pqlaparse();
 %}
 %option prefix="pqla"
+%option nounput
 
 digit         [0-9]
 letter        [a-zA-Z_]
