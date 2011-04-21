@@ -1,8 +1,9 @@
 #include "DepthFirstReachabilitySearch.h"
 #include "../PQL/PQL.h"
 #include "../PQL/Contexts.h"
+#include "../Structures/StateSet.h"
+#include "../Structures/StateAllocator.h"
 
-#include <iostream>
 #include <list>
 #include <string.h>
 
@@ -15,15 +16,17 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 														   const MarkVal *m0,
 														   const VarVal *v0,
 														   PQL::Condition *query){
-	//Do we initially satisfy the query?
-	if(query->evaluate(PQL::EvaluationContext(m0,v0)))
+	//Do we initially satisfy query?
+	if(query->evaluate(PQL::EvaluationContext(m0, v0)))
 		return ReachabilityResult(ReachabilityResult::Satisfied,
 								  "A state satisfying the query was found");
-
-	//Step stack
+	//Create StateSet
+	StateSet states(net);
 	std::list<Step> stack;
 
-	State* s0 = State::createState(net.numberOfPlaces(),net.numberOfVariables());
+	StateAllocator<> allocator(net);
+
+	State* s0 = allocator.createState();
 	memcpy(s0->marking(), m0, sizeof(MarkVal)*net.numberOfPlaces());
 	memcpy(s0->valuation(), v0, sizeof(VarVal)*net.numberOfVariables());
 
@@ -31,44 +34,45 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 
 	unsigned int max = 0;
 	int count = 0;
+	State* ns = allocator.createState();
 	while(!stack.empty()){
-		if(count++ & 1<<10){
+		if(count++ & 1<<17){
 			if(stack.size() > max)
 				max = stack.size();
 			count = 0;
-			//Report progress
-			reportProgress((double)(max - stack.size()) / (double)max);
+			//report progress
+			reportProgress((double)(max-stack.size())/(double)max);
 			//check abort
 			if(abortRequested())
 				return ReachabilityResult(ReachabilityResult::Unknown,
-										  "Search was aborted.");
+										"Search was aborted.");
 		}
 
+		//Take first step of the stack
 		State* s = stack.back().state;
-		State* ns = State::createState(net.numberOfPlaces(),net.numberOfVariables(), s);
+		ns->setParent(s);
 		bool foundSomething = false;
 		for(unsigned int t = stack.back().t; t < net.numberOfTransitions(); t++){
 			if(net.fire(t, s->marking(), s->valuation(), ns->marking(), ns->valuation())){
-				if(!ns->isLoop(net)){
+				if(states.add(ns)){
 					ns->setTransition(t);
 					if(query->evaluate(PQL::EvaluationContext(ns->marking(), ns->valuation())))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-												  "A state satisfying the query was found");
+									  "A state satisfying the query was found");
 					stack.back().t = t + 1;
 					stack.push_back(Step(ns, 0));
 					foundSomething = true;
+					ns = allocator.createState();
 					break;
 				}
 			}
 		}
-		if(!foundSomething){
-			State::deleteState(ns);
-			ns = NULL;
-			stack.pop_back();;
-		}
+		if(!foundSomething)
+			stack.pop_back();
 	}
 	return ReachabilityResult(ReachabilityResult::NotSatisfied,
-							  "No state satisfying the query exists.");
+							"No state satisfying the query exists.");
 }
+
 } // Reachability
 } // PetriEngine

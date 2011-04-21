@@ -7,8 +7,7 @@
 #include <PetriEngine/PetriNetBuilder.h>
 #include <PetriEngine/PetriNet.h>
 #include <PetriEngine/PQL/PQLParser.h>
-#include <PetriEngine/Reachability/DepthFirstReachabilitySearch.h>
-#include <PetriEngine/Reachability/DFRSHash.h>
+#include <PetriEngine/Reachability/ReachabilitySearchStrategy.h>
 #include <PetriEngine/PQL/PQL.h>
 #include <PetriEngine/PQL/Contexts.h>
 
@@ -96,10 +95,7 @@ int main(int argc, char *argv[])
 
 		//Load up reachability engine
 		ReachabilitySearchStrategy* strat;
-		if(!strategy.isEmpty())
-			strat = ReachabilitySearchStrategy::createStrategy(strategy.toStdString());
-		else
-			strat = new DFRSHash();
+		strat = ReachabilitySearchStrategy::createStrategy(strategy.toStdString());
 
 		ReachabilityResult result;
 		result = strat->reachable(*net, m0, a0, query);

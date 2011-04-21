@@ -12,7 +12,6 @@ SOURCES		   += \
     PetriNetBuilder.cpp \
     ValidationBuilder.cpp \
 	Reachability/ReachabilitySearchStrategy.cpp \
-    Reachability/DFRSHash.cpp \
     PQL/Expressions.cpp \
     PQL/PQL.cpp \
     Reachability/HashUnderApproximation.cpp \
@@ -37,7 +36,6 @@ HEADERS		   += \
 	Reachability/DepthFirstReachabilitySearch.h \
 	Structures/State.h \
 	Structures/StateSet.h \
-    Reachability/DFRSHash.h \
     PQL/PQL.h \
     PQL/Expressions.h \
     Structures/BlockStack.h \

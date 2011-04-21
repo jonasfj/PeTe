@@ -18,7 +18,7 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 															PQL::Condition *query){
 	StateAllocator<> allocator(net);
 
-	State* s0 = allocator.createState(net);
+	State* s0 = allocator.createState();
 	memcpy(s0->marking(), m0, sizeof(MarkVal) * net.numberOfPlaces());
 	memcpy(s0->valuation(), v0, sizeof(VarVal) * net.numberOfVariables());
 

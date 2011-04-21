@@ -8,13 +8,13 @@ using namespace PetriEngine::Structures;
 
 namespace PetriEngine { namespace Reachability {
 
-/** Implements reachability check in a DFS manner */
+/** Implements reachability check in a DFS manner, using a hash table */
 class DepthFirstReachabilitySearch : public ReachabilitySearchStrategy
 {
 public:
 	DepthFirstReachabilitySearch() : ReachabilitySearchStrategy(){}
 
-	/** Perform reachability check using the DepthFirstSearch */
+	/** Perform reachability check using DFS with hash table */
 	ReachabilityResult reachable(const PetriNet &net,
 								 const MarkVal* initialMarking,
 								 const VarVal* initialAssignment,
