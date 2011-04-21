@@ -20,7 +20,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 	//Do we initially satisfy query?
 	if(query->evaluate(PQL::EvaluationContext(m0, v0)))
 		return ReachabilityResult(ReachabilityResult::Satisfied,
-								  "A state satisfying the query was found");
+								  "A state satisfying the query was found", 0);
 
 	StateSet states(net);
 	StateAllocator<> allocator(net);
@@ -60,7 +60,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 				if(states.add(ns)){
 					if(query->evaluate(*ns))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-												"A state satisfying the query was found");
+												"A state satisfying the query was found", count);
 					ns->setParent(s);
 					ns->setTransition(t);
 					succ[t] = ns;
@@ -87,7 +87,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 	}
 
 	return ReachabilityResult(ReachabilityResult::NotSatisfied,
-						"No state satisfying the query exists.");
+						"No state satisfying the query exists.", count);
 }
 
 }} // Namespaces

@@ -17,18 +17,22 @@ public:
 	};
 
 	/** Create a new instance of ReachabilityResult */
-	ReachabilityResult(Result result = Unknown, const std::string& explanation = ""){
+	ReachabilityResult(Result result = Unknown, const std::string& explanation = "", int expandedStates = -1){
 		_result = result;
 		_explanation = explanation;
+		_expandedStates = expandedStates;
 	}
 
 	/** Gets a human readable explanation */
 	const std::string& explanation() const { return _explanation;}
 	/** Gets the formal result */
 	Result result() const{ return _result; }
+	/** Gets the number of expanded states */
+	int expandedStates(){ return _expandedStates; }
 private:
 	std::string _explanation;
 	Result _result;
+	int _expandedStates;
 };
 
 } // Reachability
