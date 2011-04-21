@@ -13,6 +13,7 @@ void sumoerror(const char *s) {printf("ERROR: %s: %s\n", s, sumotext);}
 %}
 
 %name-prefix "sumo"
+%expect 6
 
 /* Data representation */
 %union {
