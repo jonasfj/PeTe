@@ -63,33 +63,6 @@ public:
 		return false;
 	}
 
-	/*** Static and non-mission-critical functionality ***/
-
-	/** Create a new state */
-	static inline State* createState(int nPlaces, int nVars, State* parent = NULL) {
-		size_t size = sizeof(State) + sizeof(MarkVal)*nPlaces + sizeof(VarVal)*nVars;
-		char *d = new char[size];
-		memset(d, 0, size);
-		State* s = (State*)d;
-		s->_parentTransition = 0;
-		s->_marking = (MarkVal*)(d + sizeof(State));
-		s->_valuation = (VarVal*)(d+ sizeof(State) + sizeof(MarkVal) * nPlaces);
-		if(parent)
-			s->_parent = parent;
-		return (State*)d;
-	}
-
-	/** Create a new state from a net */
-	static inline State* createState(const PetriNet& net, State* parent = NULL){
-		return createState(net.numberOfPlaces(), net.numberOfVariables(), parent);
-	}
-
-	/** Deletes a state */
-	static inline void deleteState(State* state){
-		char* d = (char*)state;
-		delete[] d;
-	}
-
 	/** State specialisation of std::hash */
 	class hash : public std::unary_function<State*, size_t>{
 	public:
