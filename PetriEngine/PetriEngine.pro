@@ -21,7 +21,8 @@ SOURCES		   += \
     Structures/DistanceMatrix.cpp \
     Reachability/RandomPrioritizedReachability.cpp \
     LayoutBuilder.cpp \
-    Reachability/RandomDFS.cpp
+    Reachability/RandomDFS.cpp \
+    Reachability/HeuristicDFS.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -50,7 +51,8 @@ HEADERS		   += \
     Reachability/RandomPrioritizedReachability.h \
     Structures/StateAllocator.h \
     LayoutBuilder.h \
-    Reachability/RandomDFS.h
+    Reachability/RandomDFS.h \
+    Reachability/HeuristicDFS.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine

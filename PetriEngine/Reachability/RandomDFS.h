@@ -4,8 +4,6 @@
 #include "ReachabilitySearchStrategy.h"
 #include "../Structures/State.h"
 
-using namespace PetriEngine::Structures;
-
 namespace PetriEngine { namespace Reachability {
 
 /** Implements reachability check in a random DFS manner, using a hash table */
@@ -20,6 +18,7 @@ public:
 								 PQL::Condition* query);
 };
 
-}}	// Namespaces
+} // Reachability
+} // PetriEngine
 
 #endif // RANDOMDFS_H

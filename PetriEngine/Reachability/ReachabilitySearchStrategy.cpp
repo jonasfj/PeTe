@@ -24,16 +24,17 @@ namespace PetriEngine { namespace Reachability {
 
 /** List all reachability strategies, return unqiue display names */
 std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
-	std::vector<std::string> strategies;
-	strategies.push_back(NAME_DFS);
-	strategies.push_back(NAME_RandomDFS);
-	strategies.push_back(NAME_HashUnderApproximation);
-	strategies.push_back(NAME_ClosestFirstReachabilityAvg);
-	strategies.push_back(NAME_ClosestFirstReachabilityExt);
-	strategies.push_back(NAME_ClosestFirstReachabilitySum);
-	strategies.push_back(NAME_ClosestFirstReachabilityTokenCost);
-	strategies.push_back(NAME_RandomPrioritizedReachability);
-	return strategies;
+	std::string strats[] = {
+		NAME_DFS,
+		NAME_RandomDFS,
+		NAME_HashUnderApproximation,
+		NAME_ClosestFirstReachabilityAvg,
+		NAME_ClosestFirstReachabilityExt,
+		NAME_ClosestFirstReachabilitySum,
+		NAME_ClosestFirstReachabilityTokenCost,
+		NAME_RandomPrioritizedReachability
+	};
+	return std::vector<std::string>(strats, strats + sizeof(strats) / sizeof(std::string));
 }
 
 /** Create a reachability strategy from string, NULL if not found */
