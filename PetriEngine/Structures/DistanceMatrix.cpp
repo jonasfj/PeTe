@@ -21,9 +21,9 @@ void DistanceMatrix::generate(const PetriNet& net){
 	// Generate the initial connections
 	for(size_t p1 = 0; p1 < _dim; p1++){
 		for(size_t t = 0; t < net.numberOfTransitions(); t++){
-			if(net.inArc(p1,t)){
+			if(net.inArc(p1,t) - net.inArc(t, p1) > 0){
 				for(size_t p2 = 0; p2 < _dim; p2++){
-					if(net.outArc(t, p2)){
+					if(net.outArc(t, p2) - net.inArc(p2, t) > 0){
 						d(p1, p2) = 1;
 					}
 				}
