@@ -4,6 +4,7 @@
 #include <sstream>
 #include <assert.h>
 #include <string.h>
+#include <stdio.h>
 #include <set>
 
 namespace PetriEngine {
@@ -331,6 +332,7 @@ double CompareCondition::distance(DistanceContext& context) const{
 	} else if(context.strategy() & DistanceContext::TokenCost){
 		int d = delta(v1, v2, context.negated());
 		if(d == 0) return 0;
+		//TODO: Account for when we have too many tokens instead of too few
 		if(_expr1->pfree() && !_expr2->pfree() && _expr2->type() == Expr::IdentifierExpr){
 			IdentifierExpr* id = (IdentifierExpr*)_expr2;
 			return context.distanceMatrix()->tokenCost(id->offset(), d, context.marking());

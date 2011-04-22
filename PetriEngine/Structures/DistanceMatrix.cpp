@@ -7,7 +7,6 @@ DistanceMatrix::DistanceMatrix(const PetriNet& net){
 	_dim = net.numberOfPlaces();
 	_matrix = new unsigned int[(_dim * _dim - _dim) + (_dim * _dim)];
 	pm = _matrix + (_dim * _dim - _dim);
-	memset(_matrix, INFINITE_DISTANCE, _dim * _dim - _dim);
 	generate(net);
 }
 
@@ -17,11 +16,20 @@ DistanceMatrix::~DistanceMatrix(){
 	_matrix = NULL;
 }
 
+#define MIN(a,b)	(a < b ? a : b)
+#define MAX(a,b)	(a > b ? a : b)
+
 void DistanceMatrix::generate(const PetriNet& net){
+	for(size_t i = 0; i < _dim; i++){
+		for(size_t j = 0; j < _dim; j++){
+			d(j, i) = INFINITE_DISTANCE;
+		}
+	}
 	// Generate the initial connections
 	for(size_t p1 = 0; p1 < _dim; p1++){
+		d(p1, p1) = 0;
 		for(size_t t = 0; t < net.numberOfTransitions(); t++){
-			if(net.inArc(p1,t) - net.inArc(t, p1) > 0){
+			if(net.inArc(p1,t) - net.outArc(t, p1) > 0){
 				for(size_t p2 = 0; p2 < _dim; p2++){
 					if(net.outArc(t, p2) - net.inArc(p2, t) > 0){
 						d(p1, p2) = 1;
@@ -35,9 +43,9 @@ void DistanceMatrix::generate(const PetriNet& net){
 		for(size_t i = 0; i < _dim; i++){
 			for(size_t j = 0; j < _dim; j++){
 				unsigned int D = d(i,k) + d(k,j);
-				if(d(i,k) == INFINITE_DISTANCE || d(k,j) == INFINITE_DISTANCE)
+				if(d(i,k) >= INFINITE_DISTANCE || d(k,j) >= INFINITE_DISTANCE)
 					D = INFINITE_DISTANCE;
-				d(i, j) = d(i, j) < D ? d(i, j) : D;
+				d(i, j) = MIN(d(i, j), D);
 			}
 		}
 	}
@@ -50,7 +58,7 @@ void DistanceMatrix::generate(const PetriNet& net){
 				bool taken = false;
 				for(size_t j = 0; j < i; j++)
 					taken |= (pm[p1 * _dim + j] == p2);
-				if(taken && d(p2, p1) <= min){
+				if(!taken && d(p2, p1) <= min){
 					min = d(p2, p1);
 					pmin = p2;
 				}

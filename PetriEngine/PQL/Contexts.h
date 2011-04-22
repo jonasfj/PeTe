@@ -88,13 +88,13 @@ class DistanceContext : public EvaluationContext{
 public:
 	/** Strategy flags for distance computation */
 	enum DistanceStrategy{
-		AndExtreme	= 0x1,
-		AndAverage	= 0x2,
-		AndSum		= 0x4,
-		OrExtreme	= 0x8,
-		OrAverage	= 0x16,
-		ArcCount	= 0x32,
-		TokenCost	= 0x64
+		AndExtreme	= 1<<0,
+		AndAverage	= 1<<1,
+		AndSum		= 1<<2,
+		OrExtreme	= 1<<3,
+		OrAverage	= 1<<4,
+		ArcCount	= 1<<5,
+		TokenCost	= 1<<6
 	};
 
 	DistanceContext(const PetriNet& net,

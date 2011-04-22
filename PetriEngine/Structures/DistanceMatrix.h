@@ -6,6 +6,8 @@
 #include <string.h>
 #include <set>
 #include <stdlib.h>
+#include <stdio.h>
+
 
 namespace PetriEngine{
 namespace Structures{

@@ -9,6 +9,7 @@
 #include "RandomDFS.h"
 #include "HeuristicDFS.h"
 #include "../PQL/Contexts.h"
+#include <stdio.h>
 
 #define NAME_DFS								"Naive DFS with Hash"
 #define NAME_RandomDFS							"Random DFS with Hash"
@@ -21,6 +22,9 @@
 #define NAME_TokenCostDeep						"Token Cost Deep!"
 #define NAME_RandomPrioritizedReachability		"Random-First"
 #define NAME_HeuristicDFSTokenCost				"Heuristic DFS (TokenCost)"
+#define NAME_ArcCountSum						"ArcCount-Sum"
+#define NAME_ExtOrSumAnd						"Extreme-Or Sum-And"
+#define NAME_ExtOrSumAndDeep					"Extreme-Or Sum-And Deep!"
 
 
 #include <stdio.h>
@@ -37,6 +41,9 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_ClosestFirstReachabilityAvg,
 		NAME_ClosestFirstReachabilityExt,
 		NAME_ClosestFirstReachabilitySum,
+		NAME_ArcCountSum,
+		NAME_ExtOrSumAnd,
+		NAME_ExtOrSumAndDeep,
 		NAME_ClosestFirstReachabilityTokenCost,
 		NAME_TokenCostDeep,
 		NAME_RandomPrioritizedReachability,
@@ -63,8 +70,20 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme;
 		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
 	}
+	if(strategy == NAME_ExtOrSumAnd){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
+	}
+	if(strategy == NAME_ExtOrSumAndDeep){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags, true);
+	}
 	if(strategy == NAME_ClosestFirstReachabilitySum){
 		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme | PQL::DistanceContext::ArcCount;
+		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
+	}
+	if(strategy == NAME_ArcCountSum){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme | PQL::DistanceContext::ArcCount;
 		return new ClosestFirstReachability((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	if(strategy == NAME_ClosestFirstReachabilityTokenCost){
