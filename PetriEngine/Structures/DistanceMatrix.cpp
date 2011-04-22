@@ -49,9 +49,9 @@ void DistanceMatrix::generate(const PetriNet& net){
 			for(size_t p2 = 0; p2 < _dim; p2++){
 				bool taken = false;
 				for(size_t j = 0; j < i; j++)
-					taken |= pm[p1 * _dim + i] == p2;
-				if(taken && d(p1, p2) <= min){
-					min = d(p1, p2);
+					taken |= (pm[p1 * _dim + j] == p2);
+				if(taken && d(p2, p1) <= min){
+					min = d(p2, p1);
 					pmin = p2;
 				}
 			}
