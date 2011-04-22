@@ -39,8 +39,8 @@ ReachabilityResult HeuristicDFS::reachable(const PetriNet& net,
 	State* ns = allocator.createState();
 	unsigned int max = 0;
 	int count = 0;
-	int expandedStates = 0;
-	int exploredStates = 0;
+	BigInt expandedStates = 0;
+	BigInt exploredStates = 0;
 	while(!stack.empty()){
 		// Progress reporting and abort checking
 		if(count++ & 1<<16){

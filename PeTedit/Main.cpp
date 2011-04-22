@@ -2,8 +2,10 @@
 #include <QFile>
 #include <iostream>
 #include "MainWindow.h"
+#include "time.h"
 
 #include "DataFormats/PNMLParser.h"
+#include "Misc/QueryListBuilder.h"
 #include <PetriEngine/PetriNetBuilder.h>
 #include <PetriEngine/PetriNet.h>
 #include <PetriEngine/PQL/PQLParser.h>
@@ -25,22 +27,21 @@ int main(int argc, char *argv[])
 	QCoreApplication::setOrganizationDomain("https://github.com/jopsen/PeTe");
 
 	//Parsed Arguments:
-	QString queryString;
+	QString queryName;
 	QString fileName;
 	QString strategy;
 
-	bool sumoQuery = false;
 	bool showGUI = true;
+	bool listQueries = false;
 	QStringList args = a.arguments();
 	for(int i = 1; i < args.size(); i++){
 		if(args[i] == "--query") {
-			queryString = args[++i];
+			queryName = args[++i];
 			showGUI = false;
-		} else if(args[i] == "--query-sumo"){
-			queryString = args[++i];
-			sumoQuery = true;
+		} else if(args[i] == "--list-queries") {
+			listQueries = true;
 			showGUI = false;
-		} else if(args[i] == "--strategies"){
+		}else if(args[i] == "--strategies"){
 			std::vector<std::string> strats = ReachabilitySearchStrategy::listStrategies();
 			for(size_t i = 0; i < strats.size(); i++)
 				printf("%s\n",strats[i].c_str());
@@ -68,29 +69,48 @@ int main(int argc, char *argv[])
 		if(!file.open(QIODevice::ReadOnly))
 			return 8;
 		PetriEngine::PetriNetBuilder builder;
+		QueryListBuilder qBuilder;
 		PNMLParser p;
-		p.parse(&file, &builder);
+		p.parse(&file, &builder, &qBuilder);
 		file.close();
 		// Load network
 		PetriNet* net = builder.makePetriNet();
 		MarkVal* m0 = builder.makeInitialMarking();
 		VarVal* a0 = builder.makeInitialAssignment();
+		QList<QueryModel::Query> queries = qBuilder.makeQueries();
 
-		PQL::Condition* query;
-		if(sumoQuery)
-			query = PQL::ParseSUMoQuery(queryString.toStdString()).query;
-		else
-			query = PQL::ParseQuery(queryString.toStdString());
+		if(listQueries){
+			std::cout<<"Available queries in network: "<<std::endl;
+			for(QList<QueryModel::Query>::iterator it = queries.begin(); it != queries.end(); it++)
+				std::cout<<(*it).name.toStdString()<<std::endl;
+			return 0;
+		}
+
+		// Find the query
+		QString queryString;
+		for(QList<QueryModel::Query>::iterator it = queries.begin(); it != queries.end(); it++){
+			if((*it).name == queryName){
+				queryString = (*it).query;
+				break;
+			}
+		}
+
+		if(queryString.isNull()){
+			std::cerr<<"Query was not found in the given network.";
+			return 1;
+		}
+
+		PQL::Condition* query = PQL::ParseQuery(queryString.toStdString());
 
 		//Load and analyze query
 		if(!query) {
-			std::cout<<"Syntax error in query"<<std::endl;
-			return 9;
+			std::cerr<<"Syntax error in query"<<std::endl;
+			return 2;
 		}
 		PQL::AnalysisContext context(*net);
 		query->analyze(context);
 		for(size_t i = 0; i < context.errors().size(); i++){
-			std::cout<<context.errors()[i].toString()<<std::endl;
+			std::cerr<<context.errors()[i].toString()<<std::endl;
 		}
 
 		//Load up reachability engine
@@ -98,14 +118,32 @@ int main(int argc, char *argv[])
 		strat = ReachabilitySearchStrategy::createStrategy(strategy.toStdString());
 
 		ReachabilityResult result;
+
+		clock_t startClock = clock();
 		result = strat->reachable(*net, m0, a0, query);
+		qreal finishTime = ((qreal)(clock() - startClock)) / (qreal)CLOCKS_PER_SEC;
+
 		delete query;
 		query = NULL;
 		delete strat;
 		strat = NULL;
 
+		// Trim file name incase of alternate folder
+		QString name;
+		bool chop = false;
+		int index = 0;
+		for(int i = 0; i < fileName.size(); i++){
+			if(fileName.at(i) == '/'){
+				chop = true;
+				index = i;
+			}
+		}
+		if(chop)
+			name = fileName.remove(0, index+1);
+
 		//Print result
-		std::cout<<result.explanation()<<std::endl;
+		std::string r = result.result() == ReachabilityResult::Satisfied ? "Satisfied" : "Not Satisfied";
+		std::cout<<name.toStdString()<<",\t"<<queryName.toStdString()<<",\t"<<strategy.toStdString()<<",\t"<<r<<",\t"<<finishTime<<",\t"<<result.expandedStates()<<",\t"<<result.exploredStates()<<std::endl;
 	}
 	return 0;
 }

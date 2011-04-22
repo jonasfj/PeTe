@@ -18,7 +18,7 @@
 #define NAME_ClosestFirstReachabilityExt		"Closest-First (Extreme)"
 #define NAME_ClosestFirstReachabilitySum		"Closest-First (Extreme, ArcCount)"
 #define NAME_ClosestFirstReachabilityTokenCost	"Closest-First (Extreme, TokenCost)"
-#define NAME_TokenCostDeep						"Token Cost Deep!"
+#define NAME_TokenCostDeep						"Token Cost Deep"
 #define NAME_RandomPrioritizedReachability		"Random-First"
 #define NAME_HeuristicDFSTokenCost				"Heuristic DFS (TokenCost)"
 

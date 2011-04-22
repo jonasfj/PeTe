@@ -3,6 +3,9 @@
 
 namespace PetriEngine { namespace Reachability {
 
+// Big int used for state space statistics
+typedef unsigned long long int BigInt;
+
 /** Result of a reachability search */
 class ReachabilityResult{
 public:
@@ -17,7 +20,7 @@ public:
 	};
 
 	/** Create a new instance of ReachabilityResult */
-	ReachabilityResult(Result result = Unknown, const std::string& explanation = "", int expandedStates = -1, int exploredStates = -1){
+	ReachabilityResult(Result result = Unknown, const std::string& explanation = "", BigInt expandedStates = 0, BigInt exploredStates = 0){
 		_result = result;
 		_explanation = explanation;
 		_expandedStates = expandedStates;
@@ -29,13 +32,13 @@ public:
 	/** Gets the formal result */
 	Result result() const{ return _result; }
 	/** Gets the number of expanded states */
-	int expandedStates(){ return _expandedStates; }
-	int exploredStates(){ return _exploredStates; }
+	BigInt expandedStates(){ return _expandedStates; }
+	BigInt exploredStates(){ return _exploredStates; }
 private:
 	std::string _explanation;
 	Result _result;
-	int _expandedStates;
-	int _exploredStates;
+	BigInt _expandedStates;
+	BigInt _exploredStates;
 };
 
 } // Reachability
