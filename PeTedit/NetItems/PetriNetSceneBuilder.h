@@ -2,6 +2,7 @@
 #define PETRINETSCENEBUILDER_H
 
 #include <PetriEngine/AbstractPetriNetBuilder.h>
+#include "../Misc/AbstractQueryListBuilder.h"
 #include "../Misc/QueryModel.h"
 
 #include <QUndoGroup>
@@ -10,7 +11,7 @@ class PetriNetScene;
 class PetriNetView;
 
 /** Builder for PetriNetScene */
-class PetriNetSceneBuilder : public PetriEngine::AbstractPetriNetBuilder
+class PetriNetSceneBuilder : public PetriEngine::AbstractPetriNetBuilder, public AbstractQueryListBuilder
 {
 	struct ArcEntry{
 		QString src;

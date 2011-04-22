@@ -2,6 +2,7 @@
 #define PNMLPARSER_H
 
 #include <PetriEngine/AbstractPetriNetBuilder.h>
+#include "../Misc/AbstractQueryListBuilder.h"
 
 class PetriNetSceneBuilder;
 
@@ -43,8 +44,7 @@ class PNMLParser
 public:
 	PNMLParser() { builder = NULL; qBuilder = NULL; }
 	/** Parse input and build result with builder */
-	void parse(QIODevice* input, PetriEngine::AbstractPetriNetBuilder* builder);
-	void parse(QIODevice* input, PetriNetSceneBuilder* builder);
+	void parse(QIODevice* input, PetriEngine::AbstractPetriNetBuilder* builder, AbstractQueryListBuilder* qbuilder = NULL);
 private:
 	void pnml();
 	void queries();
@@ -58,7 +58,7 @@ private:
 	/** Builder for creating new petri net */
 	PetriEngine::AbstractPetriNetBuilder* builder;
 	/** Query builder */
-	PetriNetSceneBuilder* qBuilder;
+	AbstractQueryListBuilder* qBuilder;
 	QXmlStreamReader xml;
 	QList<ArcEntry> arcs;
 	/** Maps Ids to names */

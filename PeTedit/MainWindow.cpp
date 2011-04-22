@@ -150,7 +150,7 @@ void MainWindow::on_OpenAction_triggered(){
 		PetriNetView* view = new PetriNetView();
 		PetriNetSceneBuilder builder(&undoGroup, view);
 		PNMLParser p;
-		p.parse(&file, &builder);
+		p.parse(&file, &builder, &builder);
 		file.close();
 		view->setScene(builder.makeScene());
 		view->setRenderHints(QPainter::Antialiasing |

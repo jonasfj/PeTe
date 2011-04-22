@@ -5,13 +5,9 @@
 #include <QtGlobal>
 #include <QDebug>
 
-void PNMLParser::parse(QIODevice* input, PetriNetSceneBuilder* builder){
-	qBuilder = builder;
-	parse(input, (PetriEngine::AbstractPetriNetBuilder*)builder);
-	qBuilder = NULL;
-}
+void PNMLParser::parse(QIODevice *input, PetriEngine::AbstractPetriNetBuilder *builder, AbstractQueryListBuilder* qBuilder){
+	this->qBuilder = qBuilder;
 
-void PNMLParser::parse(QIODevice *input, PetriEngine::AbstractPetriNetBuilder *builder){
 	bool wasOpen = input->isOpen();
 	if(!wasOpen)
 		input->open(QIODevice::ReadOnly);

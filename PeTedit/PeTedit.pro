@@ -44,7 +44,8 @@ SOURCES	   += \
     Misc/QueryThread.cpp \
     Misc/VariableModel.cpp \
     Widgets/MemoryMonitor.cpp \
-    Commands/AutoArrangeNetCommand.cpp
+    Commands/AutoArrangeNetCommand.cpp \
+    Misc/QueryListBuilder.cpp
 
 
 HEADERS		+= \
@@ -84,7 +85,9 @@ HEADERS		+= \
     Misc/CustomDataRoles.h \
     Misc/VariableModel.h \
     Widgets/MemoryMonitor.h \
-    Commands/AutoArrangeNetCommand.h
+    Commands/AutoArrangeNetCommand.h \
+    Misc/AbstractQueryListBuilder.h \
+    Misc/QueryListBuilder.h
 
 
 FORMS		+= MainWindow.ui \
