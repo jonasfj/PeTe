@@ -34,8 +34,8 @@ ReachabilityResult BreadthFirstReachabilitySearch::reachable(const PetriNet &net
 
 	unsigned int max = 0;
 	int count = 0;
-	int expandedStates = 0;
-	int exploredStates = 0;
+	BigInt expandedStates = 0;
+	BigInt exploredStates = 0;
 	State* ns = allocator.createState();
 	while(!queue.empty()){
 		// Progress reporting and abort checking

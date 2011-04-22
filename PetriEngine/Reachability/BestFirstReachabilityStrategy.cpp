@@ -38,8 +38,8 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 	State* ns2 = allocator.createState();
 	State* ns3 = allocator.createState();
 	int count = 0;
-	int expandedStates = 0;
-	int exploredStates = 0;
+	BigInt expandedStates = 0;
+	BigInt exploredStates = 0;
 	size_t max = 1;
 	while(!queue.empty()){
 		if(count++ & 1<<17){
@@ -93,7 +93,7 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 								ns3 = tmp;
 								if(query->evaluate(*ns2))
 									return ReachabilityResult(ReachabilityResult::Satisfied,
-													  "Query was satified!", expandedStates, exploredStates);
+													  "Query was satisfied!", expandedStates, exploredStates);
 							}
 							if(states.add(ns2)){
 								queue.push(priority(ns2, query, net), ns2);
