@@ -23,7 +23,7 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 	memcpy(s0->valuation(), v0, sizeof(VarVal) * net.numberOfVariables());
 
 	if(query->evaluate(*s0))
-		return ReachabilityResult(ReachabilityResult::Satisfied, "Satisfied initially");
+		return ReachabilityResult(ReachabilityResult::Satisfied, "Satisfied initially", 0, 0);
 
 	//Initialize subclasses
 	initialize(query, net);
@@ -38,6 +38,8 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 	State* ns2 = allocator.createState();
 	State* ns3 = allocator.createState();
 	int count = 0;
+	int expandedStates = 0;
+	int exploredStates = 0;
 	size_t max = 1;
 	while(!queue.empty()){
 		if(count++ & 1<<17){
@@ -55,12 +57,14 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 		if(!it++) break;	//Assume there's a first element
 		State* s = it.item();
 		queue.remove(it);	//Remove the element
+		expandedStates++;
 
 		// Attempt to fire each transition
 		for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
 			if(net.fire(t, s->marking(), s->valuation(), ns->marking(), ns->valuation())){
 				//If it's new
 				if(states.add(ns)){
+					exploredStates++;
 					//Set parent and transition for the state
 					ns->setParent(s);
 					ns->setTransition(t);
@@ -68,7 +72,7 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 					//Test query
 					if(query->evaluate(*ns))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-												  "Query was satified!");
+												  "Query was satified!", expandedStates, exploredStates);
 
 					// Insert in queue, with given priority
 					double bestp = priority(ns, query, net);
@@ -89,7 +93,7 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 								ns3 = tmp;
 								if(query->evaluate(*ns2))
 									return ReachabilityResult(ReachabilityResult::Satisfied,
-													  "Query was satified!");
+													  "Query was satified!", expandedStates, exploredStates);
 							}
 							if(states.add(ns2)){
 								queue.push(priority(ns2, query, net), ns2);
@@ -106,7 +110,7 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 	}
 
 	return ReachabilityResult(ReachabilityResult::NotSatisfied,
-							  "Query cannot be satisfied!");
+							  "Query cannot be satisfied!", expandedStates, exploredStates);
 }
 
 //Empty default implementation

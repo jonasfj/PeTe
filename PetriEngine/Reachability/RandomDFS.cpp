@@ -20,7 +20,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 	//Do we initially satisfy query?
 	if(query->evaluate(PQL::EvaluationContext(m0, v0)))
 		return ReachabilityResult(ReachabilityResult::Satisfied,
-								  "A state satisfying the query was found", 0);
+								  "A state satisfying the query was found", 0, 0);
 
 	StateSet states(net);
 	StateAllocator<> allocator(net);
@@ -37,6 +37,8 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 
 	unsigned int max = 0;
 	int count = 0;
+	int exploredStates = 0;
+	int expandedStates = 0;
 	while(!stack.empty()){
 		// Progress reporting and abort checking
 		if(count++ & 1<<17){
@@ -51,8 +53,14 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 										"Search was aborted.");
 		}
 
+		exploredStates++;
 		State* s = stack.back();
 		stack.pop_back();
+		if(!s){
+			s = stack.back();
+			stack.pop_back();
+			expandedStates++;
+		}
 		State* succ[net.numberOfTransitions()];
 		memset(succ, 0, net.numberOfTransitions()*sizeof(State*));
 		for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
@@ -60,7 +68,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 				if(states.add(ns)){
 					if(query->evaluate(*ns))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-												"A state satisfying the query was found", count);
+												"A state satisfying the query was found", expandedStates, exploredStates);
 					ns->setParent(s);
 					ns->setTransition(t);
 					succ[t] = ns;
@@ -69,6 +77,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 			}
 		}
 		// Randomly sorts states into the stack
+		stack.push_back(NULL);
 		int random;
 		int t;
 		do {
@@ -87,7 +96,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 	}
 
 	return ReachabilityResult(ReachabilityResult::NotSatisfied,
-						"No state satisfying the query exists.", count);
+						"No state satisfying the query exists.", expandedStates, exploredStates);
 }
 
 }} // Namespaces

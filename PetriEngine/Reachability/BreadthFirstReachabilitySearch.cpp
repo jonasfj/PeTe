@@ -19,7 +19,7 @@ ReachabilityResult BreadthFirstReachabilitySearch::reachable(const PetriNet &net
 	//Do we initially satisfy query?
 	if(query->evaluate(PQL::EvaluationContext(m0, v0)))
 		return ReachabilityResult(ReachabilityResult::Satisfied,
-								  "A state satisfying the query was found", 0);
+								  "A state satisfying the query was found", 0, 0);
 	//Create StateSet
 	StateSet states(net);
 	std::list<State*> queue;
@@ -35,6 +35,7 @@ ReachabilityResult BreadthFirstReachabilitySearch::reachable(const PetriNet &net
 	unsigned int max = 0;
 	int count = 0;
 	int expandedStates = 0;
+	int exploredStates = 0;
 	State* ns = allocator.createState();
 	while(!queue.empty()){
 		// Progress reporting and abort checking
@@ -55,9 +56,10 @@ ReachabilityResult BreadthFirstReachabilitySearch::reachable(const PetriNet &net
 		for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
 			if(net.fire(t, s, ns)){
 				if(states.add(ns)){
+					exploredStates++;
 					if(query->evaluate(*ns))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-												"A state satisfying the query was found", expandedStates);
+												"A state satisfying the query was found", expandedStates, exploredStates);
 					ns->setParent(s);
 					ns->setTransition(t);
 					queue.push_back(ns);
@@ -69,7 +71,7 @@ ReachabilityResult BreadthFirstReachabilitySearch::reachable(const PetriNet &net
 	}
 
 	return ReachabilityResult(ReachabilityResult::NotSatisfied,
-						"No state satisfying the query exists.", expandedStates);
+						"No state satisfying the query exists.", expandedStates, exploredStates);
 }
 
 }}
