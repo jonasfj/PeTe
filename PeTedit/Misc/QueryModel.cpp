@@ -56,8 +56,18 @@ QVariant QueryModel::data(const QModelIndex &index, int role) const{
 
 	if(role == Qt::ToolTipRole){
 		if(state.result.explanation().empty())
-			return "Satisfiability unknown, run query to find it";
+			return tr("Satisfiability unknown, run query to find it");
 		return state.result.explanation().c_str();
+	}
+
+	//Display stats in status bar
+	if(role == Qt::StatusTipRole){
+		QString retval  = "";
+		if(!state.result.explanation().empty()){
+			retval += tr("expanded states: ") + QString::number(state.result.expandedStates()) + " ";
+			retval += tr("explored states: ") + QString::number(state.result.exploredStates());
+		}
+		return retval;
 	}
 
 	if(role == DataRoles::ProgressText &&

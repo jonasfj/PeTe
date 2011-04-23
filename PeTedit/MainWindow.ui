@@ -235,6 +235,9 @@
      </property>
      <item>
       <widget class="QTableView" name="queryView">
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
        <property name="horizontalScrollBarPolicy">
         <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>

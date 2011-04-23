@@ -91,6 +91,7 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 								State* tmp = ns2;	//SWAP ns2 and ns3
 								ns2 = ns3;
 								ns3 = tmp;
+								exploredStates++;
 								if(query->evaluate(*ns2))
 									return ReachabilityResult(ReachabilityResult::Satisfied,
 													  "Query was satisfied!", expandedStates, exploredStates);

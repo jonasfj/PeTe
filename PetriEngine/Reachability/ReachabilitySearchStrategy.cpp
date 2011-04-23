@@ -101,7 +101,7 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 		return new HeuristicDFS((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	//If we didn't find it
-	fprintf(stderr, "Reachability strategy: \"%s\" not found!", strategy.c_str());
+	fprintf(stderr, "Reachability strategy: \"%s\" not found!\n", strategy.c_str());
 	return new DepthFirstReachabilitySearch();
 }
 
