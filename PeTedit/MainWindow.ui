@@ -414,7 +414,7 @@
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
-           <normaloff>:/Icons/refresh.svg</normaloff>:/Icons/refresh.svg</iconset>
+           <normaloff>:/Icons/validate.svg</normaloff>:/Icons/validate.svg</iconset>
          </property>
         </widget>
        </item>
@@ -574,6 +574,10 @@
    </property>
   </action>
   <action name="autoArrangeAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/autoarrange.svg</normaloff>:/Icons/autoarrange.svg</iconset>
+   </property>
    <property name="text">
     <string>Auto arrange petri net</string>
    </property>

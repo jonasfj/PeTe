@@ -19,5 +19,6 @@
         <file alias="pointer.svg">Icons/pointer.svg</file>
         <file alias="pete.svg">Icons/pete.svg</file>
         <file alias="validate.svg">Icons/validate.svg</file>
+        <file alias="autoarrange.svg">Icons/autoarrange.svg</file>
     </qresource>
 </RCC>
