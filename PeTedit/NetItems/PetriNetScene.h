@@ -86,10 +86,18 @@ public:
 	/** List variables names */
 	QStringList variableNames() const;
 	QStringList placeNames() const;
+
+	/** File name of current document, empty if none */
+	const QString& filename() const { return _filename; }
+	/** Set the filename of the current document, empty of none */
+	void setFilename(const QString& filename) { _filename = filename; }
 private:
 	void transitionItemDoubleClickEvent(TransitionItem* t);
 	void placeItemDoubleClickEvent(PlaceItem* place);
 	void arcItemDoubleClickEvent(ArcItem* arc);
+
+	/** Filename of the current document, empty if none */
+	QString _filename;
 
 	/** Model representing the variables of the net */
 	VariableModel* _variables;

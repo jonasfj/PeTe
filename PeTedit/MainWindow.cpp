@@ -98,6 +98,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	createUndoActions();
 	createToggleToolsbars();
 
+	// Listen for clean state changed
+	connect(&undoGroup, SIGNAL(cleanChanged(bool)), this, SLOT(updateWindowTitle()));
+
 	// Create new document
 	ui->NewTapnAction->trigger();
 
@@ -125,7 +128,7 @@ void MainWindow::on_NewTapnAction_triggered(){
 						 QPainter::SmoothPixmapTransform |
 						 QPainter::TextAntialiasing);
 	view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	int index = ui->tabWidget->addTab(view, "New TAPN");
+	int index = ui->tabWidget->addTab(view, tr("Untitled PNDV"));
 	ui->tabWidget->setCurrentIndex(index);
 }
 
@@ -133,7 +136,18 @@ void MainWindow::on_NewTapnAction_triggered(){
 void MainWindow::on_tabWidget_tabCloseRequested(int index){
 	QGraphicsView* view = qobject_cast<QGraphicsView*>(ui->tabWidget->widget(index));
 	if(view){
-		//TODO: Consider asking user to save before close...
+		PetriNetScene* scene = qobject_cast<PetriNetScene*>(view->scene());
+		Q_ASSERT(scene != NULL);
+		if(!scene->undoStack()->isClean()){
+			QMessageBox::StandardButtons retval;
+			retval = QMessageBox::question(this,
+										tr("You have unsaved changed"),
+										tr("Do you wish to discard unsaved changes?"),
+										QMessageBox::Cancel | QMessageBox::Discard,
+										QMessageBox::Cancel);
+			if(retval == QMessageBox::Cancel)
+				return;
+		}
 		ui->tabWidget->removeTab(index);
 		view->deleteLater();
 	}
@@ -152,13 +166,15 @@ void MainWindow::on_OpenAction_triggered(){
 		PNMLParser p;
 		p.parse(&file, &builder, &builder);
 		file.close();
-		view->setScene(builder.makeScene());
+		PetriNetScene* scene = builder.makeScene();
+		scene->setFilename(fname);
+		scene->undoStack()->setClean();
+		view->setScene(scene);
 		view->setRenderHints(QPainter::Antialiasing |
 							 QPainter::SmoothPixmapTransform |
 							 QPainter::TextAntialiasing);
 		view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-		QFileInfo fi(fname);
-		int index = ui->tabWidget->addTab(view, fi.baseName());
+		int index = ui->tabWidget->addTab(view, QFileInfo(fname).baseName());
 		ui->tabWidget->setCurrentIndex(index);
 	}
 }
@@ -241,11 +257,11 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 				this, SLOT(resizeVariableView()));
 
 		resizeVariableView();
-
 		resizeValidationView();
 
 		this->currentScene_modeChanged(this->currentScene->mode());
 	}
+	updateWindowTitle();
 }
 
 /** Mode changed in current document */
@@ -270,19 +286,48 @@ void MainWindow::on_SaveAction_triggered()
 {
 	if(!currentScene)
 		return;
-	QString fname = QFileDialog::getSaveFileName(this, "Save Petri Net as PNML", lastLoadSavePath);
-	if(fname != ""){
+	// Save as, if there's no filename
+	if(currentScene->filename().isEmpty())
+		on_saveAsAction_triggered();
+	else{
+		// Open file and attempt to save
+		QString fname = currentScene->filename();
 		QFile file(fname);
-		if(!file.open(QIODevice::WriteOnly))
+		if(!file.open(QIODevice::WriteOnly)){
+			// Warn and do save as if save failed... (this is a loop untill user cancels).
+			QMessageBox::critical(this, tr("Failed to save!"), tr("Couldn't open \"%1\" in write-mode.").arg(fname));
+			on_saveAsAction_triggered();
 			return;
-		lastLoadSavePath = QFileInfo(fname).absoluteDir().absolutePath();
+		}
 		PNMLBuilder builder(&file);
 		currentScene->produce(&builder);
 		builder.makePNMLFile();
 		file.close();
+		// Mark this state clean
+		currentScene->undoStack()->setClean();
 	}
 }
 
+void MainWindow::on_saveAsAction_triggered(){
+	if(!currentScene)
+		return;
+	// Select current file if there's one
+	QString path = lastLoadSavePath;
+	if(!currentScene->filename().isEmpty())
+		path = currentScene->filename();
+	// Show save file dialog
+	QString fname = QFileDialog::getSaveFileName(this, "Save Petri Net as PNML", path);
+	if(fname != ""){
+		// Set the current filename
+		currentScene->setFilename(fname);
+		ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), QFileInfo(fname).baseName());
+		updateWindowTitle();
+		// Update settings
+		lastLoadSavePath = QFileInfo(fname).absoluteDir().absolutePath();
+		// Save the file
+		on_SaveAction_triggered();
+	}
+}
 
 /******************** Variables ********************/
 
@@ -441,6 +486,20 @@ void MainWindow::createToggleToolsbars(){
 void MainWindow::on_autoArrangeAction_triggered(){
 	if(currentScene)
 		currentScene->autoArrange();
+}
+
+/** Update the window title */
+void MainWindow::updateWindowTitle(){
+	if(!currentScene)
+		this->setWindowTitle("PeTe");
+	else{
+		QString fname = currentScene->filename();
+		if(fname.isEmpty())
+			fname = tr("Untitled PNDV");
+		if(!undoGroup.isClean())
+			fname += "*";
+		this->setWindowTitle("PeTe - " + fname);
+	}
 }
 
 /******************** Undo/Redo Handling ********************/

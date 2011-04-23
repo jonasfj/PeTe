@@ -42,6 +42,7 @@
 PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, PetriNetView* parent) :
     QGraphicsScene(parent)
 {
+	_filename = "";
 	view = parent;
 
 	//Create undostack for this document

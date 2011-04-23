@@ -35,6 +35,7 @@ private:
 	void createUndoActions();
 	void createToggleToolsbars();
 private slots:
+	void updateWindowTitle();
 	void resizeQueryView();
 	void resizeVariableView();
 	void resizeValidationView();
@@ -56,8 +57,8 @@ private slots:
 	void on_stopQueryButton_clicked();
 	void on_aboutAction_triggered();
 	void on_importSUMoQueriesAction_triggered();
-
 	void on_autoArrangeAction_triggered();
+	void on_saveAsAction_triggered();
 
 private:
 	/******************** Cached Settings ********************/
