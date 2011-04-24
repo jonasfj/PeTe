@@ -115,8 +115,6 @@ private:
 	PetriNetView* view;
 
 	Mode _mode;
-	/** Unselect item at mouseReleaseEvent if ControlModifier is down */
-	bool unselectItemAtReleaseIfCtrlDown;
 protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent* event);
 	void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
@@ -132,6 +130,10 @@ private:
 	void pointerPress(QGraphicsSceneMouseEvent* event);
 	void pointerMove(QGraphicsSceneMouseEvent* event);
 	void pointerRelease(QGraphicsSceneMouseEvent* event);
+	/** Unselect item at mouseReleaseEvent if ControlModifier is down */
+	bool unselectItemAtReleaseIfCtrlDown;
+	/** Current selection rectangle, NULL if none */
+	QGraphicsRectItem* selectionRect;
 signals:
 	void modeChanged(PetriNetScene::Mode mode);
 	void validationIssuesFound();

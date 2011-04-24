@@ -38,10 +38,14 @@
 #include <QDebug>
 #include "../Misc/VariableModel.h"
 
+#define MAX(a,b)	(a < b ? b : a)
+#define MIN(a,b)	(a > b ? b : a)
+
 
 PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, PetriNetView* parent) :
     QGraphicsScene(parent)
 {
+	selectionRect = NULL;
 	_filename = "";
 	view = parent;
 
@@ -303,42 +307,81 @@ void PetriNetScene::pointerPress(QGraphicsSceneMouseEvent* event){
 		// If neither shift or ctrl is down clear selection
 		if(!(event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier)))
 			this->clearSelection();
-		//TODO: Initialize selection rectangle
+		if(event->modifiers() & Qt::ControlModifier)
+			this->unselectItemAtReleaseIfCtrlDown = true;
+		// Initialize selection rectangle
+		selectionRect = new QGraphicsRectItem();
+		QPen pen(Qt::DotLine);
+		pen.setColor(QColor(0, 0, 0, 128));
+		selectionRect->setPen(pen);
+		selectionRect->setRect(QRectF(event->scenePos(), event->scenePos()));
+		this->addItem(selectionRect);
 	}
 }
 
 void PetriNetScene::pointerMove(QGraphicsSceneMouseEvent* event){
 	Q_ASSERT(this->mode() == PointerMode && event->buttons() & Qt::LeftButton);
-	QPointF d = event->scenePos() - event->lastScenePos();
-	foreach(QGraphicsItem* item, this->selectedItems()){
-		if(NetItem::isNetItem(item))
-			item->moveBy(d.x(), d.y());
+	if(selectionRect){
+		QPointF p1 = event->buttonDownScenePos(Qt::LeftButton);
+		QPointF p2 = event->scenePos();
+		QRectF r;
+		r.setCoords(MIN(p1.x(), p2.x()),
+					MIN(p1.y(), p2.y()),
+					MAX(p1.x(), p2.x()),
+					MAX(p1.y(), p2.y()));
+		selectionRect->setRect(r);
+	}else{
+		QPointF d = event->scenePos() - event->lastScenePos();
+		foreach(QGraphicsItem* item, this->selectedItems()){
+			if(NetItem::isNetItem(item))
+				item->moveBy(d.x(), d.y());
+		}
 	}
 }
 
 void PetriNetScene::pointerRelease(QGraphicsSceneMouseEvent* event){
 	Q_ASSERT(this->mode() == PointerMode && event->button() == Qt::LeftButton);
-	QPointF d = event->scenePos() - event->buttonDownScenePos(Qt::LeftButton);
-	if(this->selectedItems().count() > 0 && (d.x() != 0 && d.y() != 0)){
-		//Move back to start so we can apply the MoveItemsCommand
-		//Slightly nasty, but it doesn't redraw here so this isn't bad.
-		QList<QGraphicsItem*> netitems;
-		foreach(QGraphicsItem* item, this->selectedItems()){
-			if(NetItem::isNetItem(item)){
-				item->moveBy(-d.x(), -d.y());
-				netitems.append(item);
-			}
+	if(selectionRect){
+		// Remove the selectionRect
+		removeItem(selectionRect);
+		delete selectionRect;
+		selectionRect = NULL;
+		// Find the exact rectangle
+		QPointF p1 = event->buttonDownScenePos(Qt::LeftButton);
+		QPointF p2 = event->scenePos();
+		QRectF r;
+		r.setCoords(MIN(p1.x(), p2.x()),
+					MIN(p1.y(), p2.y()),
+					MAX(p1.x(), p2.x()),
+					MAX(p1.y(), p2.y()));
+		foreach(QGraphicsItem* item, items(r, Qt::IntersectsItemShape)){
+			if(item->isSelected() && this->unselectItemAtReleaseIfCtrlDown)
+				item->setSelected(false);
+			else
+				item->setSelected(true);
 		}
-		_undoStack->push(new MoveItemsCommand(netitems, d.x(), d.y()));
+	}else{
+		QPointF d = event->scenePos() - event->buttonDownScenePos(Qt::LeftButton);
+		if(this->selectedItems().count() > 0 && (d.x() != 0 && d.y() != 0)){
+			//Move back to start so we can apply the MoveItemsCommand
+			//Slightly nasty, but it doesn't redraw here so this isn't bad.
+			QList<QGraphicsItem*> netitems;
+			foreach(QGraphicsItem* item, this->selectedItems()){
+				if(NetItem::isNetItem(item)){
+					item->moveBy(-d.x(), -d.y());
+					netitems.append(item);
+				}
+			}
+			_undoStack->push(new MoveItemsCommand(netitems, d.x(), d.y()));
 
-		this->updateSceneRect();
-	}
-
-	//Unselect if needed
-	if(event->modifiers() & Qt::ControlModifier && this->unselectItemAtReleaseIfCtrlDown){
-		QGraphicsItem* item = itemAt(event->scenePos());
-		if(item && item->isSelected())
-			item->setSelected(false);
+			this->updateSceneRect();
+		}
+		//Unselect if needed
+		if(event->modifiers() & Qt::ControlModifier && this->unselectItemAtReleaseIfCtrlDown){
+			QGraphicsItem* item = itemAt(event->scenePos());
+			if(item && item->isSelected())
+				item->setSelected(false);
+		}
 	}
 }
 
