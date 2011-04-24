@@ -485,17 +485,19 @@ void MainWindow::updateWindowTitle(){
 	if(!currentScene)
 		this->setWindowTitle("PeTe");
 	else{
-		QString fname = currentScene->filename();
+		QString fname;
 		QString base;
-		if(fname.isEmpty()){
+		if(currentScene->filename().isEmpty()){
 			fname = tr("Untitled PNDV");
 			base = fname;
-		}else
+		}else{
+			fname = QFileInfo(currentScene->filename()).fileName();
 			base = QFileInfo(fname).baseName();
+		}
 		QString star;
 		if(!undoGroup.isClean())
 			star = "*";
-		this->setWindowTitle("PeTe - " + fname + star);
+		this->setWindowTitle(fname + star + " - PeTe ");
 		ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), base + star);
 	}
 }
