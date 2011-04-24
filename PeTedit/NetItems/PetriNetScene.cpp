@@ -300,19 +300,20 @@ void PetriNetScene::pointerPress(QGraphicsSceneMouseEvent* event){
 		if(state)
 			item->setFocus(Qt::MouseFocusReason);
 	}else{
-		//If neither shift or ctrl is down clear selection
+		// If neither shift or ctrl is down clear selection
 		if(!(event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier)))
 			this->clearSelection();
-
-		//TODO: Initiate selection rectangle...
+		//TODO: Initialize selection rectangle
 	}
 }
 
 void PetriNetScene::pointerMove(QGraphicsSceneMouseEvent* event){
 	Q_ASSERT(this->mode() == PointerMode && event->buttons() & Qt::LeftButton);
 	QPointF d = event->scenePos() - event->lastScenePos();
-	foreach(QGraphicsItem* item, this->selectedItems())
-		item->moveBy(d.x(), d.y());
+	foreach(QGraphicsItem* item, this->selectedItems()){
+		if(NetItem::isNetItem(item))
+			item->moveBy(d.x(), d.y());
+	}
 }
 
 void PetriNetScene::pointerRelease(QGraphicsSceneMouseEvent* event){
@@ -321,9 +322,14 @@ void PetriNetScene::pointerRelease(QGraphicsSceneMouseEvent* event){
 	if(this->selectedItems().count() > 0 && (d.x() != 0 && d.y() != 0)){
 		//Move back to start so we can apply the MoveItemsCommand
 		//Slightly nasty, but it doesn't redraw here so this isn't bad.
-		foreach(QGraphicsItem* item, this->selectedItems())
-			item->moveBy(-d.x(), -d.y());
-		_undoStack->push(new MoveItemsCommand(this->selectedItems(), d.x(), d.y()));
+		QList<QGraphicsItem*> netitems;
+		foreach(QGraphicsItem* item, this->selectedItems()){
+			if(NetItem::isNetItem(item)){
+				item->moveBy(-d.x(), -d.y());
+				netitems.append(item);
+			}
+		}
+		_undoStack->push(new MoveItemsCommand(netitems, d.x(), d.y()));
 
 		this->updateSceneRect();
 	}
