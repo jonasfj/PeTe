@@ -174,7 +174,7 @@ void MainWindow::on_OpenAction_triggered(){
 							 QPainter::SmoothPixmapTransform |
 							 QPainter::TextAntialiasing);
 		view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-		int index = ui->tabWidget->addTab(view, QFileInfo(fname).baseName());
+		int index = ui->tabWidget->addTab(view, "");
 		ui->tabWidget->setCurrentIndex(index);
 	}
 }
@@ -320,7 +320,6 @@ void MainWindow::on_saveAsAction_triggered(){
 	if(fname != ""){
 		// Set the current filename
 		currentScene->setFilename(fname);
-		ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), QFileInfo(fname).baseName());
 		updateWindowTitle();
 		// Update settings
 		lastLoadSavePath = QFileInfo(fname).absoluteDir().absolutePath();
@@ -494,11 +493,17 @@ void MainWindow::updateWindowTitle(){
 		this->setWindowTitle("PeTe");
 	else{
 		QString fname = currentScene->filename();
-		if(fname.isEmpty())
+		QString base;
+		if(fname.isEmpty()){
 			fname = tr("Untitled PNDV");
+			base = fname;
+		}else
+			base = QFileInfo(fname).baseName();
+		QString star;
 		if(!undoGroup.isClean())
-			fname += "*";
-		this->setWindowTitle("PeTe - " + fname);
+			star = "*";
+		this->setWindowTitle("PeTe - " + fname + star);
+		ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), base + star);
 	}
 }
 
