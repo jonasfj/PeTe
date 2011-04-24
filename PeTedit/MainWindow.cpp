@@ -565,3 +565,13 @@ void MainWindow::loadSettings(){
 	s.endGroup();
 }
 
+
+void MainWindow::on_alignHorizontalAction_triggered(){
+	if(currentScene)
+		currentScene->alignSelectItems(Qt::Horizontal);
+}
+
+void MainWindow::on_alignVerticalAction_triggered(){
+	if(currentScene)
+		currentScene->alignSelectItems(Qt::Vertical);
+}

@@ -156,7 +156,10 @@
     <bool>false</bool>
    </attribute>
    <addaction name="validateAction"/>
+   <addaction name="separator"/>
    <addaction name="autoArrangeAction"/>
+   <addaction name="alignHorizontalAction"/>
+   <addaction name="alignVerticalAction"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="variableDock">
@@ -646,6 +649,30 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="alignHorizontalAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/24x24/align-horizontal.png</normaloff>:/Icons/24x24/align-horizontal.png</iconset>
+   </property>
+   <property name="text">
+    <string>Align horizontal</string>
+   </property>
+   <property name="toolTip">
+    <string>Align selected items horizontal</string>
+   </property>
+  </action>
+  <action name="alignVerticalAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/24x24/align-vertical.png</normaloff>:/Icons/24x24/align-vertical.png</iconset>
+   </property>
+   <property name="text">
+    <string>Align vertical</string>
+   </property>
+   <property name="toolTip">
+    <string>Align selected items vertical</string>
    </property>
   </action>
  </widget>

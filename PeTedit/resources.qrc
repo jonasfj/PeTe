@@ -26,5 +26,7 @@
         <file>Icons/16x16/play.png</file>
         <file>Icons/16x16/stop.png</file>
         <file>Icons/16x16/validate.png</file>
+        <file>Icons/24x24/align-horizontal.png</file>
+        <file>Icons/24x24/align-vertical.png</file>
     </qresource>
 </RCC>

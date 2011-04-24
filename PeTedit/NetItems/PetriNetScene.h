@@ -94,6 +94,9 @@ public:
 	const QString& filename() const { return _filename; }
 	/** Set the filename of the current document, empty of none */
 	void setFilename(const QString& filename) { _filename = filename; }
+
+	/** Get a list of selected NetItems*/
+	QList<NetItem*> selectedNetItems();
 private:
 	void transitionItemDoubleClickEvent(TransitionItem* t);
 	void placeItemDoubleClickEvent(PlaceItem* place);
@@ -148,6 +151,8 @@ public slots:
 	void showValidationIssue(const QModelIndex& index);
 	/** Automatically arrange the layout */
 	void autoArrange();
+	/** Align selected items along alignOn */
+	void alignSelectItems(Qt::Orientation alignOn);
 };
 
 #endif // PETRINETSCENE_H

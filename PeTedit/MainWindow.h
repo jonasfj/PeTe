@@ -64,6 +64,10 @@ private slots:
 	void on_autoArrangeAction_triggered();
 	void on_saveAsAction_triggered();
 
+	void on_alignHorizontalAction_triggered();
+
+	void on_alignVerticalAction_triggered();
+
 private:
 	/******************** Cached Settings ********************/
 	/** Last folder loaded or saved to (handled by load-/saveSettings) */

@@ -114,13 +114,26 @@ bool PetriNetScene::isValidAvailableIdentifier(const QString &id) const{
 
 NetItem* PetriNetScene::findNetItem(const QString &name){
 	foreach(QGraphicsItem* item, this->items()){
-		if(item->type() == NetEntity::PlaceItem || item->type() == NetEntity::TransitionItem){
+		if(NetItem::isNetItem(item)){
 			NetItem* i = dynamic_cast<NetItem*>(item);
 			if(i->name() == name)
 				return i;
 		}
 	}
 	return NULL;
+}
+
+QList<NetItem*> PetriNetScene::selectedNetItems(){
+	QList<NetItem*> items;
+	foreach(QGraphicsItem* item, this->selectedItems()){
+		if(NetItem::isNetItem(item)){
+			NetItem* netItem = dynamic_cast<NetItem*>(item);
+			Q_ASSERT(netItem);
+			if(netItem)
+				items.append(netItem);
+		}
+	}
+	return items;
 }
 
 /******************** Add, remove and find transition ********************/
@@ -578,7 +591,10 @@ void PetriNetScene::autoArrange(){
 	_undoStack->push(new AutoArrangeNetCommand(this));
 }
 
-
+void PetriNetScene::alignSelectItems(Qt::Orientation alignOn){
+	if(!selectedNetItems().empty())
+		_undoStack->push(new AutoArrangeNetCommand(this, selectedNetItems(), alignOn));
+}
 
 
 
