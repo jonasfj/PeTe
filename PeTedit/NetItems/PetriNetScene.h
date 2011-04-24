@@ -123,6 +123,15 @@ protected:
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 	void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 	void keyPressEvent(QKeyEvent* event);
+private:
+	void insertPlacePress(QGraphicsSceneMouseEvent* event);
+	void insertTransitionPress(QGraphicsSceneMouseEvent* event);
+	void insertArcPress(QGraphicsSceneMouseEvent* event);
+	void insertArcMove(QGraphicsSceneMouseEvent* event);
+	void insertArcRelease(QGraphicsSceneMouseEvent* event);
+	void pointerPress(QGraphicsSceneMouseEvent* event);
+	void pointerMove(QGraphicsSceneMouseEvent* event);
+	void pointerRelease(QGraphicsSceneMouseEvent* event);
 signals:
 	void modeChanged(PetriNetScene::Mode mode);
 	void validationIssuesFound();

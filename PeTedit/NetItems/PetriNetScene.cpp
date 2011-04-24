@@ -179,130 +179,164 @@ QStringList PetriNetScene::variableNames() const{
 
 void PetriNetScene::mousePressEvent(QGraphicsSceneMouseEvent* event){
 	if(this->mode() == InsertPlaceMode && event->button() == Qt::LeftButton){
-		InsertPlaceCommand* cmd = new InsertPlaceCommand(this, event->scenePos());
-		PlaceItem* place = cmd->place();
-		this->_undoStack->push(cmd);
-		this->setMode(PointerMode);
-		this->clearSelection();
-		place->setSelected(true);
-		place->setFocus(Qt::MouseFocusReason);
+		insertPlacePress(event);
 	}else if(this->mode() == InsertTransitionMode && event->button() == Qt::LeftButton){
-		InsertTransitionCommand* cmd = new InsertTransitionCommand(this, event->scenePos());
-		TransitionItem* transition = cmd->transition();
-		this->_undoStack->push(cmd);
-		this->setMode(PointerMode);
-		this->clearSelection();
-		transition->setSelected(true);
-		transition->setFocus(Qt::MouseFocusReason);
+		insertTransitionPress(event);
 	}else if(this->mode() == InsertArcMode && event->button() == Qt::LeftButton){
-		//Insert arc an selected it
-		clearSelection();
-		NetItem* start = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
-		if(start){
-			ArcItem* arc = new ArcItem(start);
-			arc->setEndPoint(start->pos());
-			this->addItem(arc);
-			arc->setSelected(true);
-		}
+		insertArcPress(event);
 	}else if(this->mode() == PointerMode && event->button() == Qt::LeftButton){
-		//Assume PointerMode
-		QGraphicsItem* item = itemAt(event->scenePos());
-
-		if(item){
-			this->unselectItemAtReleaseIfCtrlDown = false;
-			bool state = item->isSelected();
-			if(event->modifiers() & Qt::ShiftModifier){
-				state = true;
-			}else if(event->modifiers() & Qt::ControlModifier){
-				//This should be done in releaseEvent, but that's hard...
-				this->unselectItemAtReleaseIfCtrlDown = state;
-				state = true;
-			}else if(!state){
-				state = true;
-				this->clearSelection();
-			}
-			item->setSelected(state);
-			if(state)
-				item->setFocus(Qt::MouseFocusReason);
-		}else{
-			//If neither shift or ctrl is down clear selection
-			if(!(event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier)))
-				this->clearSelection();
-
-			//TODO: Initiate selection rectangle...
-		}
+		pointerPress(event);
 	}
 }
 
 void PetriNetScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event){
 	if(this->mode() == PointerMode && event->buttons() & Qt::LeftButton){
-		QPointF d = event->scenePos() - event->lastScenePos();
-		foreach(QGraphicsItem* item, this->selectedItems())
-			item->moveBy(d.x(), d.y());
+		pointerMove(event);
 	}else if(this->mode() == InsertArcMode && event->buttons() & Qt::LeftButton){
-		//Move end point of selected arc
-		if(!selectedItems().isEmpty()){
-			ArcItem* arc = dynamic_cast<ArcItem*>(selectedItems().first());
-			if(arc){
-				NetItem* end = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
-				if(end && end->type() != arc->start()->type() && !findArc(arc->start(), end)){
-					arc->setEndPoint(end->nearestPoint(arc->start()->pos()));
-				}else
-					arc->setEndPoint(event->scenePos());
-			}
-		}
+		insertArcMove(event);
 	}
 }
 void PetriNetScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event){
 	if(this->mode() == PointerMode && event->button() == Qt::LeftButton){
-		QPointF d = event->scenePos() - event->buttonDownScenePos(Qt::LeftButton);
-		if(this->selectedItems().count() > 0 && (d.x() != 0 && d.y() != 0)){
-			//Move back to start so we can apply the MoveItemsCommand
-			//Slightly nasty, but it doesn't redraw here so this isn't bad.
-			foreach(QGraphicsItem* item, this->selectedItems())
-				item->moveBy(-d.x(), -d.y());
-			_undoStack->push(new MoveItemsCommand(this->selectedItems(), d.x(), d.y()));
-
-			this->updateSceneRect();
-		}
-
-		//Unselect if needed
-		if(event->modifiers() & Qt::ControlModifier && this->unselectItemAtReleaseIfCtrlDown){
-			QGraphicsItem* item = itemAt(event->scenePos());
-			if(item && item->isSelected())
-				item->setSelected(false);
-		}
+		pointerRelease(event);
 	}else if(this->mode() == InsertArcMode && event->button() == Qt::LeftButton){
-		//Move end point of selected arc
-		if(!selectedItems().isEmpty()){
-			ArcItem* arc = dynamic_cast<ArcItem*>(selectedItems().first());
-			if(arc){
-				NetItem* end = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
-				if(end && end->type() != arc->start()->type() && !findArc(arc->start(), end)){
-					arc->setEnd(end);
-					removeItem(arc);
-					InsertArcCommand* a = new InsertArcCommand(this, arc);
-					_undoStack->push(a);
-					this->setMode(PointerMode);
-				}else{
-					arc->unregisterAtEndPoints();
-					removeItem(arc);
-					delete arc;
-				}
+		insertArcRelease(event);
+	}
+}
+
+/********************** Insert modes **********************/
+
+void PetriNetScene::insertPlacePress(QGraphicsSceneMouseEvent* event){
+	Q_ASSERT(this->mode() == InsertPlaceMode && event->button() == Qt::LeftButton);
+	InsertPlaceCommand* cmd = new InsertPlaceCommand(this, event->scenePos());
+	PlaceItem* place = cmd->place();
+	this->_undoStack->push(cmd);
+	this->setMode(PointerMode);
+	this->clearSelection();
+	place->setSelected(true);
+	place->setFocus(Qt::MouseFocusReason);
+}
+
+void PetriNetScene::insertTransitionPress(QGraphicsSceneMouseEvent* event){
+	Q_ASSERT(this->mode() == InsertTransitionMode && event->button() == Qt::LeftButton);
+	InsertTransitionCommand* cmd = new InsertTransitionCommand(this, event->scenePos());
+	TransitionItem* transition = cmd->transition();
+	this->_undoStack->push(cmd);
+	this->setMode(PointerMode);
+	this->clearSelection();
+	transition->setSelected(true);
+	transition->setFocus(Qt::MouseFocusReason);
+}
+
+void PetriNetScene::insertArcPress(QGraphicsSceneMouseEvent* event){
+	Q_ASSERT(this->mode() == InsertArcMode && event->button() == Qt::LeftButton);
+	//Insert arc an selected it
+	clearSelection();
+	NetItem* start = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
+	if(start){
+		ArcItem* arc = new ArcItem(start);
+		arc->setEndPoint(start->pos());
+		this->addItem(arc);
+		arc->setSelected(true);
+	}
+}
+
+void PetriNetScene::insertArcMove(QGraphicsSceneMouseEvent* event){
+	Q_ASSERT(this->mode() == InsertArcMode && event->buttons() & Qt::LeftButton);
+	//Move end point of selected arc
+	if(!selectedItems().isEmpty()){
+		ArcItem* arc = dynamic_cast<ArcItem*>(selectedItems().first());
+		if(arc){
+			NetItem* end = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
+			if(end && end->type() != arc->start()->type() && !findArc(arc->start(), end)){
+				arc->setEndPoint(end->nearestPoint(arc->start()->pos()));
+			}else
+				arc->setEndPoint(event->scenePos());
+		}
+	}
+}
+
+void PetriNetScene::insertArcRelease(QGraphicsSceneMouseEvent* event){
+	Q_ASSERT(this->mode() == InsertArcMode && event->button() == Qt::LeftButton);
+	//Move end point of selected arc
+	if(!selectedItems().isEmpty()){
+		ArcItem* arc = dynamic_cast<ArcItem*>(selectedItems().first());
+		if(arc){
+			NetItem* end = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
+			if(end && end->type() != arc->start()->type() && !findArc(arc->start(), end)){
+				arc->setEnd(end);
+				removeItem(arc);
+				InsertArcCommand* a = new InsertArcCommand(this, arc);
+				_undoStack->push(a);
+				this->setMode(PointerMode);
+			}else{
+				arc->unregisterAtEndPoints();
+				removeItem(arc);
+				delete arc;
 			}
 		}
 	}
 }
 
-void showMessageBox(QString text, QString infoText){
-	QMessageBox msgBox;
-	msgBox.setText(text);
-	msgBox.setInformativeText(infoText);
-	msgBox.setStandardButtons(QMessageBox::Ok);
-	msgBox.setDefaultButton(QMessageBox::Ok);
-	msgBox.setIcon(QMessageBox::Information);
-	msgBox.exec();
+/********************** Pointer mode **********************/
+
+void PetriNetScene::pointerPress(QGraphicsSceneMouseEvent* event){
+	Q_ASSERT(this->mode() == PointerMode && event->button() == Qt::LeftButton);
+	QGraphicsItem* item = itemAt(event->scenePos());
+	if(item){
+		this->unselectItemAtReleaseIfCtrlDown = false;
+		bool state = item->isSelected();
+		if(event->modifiers() & Qt::ShiftModifier){
+			state = true;
+		}else if(event->modifiers() & Qt::ControlModifier){
+			//This should be done in releaseEvent, but that's hard...
+			this->unselectItemAtReleaseIfCtrlDown = state;
+			state = true;
+		}else if(!state){
+			state = true;
+			this->clearSelection();
+		}
+		item->setSelected(state);
+		if(state)
+			item->setFocus(Qt::MouseFocusReason);
+	}else{
+		//If neither shift or ctrl is down clear selection
+		if(!(event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier)))
+			this->clearSelection();
+
+		//TODO: Initiate selection rectangle...
+	}
 }
+
+void PetriNetScene::pointerMove(QGraphicsSceneMouseEvent* event){
+	Q_ASSERT(this->mode() == PointerMode && event->buttons() & Qt::LeftButton);
+	QPointF d = event->scenePos() - event->lastScenePos();
+	foreach(QGraphicsItem* item, this->selectedItems())
+		item->moveBy(d.x(), d.y());
+}
+
+void PetriNetScene::pointerRelease(QGraphicsSceneMouseEvent* event){
+	Q_ASSERT(this->mode() == PointerMode && event->button() == Qt::LeftButton);
+	QPointF d = event->scenePos() - event->buttonDownScenePos(Qt::LeftButton);
+	if(this->selectedItems().count() > 0 && (d.x() != 0 && d.y() != 0)){
+		//Move back to start so we can apply the MoveItemsCommand
+		//Slightly nasty, but it doesn't redraw here so this isn't bad.
+		foreach(QGraphicsItem* item, this->selectedItems())
+			item->moveBy(-d.x(), -d.y());
+		_undoStack->push(new MoveItemsCommand(this->selectedItems(), d.x(), d.y()));
+
+		this->updateSceneRect();
+	}
+
+	//Unselect if needed
+	if(event->modifiers() & Qt::ControlModifier && this->unselectItemAtReleaseIfCtrlDown){
+		QGraphicsItem* item = itemAt(event->scenePos());
+		if(item && item->isSelected())
+			item->setSelected(false);
+	}
+}
+
+/********************** Double click methods **********************/
 
 void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 	if(this->mode() == PointerMode){
@@ -329,8 +363,6 @@ void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 	}
 }
 
-/********************** Double click methods **********************/
-
 /** Handle all double click events on ArcItems */
 void PetriNetScene::arcItemDoubleClickEvent(ArcItem *arc){
 	//Lanuch a dialog an modify arc
@@ -340,6 +372,16 @@ void PetriNetScene::arcItemDoubleClickEvent(ArcItem *arc){
 	if(dlg->exec() == QDialog::Accepted)
 		_undoStack->push(new EditArcCommand(arc, dlg->weight()));
 	dlg->deleteLater();
+}
+
+void showMessageBox(QString text, QString infoText){
+	QMessageBox msgBox;
+	msgBox.setText(text);
+	msgBox.setInformativeText(infoText);
+	msgBox.setStandardButtons(QMessageBox::Ok);
+	msgBox.setDefaultButton(QMessageBox::Ok);
+	msgBox.setIcon(QMessageBox::Information);
+	msgBox.exec();
 }
 
 /** Handle all double click events on PlaceItems */
