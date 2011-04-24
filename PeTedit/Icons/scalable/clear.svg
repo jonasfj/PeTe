@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,10 +14,13 @@
    height="24"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.48.0 r9654"
    version="1.0"
-   sodipodi:docname="edit-clear.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   sodipodi:docname="clear.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/jopsen/AAU/PeTe/PeTedit/Icons/16x16/clear.png"
+   inkscape:export-xdpi="60"
+   inkscape:export-ydpi="60">
   <defs
      id="defs4">
     <linearGradient
@@ -235,8 +239,9 @@
      showgrid="false"
      inkscape:window-width="640"
      inkscape:window-height="720"
-     inkscape:window-x="798"
-     inkscape:window-y="24" />
+     inkscape:window-x="425"
+     inkscape:window-y="125"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -245,6 +250,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -263,7 +269,7 @@
          sodipodi:cy="69"
          sodipodi:rx="20"
          sodipodi:ry="9"
-         d="M 58,69 A 20,9 0 1 1 18,69 A 20,9 0 1 1 58,69 z"
+         d="m 58,69 c 0,4.970563 -8.954305,9 -20,9 -11.045695,0 -20,-4.029437 -20,-9 0,-4.970563 8.954305,-9 20,-9 11.045695,0 20,4.029437 20,9 z"
          transform="matrix(0.5249934,0,0,0.3517973,-7.474785,-3.417955)" />
       <path
          style="fill:url(#linearGradient2543);fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient2545);stroke-width:1.00000024px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"

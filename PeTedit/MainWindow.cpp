@@ -52,14 +52,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	//Set delegate for query editor
 	ui->queryView->setItemDelegateForColumn(1, new ProgressViewDelegate(this));
 
-	// Set icons on variable buttons
-	ui->addVariable->setIcon(QIcon::fromTheme("list-add"));
-	ui->deleteVariable->setIcon(QIcon::fromTheme("list-remove"));
-
-	// Set icons on query buttons
-	ui->addQuery->setIcon(QIcon::fromTheme("list-add"));
-	ui->deleteQuery->setIcon(QIcon::fromTheme("list-remove"));
-
 	// Add actions for toggling dockwidgets
 	QAction* toggleVariablesDock = ui->variableDock->toggleViewAction();
 	toggleVariablesDock->setText(tr("Show variables"));
@@ -478,6 +470,7 @@ void MainWindow::on_aboutAction_triggered()
 
 void MainWindow::createToggleToolsbars(){
 	ui->menuView->addSeparator();
+	ui->menuView->addAction(ui->fileToolBar->toggleViewAction());
 	ui->menuView->addAction(ui->editingToolBar->toggleViewAction());
 	ui->menuView->addAction(ui->toolsToolBar->toggleViewAction());
 }
@@ -513,9 +506,9 @@ void MainWindow::createUndoActions(){
 	ui->editingToolBar->addSeparator();
 	QAction* undo = undoGroup.createUndoAction(this, tr("Undo"));
 	QAction* redo = undoGroup.createRedoAction(this, tr("Redo"));
-	undo->setIcon(QIcon(":/Icons/undo.svg"));
+	undo->setIcon(QIcon(":/Icons/24x24/undo.png"));
 	undo->setShortcut(QKeySequence::Undo);
-	redo->setIcon(QIcon(":/Icons/redo.svg"));
+	redo->setIcon(QIcon(":/Icons/24x24/redo.png"));
 	redo->setShortcut(QKeySequence::Redo);
 	ui->editingToolBar->addAction(undo);
 	ui->editingToolBar->addAction(redo);

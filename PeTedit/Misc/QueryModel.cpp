@@ -24,10 +24,10 @@ QueryModel::QueryModel(PetriNetScene* net)
 	 : QAbstractTableModel(net){
 	_net = net;
 
-	_clockIcon = QIcon(":/Icons/clock.svg");
-	_checkIcon = QIcon(":/Icons/check.svg");
-	_crossIcon = QIcon(":/Icons/cross.svg");
-	_unknownIcon = QIcon(":/Icons/unknown.svg");
+	_clockIcon = QIcon(":/Icons/24x24/clock.png");
+	_checkIcon = QIcon(":/Icons/24x24/check.png");
+	_crossIcon = QIcon(":/Icons/24x24/cross.png");
+	_unknownIcon = QIcon(":/Icons/24x24/unknown.png");
 }
 
 QueryModel::~QueryModel(){

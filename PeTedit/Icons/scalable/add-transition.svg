@@ -10,12 +10,15 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="22"
-   height="22"
+   width="24"
+   height="24"
    id="svg3481"
    version="1.1"
    inkscape:version="0.48.0 r9654"
-   sodipodi:docname="add-transition.svg">
+   sodipodi:docname="add-transition.svg"
+   inkscape:export-filename="/home/jopsen/AAU/PeTe/PeTedit/Icons/24x24/add-transition.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs3483">
     <linearGradient
@@ -1113,7 +1116,7 @@
        x2="11.958451"
        y2="-21.007656"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.91666667,0,0,0.91666667,0,2.6666667)" />
+       gradientTransform="matrix(1.0962395,0,0,1.0962395,-1.8187583,-3.1161032)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4145-9"
@@ -1263,7 +1266,7 @@
        xlink:href="#linearGradient2782"
        id="linearGradient4279"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.39166531,0,0,0.39783122,26.728454,12.809135)"
+       gradientTransform="matrix(0.46839162,0,0,0.47576542,30.145736,9.0132506)"
        x1="-35.217045"
        y1="1.4762254"
        x2="-35.217045"
@@ -1336,9 +1339,9 @@
      id="layer1"
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     transform="translate(0,-10)">
+     transform="translate(0,-8)">
     <g
-       transform="matrix(0.42907802,0,0,0.45833333,23.423421,2.3031903)"
+       transform="matrix(0.51313341,0,0,0.54811976,26.193256,-3.5507837)"
        id="g2822"
        style="opacity:0.3">
       <g
@@ -1369,24 +1372,24 @@
       </g>
     </g>
     <rect
-       style="fill:url(#linearGradient4151);fill-opacity:1;stroke:#191919;stroke-width:1.00833333;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:url(#linearGradient4151);fill-opacity:1;stroke:#191919;stroke-width:1.20586348;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3968"
-       width="6.6187582"
-       height="16.702091"
-       x="7.6906214"
-       y="12.648954"
+       width="7.9153581"
+       height="19.973993"
+       x="7.3784385"
+       y="8.8216915"
        ry="0" />
     <rect
-       width="4.6639042"
-       height="14.739951"
-       x="8.6662445"
-       y="13.62621"
+       width="5.5775523"
+       height="17.627474"
+       x="8.5451832"
+       y="9.9903889"
        id="rect3404"
-       style="opacity:0.4;fill:none;stroke:url(#linearGradient4279);stroke-width:0.93549794;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="opacity:0.4;fill:none;stroke:url(#linearGradient4279);stroke-width:1.11875987;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        ry="0" />
     <g
        id="g3905"
-       transform="matrix(0.91667565,0,0,0.91666667,-1.3588815,1.2916647)">
+       transform="matrix(1.0962503,0,0,1.0962396,-3.4438415,-4.7604648)">
       <path
          sodipodi:nodetypes="ccccccccccccc"
          id="path2262"
