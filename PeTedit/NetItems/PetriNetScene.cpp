@@ -78,6 +78,7 @@ void PetriNetScene::updateSceneRect(){
 }
 
 void PetriNetScene::setMode(Mode mode){
+	if(_mode == mode) return;
 	switch(mode){
 	case InsertArcMode:
 		_view->setCursor(Qt::CrossCursor);
@@ -232,6 +233,10 @@ void PetriNetScene::insertPlacePress(QGraphicsSceneMouseEvent* event){
 	this->clearSelection();
 	place->setSelected(true);
 	place->setFocus(Qt::MouseFocusReason);
+	if(event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier))
+		modeAtRelease = InsertPlaceMode;
+	else
+		modeAtRelease = PointerMode;
 }
 
 void PetriNetScene::insertTransitionPress(QGraphicsSceneMouseEvent* event){
@@ -243,6 +248,10 @@ void PetriNetScene::insertTransitionPress(QGraphicsSceneMouseEvent* event){
 	this->clearSelection();
 	transition->setSelected(true);
 	transition->setFocus(Qt::MouseFocusReason);
+	if(event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier))
+		modeAtRelease = InsertTransitionMode;
+	else
+		modeAtRelease = PointerMode;
 }
 
 void PetriNetScene::insertArcPress(QGraphicsSceneMouseEvent* event){
@@ -285,7 +294,9 @@ void PetriNetScene::insertArcRelease(QGraphicsSceneMouseEvent* event){
 				removeItem(arc);
 				InsertArcCommand* a = new InsertArcCommand(this, arc);
 				_undoStack->push(a);
-				this->setMode(PointerMode);
+				// Continue in insert mode if there's a modifier
+				if(!(event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier)))
+					this->setMode(PointerMode);
 			}else{
 				arc->unregisterAtEndPoints();
 				removeItem(arc);
@@ -299,6 +310,7 @@ void PetriNetScene::insertArcRelease(QGraphicsSceneMouseEvent* event){
 
 void PetriNetScene::pointerPress(QGraphicsSceneMouseEvent* event){
 	Q_ASSERT(this->mode() == PointerMode && event->button() == Qt::LeftButton);
+	modeAtRelease = PointerMode;
 	QGraphicsItem* item = itemAt(event->scenePos());
 	if(item){
 		this->unselectItemAtReleaseIfCtrlDown = false;
@@ -395,6 +407,8 @@ void PetriNetScene::pointerRelease(QGraphicsSceneMouseEvent* event){
 			if(item && item->isSelected())
 				item->setSelected(false);
 		}
+		if(event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier))
+			setMode(modeAtRelease);
 	}
 }
 

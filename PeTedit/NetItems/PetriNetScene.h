@@ -140,6 +140,8 @@ private:
 	bool unselectItemAtReleaseIfCtrlDown;
 	/** Current selection rectangle, NULL if none */
 	QGraphicsRectItem* selectionRect;
+	/** Mode to enter at pointer release, if there's a modifier down */
+	Mode modeAtRelease;
 signals:
 	void modeChanged(PetriNetScene::Mode mode);
 	void validationIssuesFound();
