@@ -74,7 +74,7 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="NewTapnAction"/>
+    <addaction name="NewPNDVAction"/>
     <addaction name="OpenAction"/>
     <addaction name="SaveAction"/>
     <addaction name="saveAsAction"/>
@@ -104,6 +104,10 @@
     <property name="title">
      <string>&amp;Edit</string>
     </property>
+    <addaction name="InsertPlaceModeAction"/>
+    <addaction name="InsertTransitionModeAction"/>
+    <addaction name="InsertArcModeAction"/>
+    <addaction name="PointerModeAction"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -487,18 +491,21 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="NewTapnAction"/>
+   <addaction name="NewPNDVAction"/>
    <addaction name="OpenAction"/>
    <addaction name="SaveAction"/>
    <addaction name="saveAsAction"/>
   </widget>
-  <action name="NewTapnAction">
+  <action name="NewPNDVAction">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/Icons/24x24/new-pndv.png</normaloff>:/Icons/24x24/new-pndv.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;New Timed-Arc Petri Net</string>
+    <string>&amp;New Petri Net</string>
+   </property>
+   <property name="toolTip">
+    <string>New Petri Net with Discrete variables</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>

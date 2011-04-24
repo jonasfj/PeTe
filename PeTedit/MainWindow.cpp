@@ -94,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(&undoGroup, SIGNAL(cleanChanged(bool)), this, SLOT(updateWindowTitle()));
 
 	// Create new document
-	ui->NewTapnAction->trigger();
+	on_NewPNDVAction_triggered();
 
 	//Load settings
 	loadSettings();
@@ -111,7 +111,7 @@ void MainWindow::closeEvent(QCloseEvent *e){
 }
 
 /** Create new document-tab */
-void MainWindow::on_NewTapnAction_triggered(){
+void MainWindow::on_NewPNDVAction_triggered(){
 	PetriNetView* view = new PetriNetView();
 	PetriNetScene* scene = new PetriNetScene(&undoGroup, view);
 	ui->variableView->setModel(scene->variables());
@@ -503,15 +503,16 @@ void MainWindow::updateWindowTitle(){
 /******************** Undo/Redo Handling ********************/
 
 void MainWindow::createUndoActions(){
-	ui->editingToolBar->addSeparator();
 	QAction* undo = undoGroup.createUndoAction(this, tr("Undo"));
 	QAction* redo = undoGroup.createRedoAction(this, tr("Redo"));
 	undo->setIcon(QIcon(":/Icons/24x24/undo.png"));
 	undo->setShortcut(QKeySequence::Undo);
 	redo->setIcon(QIcon(":/Icons/24x24/redo.png"));
 	redo->setShortcut(QKeySequence::Redo);
+	ui->editingToolBar->addSeparator();
 	ui->editingToolBar->addAction(undo);
 	ui->editingToolBar->addAction(redo);
+	ui->menuEdit->addSeparator();
 	ui->menuEdit->addAction(undo);
 	ui->menuEdit->addAction(redo);
 }
@@ -539,3 +540,4 @@ void MainWindow::loadSettings(){
 	this->lastImportPath	=	s.value("LastImportPath", QDir::homePath()).toString();
 	s.endGroup();
 }
+

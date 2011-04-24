@@ -44,7 +44,7 @@ private slots:
 	void on_addVariable_clicked();
 	void on_OpenAction_triggered();
 	void on_SaveAction_triggered();
-	void on_NewTapnAction_triggered();
+	void on_NewPNDVAction_triggered();
 	void on_tabWidget_currentChanged(int index);
 	void on_tabWidget_tabCloseRequested(int index);
 	void currentScene_modeChanged(PetriNetScene::Mode mode);
