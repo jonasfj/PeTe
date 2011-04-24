@@ -47,7 +47,7 @@ PetriNetScene::PetriNetScene(QUndoGroup* undoGroup, PetriNetView* parent) :
 {
 	selectionRect = NULL;
 	_filename = "";
-	view = parent;
+	_view = parent;
 
 	//Create undostack for this document
 	this->_undoStack = new QUndoStack(this);
@@ -80,13 +80,13 @@ void PetriNetScene::updateSceneRect(){
 void PetriNetScene::setMode(Mode mode){
 	switch(mode){
 	case InsertArcMode:
-		view->setCursor(Qt::CrossCursor);
+		_view->setCursor(Qt::CrossCursor);
 		break;
 	case InsertPlaceMode:
 	case InsertTransitionMode:
 	case PointerMode:
 	default:
-		view->setCursor(Qt::ArrowCursor);
+		_view->setCursor(Qt::ArrowCursor);
 		break;
 	}
 	_mode = mode;

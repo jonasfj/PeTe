@@ -3,10 +3,7 @@
 #include <QDebug>
 #include <QTransform>
 
-PetriNetView::PetriNetView(QWidget *parent) : QGraphicsView(parent) {
-	minScale = 0.1;
-	maxScale = 100;
-}
+PetriNetView::PetriNetView(QWidget *parent) : QGraphicsView(parent) {}
 
 
 void PetriNetView::wheelEvent(QWheelEvent* event){
@@ -40,7 +37,7 @@ void PetriNetView::scaleBy(qreal factor){
 	emit zoomChanged(currentScale() * 100);
 }
 
-void PetriNetView::setZoom(int percent){
+void PetriNetView::setZoom(double percent){
 	qreal targetScale = (qreal)percent / 100.0;
 	qreal factor = targetScale / currentScale();
 	scaleBy(factor);

@@ -87,6 +87,9 @@ public:
 	QStringList variableNames() const;
 	QStringList placeNames() const;
 
+	/** Get the view that owns this scene */
+	PetriNetView* view() { return _view; };
+
 	/** File name of current document, empty if none */
 	const QString& filename() const { return _filename; }
 	/** Set the filename of the current document, empty of none */
@@ -112,7 +115,7 @@ private:
 	QUndoStack* _undoStack;
 
 	/** The view for this scene */
-	PetriNetView* view;
+	PetriNetView* _view;
 
 	Mode _mode;
 protected:

@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow){
     ui->setupUi(this);
 	currentScene = NULL;
+	zoomToolSpinBox = NULL;
 	ui->statusBar->addPermanentWidget(new MemoryMonitor(this));
 
 	// Variable editor
@@ -89,6 +90,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	createUndoActions();
 	createToggleToolsbars();
+	createZoomTool();
 
 	// Listen for clean state changed
 	connect(&undoGroup, SIGNAL(cleanChanged(bool)), this, SLOT(updateWindowTitle()));
@@ -180,7 +182,7 @@ void MainWindow::on_OpenAction_triggered(){
 void MainWindow::on_tabWidget_currentChanged(int index){
 	//Save previousScene and update currentScene
 	PetriNetScene* previousScene = currentScene;
-	QGraphicsView* view = qobject_cast<QGraphicsView*>(ui->tabWidget->widget(index));
+	PetriNetView* view = qobject_cast<PetriNetView*>(ui->tabWidget->widget(index));
 	currentScene = NULL;
 	if(view)
 		currentScene = qobject_cast<PetriNetScene*>(view->scene());
@@ -210,6 +212,9 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 				this, SLOT(resizeVariableView()));
 		disconnect(previousScene->variables(), SIGNAL(rowsInserted(const QModelIndex&, int, int)),
 				this, SLOT(resizeVariableView()));
+
+		disconnect(previousScene->view(), SIGNAL(zoomChanged(double)), zoomToolSpinBox, SLOT(setValue(double)));
+		disconnect(zoomToolSpinBox, SIGNAL(valueChanged(double)), previousScene->view(), SLOT(setZoom(double)));
 
 		ui->variableView->setModel(NULL);
 		ui->queryView->setModel(NULL);
@@ -250,6 +255,10 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 
 		resizeVariableView();
 		resizeValidationView();
+
+		this->zoomToolSpinBox->setValue(currentScene->view()->currentScale() * 100);
+		connect(currentScene->view(), SIGNAL(zoomChanged(double)), zoomToolSpinBox, SLOT(setValue(double)));
+		connect(zoomToolSpinBox, SIGNAL(valueChanged(double)), currentScene->view(), SLOT(setZoom(double)));
 
 		this->currentScene_modeChanged(this->currentScene->mode());
 	}
@@ -473,6 +482,19 @@ void MainWindow::createToggleToolsbars(){
 	ui->menuView->addAction(ui->fileToolBar->toggleViewAction());
 	ui->menuView->addAction(ui->editingToolBar->toggleViewAction());
 	ui->menuView->addAction(ui->toolsToolBar->toggleViewAction());
+}
+
+void MainWindow::createZoomTool(){
+	zoomToolSpinBox = new QDoubleSpinBox(this);
+	zoomToolSpinBox->setSuffix("%");
+	zoomToolSpinBox->setRange(PetriNetView::minScale * 100, PetriNetView::maxScale * 100);
+	zoomToolSpinBox->setSingleStep(5.0);
+	zoomToolSpinBox->setDecimals(0);
+	zoomToolSpinBox->setValue(100);
+	zoomToolSpinBox->setToolTip(tr("Change current zoom"));
+
+	ui->toolsToolBar->addSeparator();
+	ui->toolsToolBar->addWidget(zoomToolSpinBox);
 }
 
 void MainWindow::on_autoArrangeAction_triggered(){

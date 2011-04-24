@@ -5,6 +5,7 @@
 #include <QUndoGroup>
 #include <QActionGroup>
 #include <QTableView>
+#include <QDoubleSpinBox>
 
 #include "NetItems/PetriNetScene.h"
 
@@ -28,12 +29,15 @@ private:
 	QUndoGroup undoGroup;
 	/** Action group for selecting mode */
 	QActionGroup* modeActionGroup;
+	/** Zoom spin box, used for zooming */
+	QDoubleSpinBox* zoomToolSpinBox;
 
 	void loadSettings();
 	void saveSettings();
 	void closeEvent(QCloseEvent *e);
 	void createUndoActions();
 	void createToggleToolsbars();
+	void createZoomTool();
 private slots:
 	void updateWindowTitle();
 	void resizeQueryView();

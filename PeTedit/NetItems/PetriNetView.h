@@ -11,13 +11,13 @@ public:
 	explicit PetriNetView(QWidget *parent = 0);
 	qreal currentScale() const { return transform().m11(); }
 	void scaleBy(qreal factor);
-	void setZoom(int percent);
+	static const qreal minScale = 0.1;
+	static const qreal maxScale = 100;
 signals:
-	void zoomChanged(int zoom);
+	void zoomChanged(double percent);
 public slots:
-
+	void setZoom(double percent);
 private:
-	qreal minScale, maxScale;
 protected:
 	void wheelEvent(QWheelEvent *event);
 };
