@@ -518,12 +518,28 @@ void PetriNetScene::transitionItemDoubleClickEvent(TransitionItem *t){
 /******************** Key press events **********************/
 
 void PetriNetScene::keyPressEvent(QKeyEvent *event) {
-	if(event->key() == Qt::Key_Delete){
-		//Iterate over selected items, and delete them
-		foreach(QGraphicsItem* item, this->selectedItems()){
-			if(item->type() == NetEntity::PlaceItem || item->type() == NetEntity::TransitionItem)
-				_undoStack->push(new DeleteItemCommand(this, (NetItem*)item));
+	// Delete selected NetItems
+	if(event->matches(QKeySequence::Delete)){
+		QList<NetItem*> items = selectedNetItems();
+		if(items.length() == 1)
+			_undoStack->push(new DeleteItemCommand(this, items.first()));
+		else if(items.length() > 1){
+			QUndoCommand* cmd = new QUndoCommand(tr("delete items"));
+			foreach(NetItem* item, items)
+				new DeleteItemCommand(this, item, cmd);
+			_undoStack->push(cmd);
 		}
+	// Set pointer mode, when hitting escape
+	}else if(event->key() == Qt::Key_Escape){
+		// Remove stuff if we're insert arc mode
+		if(mode() == InsertArcMode){
+			ArcItem* arc = dynamic_cast<ArcItem*>(selectedItems().first());
+			if(arc){
+				removeItem(arc);
+				delete arc;
+			}
+		}
+		setMode(PointerMode);
 	}
 }
 

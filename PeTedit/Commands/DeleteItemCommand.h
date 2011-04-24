@@ -11,7 +11,7 @@ class ArcItem;
 
 class DeleteItemCommand : public QUndoCommand {
 public:
-	DeleteItemCommand(PetriNetScene* scene, NetItem* item);
+	DeleteItemCommand(PetriNetScene* scene, NetItem* item, QUndoCommand* parent = NULL);
 	void undo();
 	void redo();
 private:

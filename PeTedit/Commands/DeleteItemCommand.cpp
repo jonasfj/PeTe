@@ -6,7 +6,8 @@
 #include <QtGlobal>
 #include <QList>
 
-DeleteItemCommand::DeleteItemCommand(PetriNetScene* scene, NetItem* item){
+DeleteItemCommand::DeleteItemCommand(PetriNetScene* scene, NetItem* item, QUndoCommand* parent)
+	: QUndoCommand(parent){
 	_item = item;
 	_scene = scene;;
 	ArcItem* arc;
