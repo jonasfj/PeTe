@@ -34,7 +34,6 @@ SOURCES	   += \
     Commands/RenameItemCommand.cpp \
     Commands/EditPlaceCommand.cpp \
     Commands/EditArcCommand.cpp \
-    Commands/DeleteItemCommand.cpp \
     Commands/EditTransitionCommand.cpp \
     Widgets/VariableDelegate.cpp \
     Commands/EditQueryCommand.cpp \
@@ -50,7 +49,8 @@ SOURCES	   += \
     Commands/AutoArrangeNetCommand.cpp \
     Misc/QueryListBuilder.cpp \
     DataFormats/DTAPNParser.cpp \
-    Dialogs/ImportDTAPNDialog.cpp
+    Dialogs/ImportDTAPNDialog.cpp \
+    Commands/DeleteItemsCommand.cpp
 
 
 HEADERS		+= \
@@ -76,7 +76,6 @@ HEADERS		+= \
     Commands/RenameItemCommand.h \
     Commands/EditPlaceCommand.h \
     Commands/EditArcCommand.h \
-    Commands/DeleteItemCommand.h \
     Commands/EditTransitionCommand.h \
     Widgets/VariableDelegate.h \
     Commands/EditQueryCommand.h \
@@ -94,7 +93,8 @@ HEADERS		+= \
     Misc/AbstractQueryListBuilder.h \
     Misc/QueryListBuilder.h \
     DataFormats/DTAPNParser.h \
-    Dialogs/ImportDTAPNDialog.h
+    Dialogs/ImportDTAPNDialog.h \
+    Commands/DeleteItemsCommand.h
 
 
 FORMS		+= MainWindow.ui \

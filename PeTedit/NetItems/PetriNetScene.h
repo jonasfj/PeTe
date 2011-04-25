@@ -146,6 +146,8 @@ signals:
 	void modeChanged(PetriNetScene::Mode mode);
 	void validationIssuesFound();
 public slots:
+	/** Delete selected items (creates an undo command) */
+	void deleteSelection();
 	void updateSceneRect();
 	/** Refresh the model with validation issues */
 	void validate();

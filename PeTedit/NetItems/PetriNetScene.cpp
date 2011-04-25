@@ -6,7 +6,7 @@
 #include "../Commands/RenameItemCommand.h"
 #include "../Commands/EditPlaceCommand.h"
 #include "../Commands/EditArcCommand.h"
-#include "../Commands/DeleteItemCommand.h"
+#include "../Commands/DeleteItemsCommand.h"
 #include "../Commands/EditTransitionCommand.h"
 #include "../Commands/AutoArrangeNetCommand.h"
 #include "PlaceItem.h"
@@ -509,15 +509,7 @@ void PetriNetScene::transitionItemDoubleClickEvent(TransitionItem *t){
 void PetriNetScene::keyPressEvent(QKeyEvent *event) {
 	// Delete selected NetItems
 	if(event->matches(QKeySequence::Delete)){
-		QList<NetItem*> items = selectedNetItems();
-		if(items.length() == 1)
-			_undoStack->push(new DeleteItemCommand(this, items.first()));
-		else if(items.length() > 1){
-			QUndoCommand* cmd = new QUndoCommand(tr("delete items"));
-			foreach(NetItem* item, items)
-				new DeleteItemCommand(this, item, cmd);
-			_undoStack->push(cmd);
-		}
+		deleteSelection();
 	// Set pointer mode, when hitting escape
 	}else if(event->key() == Qt::Key_Escape){
 		// Remove stuff if we're insert arc mode
@@ -641,11 +633,28 @@ void PetriNetScene::alignSelectItems(Qt::Orientation alignOn){
 		_undoStack->push(new AutoArrangeNetCommand(this, selectedNetItems(), alignOn));
 }
 
+/******************** Delete selection ********************/
 
-
-
-
-
+void PetriNetScene::deleteSelection(){
+	QList<QGraphicsItem*> items = selectedItems();
+	QList<ArcItem*> arcs;
+	QList<NetItem*> netitems;
+	foreach(QGraphicsItem* item, items){
+		if(NetItem::isNetItem(item)){
+			NetItem* netitem = dynamic_cast<NetItem*>(item);
+			Q_ASSERT(netitem);
+			if(netitem)
+				netitems.append(netitem);
+		}else if(item->type() == NetEntity::ArcItem){
+			ArcItem* arc = dynamic_cast<ArcItem*>(item);
+			Q_ASSERT(arc);
+			if(arc)
+				arcs.append(arc);
+		}
+	}
+	if(arcs.length() > 0 || netitems.length() > 0)
+		_undoStack->push(new DeleteItemsCommand(this, netitems, arcs));
+}
 
 
 
