@@ -14,8 +14,9 @@ std::string i2s(int i){
 }
 
 namespace PetriEngine{
+namespace DTAPN {
 
-void DTAPNTranslator::addPlace(const std::string& name, int tokens){
+void DTAPNTranslator::addPlace(const std::string& name, int tokens, double, double){
 	Place p;
 	p.name = escapeIdentifier(name);
 	p.tokens = tokens;
@@ -23,15 +24,13 @@ void DTAPNTranslator::addPlace(const std::string& name, int tokens){
 	places.push_back(p);
 }
 
-void DTAPNTranslator::addTransition(const std::string& name){
+void DTAPNTranslator::addTransition(const std::string& name, double, double){
 	Transition t;
 	t.name = escapeIdentifier(name);
 	transitions.push_back(t);
 }
 
-void DTAPNTranslator::addInArc(const std::string& place,
-							   const std::string& transition,
-							   int startInterval, int endInterval){
+void DTAPNTranslator::addInputArc(const std::string& place, const std::string& transition, int startInterval, int endInterval){
 	InArc a;
 	a.start = escapeIdentifier(place);
 	a.end = escapeIdentifier(transition);
@@ -40,7 +39,7 @@ void DTAPNTranslator::addInArc(const std::string& place,
 	inArcs.push_back(a);
 }
 
-void DTAPNTranslator::addOutArc(const std::string& transition, const std::string& place){
+void DTAPNTranslator::addOutputArc(const std::string& transition, const std::string& place){
 	OutArc a;
 	a.start = escapeIdentifier(transition);
 	a.end = escapeIdentifier(place);
@@ -96,7 +95,14 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 	// Find max age for all places
 	for(InArcIter ai = inArcs.begin(); ai != inArcs.end(); ai++){
 		Place& p = findPlace(ai->start);
-		p.maxAge = MAX(p.maxAge, ai->endInterval);
+		p.maxAge = MAX(p.maxAge, ai->endInterval + 1);
+	}
+
+	// Replace infinity with max age
+	for(InArcIter ai = inArcs.begin(); ai != inArcs.end(); ai++){
+		Place& p = findPlace(ai->start);
+		if(ai->endInterval == -1)
+			ai->endInterval = p.maxAge;
 	}
 
 	// Find Largest postset
@@ -309,6 +315,6 @@ string DTAPNTranslator::tokenAgeVariable(const string& place, int tokenIndex){
 	return place + "_" + i2s(tokenIndex);
 }
 
-
+} // DTAPN
 } // PetriEngine
 
