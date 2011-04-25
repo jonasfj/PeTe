@@ -137,6 +137,44 @@ QList<NetItem*> PetriNetScene::selectedNetItems(){
 	return items;
 }
 
+/** Get NetItem at pos, or close by if none are there */
+NetItem* PetriNetScene::netItemCloseAt(QPointF pos, NetEntity::ItemType type){
+	QList<QGraphicsItem*> gi = items(pos, Qt::IntersectsItemShape, Qt::AscendingOrder);
+	foreach(QGraphicsItem* item, gi){
+		if(NetItem::isNetItem(item)){
+			NetItem* netItem = dynamic_cast<NetItem*>(item);
+			Q_ASSERT(netItem);
+			if(netItem && (type == NetEntity::UndefinedItem || netItem->type() == type))
+				return netItem;
+		}
+	}
+	QPainterPath path;
+	path.addEllipse(pos, 5, 5);
+	gi = items(path, Qt::IntersectsItemShape, Qt::AscendingOrder);
+	foreach(QGraphicsItem* item, gi){
+		if(NetItem::isNetItem(item)){
+			NetItem* netItem = dynamic_cast<NetItem*>(item);
+			Q_ASSERT(netItem);
+			if(netItem && (type == NetEntity::UndefinedItem || netItem->type() == type))
+				return netItem;
+		}
+	}
+	return NULL;
+}
+
+/** Get item at pos, or close by if none are there */
+QGraphicsItem* PetriNetScene::itemCloseAt(QPointF pos){
+	QGraphicsItem* item = itemAt(pos);
+	if(item)
+		return item;
+	QPainterPath path;
+	path.addEllipse(pos, 5, 5);
+	QList<QGraphicsItem*> gi = items(path, Qt::IntersectsItemShape);
+	if(!gi.isEmpty())
+		return gi.first();
+	return NULL;
+}
+
 /******************** Add, remove and find transition ********************/
 
 void PetriNetScene::addNetItem(NetItem* item){
@@ -252,7 +290,7 @@ void PetriNetScene::insertArcPress(QGraphicsSceneMouseEvent* event){
 	Q_ASSERT(this->mode() == InsertArcMode && event->button() == Qt::LeftButton);
 	//Insert arc an selected it
 	clearSelection();
-	NetItem* start = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
+	NetItem* start = netItemCloseAt(event->scenePos());
 	if(start){
 		ArcItem* arc = new ArcItem(start);
 		arc->setEndPoint(start->pos());
@@ -267,7 +305,14 @@ void PetriNetScene::insertArcMove(QGraphicsSceneMouseEvent* event){
 	if(!selectedItems().isEmpty()){
 		ArcItem* arc = dynamic_cast<ArcItem*>(selectedItems().first());
 		if(arc){
-			NetItem* end = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
+			// Find the desired type
+			NetEntity::ItemType desiredType = NetEntity::UndefinedItem;
+			if(arc->start()->type() == NetEntity::PlaceItem)
+				desiredType = NetEntity::TransitionItem;
+			else if(arc->start()->type() == NetEntity::TransitionItem)
+				desiredType = NetEntity::PlaceItem;
+
+			NetItem* end = netItemCloseAt(event->scenePos(), desiredType);
 			if(end && end->type() != arc->start()->type() && !findArc(arc->start(), end)){
 				arc->setEndPoint(end->nearestPoint(arc->start()->pos()));
 			}else
@@ -282,7 +327,14 @@ void PetriNetScene::insertArcRelease(QGraphicsSceneMouseEvent* event){
 	if(!selectedItems().isEmpty()){
 		ArcItem* arc = dynamic_cast<ArcItem*>(selectedItems().first());
 		if(arc){
-			NetItem* end = dynamic_cast<NetItem*>(itemAt(event->scenePos()));
+			// Find the desired type
+			NetEntity::ItemType desiredType = NetEntity::UndefinedItem;
+			if(arc->start()->type() == NetEntity::PlaceItem)
+				desiredType = NetEntity::TransitionItem;
+			else if(arc->start()->type() == NetEntity::TransitionItem)
+				desiredType = NetEntity::PlaceItem;
+
+			NetItem* end = netItemCloseAt(event->scenePos(), desiredType);
 			if(end && end->type() != arc->start()->type() && !findArc(arc->start(), end)){
 				arc->setEnd(end);
 				removeItem(arc);
@@ -305,7 +357,7 @@ void PetriNetScene::insertArcRelease(QGraphicsSceneMouseEvent* event){
 void PetriNetScene::pointerPress(QGraphicsSceneMouseEvent* event){
 	Q_ASSERT(this->mode() == PointerMode && event->button() == Qt::LeftButton);
 	modeAtReleaseIfModifier = PointerMode;
-	QGraphicsItem* item = itemAt(event->scenePos());
+	QGraphicsItem* item = itemCloseAt(event->scenePos());
 	if(item){
 		this->unselectItemAtReleaseIfCtrlDown = false;
 		bool state = item->isSelected();
@@ -392,7 +444,7 @@ void PetriNetScene::pointerRelease(QGraphicsSceneMouseEvent* event){
 		}
 		//Unselect if needed
 		if(event->modifiers() & Qt::ControlModifier && this->unselectItemAtReleaseIfCtrlDown){
-			QGraphicsItem* item = itemAt(event->scenePos());
+			QGraphicsItem* item = itemCloseAt(event->scenePos());
 			if(item && item->isSelected())
 				item->setSelected(false);
 		}
@@ -405,15 +457,7 @@ void PetriNetScene::pointerRelease(QGraphicsSceneMouseEvent* event){
 
 void PetriNetScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 	if(this->mode() == PointerMode){
-		QGraphicsItem* item = itemAt(event->scenePos());
-		if(!item){
-			QPainterPath path;
-			path.addEllipse(event->scenePos(),5,5);
-			QList<QGraphicsItem*> gi = items(path,Qt::IntersectsItemShape);
-			if(!gi.isEmpty()){
-				item = gi.first();
-			}
-		}
+		QGraphicsItem* item = itemCloseAt(event->scenePos());
 
 		if(item && item->type() == NetEntity::ArcItem){
 			ArcItem* arc = dynamic_cast<ArcItem*>(item);

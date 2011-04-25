@@ -8,6 +8,8 @@
 
 #include <PetriEngine/AbstractPetriNetBuilder.h>
 
+#include "NetItem.h"
+
 class NetItem;
 class PlaceItem;
 class TransitionItem;
@@ -128,6 +130,10 @@ protected:
 	void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 	void keyPressEvent(QKeyEvent* event);
 private:
+	/** Get NetItem at pos, or close by if none are there, NULL if none */
+	NetItem* netItemCloseAt(QPointF pos, NetEntity::ItemType type = NetEntity::UndefinedItem);
+	/** Get item at pos, or close by if none are there, NULL if none */
+	QGraphicsItem* itemCloseAt(QPointF pos);
 	void insertPlacePress(QGraphicsSceneMouseEvent* event);
 	void insertTransitionPress(QGraphicsSceneMouseEvent* event);
 	void insertArcPress(QGraphicsSceneMouseEvent* event);
