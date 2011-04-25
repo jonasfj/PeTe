@@ -56,7 +56,7 @@ DTAPNTranslator::Place& DTAPNTranslator::findPlace(const string& name){
 	return places.front();
 }
 
-/** Make sure it can collide with stuff we have */
+/** Make sure it can't collide with stuff we have */
 std::string DTAPNTranslator::escapeIdentifier(const std::string& identifier){
 	//TODO: Test and improve this
 	return identifier + "_";
@@ -91,9 +91,8 @@ bool DTAPNTranslator::isEndPlace(const std::string& place){
 	return false;
 }
 
+/** Translates a bounded DTAPN into a PNDV */
 void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
-	this->builder = builder;
-
 	// Find max age for all places
 	for(InArcIter ai = inArcs.begin(); ai != inArcs.end(); ai++){
 		Place& p = findPlace(ai->start);
@@ -105,120 +104,211 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 	for(TransitionIter t = transitions.begin(); t != transitions.end(); t++)
 		largestPostset = MAX(largestPostset, postset(t->name).size());
 
-	// Build control variables (Lock and Release Lock)
-	lockStateIdle = transitions.size();
-	lockStateAgeing = transitions.size() + 1;
-	builder->addVariable("L", 0, transitions.size() + 1); //one for each transition, idle, ageing
+	// Build control variables (Transition Lock and Release Lock)
+	lockStateIdle = 0;
+	lockStateAgeing = transitions.size();
+	builder->addVariable("L", 0, transitions.size() + 1); //one for each transition + idle and ageing
 	builder->addVariable("R", 0, largestPostset);
 
-	// Build all original places
+	// For each place
 	for(PlaceIter p = places.begin(); p != places.end(); p++){
+		// Build original place
 		builder->addPlace(p->name, p->tokens); // Ignore coordinates
+
 		// Build variables for token ages
 		for(int i = 0; i < bound; i++)
-			builder->addVariable(p->name + "_" + i2s(i), 0, p->maxAge);
+			builder->addVariable(tokenAgeVariable(p->name, i), 0, p->maxAge);
+
 		// Build post-places
 		if(isEndPlace(p->name)){
-			string postplace = p->name + "_post";
+			string postplace = postPlace(p->name);
 			builder->addPlace(postplace, 0);
 			// Add a transition for each variable that can store the token age
 			for(int i = 0; i < bound; i++){
-				string tokVar = p->name + "_" + i2s(i);
-				string postptrans = postplace + "_t" + i2s(i);
-				builder->addTransition(postptrans, p->name + " == " + i2s(i), "L := L-1; " + tokVar + " :=0;");
+				string postptrans = postPlaceTransition(p->name, i);
+				string cond = p->name + " == " + i2s(i);
+				string assign = "L := L-1; " + tokenAgeVariable(p->name, i) + " := 0;";
+				builder->addTransition(postptrans, cond, assign);
 				builder->addInputArc(postplace, postptrans);
 				builder->addOutputArc(postptrans, p->name);
 			}
 		}
 	}
 
-	for(TransitionIter t = transitions.begin(); t != transitions.end(); t++)
-		buildTransition(*t);
+	// For each transition
+	for(TransitionIter t = transitions.begin(); t != transitions.end(); t++){
+		// Find pre and post sets
+		InArcList  pre  = preset(t->name);
+		OutArcList post = postset(t->name);
 
+		// Build original transition, remember to set release lock
+		string assign = "L := " + i2s(lockStateIdle) + "; R := " + i2s(post.size()) + ";";
+		builder->addTransition(t->name, "", assign);
+
+		// For each in-arc
+		int inArcNr = 0;
+		for(InArcIter ai = pre.begin(); ai != pre.end(); ai++){
+			// Build pre-place
+			string preplace = prePlace(t->name, inArcNr);
+			builder->addPlace(preplace, 0);
+			// Build k new pre-place-transitions
+			for(int i = 0; i < bound; i++){
+				string pretrans = prePlaceTransition(t->name, inArcNr, i);
+
+				// Create pre-condition
+				string conds;
+				// preplace == 0
+				conds += preplace + " == 0 and \n";
+				// ai->start >= i
+				conds += ai->start + " >= " + i2s(i) + " and \n";
+				// ai->startInterval <= <ai->start>_<i>
+				conds += i2s(ai->startInterval) + " <= " + tokenAgeVariable(ai->start, i) + " and \n";
+				// <ai->start>_<i> <= ai->endInterval
+				conds += tokenAgeVariable(ai->start, i) + " <= " + i2s(ai->endInterval) + " and \n";
+				// L == LockStateIdle or L == lockState(t->name)
+				conds += "( L == " + i2s(lockStateIdle) + " or L == " + lockState(t->name) + " ) and \n";
+				// Release lock clean
+				conds += "R == 0";
+
+				// Create post-assignments
+				string assigns;
+				// L := lockState(t->name)
+				assigns += "L := " + lockState(t->name) + " ; \n";
+				// Shift the values of variables with higher index
+				for(int j = i; j < bound; j++){
+					// <place>_<j>   := <place>_<j+1>
+					assigns += tokenAgeVariable(ai->start,j);
+					assigns += " := " + tokenAgeVariable(ai->start,j + 1) + " ; \n";
+				}
+				builder->addTransition(pretrans, conds, assigns);
+
+				// Add arc from original place to new transition
+				builder->addInputArc(ai->start, pretrans);
+				// Add arc from transition to pre-place.
+				builder->addOutputArc(pretrans, preplace);
+			}
+			// Connect pre-place to original transition
+			builder->addInputArc(preplace, t->name);
+			inArcNr++;
+		}
+
+		// Create arcs to post-places
+		for(OutArcIter ai = post.begin(); ai != post.end(); ai++)
+			builder->addOutputArc(t->name, postPlace(ai->end));
+	}
+
+	// Create control net (for ageing)
+	int marking = 1;
+	for(PlaceIter p = places.begin(); p != places.end(); p++){
+		for(int i = 0; i < bound; i++){
+			// Build intermediate places
+			builder->addPlace(intermediateAgeingPlace(p->name, i), marking);
+			marking = 0;
+		}
+	}
+	bool isFirst = true;
+	for(PlaceIter p = places.begin(); p != places.end(); p++){
+		for(int i = 0; i < bound; i++){
+			// Determine if we're last
+			bool isLast = false;
+			int ni = i + 1;
+			PlaceIter np = p;
+			if(i == bound){
+				i = 0;
+				PlaceIter p2 = p; p2++;
+				if(p2 == places.end()){
+					p = places.begin();
+					isLast = true;
+				}
+			}
+			string iplace = intermediateAgeingPlace(p->name, i);
+			string niplace = intermediateAgeingPlace(np->name, ni);
+
+			string tokenAge = tokenAgeVariable(p->name, i);
+			string maxCond, ageCond, maxAssign, ageAssign;
+			// If we are the first place, require that the lock is idle, and set it ageing
+			if(isFirst){
+				isFirst = false;
+				maxCond += "L == " + i2s(lockStateIdle) + " and ";
+				ageCond += "L == " + i2s(lockStateIdle) + " and ";
+				maxAssign += "L := " + i2s(lockStateAgeing) + " ; ";
+				ageAssign += "L := " + i2s(lockStateAgeing) + " ; ";
+			}else if(isLast){
+				// If we're last, set lock state idle
+				maxAssign += "L := " + i2s(lockStateIdle) + " ; ";
+				ageAssign += "L := " + i2s(lockStateIdle) + " ; ";
+			}
+			// Increment token age if not max
+			maxCond += tokenAge + " == " + i2s(p->maxAge);
+			ageCond += tokenAge + " < " + i2s(p->maxAge);
+			ageAssign += tokenAge + " := " + tokenAge + " + 1 ;";
+			// Create intermediate ageing transitions
+			string maxT = maxTransition(p->name, i);
+			string ageT = ageTransition(p->name, i);
+			// Create network structure
+			builder->addTransition(maxT, maxCond, maxAssign);
+			builder->addTransition(ageT, ageCond, ageAssign);
+			// Connect places and transitions
+			builder->addInputArc(iplace, maxT);
+			builder->addInputArc(iplace, ageT);
+			builder->addOutputArc(maxT, niplace);
+			builder->addOutputArc(ageT, niplace);
+		}
+	}
 }
 
-/*
-Variables:
-	L				Lock
-	R				Release lock
-	<place>_<i>		Token i at <place>
-Places:
-	<place>						Original place
-	<transition>_pre_<i>		Pre-place for transition
-	<place>_post				Post-place for place, e.g. output place from transition to original place
-Transitions:
-	<transition>				Original transition
-	<place>_post_t_<i>			Post-place transition for setting token i
-*/
-
-void DTAPNTranslator::buildTransition(Transition& t){
-	InArcList  pre  = preset(t.name);
-	OutArcList post = postset(t.name);
-	// Add original transition, remember to set release lock
-	builder->addTransition(t.name, "", "L := " + i2s(lockStateIdle) + "; R := " + i2s(post.size()) + ";");
-
-	int inArcNr = 0;
-	for(InArcIter ai = pre.begin(); ai != pre.end(); ai++){
-		// Create pre-place
-		string preplace = t.name+"_pre_"+i2s(inArcNr);
-		builder->addPlace(preplace, 0);
-		// Create k new k-transitions
-		for(int i = 0; i < bound; i++){
-			string pretrans = t.name+"_pre_t_"+i2s(inArcNr)+ "_"+i2s(i);
-
-/*
-precondition:
-	preplace == 0
-	ai->start >= i
-	ai->startInterval <= <ai->start>_<i>
-	<ai->start>_<i> <= ai->endInterval
-	L == LockStateIdle or L == lockState(t.name)
-	R == 0
-
-post assignment:
-	L := lockState(t.name)
-	<ai->start>_<i>   := <ai->start>_<i+1>
-	<ai->start>_<i+1> := <ai->start>_<i+2>
-	...
-
-*/
-			// Set-up pre-conditions
-			string preconds = "";
-			for(int v = 0; v < bound; v++){
-
-			}
-			// Honor the locks
-			preconds += " and R == 0 and L == "+i2s(lockStateIdle);
-
-			string var = ai->start + "_pre_";
-
-			// Grab one token and shift all variables larger than
-			string postconds = "";
-			for(int v = i; v < bound; v++){
-				if(v != bound-1)
-					postconds += var+i2s(v)+" := "+var+i2s(v+1)+";";
-			}
-			//TODO: Set lock to the transition index
-			postconds += "";
-
-			builder->addTransition(pretrans, preconds, postconds);
-
-			// Add arc from original place to new transition
-			builder->addInputArc(ai->start, pretrans);
-			// Add arc from transition to pre-place.
-			builder->addOutputArc(pretrans,preplace);
-		}
-		// Connect pre-place to original transition
-		builder->addInputArc(preplace,t.name);
-		inArcNr++;
+/** Lock state for a transition */
+string DTAPNTranslator::lockState(const string& transition){
+	int next = lockStateIdle + 1;
+	for(TransitionIter t = transitions.begin(); t != transitions.end(); t++){
+		if(t->name == transition)
+			return i2s(next);
+		next++;
 	}
+	assert(false);
+	return "";
+}
 
-	// Create arcs to existing output arcs
-	for(OutArcIter ai = post.begin(); ai != post.end(); ai++){
-		string postplace = ai->end + "_post"; // Already exists
-		builder->addOutputArc(t.name, postplace);
-	}
+/** Max transition between two intermediate ageing places */
+string maxTransition(const string& place, int tokenIndex){
+	return place + "_max_t_" + i2s(tokenIndex);
+}
+
+/** Age transition between two intermediate ageing places */
+string ageTransition(const string& place, int tokenIndex){
+	return place + "_age_t_" + i2s(tokenIndex);
+}
+
+/** An intermediate ageing place*/
+string intermediateAgeingPlace(const string& place, int tokenIndex){
+	return place + "_age_" + i2s(tokenIndex);
+}
+
+/** Pre place to a transition */
+string DTAPNTranslator::prePlace(const string& transition, int inArcNr){
+	return transition + "_pre_" + i2s(inArcNr);
+}
+
+/** Transition from place to pre-place */
+string DTAPNTranslator::prePlaceTransition(const string& transition, int inArcNr, int tokenIndex){
+	return transition + "_pre_t_" + i2s(inArcNr) + "_" + i2s(tokenIndex);
+}
+
+/** Post-place from a transition, only one per place */
+string DTAPNTranslator::postPlace(const string& place){
+	return place + "_post";
+}
+
+/** Transition from post-place to place */
+string DTAPNTranslator::postPlaceTransition(const string& place, int tokenIndex){
+	return place + "_t" + i2s(tokenIndex);
+}
+
+/** Variable representing the age of a specific token at a place */
+string DTAPNTranslator::tokenAgeVariable(const string& place, int tokenIndex){
+	return place + "_" + i2s(tokenIndex);
 }
 
 
 } // PetriEngine
+

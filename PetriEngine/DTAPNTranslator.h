@@ -52,15 +52,21 @@ public:
 private:
 	/** Maximum number of tokens at a place */
 	int bound;
+	/** List of DTAPN places */
 	PlaceList places;
+	/** List of DTAPN transitions */
 	TransitionList transitions;
+	/** List of DTAPN input arcs */
 	InArcList inArcs;
+	/** List of DTAPN output arcs */
 	OutArcList outArcs;
-	AbstractPetriNetBuilder* builder;
+	/** Returns a DTAPN place with the provided name */
 	Place& findPlace(const std::string& name);
-	void buildTransition(Transition& t);
+	/** Make sure it can't collide with stuff we have */
 	std::string escapeIdentifier(const std::string& identifier);
+	/** Gets a list of input arcs for a transition */
 	InArcList preset(const std::string& transition);
+	/** Gets a list of output arcs for a transition */
 	OutArcList postset(const std::string& transition);
 	/** True, if place is the target of any output arcs */
 	bool isEndPlace(const std::string& place);
@@ -68,7 +74,24 @@ private:
 	int lockStateIdle;
 	/** Lock state, when in ageing */
 	int lockStateAgeing;
-	int lockState(const std::string& transition);
+	/** Lock state for a transition */
+	std::string lockState(const std::string& transition);
+	/** Pre place to a transition */
+	std::string prePlace(const std::string& transition, int inArcNr);
+	/** Transition from place to pre-place */
+	std::string prePlaceTransition(const std::string& transition, int inArcNr, int tokenIndex);
+	/** Post-place from a transition, only one per place */
+	std::string postPlace(const std::string& place);
+	/** Transition from post-place to place */
+	std::string postPlaceTransition(const std::string& place, int tokenIndex);
+	/** Variable representing the age of a specific token at a place */
+	std::string tokenAgeVariable(const std::string& place, int tokenIndex);
+	/** Max transition between two intermediate ageing places */
+	std::string maxTransition(const std::string& place, int tokenIndex);
+	/** Age transition between two intermediate ageing places */
+	std::string ageTransition(const std::string& place, int tokenIndex);
+	/** An intermediate ageing place*/
+	std::string intermediateAgeingPlace(const std::string& place, int tokenIndex);
 };
 
 } // PetriEngine
