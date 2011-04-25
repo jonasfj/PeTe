@@ -24,7 +24,7 @@ SOURCES		   += \
     Reachability/RandomDFS.cpp \
     Reachability/HeuristicDFS.cpp \
     Reachability/BreadthFirstReachabilitySearch.cpp \
-    DTAPNTranslator.cpp
+    DTAPN/DTAPNTranslator.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -56,8 +56,9 @@ HEADERS		   += \
     Reachability/RandomDFS.h \
     Reachability/HeuristicDFS.h \
     Reachability/BreadthFirstReachabilitySearch.h \
-    DTAPNTranslator.h \
-    AbstractDTAPNBuilder.h
+    AbstractDTAPNBuilder.h \
+    DTAPN/DTAPNTranslator.h \
+    DTAPN/AbstractDTAPNBuilder.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine

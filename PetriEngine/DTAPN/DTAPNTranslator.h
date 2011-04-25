@@ -6,11 +6,13 @@
 #include <vector>
 
 #include "AbstractPetriNetBuilder.h"
+#include "AbstractDTAPNBuilder.h"
 
 namespace PetriEngine{
+namespace DTAPN {
 
 /** Translator from DTAPN to PNDV */
-class DTAPNTranslator
+class DTAPNTranslator : public AbstractDTAPNBuilder
 {
 	/** Encapsulates a place */
 	struct Place{
@@ -44,10 +46,10 @@ class DTAPNTranslator
 	typedef std::list<OutArc>::iterator OutArcIter;
 public:
 	DTAPNTranslator(int bound){ this->bound = bound; }
-	void addPlace(const std::string& name, int tokens);
-	void addTransition(const std::string& name);
-	void addInArc(const std::string& place, const std::string& transition, int startInterval, int endInterval);
-	void addOutArc(const std::string& transition, const std::string& place);
+	void addPlace(const std::string& name, int tokens, double x = 0, double y = 0);
+	void addTransition(const std::string& name, double x = 0, double y = 0);
+	void addInputArc(const std::string& place, const std::string& transition, int startInterval, int endInterval);
+	void addOutputArc(const std::string& transition, const std::string& place);
 	void makePNDV(AbstractPetriNetBuilder* builder);
 private:
 	/** Maximum number of tokens at a place */
@@ -94,6 +96,7 @@ private:
 	std::string intermediateAgeingPlace(const std::string& place, int tokenIndex);
 };
 
+} // DTAPN
 } // PetriEngine
 
 #endif // DTAPNTRANSLATOR_H
