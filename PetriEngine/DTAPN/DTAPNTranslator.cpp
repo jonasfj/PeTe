@@ -18,7 +18,7 @@ namespace DTAPN {
 
 void DTAPNTranslator::addPlace(const std::string& name, int tokens, double, double){
 	Place p;
-	p.name = escapeIdentifier(name);
+	p.name = name;
 	p.tokens = tokens;
 	p.maxAge = 0;
 	places.push_back(p);
@@ -26,14 +26,24 @@ void DTAPNTranslator::addPlace(const std::string& name, int tokens, double, doub
 
 void DTAPNTranslator::addTransition(const std::string& name, double, double){
 	Transition t;
-	t.name = escapeIdentifier(name);
+	t.name = name;
 	transitions.push_back(t);
+}
+
+bool DTAPNTranslator::hasIdentifier(const std::string& id){
+	for(PlaceIter p = places.begin(); p != places.end(); p++)
+		if(p->name==id)
+			return true;
+	for(TransitionIter t = transitions.begin(); t != transitions.end(); t++)
+		if(t->name==id)
+			return true;
+	return false;
 }
 
 void DTAPNTranslator::addInputArc(const std::string& place, const std::string& transition, int startInterval, int endInterval){
 	InArc a;
-	a.start = escapeIdentifier(place);
-	a.end = escapeIdentifier(transition);
+	a.start = place;
+	a.end = transition;
 	a.startInterval = startInterval;
 	a.endInterval = endInterval;
 	inArcs.push_back(a);
@@ -41,8 +51,8 @@ void DTAPNTranslator::addInputArc(const std::string& place, const std::string& t
 
 void DTAPNTranslator::addOutputArc(const std::string& transition, const std::string& place){
 	OutArc a;
-	a.start = escapeIdentifier(transition);
-	a.end = escapeIdentifier(place);
+	a.start = transition;
+	a.end = place;
 	outArcs.push_back(a);
 }
 
@@ -56,9 +66,10 @@ DTAPNTranslator::Place& DTAPNTranslator::findPlace(const string& name){
 }
 
 /** Make sure it can't collide with stuff we have */
-std::string DTAPNTranslator::escapeIdentifier(const std::string& identifier){
-	//TODO: Test and improve this
-	return identifier + "_";
+std::string DTAPNTranslator::escapeIdentifier(std::string identifier){
+	while(hasIdentifier(identifier))
+		identifier += "_";
+	return identifier;
 }
 
 /** Gets the input arcs of a transition */
@@ -277,42 +288,47 @@ string DTAPNTranslator::lockState(const string& transition){
 
 /** Max transition between two intermediate ageing places */
 string DTAPNTranslator::maxTransition(const string& place, int tokenIndex){
-	return place + "_max_t_" + i2s(tokenIndex);
+	return escapeIdentifier(place + "_max_t_" + i2s(tokenIndex));
 }
 
 /** Age transition between two intermediate ageing places */
 string DTAPNTranslator::ageTransition(const string& place, int tokenIndex){
-	return place + "_age_t_" + i2s(tokenIndex);
+	return escapeIdentifier(place + "_age_t_" + i2s(tokenIndex));
 }
 
 /** An intermediate ageing place*/
 string DTAPNTranslator::intermediateAgeingPlace(const string& place, int tokenIndex){
-	return place + "_age_" + i2s(tokenIndex);
+	return escapeIdentifier(place + "_age_" + i2s(tokenIndex));
 }
 
 /** Pre place to a transition */
 string DTAPNTranslator::prePlace(const string& transition, int inArcNr){
-	return transition + "_pre_" + i2s(inArcNr);
+	return escapeIdentifier(transition + "_pre_" + i2s(inArcNr));
 }
 
 /** Transition from place to pre-place */
 string DTAPNTranslator::prePlaceTransition(const string& transition, int inArcNr, int tokenIndex){
-	return transition + "_pre_t_" + i2s(inArcNr) + "_" + i2s(tokenIndex);
+	return escapeIdentifier(transition + "_pre_t_" + i2s(inArcNr) + "_" + i2s(tokenIndex));
 }
 
 /** Post-place from a transition, only one per place */
 string DTAPNTranslator::postPlace(const string& place){
-	return place + "_post";
+	return escapeIdentifier(place + "_post");
 }
 
 /** Transition from post-place to place */
 string DTAPNTranslator::postPlaceTransition(const string& place, int tokenIndex){
-	return place + "_t" + i2s(tokenIndex);
+	return escapeIdentifier(place + "_t" + i2s(tokenIndex));
 }
 
 /** Variable representing the age of a specific token at a place */
 string DTAPNTranslator::tokenAgeVariable(const string& place, int tokenIndex){
-	return place + "_" + i2s(tokenIndex);
+	return escapeIdentifier(place + "_" + i2s(tokenIndex));
+}
+
+/** Translates a DTAPN query into a PNDV query */
+string DTAPNTranslator::translateQuery(const std::string &query){
+	return "L == 0 and R == 0 and ( "+ query + " ) ";
 }
 
 } // DTAPN

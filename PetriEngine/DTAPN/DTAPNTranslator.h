@@ -51,6 +51,7 @@ public:
 	void addInputArc(const std::string& place, const std::string& transition, int startInterval, int endInterval);
 	void addOutputArc(const std::string& transition, const std::string& place);
 	void makePNDV(AbstractPetriNetBuilder* builder);
+	static std::string translateQuery(const std::string& query);
 private:
 	/** Maximum number of tokens at a place */
 	int bound;
@@ -65,7 +66,7 @@ private:
 	/** Returns a DTAPN place with the provided name */
 	Place& findPlace(const std::string& name);
 	/** Make sure it can't collide with stuff we have */
-	std::string escapeIdentifier(const std::string& identifier);
+	std::string escapeIdentifier(std::string identifier);
 	/** Gets a list of input arcs for a transition */
 	InArcList preset(const std::string& transition);
 	/** Gets a list of output arcs for a transition */
@@ -94,6 +95,8 @@ private:
 	std::string ageTransition(const std::string& place, int tokenIndex);
 	/** An intermediate ageing place*/
 	std::string intermediateAgeingPlace(const std::string& place, int tokenIndex);
+	/** to ensure unique names */
+	bool hasIdentifier(const std::string& id);
 };
 
 } // DTAPN
