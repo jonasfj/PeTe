@@ -43,15 +43,22 @@ class DTAPNParser
 		int endInterval;
 	};
 public:
+	struct Query{
+		QString name;
+		QString query;
+	};
+
 	DTAPNParser() { builder = NULL; }
 	/** Parse input and build result with builder */
 	void parse(QIODevice* input, PetriEngine::DTAPN::AbstractDTAPNBuilder* builder);
+	QList<Query> queries() { return _queries; }
 private:
 	void pnml();
 	void net();
 	void place();
 	void transition();
 	void arc();
+	void query();
 	void position(qreal& x, qreal& y);
 	void value(QString& value);
 	/** Builder for creating new petri net */
@@ -60,6 +67,7 @@ private:
 	QList<ArcEntry> arcs;
 	/** Maps Ids to names */
 	QHash<QString, NodeName> idmap;
+	QList<Query> _queries;
 };
 
 

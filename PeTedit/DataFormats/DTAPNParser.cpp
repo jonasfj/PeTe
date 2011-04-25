@@ -76,9 +76,31 @@ void DTAPNParser::net(){
 			transition();
 		}else if(xml.name() == "arc"){
 			arc();
+		}else if(xml.name() == "queries"){
+			query();
 		}else
 			xml.skipCurrentElement();
 	}
+}
+
+void DTAPNParser::query(){
+	Query q;
+	q.name = xml.attributes().value("name").toString();
+	while(xml.readNextStartElement()){
+		if(xml.name() == "query"){
+			value(q.query);
+		}else
+			xml.skipCurrentElement();
+	}
+
+	if(q.query.startsWith("EF")){
+		q.query = q.query.mid(2);
+	}else
+		q.query = "";
+
+
+	if(!q.query.isEmpty())
+		_queries.push_back(q);
 }
 
 void DTAPNParser::place(){
