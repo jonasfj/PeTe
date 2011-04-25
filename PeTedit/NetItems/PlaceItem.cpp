@@ -119,3 +119,10 @@ void PlaceItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidge
 		painter->drawEllipse(QPointF(0,0), SELECTION_SIZE, SELECTION_SIZE);
 	}
 }
+
+QPainterPath PlaceItem::primaryShape(){
+	QPainterPath path;
+	path.addEllipse(QPointF(0,0), CIRCLE_SIZE, CIRCLE_SIZE);
+	path.translate(pos());
+	return path;
+}

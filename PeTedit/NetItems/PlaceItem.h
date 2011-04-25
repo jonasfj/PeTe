@@ -26,6 +26,7 @@ public:
 	void updateTokenPath();
 	QPainterPath opaqueArea() const;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
+	QPainterPath primaryShape();
 private:
 	QPainterPath textPath, tokenPath;
 	void nameChanged();

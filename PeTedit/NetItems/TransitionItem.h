@@ -44,6 +44,7 @@ public:
 	QPainterPath opaqueArea() const;
 	void updateTextPath();
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
+	QPainterPath primaryShape();
 private:
 	void nameChanged();
 	QPainterPath textPath;
