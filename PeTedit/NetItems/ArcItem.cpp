@@ -62,39 +62,7 @@ QPainterPath ArcItem::textPath() const{
 }
 
 QPainterPath ArcItem::arrowPath() const{
-	QPainterPath path;
-	if((_endItem && _startItem->collidesWithItem(_endItem)) ||
-	   (!_endItem && _startItem->contains(_end)))
-		return path;
-	QPointF start(0,0),
-			point = _end - pos();
-
-	//The arrow line and reverse liune
-	QLineF line(start, point);
-	QLineF revline(point, start);
-
-	//Compute various points
-	QLineF s = revline.normalVector();
-	s.setAngle(revline.angle() - 45);
-	s.setLength(ARROW_SIZE);
-	QPointF side1 = s.p2();
-	s = revline.normalVector();
-	s.setAngle(revline.angle() + 45);
-	s.setLength(ARROW_SIZE);
-	QPointF side2 = s.p2();
-
-	s = QLineF(side1, side2);
-	QPointF head = point;
-	s.intersect(revline, &head);
-
-	path.moveTo(start);
-	path.lineTo(head);
-	path.lineTo(side1);
-	path.lineTo(point);
-	path.lineTo(side2);
-	path.lineTo(head);
-
-	return path;
+	return _cachedArrowPath;
 }
 
 QPainterPath ArcItem::shape() const{
@@ -121,6 +89,44 @@ void ArcItem::updateEndPoints(){
 		_end = _endItem->nearestPoint(_startItem->pos());
 	QPointF start = _startItem->nearestPoint(_end);
 	this->setPos(start);
+	updateArrowPath();
+}
+
+void ArcItem::updateArrowPath(){
+	QPainterPath path;
+	if((_endItem && _startItem->collidesWithItem(_endItem)) ||
+	   (!_endItem && _startItem->contains(_end))){
+	   _cachedArrowPath = path;
+		return;
+	}
+	QPointF start(0,0),
+			point = _end - pos();
+
+	//The arrow line and reverse liune
+	QLineF revline(point, start);
+
+	//Compute various points
+	QLineF s = revline.normalVector();
+	s.setAngle(revline.angle() - 45);
+	s.setLength(ARROW_SIZE);
+	QPointF side1 = s.p2();
+	s = revline.normalVector();
+	s.setAngle(revline.angle() + 45);
+	s.setLength(ARROW_SIZE);
+	QPointF side2 = s.p2();
+
+	s = QLineF(side1, side2);
+	QPointF head = point;
+	s.intersect(revline, &head);
+
+	path.moveTo(start);
+	path.lineTo(head);
+	path.lineTo(side1);
+	path.lineTo(point);
+	path.lineTo(side2);
+	path.lineTo(head);
+
+	_cachedArrowPath = path;
 }
 
 void ArcItem::setEndPoint(QPointF end){

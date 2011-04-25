@@ -20,6 +20,7 @@
 #include "Misc/ProgressViewDelegate.h"
 #include "Misc/VariableModel.h"
 #include "DataFormats/DTAPNParser.h"
+#include "Dialogs/ImportDTAPNDialog.h"
 
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/PQL/PQL.h>
@@ -549,8 +550,6 @@ void MainWindow::updateWindowTitle(){
 	}
 }
 
-#include <PetriEngine/DTAPN/DTAPNPrinter.h>
-#include "Dialogs/ImportDTAPNDialog.h"
 
 /** Import and convert a DTAPN */
 void MainWindow::on_translateDTAPNAction_triggered(){
@@ -563,7 +562,7 @@ void MainWindow::on_translateDTAPNAction_triggered(){
 			return;
 		lastImportPath = QFileInfo(fname).absoluteDir().absolutePath();
 
-		// TODO: Fix the hardcoded bound!
+		// Create translator
 		PetriEngine::DTAPN::DTAPNTranslator translator(d.bound());
 
 		// Parse file to translator

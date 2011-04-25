@@ -31,7 +31,9 @@ public:
 				end()->update();
 	}
 private:
+	void updateArrowPath();
 	QPainterPath arrowPath() const;
+	QPainterPath _cachedArrowPath;
 	QPainterPath textPath() const;
 	NetItem* _startItem;
 	NetItem* _endItem;

@@ -1,6 +1,9 @@
 TEMPLATE		= lib
 
-QMAKE_CXXFLAGS += $$system(llvm-config --cxxflags all)
+#QMAKE_CXXFLAGS_DEBUG += -pg
+#QMAKE_LFLAGS_DEBUG += -pg
+
+QMAKE_CXXFLAGS += $$system(llvm-config --cxxflags all)# | sed -e "s/-fomit-frame-pointer//")
 QT			   -= gui core
 CONFIG		   += staticlib link_pkgconfig
 PKGCONFIG	   += igraph

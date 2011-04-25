@@ -1,6 +1,9 @@
 TEMPLATE	 = app
 
-QMAKE_CXXFLAGS	+= -std=c++0x $$system(llvm-config --cxxflags all)
+#QMAKE_CXXFLAGS_DEBUG += -pg
+#QMAKE_LFLAGS_DEBUG += -pg
+
+QMAKE_CXXFLAGS	+= -std=c++0x $$system(llvm-config --cxxflags all)# | sed -e "s/-fomit-frame-pointer//")
 QT		  		+= core gui svg
 INCLUDEPATH		+= ../
 LIBS			+= -L../ -lPetriEngine $$system(llvm-config --libs all) -lproc
