@@ -48,11 +48,11 @@ bool TransitionItem::enabled() const{
 QPainterPath TransitionItem::textPath() const {
 	QPainterPath path;
 	// Draw text label for transition
-	path.addText(0,0,QFont("",6),this->name());
+	path.addText(0, 0, QFont("", 6), this->name());
 
 	QRectF moved = path.boundingRect();
 	qreal yoffset = path.boundingRect().height();
-	moved.moveCenter(QPointF(0,yoffset*3));
+	moved.moveCenter(QPointF(0, yoffset*3));
 	path.translate(moved.center() - path.boundingRect().center());
 	return path;
 }

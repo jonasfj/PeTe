@@ -550,18 +550,21 @@ void MainWindow::updateWindowTitle(){
 }
 
 #include <PetriEngine/DTAPN/DTAPNPrinter.h>
+#include "Dialogs/ImportDTAPNDialog.h"
 
 /** Import and convert a DTAPN */
 void MainWindow::on_translateDTAPNAction_triggered(){
-	QString fname = QFileDialog::getOpenFileName(this, tr("Import/Translate DTAPN"), lastImportPath);
-	if(fname != ""){
+	ImportDTAPNDialog d(this, lastImportPath);
+	if(d.exec() == QDialog::Accepted){
+		QString fname = d.filePath();
+
 		QFile file(fname);
 		if(!file.open(QIODevice::ReadOnly))
 			return;
 		lastImportPath = QFileInfo(fname).absoluteDir().absolutePath();
 
 		// TODO: Fix the hardcoded bound!
-		PetriEngine::DTAPN::DTAPNTranslator translator(5);
+		PetriEngine::DTAPN::DTAPNTranslator translator(d.bound());
 
 		// Parse file to translator
 		DTAPNParser p;
