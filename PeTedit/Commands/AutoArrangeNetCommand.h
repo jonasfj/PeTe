@@ -9,7 +9,10 @@
 class AutoArrangeNetCommand : public QUndoCommand
 {
 public:
+	/** Automatically arrange items on scene */
 	AutoArrangeNetCommand(PetriNetScene* scene);
+	/** Automatically align items orientation */
+	AutoArrangeNetCommand(PetriNetScene* scene, QList<NetItem*> items, Qt::Orientation alignOn);
 	void redo();
 	void undo();
 

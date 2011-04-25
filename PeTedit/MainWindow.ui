@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/Icons/pete.svg</normaloff>:/Icons/pete.svg</iconset>
+    <normaloff>:/Icons/16x16/pete.png</normaloff>:/Icons/16x16/pete.png</iconset>
   </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
@@ -74,9 +74,10 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="NewTapnAction"/>
+    <addaction name="NewPNDVAction"/>
     <addaction name="OpenAction"/>
     <addaction name="SaveAction"/>
+    <addaction name="saveAsAction"/>
     <addaction name="importSUMoQueriesAction"/>
     <addaction name="actionExport_SVG"/>
    </widget>
@@ -103,12 +104,31 @@
     <property name="title">
      <string>&amp;Edit</string>
     </property>
+    <addaction name="InsertPlaceModeAction"/>
+    <addaction name="InsertTransitionModeAction"/>
+    <addaction name="InsertArcModeAction"/>
+    <addaction name="PointerModeAction"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
    <addaction name="menu_Analysis"/>
    <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="fileToolBar">
+   <property name="windowTitle">
+    <string>File toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="NewPNDVAction"/>
+   <addaction name="OpenAction"/>
+   <addaction name="SaveAction"/>
+   <addaction name="saveAsAction"/>
   </widget>
   <widget class="QToolBar" name="editingToolBar">
    <property name="windowTitle">
@@ -124,6 +144,22 @@
    <addaction name="InsertTransitionModeAction"/>
    <addaction name="InsertArcModeAction"/>
    <addaction name="PointerModeAction"/>
+  </widget>
+  <widget class="QToolBar" name="toolsToolBar">
+   <property name="windowTitle">
+    <string>Tools toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="validateAction"/>
+   <addaction name="separator"/>
+   <addaction name="autoArrangeAction"/>
+   <addaction name="alignHorizontalAction"/>
+   <addaction name="alignVerticalAction"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="variableDock">
@@ -182,6 +218,10 @@
          <property name="text">
           <string/>
          </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/Icons/16x16/add.png</normaloff>:/Icons/16x16/add.png</iconset>
+         </property>
         </widget>
        </item>
        <item>
@@ -191,6 +231,10 @@
          </property>
          <property name="text">
           <string notr="true"/>
+         </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/Icons/16x16/delete.png</normaloff>:/Icons/16x16/delete.png</iconset>
          </property>
          <property name="flat">
           <bool>false</bool>
@@ -235,6 +279,9 @@
      </property>
      <item>
       <widget class="QTableView" name="queryView">
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
        <property name="horizontalScrollBarPolicy">
         <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
@@ -279,7 +326,7 @@
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
-           <normaloff>:/Icons/play.svg</normaloff>:/Icons/play.svg</iconset>
+           <normaloff>:/Icons/16x16/play.png</normaloff>:/Icons/16x16/play.png</iconset>
          </property>
         </widget>
        </item>
@@ -293,7 +340,7 @@
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
-           <normaloff>:/Icons/stop.svg</normaloff>:/Icons/stop.svg</iconset>
+           <normaloff>:/Icons/16x16/stop.png</normaloff>:/Icons/16x16/stop.png</iconset>
          </property>
         </widget>
        </item>
@@ -305,6 +352,10 @@
          <property name="text">
           <string/>
          </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/Icons/16x16/add.png</normaloff>:/Icons/16x16/add.png</iconset>
+         </property>
         </widget>
        </item>
        <item>
@@ -314,6 +365,10 @@
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/Icons/16x16/delete.png</normaloff>:/Icons/16x16/delete.png</iconset>
          </property>
         </widget>
        </item>
@@ -411,7 +466,7 @@
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
-           <normaloff>:/Icons/refresh.svg</normaloff>:/Icons/refresh.svg</iconset>
+           <normaloff>:/Icons/16x16/validate.png</normaloff>:/Icons/16x16/validate.png</iconset>
          </property>
         </widget>
        </item>
@@ -422,7 +477,7 @@
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
-           <normaloff>:/Icons/clear.svg</normaloff>:/Icons/clear.svg</iconset>
+           <normaloff>:/Icons/16x16/clear.png</normaloff>:/Icons/16x16/clear.png</iconset>
          </property>
         </widget>
        </item>
@@ -444,22 +499,16 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QToolBar" name="toolsToolBar">
-   <property name="windowTitle">
-    <string>Tools toolbar</string>
+  <action name="NewPNDVAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/24x24/new-pndv.png</normaloff>:/Icons/24x24/new-pndv.png</iconset>
    </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="validateAction"/>
-   <addaction name="autoArrangeAction"/>
-  </widget>
-  <action name="NewTapnAction">
    <property name="text">
-    <string>&amp;New Timed-Arc Petri Net</string>
+    <string>&amp;New Petri Net</string>
+   </property>
+   <property name="toolTip">
+    <string>New Petri Net with Discrete variables</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
@@ -471,7 +520,7 @@
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/add-place.svg</normaloff>:/Icons/add-place.svg</iconset>
+     <normaloff>:/Icons/24x24/add-place.png</normaloff>:/Icons/24x24/add-place.png</iconset>
    </property>
    <property name="text">
     <string>New place</string>
@@ -489,7 +538,7 @@
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/pointer.svg</normaloff>:/Icons/pointer.svg</iconset>
+     <normaloff>:/Icons/24x24/pointer.png</normaloff>:/Icons/24x24/pointer.png</iconset>
    </property>
    <property name="text">
     <string>Pointer mode</string>
@@ -504,7 +553,7 @@
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/add-transition.svg</normaloff>:/Icons/add-transition.svg</iconset>
+     <normaloff>:/Icons/24x24/add-transition.png</normaloff>:/Icons/24x24/add-transition.png</iconset>
    </property>
    <property name="text">
     <string>New transition</string>
@@ -519,13 +568,17 @@
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/add-arc.svg</normaloff>:/Icons/add-arc.svg</iconset>
+     <normaloff>:/Icons/24x24/add-arc.png</normaloff>:/Icons/24x24/add-arc.png</iconset>
    </property>
    <property name="text">
     <string>New arc</string>
    </property>
   </action>
   <action name="SaveAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/24x24/save.png</normaloff>:/Icons/24x24/save.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Save</string>
    </property>
@@ -534,6 +587,10 @@
    </property>
   </action>
   <action name="OpenAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/24x24/open.png</normaloff>:/Icons/24x24/open.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Open petri net</string>
    </property>
@@ -549,7 +606,7 @@
   <action name="validateAction">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/Icons/validate.svg</normaloff>:/Icons/validate.svg</iconset>
+     <normaloff>:/Icons/24x24/validate.png</normaloff>:/Icons/24x24/validate.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Validate</string>
@@ -571,11 +628,51 @@
    </property>
   </action>
   <action name="autoArrangeAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/24x24/autoarrange.png</normaloff>:/Icons/24x24/autoarrange.png</iconset>
+   </property>
    <property name="text">
     <string>Auto arrange petri net</string>
    </property>
    <property name="toolTip">
     <string>Automatically generate a reasonable layout for the petri net</string>
+   </property>
+  </action>
+  <action name="saveAsAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/24x24/save-as.png</normaloff>:/Icons/24x24/save-as.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save &amp;As</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="alignHorizontalAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/24x24/align-horizontal.png</normaloff>:/Icons/24x24/align-horizontal.png</iconset>
+   </property>
+   <property name="text">
+    <string>Align horizontal</string>
+   </property>
+   <property name="toolTip">
+    <string>Align selected items horizontal</string>
+   </property>
+  </action>
+  <action name="alignVerticalAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/24x24/align-vertical.png</normaloff>:/Icons/24x24/align-vertical.png</iconset>
+   </property>
+   <property name="text">
+    <string>Align vertical</string>
+   </property>
+   <property name="toolTip">
+    <string>Align selected items vertical</string>
    </property>
   </action>
  </widget>

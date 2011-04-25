@@ -86,10 +86,24 @@ public:
 	/** List variables names */
 	QStringList variableNames() const;
 	QStringList placeNames() const;
+
+	/** Get the view that owns this scene */
+	PetriNetView* view() { return _view; };
+
+	/** File name of current document, empty if none */
+	const QString& filename() const { return _filename; }
+	/** Set the filename of the current document, empty of none */
+	void setFilename(const QString& filename) { _filename = filename; }
+
+	/** Get a list of selected NetItems*/
+	QList<NetItem*> selectedNetItems();
 private:
 	void transitionItemDoubleClickEvent(TransitionItem* t);
 	void placeItemDoubleClickEvent(PlaceItem* place);
 	void arcItemDoubleClickEvent(ArcItem* arc);
+
+	/** Filename of the current document, empty if none */
+	QString _filename;
 
 	/** Model representing the variables of the net */
 	VariableModel* _variables;
@@ -104,17 +118,30 @@ private:
 	QUndoStack* _undoStack;
 
 	/** The view for this scene */
-	PetriNetView* view;
+	PetriNetView* _view;
 
 	Mode _mode;
-	/** Unselect item at mouseReleaseEvent if ControlModifier is down */
-	bool unselectItemAtReleaseIfCtrlDown;
 protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent* event);
 	void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 	void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 	void keyPressEvent(QKeyEvent* event);
+private:
+	void insertPlacePress(QGraphicsSceneMouseEvent* event);
+	void insertTransitionPress(QGraphicsSceneMouseEvent* event);
+	void insertArcPress(QGraphicsSceneMouseEvent* event);
+	void insertArcMove(QGraphicsSceneMouseEvent* event);
+	void insertArcRelease(QGraphicsSceneMouseEvent* event);
+	void pointerPress(QGraphicsSceneMouseEvent* event);
+	void pointerMove(QGraphicsSceneMouseEvent* event);
+	void pointerRelease(QGraphicsSceneMouseEvent* event);
+	/** Unselect item at mouseReleaseEvent if ControlModifier is down */
+	bool unselectItemAtReleaseIfCtrlDown;
+	/** Current selection rectangle, NULL if none */
+	QGraphicsRectItem* selectionRect;
+	/** Mode to enter at pointer release, if there's a modifier down */
+	Mode modeAtReleaseIfModifier;
 signals:
 	void modeChanged(PetriNetScene::Mode mode);
 	void validationIssuesFound();
@@ -126,6 +153,8 @@ public slots:
 	void showValidationIssue(const QModelIndex& index);
 	/** Automatically arrange the layout */
 	void autoArrange();
+	/** Align selected items along alignOn */
+	void alignSelectItems(Qt::Orientation alignOn);
 };
 
 #endif // PETRINETSCENE_H

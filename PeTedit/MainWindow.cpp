@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow){
     ui->setupUi(this);
 	currentScene = NULL;
+	zoomToolSpinBox = NULL;
 	ui->statusBar->addPermanentWidget(new MemoryMonitor(this));
 
 	// Variable editor
@@ -51,14 +52,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	//Set delegate for query editor
 	ui->queryView->setItemDelegateForColumn(1, new ProgressViewDelegate(this));
-
-	// Set icons on variable buttons
-	ui->addVariable->setIcon(QIcon::fromTheme("list-add"));
-	ui->deleteVariable->setIcon(QIcon::fromTheme("list-remove"));
-
-	// Set icons on query buttons
-	ui->addQuery->setIcon(QIcon::fromTheme("list-add"));
-	ui->deleteQuery->setIcon(QIcon::fromTheme("list-remove"));
 
 	// Add actions for toggling dockwidgets
 	QAction* toggleVariablesDock = ui->variableDock->toggleViewAction();
@@ -97,9 +90,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	createUndoActions();
 	createToggleToolsbars();
+	createZoomTool();
+
+	// Listen for clean state changed
+	connect(&undoGroup, SIGNAL(cleanChanged(bool)), this, SLOT(updateWindowTitle()));
 
 	// Create new document
-	ui->NewTapnAction->trigger();
+	on_NewPNDVAction_triggered();
 
 	//Load settings
 	loadSettings();
@@ -111,12 +108,35 @@ MainWindow::~MainWindow(){
 
 void MainWindow::closeEvent(QCloseEvent *e){
 	saveSettings();
-	//TODO: Ask user if he wan't to quit do e->ignore() if not
+	bool clean = true;
+	for(int i = 0; i < ui->tabWidget->count(); i++){
+		QGraphicsView* view = qobject_cast<QGraphicsView*>(ui->tabWidget->widget(i));
+		Q_ASSERT(view);
+		if(view){
+			PetriNetScene* scene = qobject_cast<PetriNetScene*>(view->scene());
+			Q_ASSERT(scene);
+			if(scene)
+				clean &= scene->undoStack()->isClean();
+		}
+	}
+	if(!clean){
+		QMessageBox::StandardButtons retval;
+		retval = QMessageBox::question(this,
+									tr("You have unsaved changed"),
+									tr("Do you wish to discard unsaved changes?"),
+									QMessageBox::Cancel | QMessageBox::Discard,
+									QMessageBox::Cancel);
+		if(retval == QMessageBox::Cancel){
+			e->ignore();
+			return;
+		}
+	}
+	// Accept if state was clean or changes were discarded
 	e->accept();
 }
 
 /** Create new document-tab */
-void MainWindow::on_NewTapnAction_triggered(){
+void MainWindow::on_NewPNDVAction_triggered(){
 	PetriNetView* view = new PetriNetView();
 	PetriNetScene* scene = new PetriNetScene(&undoGroup, view);
 	ui->variableView->setModel(scene->variables());
@@ -125,7 +145,7 @@ void MainWindow::on_NewTapnAction_triggered(){
 						 QPainter::SmoothPixmapTransform |
 						 QPainter::TextAntialiasing);
 	view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	int index = ui->tabWidget->addTab(view, "New TAPN");
+	int index = ui->tabWidget->addTab(view, tr("Untitled PNDV"));
 	ui->tabWidget->setCurrentIndex(index);
 }
 
@@ -133,7 +153,18 @@ void MainWindow::on_NewTapnAction_triggered(){
 void MainWindow::on_tabWidget_tabCloseRequested(int index){
 	QGraphicsView* view = qobject_cast<QGraphicsView*>(ui->tabWidget->widget(index));
 	if(view){
-		//TODO: Consider asking user to save before close...
+		PetriNetScene* scene = qobject_cast<PetriNetScene*>(view->scene());
+		Q_ASSERT(scene != NULL);
+		if(!scene->undoStack()->isClean()){
+			QMessageBox::StandardButtons retval;
+			retval = QMessageBox::question(this,
+										tr("You have unsaved changed"),
+										tr("Do you wish to discard unsaved changes?"),
+										QMessageBox::Cancel | QMessageBox::Discard,
+										QMessageBox::Cancel);
+			if(retval == QMessageBox::Cancel)
+				return;
+		}
 		ui->tabWidget->removeTab(index);
 		view->deleteLater();
 	}
@@ -152,13 +183,15 @@ void MainWindow::on_OpenAction_triggered(){
 		PNMLParser p;
 		p.parse(&file, &builder, &builder);
 		file.close();
-		view->setScene(builder.makeScene());
+		PetriNetScene* scene = builder.makeScene();
+		scene->setFilename(fname);
+		scene->undoStack()->setClean();
+		view->setScene(scene);
 		view->setRenderHints(QPainter::Antialiasing |
 							 QPainter::SmoothPixmapTransform |
 							 QPainter::TextAntialiasing);
 		view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-		QFileInfo fi(fname);
-		int index = ui->tabWidget->addTab(view, fi.baseName());
+		int index = ui->tabWidget->addTab(view, "");
 		ui->tabWidget->setCurrentIndex(index);
 	}
 }
@@ -172,7 +205,7 @@ void MainWindow::on_OpenAction_triggered(){
 void MainWindow::on_tabWidget_currentChanged(int index){
 	//Save previousScene and update currentScene
 	PetriNetScene* previousScene = currentScene;
-	QGraphicsView* view = qobject_cast<QGraphicsView*>(ui->tabWidget->widget(index));
+	PetriNetView* view = qobject_cast<PetriNetView*>(ui->tabWidget->widget(index));
 	currentScene = NULL;
 	if(view)
 		currentScene = qobject_cast<PetriNetScene*>(view->scene());
@@ -202,6 +235,9 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 				this, SLOT(resizeVariableView()));
 		disconnect(previousScene->variables(), SIGNAL(rowsInserted(const QModelIndex&, int, int)),
 				this, SLOT(resizeVariableView()));
+
+		disconnect(previousScene->view(), SIGNAL(zoomChanged(double)), zoomToolSpinBox, SLOT(setValue(double)));
+		disconnect(zoomToolSpinBox, SIGNAL(valueChanged(double)), previousScene->view(), SLOT(setZoom(double)));
 
 		ui->variableView->setModel(NULL);
 		ui->queryView->setModel(NULL);
@@ -241,11 +277,15 @@ void MainWindow::on_tabWidget_currentChanged(int index){
 				this, SLOT(resizeVariableView()));
 
 		resizeVariableView();
-
 		resizeValidationView();
+
+		this->zoomToolSpinBox->setValue(currentScene->view()->currentScale() * 100);
+		connect(currentScene->view(), SIGNAL(zoomChanged(double)), zoomToolSpinBox, SLOT(setValue(double)));
+		connect(zoomToolSpinBox, SIGNAL(valueChanged(double)), currentScene->view(), SLOT(setZoom(double)));
 
 		this->currentScene_modeChanged(this->currentScene->mode());
 	}
+	updateWindowTitle();
 }
 
 /** Mode changed in current document */
@@ -270,19 +310,47 @@ void MainWindow::on_SaveAction_triggered()
 {
 	if(!currentScene)
 		return;
-	QString fname = QFileDialog::getSaveFileName(this, "Save Petri Net as PNML", lastLoadSavePath);
-	if(fname != ""){
+	// Save as, if there's no filename
+	if(currentScene->filename().isEmpty())
+		on_saveAsAction_triggered();
+	else{
+		// Open file and attempt to save
+		QString fname = currentScene->filename();
 		QFile file(fname);
-		if(!file.open(QIODevice::WriteOnly))
+		if(!file.open(QIODevice::WriteOnly)){
+			// Warn and do save as if save failed... (this is a loop untill user cancels).
+			QMessageBox::critical(this, tr("Failed to save!"), tr("Couldn't open \"%1\" in write-mode.").arg(fname));
+			on_saveAsAction_triggered();
 			return;
-		lastLoadSavePath = QFileInfo(fname).absoluteDir().absolutePath();
+		}
 		PNMLBuilder builder(&file);
 		currentScene->produce(&builder);
 		builder.makePNMLFile();
 		file.close();
+		// Mark this state clean
+		currentScene->undoStack()->setClean();
 	}
 }
 
+void MainWindow::on_saveAsAction_triggered(){
+	if(!currentScene)
+		return;
+	// Select current file if there's one
+	QString path = lastLoadSavePath;
+	if(!currentScene->filename().isEmpty())
+		path = currentScene->filename();
+	// Show save file dialog
+	QString fname = QFileDialog::getSaveFileName(this, "Save Petri Net as PNML", path);
+	if(fname != ""){
+		// Set the current filename
+		currentScene->setFilename(fname);
+		updateWindowTitle();
+		// Update settings
+		lastLoadSavePath = QFileInfo(fname).absoluteDir().absolutePath();
+		// Save the file
+		on_SaveAction_triggered();
+	}
+}
 
 /******************** Variables ********************/
 
@@ -434,8 +502,22 @@ void MainWindow::on_aboutAction_triggered()
 
 void MainWindow::createToggleToolsbars(){
 	ui->menuView->addSeparator();
+	ui->menuView->addAction(ui->fileToolBar->toggleViewAction());
 	ui->menuView->addAction(ui->editingToolBar->toggleViewAction());
 	ui->menuView->addAction(ui->toolsToolBar->toggleViewAction());
+}
+
+void MainWindow::createZoomTool(){
+	zoomToolSpinBox = new QDoubleSpinBox(this);
+	zoomToolSpinBox->setSuffix("%");
+	zoomToolSpinBox->setRange(PetriNetView::minScale * 100, PetriNetView::maxScale * 100);
+	zoomToolSpinBox->setSingleStep(5.0);
+	zoomToolSpinBox->setDecimals(0);
+	zoomToolSpinBox->setValue(100);
+	zoomToolSpinBox->setToolTip(tr("Change current zoom"));
+
+	ui->toolsToolBar->addSeparator();
+	ui->toolsToolBar->addWidget(zoomToolSpinBox);
 }
 
 void MainWindow::on_autoArrangeAction_triggered(){
@@ -443,18 +525,41 @@ void MainWindow::on_autoArrangeAction_triggered(){
 		currentScene->autoArrange();
 }
 
+/** Update the window title */
+void MainWindow::updateWindowTitle(){
+	if(!currentScene)
+		this->setWindowTitle("PeTe");
+	else{
+		QString fname;
+		QString base;
+		if(currentScene->filename().isEmpty()){
+			fname = tr("Untitled PNDV");
+			base = fname;
+		}else{
+			fname = QFileInfo(currentScene->filename()).fileName();
+			base = QFileInfo(fname).baseName();
+		}
+		QString star;
+		if(!undoGroup.isClean())
+			star = "*";
+		this->setWindowTitle(fname + star + " - PeTe ");
+		ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), base + star);
+	}
+}
+
 /******************** Undo/Redo Handling ********************/
 
 void MainWindow::createUndoActions(){
-	ui->editingToolBar->addSeparator();
 	QAction* undo = undoGroup.createUndoAction(this, tr("Undo"));
 	QAction* redo = undoGroup.createRedoAction(this, tr("Redo"));
-	undo->setIcon(QIcon(":/Icons/undo.svg"));
+	undo->setIcon(QIcon(":/Icons/24x24/undo.png"));
 	undo->setShortcut(QKeySequence::Undo);
-	redo->setIcon(QIcon(":/Icons/redo.svg"));
+	redo->setIcon(QIcon(":/Icons/24x24/redo.png"));
 	redo->setShortcut(QKeySequence::Redo);
+	ui->editingToolBar->addSeparator();
 	ui->editingToolBar->addAction(undo);
 	ui->editingToolBar->addAction(redo);
+	ui->menuEdit->addSeparator();
 	ui->menuEdit->addAction(undo);
 	ui->menuEdit->addAction(redo);
 }
@@ -481,4 +586,15 @@ void MainWindow::loadSettings(){
 	this->lastExportPath	=	s.value("LastExportPath", QDir::homePath()).toString();
 	this->lastImportPath	=	s.value("LastImportPath", QDir::homePath()).toString();
 	s.endGroup();
+}
+
+
+void MainWindow::on_alignHorizontalAction_triggered(){
+	if(currentScene)
+		currentScene->alignSelectItems(Qt::Horizontal);
+}
+
+void MainWindow::on_alignVerticalAction_triggered(){
+	if(currentScene)
+		currentScene->alignSelectItems(Qt::Vertical);
 }

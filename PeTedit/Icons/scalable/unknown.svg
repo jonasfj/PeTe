@@ -15,7 +15,10 @@
    id="svg3946"
    version="1.1"
    inkscape:version="0.48.0 r9654"
-   sodipodi:docname="help-contents.svg">
+   sodipodi:docname="unknown.svg"
+   inkscape:export-filename="/home/jopsen/AAU/PeTe/PeTedit/Icons/24x24/unknown.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs3948">
     <linearGradient
@@ -170,15 +173,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="11.197802"
-     inkscape:cx="2.4259075"
-     inkscape:cy="16"
+     inkscape:zoom="0.98975522"
+     inkscape:cx="-105.0166"
+     inkscape:cy="44.095331"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="1280"
-     inkscape:window-height="753"
+     inkscape:window-width="1680"
+     inkscape:window-height="977"
      inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="1" />
@@ -190,7 +193,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>

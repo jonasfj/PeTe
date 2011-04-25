@@ -24,10 +24,10 @@ QueryModel::QueryModel(PetriNetScene* net)
 	 : QAbstractTableModel(net){
 	_net = net;
 
-	_clockIcon = QIcon(":/Icons/clock.svg");
-	_checkIcon = QIcon(":/Icons/check.svg");
-	_crossIcon = QIcon(":/Icons/cross.svg");
-	_unknownIcon = QIcon(":/Icons/unknown.svg");
+	_clockIcon = QIcon(":/Icons/24x24/clock.png");
+	_checkIcon = QIcon(":/Icons/24x24/check.png");
+	_crossIcon = QIcon(":/Icons/24x24/cross.png");
+	_unknownIcon = QIcon(":/Icons/24x24/unknown.png");
 }
 
 QueryModel::~QueryModel(){
@@ -56,8 +56,18 @@ QVariant QueryModel::data(const QModelIndex &index, int role) const{
 
 	if(role == Qt::ToolTipRole){
 		if(state.result.explanation().empty())
-			return "Satisfiability unknown, run query to find it";
+			return tr("Satisfiability unknown, run query to find it");
 		return state.result.explanation().c_str();
+	}
+
+	//Display stats in status bar
+	if(role == Qt::StatusTipRole){
+		QString retval  = "";
+		if(!state.result.explanation().empty()){
+			retval += tr("expanded states: ") + QString::number(state.result.expandedStates()) + " ";
+			retval += tr("explored states: ") + QString::number(state.result.exploredStates());
+		}
+		return retval;
 	}
 
 	if(role == DataRoles::ProgressText &&

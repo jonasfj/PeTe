@@ -5,6 +5,7 @@
 #include <QUndoGroup>
 #include <QActionGroup>
 #include <QTableView>
+#include <QDoubleSpinBox>
 
 #include "NetItems/PetriNetScene.h"
 
@@ -28,13 +29,17 @@ private:
 	QUndoGroup undoGroup;
 	/** Action group for selecting mode */
 	QActionGroup* modeActionGroup;
+	/** Zoom spin box, used for zooming */
+	QDoubleSpinBox* zoomToolSpinBox;
 
 	void loadSettings();
 	void saveSettings();
 	void closeEvent(QCloseEvent *e);
 	void createUndoActions();
 	void createToggleToolsbars();
+	void createZoomTool();
 private slots:
+	void updateWindowTitle();
 	void resizeQueryView();
 	void resizeVariableView();
 	void resizeValidationView();
@@ -43,7 +48,7 @@ private slots:
 	void on_addVariable_clicked();
 	void on_OpenAction_triggered();
 	void on_SaveAction_triggered();
-	void on_NewTapnAction_triggered();
+	void on_NewPNDVAction_triggered();
 	void on_tabWidget_currentChanged(int index);
 	void on_tabWidget_tabCloseRequested(int index);
 	void currentScene_modeChanged(PetriNetScene::Mode mode);
@@ -56,8 +61,10 @@ private slots:
 	void on_stopQueryButton_clicked();
 	void on_aboutAction_triggered();
 	void on_importSUMoQueriesAction_triggered();
-
 	void on_autoArrangeAction_triggered();
+	void on_saveAsAction_triggered();
+	void on_alignHorizontalAction_triggered();
+	void on_alignVerticalAction_triggered();
 
 private:
 	/******************** Cached Settings ********************/

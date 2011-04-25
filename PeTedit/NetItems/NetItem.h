@@ -55,6 +55,11 @@ public:
 		return _connectedItems;
 	}
 
+	/** True, if the item is a netitem */
+	static bool isNetItem(QGraphicsItem* item){
+		return item->type() == NetEntity::PlaceItem ||
+			   item->type() == NetEntity::TransitionItem;
+	}
 protected:
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 private:

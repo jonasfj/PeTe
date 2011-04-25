@@ -32,8 +32,8 @@ public:
 	/** Gets the formal result */
 	Result result() const{ return _result; }
 	/** Gets the number of expanded states */
-	BigInt expandedStates(){ return _expandedStates; }
-	BigInt exploredStates(){ return _exploredStates; }
+	BigInt expandedStates() const { return _expandedStates; }
+	BigInt exploredStates() const { return _exploredStates; }
 private:
 	std::string _explanation;
 	Result _result;
