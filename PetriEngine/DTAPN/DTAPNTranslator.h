@@ -5,7 +5,7 @@
 #include <list>
 #include <vector>
 
-#include "AbstractPetriNetBuilder.h"
+#include "../AbstractPetriNetBuilder.h"
 #include "AbstractDTAPNBuilder.h"
 
 namespace PetriEngine{

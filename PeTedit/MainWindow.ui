@@ -80,6 +80,7 @@
     <addaction name="saveAsAction"/>
     <addaction name="importSUMoQueriesAction"/>
     <addaction name="actionExport_SVG"/>
+    <addaction name="translateDTAPNAction"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -673,6 +674,11 @@
    </property>
    <property name="toolTip">
     <string>Align selected items vertical</string>
+   </property>
+  </action>
+  <action name="translateDTAPNAction">
+   <property name="text">
+    <string>Import/Translate DTAPN</string>
    </property>
   </action>
  </widget>

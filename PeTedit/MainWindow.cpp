@@ -19,9 +19,11 @@
 #include "Misc/QueryModel.h"
 #include "Misc/ProgressViewDelegate.h"
 #include "Misc/VariableModel.h"
+#include "DataFormats/DTAPNParser.h"
 
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/PQL/PQL.h>
+#include <PetriEngine/DTAPN/DTAPNTranslator.h>
 
 #include <QGraphicsView>
 #include <QUndoView>
@@ -547,6 +549,40 @@ void MainWindow::updateWindowTitle(){
 	}
 }
 
+/** Import and convert a DTAPN */
+void MainWindow::on_translateDTAPNAction_triggered(){
+	QString fname = QFileDialog::getOpenFileName(this, tr("Import/Translate DTAPN"), lastImportPath);
+	if(fname != ""){
+		QFile file(fname);
+		if(!file.open(QIODevice::ReadOnly))
+			return;
+		lastImportPath = QFileInfo(fname).absoluteDir().absolutePath();
+
+		// TODO: Fix the hardcoded bound!
+		PetriEngine::DTAPN::DTAPNTranslator translator(5);
+
+		// Parse file to translator
+		DTAPNParser p;
+		p.parse(&file, &translator);
+		file.close();
+
+		// Build scene and translation
+		PetriNetView* view = new PetriNetView();
+		PetriNetSceneBuilder builder(&undoGroup, view);
+		translator.makePNDV(&builder);
+		PetriNetScene* scene = builder.makeScene();
+
+		// Configure view and stuff
+		view->setScene(scene);
+		view->setRenderHints(QPainter::Antialiasing |
+							 QPainter::SmoothPixmapTransform |
+							 QPainter::TextAntialiasing);
+		view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+		int index = ui->tabWidget->addTab(view, "");
+		ui->tabWidget->setCurrentIndex(index);
+	}
+}
+
 /******************** Undo/Redo Handling ********************/
 
 void MainWindow::createUndoActions(){
@@ -598,3 +634,4 @@ void MainWindow::on_alignVerticalAction_triggered(){
 	if(currentScene)
 		currentScene->alignSelectItems(Qt::Vertical);
 }
+

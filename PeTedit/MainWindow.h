@@ -66,6 +66,8 @@ private slots:
 	void on_alignHorizontalAction_triggered();
 	void on_alignVerticalAction_triggered();
 
+	void on_translateDTAPNAction_triggered();
+
 private:
 	/******************** Cached Settings ********************/
 	/** Last folder loaded or saved to (handled by load-/saveSettings) */
