@@ -233,10 +233,7 @@ void PetriNetScene::insertPlacePress(QGraphicsSceneMouseEvent* event){
 	this->clearSelection();
 	place->setSelected(true);
 	place->setFocus(Qt::MouseFocusReason);
-	if(event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier))
-		modeAtRelease = InsertPlaceMode;
-	else
-		modeAtRelease = PointerMode;
+	modeAtReleaseIfModifier = InsertPlaceMode;
 }
 
 void PetriNetScene::insertTransitionPress(QGraphicsSceneMouseEvent* event){
@@ -248,10 +245,7 @@ void PetriNetScene::insertTransitionPress(QGraphicsSceneMouseEvent* event){
 	this->clearSelection();
 	transition->setSelected(true);
 	transition->setFocus(Qt::MouseFocusReason);
-	if(event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier))
-		modeAtRelease = InsertTransitionMode;
-	else
-		modeAtRelease = PointerMode;
+	modeAtReleaseIfModifier = InsertTransitionMode;
 }
 
 void PetriNetScene::insertArcPress(QGraphicsSceneMouseEvent* event){
@@ -310,7 +304,7 @@ void PetriNetScene::insertArcRelease(QGraphicsSceneMouseEvent* event){
 
 void PetriNetScene::pointerPress(QGraphicsSceneMouseEvent* event){
 	Q_ASSERT(this->mode() == PointerMode && event->button() == Qt::LeftButton);
-	modeAtRelease = PointerMode;
+	modeAtReleaseIfModifier = PointerMode;
 	QGraphicsItem* item = itemAt(event->scenePos());
 	if(item){
 		this->unselectItemAtReleaseIfCtrlDown = false;
@@ -404,7 +398,7 @@ void PetriNetScene::pointerRelease(QGraphicsSceneMouseEvent* event){
 				item->setSelected(false);
 		}
 		if(event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier))
-			setMode(modeAtRelease);
+			setMode(modeAtReleaseIfModifier);
 	}
 }
 

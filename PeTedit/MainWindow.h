@@ -63,9 +63,7 @@ private slots:
 	void on_importSUMoQueriesAction_triggered();
 	void on_autoArrangeAction_triggered();
 	void on_saveAsAction_triggered();
-
 	void on_alignHorizontalAction_triggered();
-
 	void on_alignVerticalAction_triggered();
 
 private:
