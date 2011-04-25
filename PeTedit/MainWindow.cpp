@@ -579,6 +579,15 @@ void MainWindow::on_translateDTAPNAction_triggered(){
 		l.produce(&builder);
 		PetriNetScene* scene = builder.makeScene();
 
+		foreach(DTAPNParser::Query& q, p.queries()){
+			QueryModel::Query nq;
+			nq.name = q.name;
+			nq.query = PetriEngine::DTAPN::DTAPNTranslator::translateQuery(q.query.toStdString()).c_str();
+			nq.jit = true;
+			nq.strategy = "";
+			scene->queries()->insertQuery(nq);
+		}
+
 		// Configure view and stuff
 		view->setScene(scene);
 		view->setRenderHints(QPainter::Antialiasing |
