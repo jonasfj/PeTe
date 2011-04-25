@@ -179,7 +179,7 @@ bool ValidationBuilder::validate(){
 		if(!foundPlace || !foundTransition){
 			string msg;
 			if(!foundPlace && !foundTransition)
-				msg = "Neigther end-points found";
+				msg = "Neither end-points found";
 			else if(!foundPlace)
 				msg = "End-place \"" + arc.end + "\" not found";
 			else
