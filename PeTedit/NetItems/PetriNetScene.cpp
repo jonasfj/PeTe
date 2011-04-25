@@ -390,14 +390,10 @@ void PetriNetScene::pointerRelease(QGraphicsSceneMouseEvent* event){
 		if(this->selectedItems().count() > 0 && (d.x() != 0 && d.y() != 0)){
 			//Move back to start so we can apply the MoveItemsCommand
 			//Slightly nasty, but it doesn't redraw here so this isn't bad.
-			QList<QGraphicsItem*> netitems;
-			foreach(QGraphicsItem* item, this->selectedItems()){
-				if(NetItem::isNetItem(item)){
-					item->moveBy(-d.x(), -d.y());
-					netitems.append(item);
-				}
-			}
-			_undoStack->push(new MoveItemsCommand(netitems, d.x(), d.y()));
+			QList<NetItem*> items = selectedNetItems();
+			foreach(NetItem* item, items)
+				item->moveBy(-d.x(), -d.y());
+			_undoStack->push(new MoveItemsCommand(items, d.x(), d.y()));
 
 			this->updateSceneRect();
 		}
@@ -549,6 +545,23 @@ void PetriNetScene::keyPressEvent(QKeyEvent *event) {
 		this->view()->scaleBy(1.10);
 	}else if(event->matches(QKeySequence::ZoomOut)){
 		this->view()->scaleBy(0.90);
+	}else if(event->key() == Qt::Key_Left	||
+			 event->key() == Qt::Key_Right	||
+			 event->key() == Qt::Key_Up		||
+			 event->key() == Qt::Key_Down){
+		// Move selected items
+		qreal dx = 0, dy = 0;
+		if(event->key() == Qt::Key_Left)
+			dx = -5;
+		if(event->key() == Qt::Key_Right)
+			dx = 5;
+		if(event->key() == Qt::Key_Up)
+			dy = -5;
+		if(event->key() == Qt::Key_Down)
+			dy = 5;
+		QList<NetItem*> items = selectedNetItems();
+		if(!items.isEmpty())
+			_undoStack->push(new MoveItemsCommand(items, dx, dy));
 	}
 }
 

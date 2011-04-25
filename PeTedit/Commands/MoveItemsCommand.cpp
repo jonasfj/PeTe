@@ -1,7 +1,8 @@
 #include "MoveItemsCommand.h"
 #include "Commands.h"
+#include "../NetItems/NetItem.h"
 
-MoveItemsCommand::MoveItemsCommand(QList<QGraphicsItem*> items, qreal dx, qreal dy){
+MoveItemsCommand::MoveItemsCommand(QList<NetItem*> items, qreal dx, qreal dy){
 	_items = items;
 	_dx = dx;
 	_dy = dy;
@@ -9,12 +10,12 @@ MoveItemsCommand::MoveItemsCommand(QList<QGraphicsItem*> items, qreal dx, qreal 
 }
 
 void MoveItemsCommand::undo(){
-	foreach(QGraphicsItem* item, _items)
+	foreach(NetItem* item, _items)
 		item->moveBy(-_dx, -_dy);
 }
 
 void MoveItemsCommand::redo(){
-	foreach(QGraphicsItem* item, _items)
+	foreach(NetItem* item, _items)
 		item->moveBy(_dx, _dy);
 }
 
@@ -31,7 +32,7 @@ bool MoveItemsCommand::mergeWith(const QUndoCommand *other){
 	//Check if we're moving the same items
 	if(this->_items.count() != move->_items.count())
 		return false;
-	foreach(QGraphicsItem* item, move->_items){
+	foreach(NetItem* item, move->_items){
 		if(!this->_items.contains(item))
 			return false;
 	}
