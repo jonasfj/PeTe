@@ -579,7 +579,7 @@ void MainWindow::on_translateDTAPNAction_triggered(){
 		l.produce(&builder);
 		PetriNetScene* scene = builder.makeScene();
 
-		foreach(DTAPNParser::Query& q, p.queries()){
+		foreach(const DTAPNParser::Query& q, p.queries()){
 			QueryModel::Query nq;
 			nq.name = q.name;
 			nq.query = PetriEngine::DTAPN::DTAPNTranslator::translateQuery(q.query.toStdString()).c_str();
