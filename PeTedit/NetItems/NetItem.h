@@ -60,6 +60,10 @@ public:
 		return item->type() == NetEntity::PlaceItem ||
 			   item->type() == NetEntity::TransitionItem;
 	}
+
+	/** Primary shape in scene coordinates */
+	virtual QPainterPath primaryShape() = 0;
+
 protected:
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 private:

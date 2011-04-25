@@ -25,6 +25,7 @@ public:
 	QPainterPath textPath() const;
 	QPainterPath opaqueArea() const;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
+	QPainterPath primaryShape();
 private:
 	/** Number of tokens in the place */
 	int _tokens;

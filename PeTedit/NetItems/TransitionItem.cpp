@@ -104,4 +104,11 @@ void TransitionItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, Q
 	}
 }
 
+QPainterPath TransitionItem::primaryShape(){
+	QPainterPath path;
+	path.addRect(-RECT_W/2, -RECT_H/2, RECT_W, RECT_H);
+	path.translate(pos());
+	return path;
+}
+
 

@@ -44,6 +44,7 @@ public:
 	QPainterPath opaqueArea() const;
 	QPainterPath textPath() const;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
+	QPainterPath primaryShape();
 private:
 	/** condition queries associated with it **/
 	QString _preConditions;

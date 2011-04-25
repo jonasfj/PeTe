@@ -62,6 +62,7 @@ void AutoArrangeNetCommand::redo(){
 	foreach(const NetItemPositionListBuilder::NetItemPosition& itemPos, afterList)
 		itemPos.item->setPos(itemPos.x, itemPos.y);
 	_scene->updateSceneRect();
+	_scene->update();
 }
 
 void AutoArrangeNetCommand::undo(){
@@ -69,6 +70,7 @@ void AutoArrangeNetCommand::undo(){
 	foreach(const NetItemPositionListBuilder::NetItemPosition& itemPos, beforeList)
 		itemPos.item->setPos(itemPos.x, itemPos.y);
 	_scene->updateSceneRect();
+	_scene->update();
 }
 
 void AutoArrangeNetCommand

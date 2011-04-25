@@ -28,11 +28,11 @@ QRectF ArcItem::boundingRect() const{
 	return shape().controlPointRect();
 }
 
-QPainterPath ArcItem::textPath() const{
+void ArcItem::updateTextPath() {
 	QPainterPath path;
 	if((_endItem && _startItem->collidesWithItem(_endItem)) ||
 	   (!_endItem && _startItem->contains(_end)))
-		return path;
+		return;
 	QPointF start(0,0),
 			point = _end - pos();
 
@@ -58,17 +58,13 @@ QPainterPath ArcItem::textPath() const{
 		path = rotation.map(path);
 		path.translate(point/2);
 	}
-	return path;
-}
-
-QPainterPath ArcItem::arrowPath() const{
-	return _cachedArrowPath;
+	_cachedTextPath = path;
 }
 
 QPainterPath ArcItem::shape() const{
 	QPainterPath path;
-	path.addPath(arrowPath());
-	path.addPath(textPath());
+	path.addPath(_cachedArrowPath);
+	path.addPath(_cachedTextPath);
 	return path;
 }
 
@@ -78,9 +74,9 @@ QPainterPath ArcItem::opaqueArea() const{
 
 void ArcItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*){
 	painter->setBrush(Qt::SolidPattern);
-	painter->drawPath(arrowPath());
+	painter->drawPath(_cachedArrowPath);
 	painter->setPen(Qt::NoPen);
-	painter->drawPath(textPath());
+	painter->drawPath(_cachedTextPath);
 }
 
 void ArcItem::updateEndPoints(){
@@ -90,11 +86,12 @@ void ArcItem::updateEndPoints(){
 	QPointF start = _startItem->nearestPoint(_end);
 	this->setPos(start);
 	updateArrowPath();
+	updateTextPath();
 }
 
 void ArcItem::updateArrowPath(){
 	QPainterPath path;
-	if((_endItem && _startItem->collidesWithItem(_endItem)) ||
+	if((_endItem && _startItem->primaryShape().intersects(_endItem->primaryShape())) ||
 	   (!_endItem && _startItem->contains(_end))){
 	   _cachedArrowPath = path;
 		return;

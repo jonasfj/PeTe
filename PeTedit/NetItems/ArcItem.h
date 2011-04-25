@@ -29,12 +29,13 @@ public:
 		if(isInputArc())
 			if(end())
 				end()->update();
+		updateTextPath();
 	}
 private:
 	void updateArrowPath();
-	QPainterPath arrowPath() const;
 	QPainterPath _cachedArrowPath;
-	QPainterPath textPath() const;
+	void updateTextPath();
+	QPainterPath _cachedTextPath;
 	NetItem* _startItem;
 	NetItem* _endItem;
 	QPointF _end;
