@@ -20,7 +20,6 @@ public slots:
 private:
 protected:
 	void wheelEvent(QWheelEvent *event);
-	void paintEvent(QPaintEvent *event);
 };
 
 #endif // PETRINETVIEW_H

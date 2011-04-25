@@ -47,12 +47,3 @@ void PetriNetView::setZoom(double percent){
 	qreal factor = targetScale / currentScale();
 	scaleBy(factor);
 }
-
-/** Paint the scene
- * Faster than default implementation, see comments on:
- * http://thesmithfam.org/blog/2007/02/03/qt-improving-qgraphicsview-performance/
- */
-void PetriNetView::paintEvent(QPaintEvent *event){
-	QPaintEvent boundedEvent(event->region().boundingRect());
-	QGraphicsView::paintEvent(&boundedEvent);
-}
