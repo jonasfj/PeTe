@@ -26,6 +26,7 @@
 #include <PetriEngine/PQL/PQL.h>
 #include <PetriEngine/DTAPN/DTAPNTranslator.h>
 #include <PetriEngine/LayoutBuilder.h>
+#include <PetriEngine/DTAPN/DTAPNPrinter.h>
 
 #include <QGraphicsView>
 #include <QUndoView>
@@ -572,6 +573,11 @@ void MainWindow::on_translateDTAPNAction_triggered(){
 		file.close();
 		PetriEngine::LayoutBuilder l;
 		translator.makePNDV(&l);
+
+		// Print parse stuff, for debugging
+		//file.open(QIODevice::ReadOnly);
+		//PetriEngine::DTAPN::DTAPNPrinter printer;
+		//p.parse(&file, &printer);
 
 		// Build scene and translation
 		PetriNetView* view = new PetriNetView();

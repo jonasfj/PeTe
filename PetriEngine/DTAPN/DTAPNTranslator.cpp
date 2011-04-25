@@ -106,7 +106,7 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 	// Find max age for all places
 	for(InArcIter ai = inArcs.begin(); ai != inArcs.end(); ai++){
 		Place& p = findPlace(ai->start);
-		p.maxAge = MAX(p.maxAge, ai->endInterval + 1);
+		p.maxAge = MAX(p.maxAge, MAX(ai->startInterval, ai->endInterval + 1));
 	}
 
 	// Replace infinity with max age
@@ -117,7 +117,7 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 	}
 
 	// Find Largest postset
-	int largestPostset = 0;
+	unsigned int largestPostset = 0;
 	for(TransitionIter t = transitions.begin(); t != transitions.end(); t++)
 		largestPostset = MAX(largestPostset, postset(t->name).size());
 

@@ -155,18 +155,18 @@ void DTAPNParser::arc(){
 		if(xml.name() == "inscription"){
 			QString v;
 			value(v);
-			QRegExp r("(\\(|\\[)\\d+,(\\d+|inf)((\\)\\]))");
-			if(r.indexIn(v) > 2){
-				start = r.cap(0).toInt();
-				if(r.cap(1) == "inf")
+			QRegExp r("(\\(|\\[)(\\d+)(,)(\\d+|inf)(\\)|\\])");
+			if(r.indexIn(v) > -1){
+				QString s2 = r.cap(4);
+				start = r.cap(2).toInt() + (r.cap(1) == "(" ? 1 : 0);
+				if(s2 == "inf")
 					end = -1;
 				else
-					end = r.cap(1).toInt();
+					end = s2.toInt() - (r.cap(5) == ")" ? 1 : 0);
 			}
 		}else
 			xml.skipCurrentElement();
 	}
-
 	arcs.append(ArcEntry(source, target, start, end));
 }
 
