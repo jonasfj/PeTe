@@ -45,7 +45,8 @@ SOURCES	   += \
     Misc/VariableModel.cpp \
     Widgets/MemoryMonitor.cpp \
     Commands/AutoArrangeNetCommand.cpp \
-    Misc/QueryListBuilder.cpp
+    Misc/QueryListBuilder.cpp \
+    DataFormats/DTAPNParser.cpp
 
 
 HEADERS		+= \
@@ -87,7 +88,8 @@ HEADERS		+= \
     Widgets/MemoryMonitor.h \
     Commands/AutoArrangeNetCommand.h \
     Misc/AbstractQueryListBuilder.h \
-    Misc/QueryListBuilder.h
+    Misc/QueryListBuilder.h \
+    DataFormats/DTAPNParser.h
 
 
 FORMS		+= MainWindow.ui \

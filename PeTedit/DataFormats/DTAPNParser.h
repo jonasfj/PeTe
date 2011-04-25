@@ -1,18 +1,15 @@
-#ifndef PNMLPARSER_H
-#define PNMLPARSER_H
+#ifndef DTAPNPARSER_H
+#define DTAPNPARSER_H
 
-#include <PetriEngine/AbstractPetriNetBuilder.h>
-#include "../Misc/AbstractQueryListBuilder.h"
-
-class PetriNetSceneBuilder;
+#include <PetriEngine/AbstractDTAPNBuilder.h>
 
 #include <QXmlStreamReader>
 #include <QIODevice>
 #include <QHash>
 #include <QList>
 
-/** Simple PNML Parser for PNDVs */
-class PNMLParser
+/** PNML Parser for DTAPNs */
+class DTAPNParser
 {
 	/** Types if nodes that is assigned an id */
 	enum NodeType{
@@ -32,37 +29,38 @@ class PNMLParser
 	/** Arc entry, because we can't create arcs before all nodes are created */
 	struct ArcEntry{
 		ArcEntry(){}
-		ArcEntry(QString src, QString dst, int weight){
+		ArcEntry(QString src, QString dst, int startInterval, int endInterval){
 			this->src = src;
 			this->dst = dst;
-			this->weight = weight;
+			this->startInterval = startInterval;
+			this->endInterval = endInterval;
 		}
 		QString src;
 		QString dst;
-		int weight;
+		/** start interval for the arc (discard if out-arc) */
+		int startInterval;
+		/** end interval for the arc (discard if out-arc) */
+		int endInterval;
 	};
 public:
-	PNMLParser() { builder = NULL; qBuilder = NULL; }
+	DTAPNParser() { builder = NULL; }
 	/** Parse input and build result with builder */
-	void parse(QIODevice* input, PetriEngine::AbstractPetriNetBuilder* builder, AbstractQueryListBuilder* qbuilder = NULL);
+	void parse(QIODevice* input, PetriEngine::AbstractDTAPNBuilder* builder);
 private:
 	void pnml();
-	void queries();
 	void net();
-	void variable();
 	void place();
 	void transition();
 	void arc();
 	void position(qreal& x, qreal& y);
 	void value(QString& value);
 	/** Builder for creating new petri net */
-	PetriEngine::AbstractPetriNetBuilder* builder;
-	/** Query builder */
-	AbstractQueryListBuilder* qBuilder;
+	PetriEngine::AbstractDTAPNBuilder* builder;
 	QXmlStreamReader xml;
 	QList<ArcEntry> arcs;
 	/** Maps Ids to names */
-	QHash<QString,NodeName> idmap;
+	QHash<QString, NodeName> idmap;
 };
 
-#endif // PNMLPARSER_H
+
+#endif // DTAPNPARSER_H
