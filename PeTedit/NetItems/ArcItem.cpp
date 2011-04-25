@@ -97,7 +97,7 @@ void ArcItem::updateEndPoints(){
 void ArcItem::updateArrowPath(){
 	QPainterPath path;
 	if((_endItem && _startItem->primaryShape().intersects(_endItem->primaryShape())) ||
-	   (!_endItem && _startItem->contains(_end))){
+	   (!_endItem && _startItem->primaryShape().contains(_end))){
 	   _cachedArrowPath = path;
 		return;
 	}
@@ -136,6 +136,11 @@ void ArcItem::setEndPoint(QPointF end){
 	_end = end;
 	QPointF start = _startItem->nearestPoint(_end);
 	this->setPos(start);
+	if(_cachedPoint != _end - pos()){
+		_cachedPoint = _end - pos();
+		updateArrowPath();
+		updateTextPath();
+	}
 }
 
 void ArcItem::setEnd(NetItem* item){
