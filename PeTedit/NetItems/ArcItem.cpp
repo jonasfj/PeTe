@@ -73,6 +73,8 @@ QPainterPath ArcItem::opaqueArea() const{
 }
 
 void ArcItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*){
+	if(isSelected())
+		painter->setPen(Qt::DotLine);
 	painter->setBrush(Qt::SolidPattern);
 	painter->drawPath(_cachedArrowPath);
 	painter->setPen(Qt::NoPen);
