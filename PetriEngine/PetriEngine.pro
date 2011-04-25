@@ -56,7 +56,8 @@ HEADERS		   += \
     Reachability/RandomDFS.h \
     Reachability/HeuristicDFS.h \
     Reachability/BreadthFirstReachabilitySearch.h \
-    DTAPNTranslator.h
+    DTAPNTranslator.h \
+    AbstractDTAPNBuilder.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine
