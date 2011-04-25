@@ -219,11 +219,11 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 			bool isLast = false;
 			int ni = i + 1;
 			PlaceIter np = p;
-			if(i == bound){
-				i = 0;
-				PlaceIter p2 = p; p2++;
-				if(p2 == places.end()){
-					p = places.begin();
+			if(i == bound-1){
+				np++;
+				ni = 0;
+				if(np == places.end()){
+					np = places.begin();
 					isLast = true;
 				}
 			}

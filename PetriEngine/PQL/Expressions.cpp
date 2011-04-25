@@ -174,7 +174,7 @@ void AssignmentExpression::evaluate(const MarkVal* m,
 	memcpy(result_a, a, sizeof(VarVal) * nvars);
 	EvaluationContext context(m, a);
 	for(const_iter it = assignments.begin(); it != assignments.end(); it++)
-		result_a[it->offset] = it->expr->evaluate(context) % ranges[it->offset];
+		result_a[it->offset] = it->expr->evaluate(context) % (ranges[it->offset]+1);
 }
 
 /******************** Apply (BinaryExpr subclasses) ********************/
