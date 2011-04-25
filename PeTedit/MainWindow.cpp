@@ -108,7 +108,30 @@ MainWindow::~MainWindow(){
 
 void MainWindow::closeEvent(QCloseEvent *e){
 	saveSettings();
-	//TODO: Ask user if he wan't to quit do e->ignore() if not
+	bool clean = true;
+	for(int i = 0; i < ui->tabWidget->count(); i++){
+		QGraphicsView* view = qobject_cast<QGraphicsView*>(ui->tabWidget->widget(i));
+		Q_ASSERT(view);
+		if(view){
+			PetriNetScene* scene = qobject_cast<PetriNetScene*>(view->scene());
+			Q_ASSERT(scene);
+			if(scene)
+				clean &= scene->undoStack()->isClean();
+		}
+	}
+	if(!clean){
+		QMessageBox::StandardButtons retval;
+		retval = QMessageBox::question(this,
+									tr("You have unsaved changed"),
+									tr("Do you wish to discard unsaved changes?"),
+									QMessageBox::Cancel | QMessageBox::Discard,
+									QMessageBox::Cancel);
+		if(retval == QMessageBox::Cancel){
+			e->ignore();
+			return;
+		}
+	}
+	// Accept if state was clean or changes were discarded
 	e->accept();
 }
 
