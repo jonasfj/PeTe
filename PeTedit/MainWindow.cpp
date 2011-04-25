@@ -549,6 +549,8 @@ void MainWindow::updateWindowTitle(){
 	}
 }
 
+#include <PetriEngine/DTAPN/DTAPNPrinter.h>
+
 /** Import and convert a DTAPN */
 void MainWindow::on_translateDTAPNAction_triggered(){
 	QString fname = QFileDialog::getOpenFileName(this, tr("Import/Translate DTAPN"), lastImportPath);

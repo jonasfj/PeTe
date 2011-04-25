@@ -181,7 +181,7 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 				// L := lockState(t->name)
 				assigns += "L := " + lockState(t->name) + " ; \n";
 				// Shift the values of variables with higher index
-				for(int j = i; j < bound; j++){
+				for(int j = i; j < bound - 1; j++){
 					// <place>_<j>   := <place>_<j+1>
 					assigns += tokenAgeVariable(ai->start,j);
 					assigns += " := " + tokenAgeVariable(ai->start,j + 1) + " ; \n";

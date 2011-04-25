@@ -17,19 +17,19 @@ std::string i2s(int i){
 
 
 void DTAPNPrinter::addInputArc(const std::string &place, const std::string &transition, int startInterval, int endInterval){
-	cout << "("+place+") -["+ i2s(startInterval) + ","+ i2s(endInterval) +"]-> |"+transition+"|\n";
+	cerr << "("+place+") -["+ i2s(startInterval) + ","+ i2s(endInterval) +"]-> |"+transition+"|\n";
 }
 
 void DTAPNPrinter::addOutputArc(const std::string &transition, const std::string &place){
-	cout << "|"+transition + "| --> ("+ place + ")\n";
+	cerr << "|"+transition + "| --> ("+ place + ")\n";
 }
 
 void DTAPNPrinter::addPlace(const std::string &name, int tokens, double, double){
-	cout << "("+ name + ","+i2s(tokens)+")\n";
+	cerr << "("+ name + ","+i2s(tokens)+")\n";
 }
 
 void DTAPNPrinter::addTransition(const std::string &name, double, double){
-	cout << "|"+ name +"|\n";
+	cerr << "|"+ name +"|\n";
 }
 
 } //DTAPN
