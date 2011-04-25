@@ -10,7 +10,7 @@ namespace DTAPN{
 class DTAPNPrinter : public AbstractDTAPNBuilder
 {
 public:
-    DTAPNPrinter();
+
 	void addPlace(const std::string& name, int tokens, double, double);
 
 	void addTransition(const std::string& name, double, double);
