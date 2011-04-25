@@ -46,7 +46,8 @@ SOURCES	   += \
     Widgets/MemoryMonitor.cpp \
     Commands/AutoArrangeNetCommand.cpp \
     Misc/QueryListBuilder.cpp \
-    DataFormats/DTAPNParser.cpp
+    DataFormats/DTAPNParser.cpp \
+    Dialogs/ImportDTAPNDialog.cpp
 
 
 HEADERS		+= \
@@ -89,14 +90,16 @@ HEADERS		+= \
     Commands/AutoArrangeNetCommand.h \
     Misc/AbstractQueryListBuilder.h \
     Misc/QueryListBuilder.h \
-    DataFormats/DTAPNParser.h
+    DataFormats/DTAPNParser.h \
+    Dialogs/ImportDTAPNDialog.h
 
 
 FORMS		+= MainWindow.ui \
     Dialogs/EditArcDialog.ui \
     Dialogs/EditPlaceDialog.ui \
     Dialogs/EditTransitionDialog.ui \
-    Dialogs/QueryDialog.ui
+    Dialogs/QueryDialog.ui \
+    Dialogs/ImportDTAPNDialog.ui
 
 TARGET		 = ../PeTe
 
