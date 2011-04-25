@@ -540,6 +540,15 @@ void PetriNetScene::keyPressEvent(QKeyEvent *event) {
 			}
 		}
 		setMode(PointerMode);
+	}else if(event->matches(QKeySequence::Refresh)){
+		this->update();
+	}else if(event->key() == Qt::Key_0 && event->modifiers() & Qt::ControlModifier){
+		//Reset zoom
+		this->view()->setZoom(100);
+	}else if(event->matches(QKeySequence::ZoomIn)){
+		this->view()->scaleBy(1.10);
+	}else if(event->matches(QKeySequence::ZoomOut)){
+		this->view()->scaleBy(0.90);
 	}
 }
 
