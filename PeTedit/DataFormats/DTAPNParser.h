@@ -1,7 +1,7 @@
 #ifndef DTAPNPARSER_H
 #define DTAPNPARSER_H
 
-#include <PetriEngine/AbstractDTAPNBuilder.h>
+#include <PetriEngine/DTAPN/AbstractDTAPNBuilder.h>
 
 #include <QXmlStreamReader>
 #include <QIODevice>
@@ -45,7 +45,7 @@ class DTAPNParser
 public:
 	DTAPNParser() { builder = NULL; }
 	/** Parse input and build result with builder */
-	void parse(QIODevice* input, PetriEngine::AbstractDTAPNBuilder* builder);
+	void parse(QIODevice* input, PetriEngine::DTAPN::AbstractDTAPNBuilder* builder);
 private:
 	void pnml();
 	void net();
@@ -55,7 +55,7 @@ private:
 	void position(qreal& x, qreal& y);
 	void value(QString& value);
 	/** Builder for creating new petri net */
-	PetriEngine::AbstractDTAPNBuilder* builder;
+	PetriEngine::DTAPN::AbstractDTAPNBuilder* builder;
 	QXmlStreamReader xml;
 	QList<ArcEntry> arcs;
 	/** Maps Ids to names */

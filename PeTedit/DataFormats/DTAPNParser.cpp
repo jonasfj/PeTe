@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <QRegExp>
 
-void DTAPNParser::parse(QIODevice *input, PetriEngine::AbstractDTAPNBuilder *builder){
+void DTAPNParser::parse(QIODevice *input, PetriEngine::DTAPN::AbstractDTAPNBuilder *builder){
 
 	bool wasOpen = input->isOpen();
 	if(!wasOpen)
@@ -36,9 +36,9 @@ void DTAPNParser::parse(QIODevice *input, PetriEngine::AbstractDTAPNBuilder *bui
 		std::string src = idmap[entry.src].name.toStdString();
 		std::string dst = idmap[entry.dst].name.toStdString();
 		if(idmap[entry.src].type == Place && idmap[entry.dst].type == Transition)
-			builder->addInArc(src, dst, entry.startInterval, entry.endInterval);
+			builder->addInputArc(src, dst, entry.startInterval, entry.endInterval);
 		else if(idmap[entry.src].type == Transition && idmap[entry.dst].type == Place)
-			builder->addOutArc(src, dst);
+			builder->addOutputArc(src, dst);
 		else{
 			//TODO: Consider reporting an error
 			qDebug()<<"Error duing parse: Arc from \""<<src.c_str()<<"\" to \""<<dst.c_str()<<"\" is invalid";
