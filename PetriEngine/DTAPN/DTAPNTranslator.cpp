@@ -276,17 +276,17 @@ string DTAPNTranslator::lockState(const string& transition){
 }
 
 /** Max transition between two intermediate ageing places */
-string maxTransition(const string& place, int tokenIndex){
+string DTAPNTranslator::maxTransition(const string& place, int tokenIndex){
 	return place + "_max_t_" + i2s(tokenIndex);
 }
 
 /** Age transition between two intermediate ageing places */
-string ageTransition(const string& place, int tokenIndex){
+string DTAPNTranslator::ageTransition(const string& place, int tokenIndex){
 	return place + "_age_t_" + i2s(tokenIndex);
 }
 
 /** An intermediate ageing place*/
-string intermediateAgeingPlace(const string& place, int tokenIndex){
+string DTAPNTranslator::intermediateAgeingPlace(const string& place, int tokenIndex){
 	return place + "_age_" + i2s(tokenIndex);
 }
 
