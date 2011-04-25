@@ -32,6 +32,7 @@ public:
 		updateTextPath();
 	}
 private:
+	QPointF _cachedPoint;
 	void updateArrowPath();
 	QPainterPath _cachedArrowPath;
 	void updateTextPath();

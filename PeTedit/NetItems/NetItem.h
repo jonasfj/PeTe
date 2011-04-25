@@ -20,10 +20,6 @@ namespace NetEntity{
 /** Abstract class for all items, not arcs */
 class NetItem : public QGraphicsItem{
 public:
-	NetItem(){
-		this->setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
-	}
-
 	/** Returns the point on the edges of the node closest to to.*/
 	virtual QPointF nearestPoint(QPointF to) const = 0;
 
@@ -65,8 +61,10 @@ public:
 	/** Primary shape in scene coordinates */
 	virtual QPainterPath primaryShape() = 0;
 
+	/** Update positions of connected items */
+	void updateConnectedItems();
+
 protected:
-	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 private:
 	/** Notify of name change */
 	virtual void nameChanged() = 0;

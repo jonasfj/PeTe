@@ -351,10 +351,11 @@ void PetriNetScene::pointerMove(QGraphicsSceneMouseEvent* event){
 		selectionRect->setRect(r);
 	}else{
 		QPointF d = event->scenePos() - event->lastScenePos();
-		foreach(QGraphicsItem* item, this->selectedItems()){
-			if(NetItem::isNetItem(item))
-				item->moveBy(d.x(), d.y());
-		}
+		QList<NetItem*> items = selectedNetItems();
+		foreach(NetItem* item, items)
+			item->moveBy(d.x(), d.y());
+		foreach(NetItem* item, items)
+			item->updateConnectedItems();
 	}
 }
 
@@ -387,9 +388,7 @@ void PetriNetScene::pointerRelease(QGraphicsSceneMouseEvent* event){
 			QList<NetItem*> items = selectedNetItems();
 			foreach(NetItem* item, items)
 				item->moveBy(-d.x(), -d.y());
-			_undoStack->push(new MoveItemsCommand(items, d.x(), d.y()));
-
-			this->updateSceneRect();
+			_undoStack->push(new MoveItemsCommand(this, items, d.x(), d.y()));
 		}
 		//Unselect if needed
 		if(event->modifiers() & Qt::ControlModifier && this->unselectItemAtReleaseIfCtrlDown){
@@ -555,7 +554,7 @@ void PetriNetScene::keyPressEvent(QKeyEvent *event) {
 			dy = 5;
 		QList<NetItem*> items = selectedNetItems();
 		if(!items.isEmpty())
-			_undoStack->push(new MoveItemsCommand(items, dx, dy));
+			_undoStack->push(new MoveItemsCommand(this, items, dx, dy));
 	}
 }
 

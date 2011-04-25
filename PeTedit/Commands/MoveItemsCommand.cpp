@@ -1,8 +1,11 @@
 #include "MoveItemsCommand.h"
 #include "Commands.h"
 #include "../NetItems/NetItem.h"
+#include "../NetItems/PetriNetScene.h"
 
-MoveItemsCommand::MoveItemsCommand(QList<NetItem*> items, qreal dx, qreal dy){
+
+MoveItemsCommand::MoveItemsCommand(PetriNetScene* scene, QList<NetItem*> items, qreal dx, qreal dy){
+	this->scene = scene;
 	_items = items;
 	_dx = dx;
 	_dy = dy;
@@ -12,11 +15,17 @@ MoveItemsCommand::MoveItemsCommand(QList<NetItem*> items, qreal dx, qreal dy){
 void MoveItemsCommand::undo(){
 	foreach(NetItem* item, _items)
 		item->moveBy(-_dx, -_dy);
+	foreach(NetItem* item, _items)
+		item->updateConnectedItems();
+	scene->updateSceneRect();
 }
 
 void MoveItemsCommand::redo(){
 	foreach(NetItem* item, _items)
 		item->moveBy(_dx, _dy);
+	foreach(NetItem* item, _items)
+		item->updateConnectedItems();
+	scene->updateSceneRect();
 }
 
 int MoveItemsCommand::id() const{

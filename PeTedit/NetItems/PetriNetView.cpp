@@ -3,7 +3,12 @@
 #include <QDebug>
 #include <QTransform>
 
-PetriNetView::PetriNetView(QWidget *parent) : QGraphicsView(parent) {}
+PetriNetView::PetriNetView(QWidget *parent) : QGraphicsView(parent) {
+	this->setRenderHints(QPainter::Antialiasing |
+						 QPainter::SmoothPixmapTransform |
+						 QPainter::TextAntialiasing);
+	this->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+}
 
 
 void PetriNetView::wheelEvent(QWheelEvent* event){

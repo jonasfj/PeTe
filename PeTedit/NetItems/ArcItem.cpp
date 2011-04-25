@@ -85,8 +85,11 @@ void ArcItem::updateEndPoints(){
 		_end = _endItem->nearestPoint(_startItem->pos());
 	QPointF start = _startItem->nearestPoint(_end);
 	this->setPos(start);
-	updateArrowPath();
-	updateTextPath();
+	if(_cachedPoint != _end - pos()){
+		_cachedPoint = _end - pos();
+		updateArrowPath();
+		updateTextPath();
+	}
 }
 
 void ArcItem::updateArrowPath(){

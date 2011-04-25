@@ -146,10 +146,6 @@ void MainWindow::on_NewPNDVAction_triggered(){
 	PetriNetScene* scene = new PetriNetScene(&undoGroup, view);
 	ui->variableView->setModel(scene->variables());
 	view->setScene(scene);
-	view->setRenderHints(QPainter::Antialiasing |
-						 QPainter::SmoothPixmapTransform |
-						 QPainter::TextAntialiasing);
-	view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	int index = ui->tabWidget->addTab(view, tr("Untitled PNDV"));
 	ui->tabWidget->setCurrentIndex(index);
 }
@@ -192,10 +188,6 @@ void MainWindow::on_OpenAction_triggered(){
 		scene->setFilename(fname);
 		scene->undoStack()->setClean();
 		view->setScene(scene);
-		view->setRenderHints(QPainter::Antialiasing |
-							 QPainter::SmoothPixmapTransform |
-							 QPainter::TextAntialiasing);
-		view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 		int index = ui->tabWidget->addTab(view, "");
 		ui->tabWidget->setCurrentIndex(index);
 	}
@@ -596,10 +588,6 @@ void MainWindow::on_translateDTAPNAction_triggered(){
 
 		// Configure view and stuff
 		view->setScene(scene);
-		view->setRenderHints(QPainter::Antialiasing |
-							 QPainter::SmoothPixmapTransform |
-							 QPainter::TextAntialiasing);
-		view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 		int index = ui->tabWidget->addTab(view, "");
 		ui->tabWidget->setCurrentIndex(index);
 	}
