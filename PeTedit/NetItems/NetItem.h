@@ -32,6 +32,7 @@ public:
 		Q_ASSERT(!name.contains(" "));
 		this->prepareGeometryChange();
 		_name = name;
+		nameChanged();
 	}
 
 	/** Register a connected item
@@ -63,6 +64,8 @@ public:
 protected:
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 private:
+	/** Notify of name change */
+	virtual void nameChanged() = 0;
 	/** List of connected items (arcs etc.) */
 	QList<ArcItem*> _connectedItems;
 	QString _name;

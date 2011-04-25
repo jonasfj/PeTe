@@ -42,9 +42,11 @@ public:
 	QRectF boundingRect() const;
 	QPainterPath shape() const;
 	QPainterPath opaqueArea() const;
-	QPainterPath textPath() const;
+	void updateTextPath();
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
 private:
+	void nameChanged();
+	QPainterPath textPath;
 	/** condition queries associated with it **/
 	QString _preConditions;
 	QString _postConditions;

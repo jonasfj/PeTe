@@ -25,6 +25,7 @@
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/PQL/PQL.h>
 #include <PetriEngine/DTAPN/DTAPNTranslator.h>
+#include <PetriEngine/LayoutBuilder.h>
 
 #include <QGraphicsView>
 #include <QUndoView>
@@ -569,11 +570,13 @@ void MainWindow::on_translateDTAPNAction_triggered(){
 		DTAPNParser p;
 		p.parse(&file, &translator);
 		file.close();
+		PetriEngine::LayoutBuilder l;
+		translator.makePNDV(&l);
 
 		// Build scene and translation
 		PetriNetView* view = new PetriNetView();
 		PetriNetSceneBuilder builder(&undoGroup, view);
-		translator.makePNDV(&builder);
+		l.produce(&builder);
 		PetriNetScene* scene = builder.makeScene();
 
 		// Configure view and stuff
