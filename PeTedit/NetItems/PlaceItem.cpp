@@ -34,24 +34,27 @@ void PlaceItem::setTokens(int tokens){
 		if(arc->end() != this)
 			arc->end()->update();
 	}
+	updateTokenPath();
 }
 
 void PlaceItem::updateTokenPath(){
 	// Centering number of tokens to place
 	QPainterPath path;
-	QFont f("",6);
-	f.setBold(false);
-	f.setStyleHint(QFont::SansSerif, QFont::NoAntialias);
-	path.addText(0, 0, f, QString::number(this->_tokens));
-	QTransform t;
-	qreal width = path.boundingRect().width();
-	qreal height = path.boundingRect().height();
-	qreal s = ((CIRCLE_SIZE*2) - TOKEN_PADDING)/ sqrt(width*width + height*height);
-	t.scale(s,s);
-	path = t.map(path);
-	QRectF bb = path.boundingRect();
-	bb.moveCenter(QPointF(0,0));
-	path.translate(bb.topLeft()-path.boundingRect().topLeft());
+	if(_tokens != 0){
+		QFont f("",6);
+		f.setBold(false);
+		f.setStyleHint(QFont::SansSerif, QFont::NoAntialias);
+		path.addText(0, 0, f, QString::number(this->_tokens));
+		QTransform t;
+		qreal width = path.boundingRect().width();
+		qreal height = path.boundingRect().height();
+		qreal s = ((CIRCLE_SIZE*2) - TOKEN_PADDING)/ sqrt(width*width + height*height);
+		t.scale(s,s);
+		path = t.map(path);
+		QRectF bb = path.boundingRect();
+		bb.moveCenter(QPointF(0,0));
+		path.translate(bb.topLeft()-path.boundingRect().topLeft());
+	}
 	tokenPath = path;
 }
 
