@@ -80,9 +80,8 @@ int main(int argc, char *argv[])
 		QList<QueryModel::Query> queries = qBuilder.makeQueries();
 
 		if(listQueries){
-			std::cout<<"Available queries in network: "<<std::endl;
 			for(QList<QueryModel::Query>::iterator it = queries.begin(); it != queries.end(); it++)
-				std::cout<<(*it).name.toStdString()<<std::endl;
+				printf("%s\n",(*it).name.toStdString().c_str());
 			return 0;
 		}
 

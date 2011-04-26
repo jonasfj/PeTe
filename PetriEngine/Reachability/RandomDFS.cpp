@@ -53,19 +53,14 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 										"Search was aborted.");
 		}
 
-		exploredStates++;
 		State* s = stack.back();
 		stack.pop_back();
-		if(!s){
-			s = stack.back();
-			stack.pop_back();
-			expandedStates++;
-		}
 		State* succ[net.numberOfTransitions()];
 		memset(succ, 0, net.numberOfTransitions()*sizeof(State*));
 		for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
 			if(net.fire(t, s, ns)){
 				if(states.add(ns)){
+					exploredStates++;
 					if(query->evaluate(*ns))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
 												"A state satisfying the query was found", expandedStates, exploredStates);
@@ -77,7 +72,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 			}
 		}
 		// Randomly sorts states into the stack
-		stack.push_back(NULL);
+		expandedStates++;
 		int random;
 		int t;
 		do {
