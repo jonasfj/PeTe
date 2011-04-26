@@ -25,6 +25,8 @@
 #define NAME_ArcCountSum						"ArcCount-Sum"
 #define NAME_ExtOrSumAnd						"Extreme-Or Sum-And"
 #define NAME_ExtOrSumAndDeep					"Extreme-Or Sum-And Deep!"
+#define NAME_HeuristicDFSSumAndExtremeOr		"Heuristic DFS (Extreme-Or Sum-And)"
+
 
 
 #include <stdio.h>
@@ -47,6 +49,7 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_ClosestFirstReachabilityTokenCost,
 		NAME_TokenCostDeep,
 		NAME_RandomPrioritizedReachability,
+		NAME_HeuristicDFSSumAndExtremeOr,
 		NAME_HeuristicDFSTokenCost
 	};
 	return std::vector<std::string>(strats, strats + sizeof(strats) / sizeof(std::string));
@@ -98,6 +101,10 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 		return new RandomPrioritizedReachability();
 	if(strategy == NAME_HeuristicDFSTokenCost){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme | PQL::DistanceContext::TokenCost;
+		return new HeuristicDFS((PQL::DistanceContext::DistanceStrategy)flags);
+	}
+	if(strategy == NAME_HeuristicDFSSumAndExtremeOr){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
 		return new HeuristicDFS((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	//If we didn't find it
