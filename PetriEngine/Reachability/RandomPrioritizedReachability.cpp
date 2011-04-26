@@ -1,9 +1,7 @@
 #include "RandomPrioritizedReachability.h"
 
 #include <stdlib.h>
-
-//Random number chosen by fair dice roll
-#define SEED		1337
+#include <time.h>
 
 namespace PetriEngine {
 namespace Reachability {
@@ -13,7 +11,7 @@ RandomPrioritizedReachability::RandomPrioritizedReachability(){
 
 void RandomPrioritizedReachability::initialize(const PQL::Condition *,
 											   const PetriNet &){
-	srand(SEED);
+	srand(time(0));
 }
 
 double RandomPrioritizedReachability::priority(const Structures::State *,
