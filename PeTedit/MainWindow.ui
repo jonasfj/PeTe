@@ -80,6 +80,7 @@
     <addaction name="saveAsAction"/>
     <addaction name="separator"/>
     <addaction name="actionExport_SVG"/>
+    <addaction name="printAction"/>
     <addaction name="separator"/>
     <addaction name="importSUMoQueriesAction"/>
     <addaction name="translateDTAPNAction"/>
@@ -134,6 +135,8 @@
    <addaction name="OpenAction"/>
    <addaction name="SaveAction"/>
    <addaction name="saveAsAction"/>
+   <addaction name="separator"/>
+   <addaction name="printAction"/>
   </widget>
   <widget class="QToolBar" name="editingToolBar">
    <property name="windowTitle">
@@ -691,6 +694,21 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="printAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/Icons/24x24/print.png</normaloff>:/Icons/24x24/print.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Print</string>
+   </property>
+   <property name="toolTip">
+    <string>Print current petri net</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
  </widget>

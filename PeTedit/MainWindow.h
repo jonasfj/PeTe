@@ -68,6 +68,8 @@ private slots:
 
 	void on_translateDTAPNAction_triggered();
 
+	void on_printAction_triggered();
+
 private:
 	/******************** Cached Settings ********************/
 	/** Last folder loaded or saved to (handled by load-/saveSettings) */

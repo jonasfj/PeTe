@@ -634,6 +634,8 @@ void MainWindow::loadSettings(){
 	s.endGroup();
 }
 
+/******************** Action handling ********************/
+
 
 void MainWindow::on_alignHorizontalAction_triggered(){
 	if(currentScene)
@@ -645,3 +647,18 @@ void MainWindow::on_alignVerticalAction_triggered(){
 		currentScene->alignSelectItems(Qt::Vertical);
 }
 
+#include <QPrintDialog>
+#include <QPrinter>
+
+void MainWindow::on_printAction_triggered(){
+	if(currentScene){
+		QPrinter p;
+		QPrintDialog d(&p, this);
+		if(d.exec() == QDialog::Accepted){
+			QPainter painter;
+			painter.begin(&p);
+			currentScene->render(&painter);
+			painter.end();
+		}
+	}
+}
