@@ -34,6 +34,7 @@ void PlaceItem::setTokens(int tokens){
 		if(arc->end() != this)
 			arc->end()->update();
 	}
+	updateTokenPath();
 }
 
 void PlaceItem::updateTokenPath(){
