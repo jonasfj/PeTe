@@ -51,7 +51,7 @@ public:
 	DTAPNParser() { builder = NULL; }
 	/** Parse input and build result with builder */
 	void parse(QIODevice* input, PetriEngine::DTAPN::AbstractDTAPNBuilder* builder);
-	QList<Query> queries() { return _queries; }
+	QList<Query> getQueries() { return _queries; }
 private:
 	void pnml();
 	void net();
@@ -59,6 +59,7 @@ private:
 	void transition();
 	void arc();
 	void query();
+	void queries();
 	void position(qreal& x, qreal& y);
 	void value(QString& value);
 	/** Builder for creating new petri net */
