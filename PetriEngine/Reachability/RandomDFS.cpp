@@ -7,6 +7,7 @@
 #include <list>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 using namespace PetriEngine::PQL;
 using namespace PetriEngine::Structures;
@@ -25,7 +26,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 	StateSet states(net);
 	StateAllocator<> allocator(net);
 	std::list<State*> stack;
-	srand(43);	// Chosen by fair dice roll
+	srand(time(0));	// Chosen by fair dice roll
 
 	State* s0 = allocator.createState();
 	memcpy(s0->marking(), m0, sizeof(MarkVal)*net.numberOfPlaces());
