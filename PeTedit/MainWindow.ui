@@ -78,9 +78,13 @@
     <addaction name="OpenAction"/>
     <addaction name="SaveAction"/>
     <addaction name="saveAsAction"/>
-    <addaction name="importSUMoQueriesAction"/>
+    <addaction name="separator"/>
     <addaction name="actionExport_SVG"/>
+    <addaction name="separator"/>
+    <addaction name="importSUMoQueriesAction"/>
     <addaction name="translateDTAPNAction"/>
+    <addaction name="separator"/>
+    <addaction name="exitAction"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -681,6 +685,14 @@
     <string>Import/Translate DTAPN</string>
    </property>
   </action>
+  <action name="exitAction">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -700,6 +712,22 @@
     <hint type="destinationlabel">
      <x>-1</x>
      <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>exitAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>410</x>
+     <y>295</y>
     </hint>
    </hints>
   </connection>
