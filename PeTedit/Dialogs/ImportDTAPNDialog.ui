@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Import and translate DTAPN to PNDV.</string>
+      <string>Translate a DTAPN into a PNDV.</string>
      </property>
     </widget>
    </item>
@@ -47,7 +47,7 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>k-bound:</string>
+        <string>Max number of tokens at each place:</string>
        </property>
       </widget>
      </item>

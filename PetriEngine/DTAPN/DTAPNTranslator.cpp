@@ -17,6 +17,7 @@ namespace PetriEngine{
 namespace DTAPN {
 
 void DTAPNTranslator::addPlace(const std::string& name, int tokens, double, double){
+	assert(!name.empty());
 	Place p;
 	p.name = name;
 	p.tokens = tokens;
@@ -25,6 +26,7 @@ void DTAPNTranslator::addPlace(const std::string& name, int tokens, double, doub
 }
 
 void DTAPNTranslator::addTransition(const std::string& name, double, double){
+	assert(!name.empty());
 	Transition t;
 	t.name = name;
 	transitions.push_back(t);
@@ -32,10 +34,10 @@ void DTAPNTranslator::addTransition(const std::string& name, double, double){
 
 bool DTAPNTranslator::hasIdentifier(const std::string& id){
 	for(PlaceIter p = places.begin(); p != places.end(); p++)
-		if(p->name==id)
+		if(p->name == id)
 			return true;
 	for(TransitionIter t = transitions.begin(); t != transitions.end(); t++)
-		if(t->name==id)
+		if(t->name == id)
 			return true;
 	return false;
 }

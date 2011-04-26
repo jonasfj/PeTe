@@ -59,7 +59,8 @@ void DTAPNParser::pnml(){
 		if(xml.name() == "net" && !readOneNet){
 			net();
 			readOneNet = true;
-		//TODO: Read queries
+		}else if(xml.name() == "query"){
+			query();
 		}else
 			xml.skipCurrentElement();
 	}
@@ -77,13 +78,28 @@ void DTAPNParser::net(){
 		}else if(xml.name() == "arc"){
 			arc();
 		}else if(xml.name() == "queries"){
-			query();
+			queries();
 		}else
 			xml.skipCurrentElement();
 	}
 }
 
 void DTAPNParser::query(){
+	Query q;
+	q.name = xml.attributes().value("name").toString();
+	q.query = xml.attributes().value("query").toString();
+
+	if(q.query.startsWith("EF")){
+		q.query = q.query.mid(2);
+	}else
+		q.query = "";
+
+
+	if(!q.query.isEmpty())
+		_queries.push_back(q);
+}
+
+void DTAPNParser::queries(){
 	Query q;
 	q.name = xml.attributes().value("name").toString();
 	while(xml.readNextStartElement()){
@@ -105,9 +121,15 @@ void DTAPNParser::query(){
 
 void DTAPNParser::place(){
 	qreal x = 0, y = 0;
-	QString name;
+	QString name = xml.attributes().value("name").toString();
 	QString id = xml.attributes().value("id").toString();
 	int initialMarking = 0;
+	if(xml.attributes().hasAttribute("positionX"))
+		x = xml.attributes().value("positionX").toString().toInt();
+	if(xml.attributes().hasAttribute("positionY"))
+		y = xml.attributes().value("positionY").toString().toInt();
+	if(xml.attributes().hasAttribute("initialMarking"))
+		initialMarking = xml.attributes().value("initialMarking").toString().toInt();
 
 	while(xml.readNextStartElement()){
 		if(xml.name() == "graphics"){
@@ -129,12 +151,16 @@ void DTAPNParser::place(){
 
 void DTAPNParser::transition(){
 	qreal x = 0, y = 0;
-	QString name;
+	QString name = xml.attributes().value("name").toString();
 	QString id = xml.attributes().value("id").toString();
+	if(xml.attributes().hasAttribute("positionX"))
+		x = xml.attributes().value("positionX").toString().toInt();
+	if(xml.attributes().hasAttribute("positionY"))
+		y = xml.attributes().value("positionY").toString().toInt();
 
 	while(xml.readNextStartElement()){
 		if(xml.name() == "graphics"){
-			position(x,y);
+			position(x, y);
 		}else if(xml.name() == "name"){
 			value(name);
 		}else
@@ -150,6 +176,18 @@ void DTAPNParser::arc(){
 	QString source = xml.attributes().value("source").toString();
 	QString target = xml.attributes().value("target").toString();
 	int start = 0, end = -1;
+
+	// Parse inscription if it's here
+	QString inscription = xml.attributes().value("inscription").toString();
+	QRegExp reg("(\\(|\\[)(\\d+)(,)(\\d+|inf)(\\)|\\])");
+	if(reg.indexIn(inscription) > -1){
+		QString s2 = reg.cap(4);
+		start = reg.cap(2).toInt() + (reg.cap(1) == "(" ? 1 : 0);
+		if(s2 == "inf")
+			end = -1;
+		else
+			end = s2.toInt() - (reg.cap(5) == ")" ? 1 : 0);
+	}
 
 	while(xml.readNextStartElement()){
 		if(xml.name() == "inscription"){
