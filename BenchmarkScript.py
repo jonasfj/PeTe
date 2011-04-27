@@ -18,7 +18,7 @@ p.wait()
 modeldir = "Samples/"
 Kanban = ["Kanban5.pet","Kanban10.pet","Kanban20.pet","Kanban50.pet", "Kanban100.pet"]
 FMS = ["FMS2.pet","FMS10.pet"]
-IgnoreList = ["BestFS-ArcCount (Extreme, Average)","BestFS-ArcCount (Average, Average)","BestFS-ArcCount (Sum, Extreme)","BestFS-ArcCount-Deep (Extreme, Extreme)","BestFS-ArcCount-Deep (Average, Extreme)","BestFS-ArcCount-Deep (Sum, Extreme)","BestFS-TokenCost (Extreme, Extreme)","BestFS-TokenCost (Average, Extreme)","BestFS-TokenCost (Sum, Extreme)","BestFS-TokenCost-Deep (Extreme, Extreme)","BestFS-TokenCost-Deep (Average, Extreme)","BestFS-TokenCost-Deep (Sum, Extreme)","Naive DFS with Hash","Random DFS with Hash","Naive BFS with Hash","DFS-ArcCount","DFS-TokenCost"]
+IgnoreList = ["BestFS-Delta (Extreme, Average)","BestFS-Delta (Average, Average)","BestFS-Delta (Sum, Extreme)","BestFS-Delta-Deep (Extreme, Extreme)","BestFS-Delta-Deep (Average, Extreme)","BestFS-Delta-Deep (Sum, Extreme)","BestFS-TokenCost (Extreme, Extreme)","BestFS-TokenCost (Average, Extreme)","BestFS-TokenCost (Sum, Extreme)","BestFS-TokenCost-Deep (Extreme, Extreme)","BestFS-TokenCost-Deep (Average, Extreme)","BestFS-TokenCost-Deep (Sum, Extreme)","Naive DFS with Hash","Random DFS with Hash","Naive BFS with Hash","DFS-ArcCount","DFS-TokenCost"]
 modellists = [Kanban, FMS]
 
 def getPeTeMemory():

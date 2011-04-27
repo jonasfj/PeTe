@@ -17,6 +17,22 @@
 //Heuristics
 #define NAME_DFSArcCount						"DFS-ArcCount"
 #define NAME_DFSTokenCost						"DFS-TokenCost"
+
+//BestFirsts-Delta
+#define NAME_BestFSDelta2Extreme				"BestFS-Delta (Extreme, Extreme)"
+#define NAME_BestFSDeltaExtremeAverage			"BestFS-Delta (Extreme, Average)"
+#define NAME_BestFSDeltaAverageExtreme			"BestFS-Delta (Average, Extreme)"
+#define NAME_BestFSDelta2Average				"BestFS-Delta (Average, Average)"
+#define NAME_BestFSDeltaSumExtreme				"BestFS-Delta (Sum, Extreme)"
+#define NAME_BestFSDeltaSumAverage				"BestFS-Delta (Sum, Average)"
+
+#define NAME_BestFSDeltaDeep2Extreme			"BestFS-Delta-Deep (Extreme, Extreme)"
+#define NAME_BestFSDeltaDeepExtremeAverage		"BestFS-Delta-Deep (Extreme, Average)"
+#define NAME_BestFSDeltaDeepAverageExtreme		"BestFS-Delta-Deep (Average, Extreme)"
+#define NAME_BestFSDeltaDeep2Average			"BestFS-Delta-Deep (Average, Average)"
+#define NAME_BestFSDeltaDeepSumExtreme			"BestFS-Delta-Deep (Sum, Extreme)"
+#define NAME_BestFSDeltaDeepSumAverage			"BestFS-Delta-Deep (Sum, Average)"
+
 //BestFirsts-ArcCount
 #define NAME_BestFSArcCount2Extreme				"BestFS-ArcCount (Extreme, Extreme)"
 #define NAME_BestFSArcCountExtremeAverage		"BestFS-ArcCount (Extreme, Average)"
@@ -74,18 +90,18 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BFS,
 		NAME_DFSArcCount,
 		NAME_DFSTokenCost,
-		NAME_BestFSArcCount2Extreme,
-		NAME_BestFSArcCountExtremeAverage,
-		NAME_BestFSArcCountAverageExtreme,
-		NAME_BestFSArcCount2Average,
-		NAME_BestFSArcCountSumExtreme,
-		NAME_BestFSArcCountSumAverage,
-		NAME_BestFSArcCountDeep2Extreme,
-		NAME_BestFSArcCountDeepExtremeAverage,
-		NAME_BestFSArcCountDeepAverageExtreme,
-		NAME_BestFSArcCountDeep2Average,
-		NAME_BestFSArcCountDeepSumExtreme,
-		NAME_BestFSArcCountDeepSumAverage,
+		NAME_BestFSDelta2Extreme,
+		NAME_BestFSDeltaExtremeAverage,
+		NAME_BestFSDeltaAverageExtreme,
+		NAME_BestFSDelta2Average,
+		NAME_BestFSDeltaSumExtreme,
+		NAME_BestFSDeltaSumAverage,
+		NAME_BestFSDeltaDeep2Extreme,
+		NAME_BestFSDeltaDeepExtremeAverage,
+		NAME_BestFSDeltaDeepAverageExtreme,
+		NAME_BestFSDeltaDeep2Average,
+		NAME_BestFSDeltaDeepSumExtreme,
+		NAME_BestFSDeltaDeepSumAverage,
 		NAME_BestFSTokenCost2Extreme,
 		NAME_BestFSTokenCostExtremeAverage,
 		NAME_BestFSTokenCostAverageExtreme,
@@ -120,62 +136,62 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	}
 
 	//BestFSArcCount
-	if(strategy == NAME_BestFSArcCount2Extreme){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme;
+	if(strategy == NAME_BestFSDelta2Extreme){
+		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags);
 	}
-	if(strategy == NAME_BestFSArcCountExtremeAverage){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrAverage;
+	if(strategy == NAME_BestFSDeltaExtremeAverage){
+		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrAverage;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags);
 	}
-	if(strategy == NAME_BestFSArcCount2Extreme){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme;
+	if(strategy == NAME_BestFSDelta2Extreme){
+		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags);
 	}
-	if(strategy == NAME_BestFSArcCountAverageExtreme){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndAverage | PQL::DistanceContext::OrExtreme;
+	if(strategy == NAME_BestFSDeltaAverageExtreme){
+		int flags = PQL::DistanceContext::AndAverage | PQL::DistanceContext::OrExtreme;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags);
 	}
-	if(strategy == NAME_BestFSArcCount2Average){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndAverage | PQL::DistanceContext::OrAverage;
+	if(strategy == NAME_BestFSDelta2Average){
+		int flags = PQL::DistanceContext::AndAverage | PQL::DistanceContext::OrAverage;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags);
 	}
-	if(strategy == NAME_BestFSArcCountSumExtreme){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+	if(strategy == NAME_BestFSDeltaSumExtreme){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags);
 	}
-	if(strategy == NAME_BestFSArcCountSumAverage){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndSum | PQL::DistanceContext::OrAverage;
+	if(strategy == NAME_BestFSDeltaSumAverage){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrAverage;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 
 	//BestFSArcCount-Deep
-	if(strategy == NAME_BestFSArcCountDeep2Extreme){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme;
+	if(strategy == NAME_BestFSDeltaDeep2Extreme){
+		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, true);
 	}
-	if(strategy == NAME_BestFSArcCountDeepExtremeAverage){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrAverage;
+	if(strategy == NAME_BestFSDeltaDeepExtremeAverage){
+		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrAverage;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, true);
 	}
-	if(strategy == NAME_BestFSArcCountDeep2Extreme){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme;
+	if(strategy == NAME_BestFSDeltaDeep2Extreme){
+		int flags = PQL::DistanceContext::AndExtreme | PQL::DistanceContext::OrExtreme;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, true);
 	}
-	if(strategy == NAME_BestFSArcCountDeepAverageExtreme){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndAverage | PQL::DistanceContext::OrExtreme;
+	if(strategy == NAME_BestFSDeltaDeepAverageExtreme){
+		int flags = PQL::DistanceContext::AndAverage | PQL::DistanceContext::OrExtreme;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, true);
 	}
-	if(strategy == NAME_BestFSArcCountDeep2Average){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndAverage | PQL::DistanceContext::OrAverage;
+	if(strategy == NAME_BestFSDeltaDeep2Average){
+		int flags = PQL::DistanceContext::AndAverage | PQL::DistanceContext::OrAverage;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, true);
 	}
-	if(strategy == NAME_BestFSArcCountDeepSumExtreme){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+	if(strategy == NAME_BestFSDeltaDeepSumExtreme){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, true);
 	}
-	if(strategy == NAME_BestFSArcCountDeepSumAverage){
-		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndSum | PQL::DistanceContext::OrAverage;
+	if(strategy == NAME_BestFSDeltaDeepSumAverage){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrAverage;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, true);
 	}
 
