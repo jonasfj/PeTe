@@ -560,6 +560,7 @@ void PetriNetScene::keyPressEvent(QKeyEvent *event) {
 		if(mode() == InsertArcMode){
 			ArcItem* arc = dynamic_cast<ArcItem*>(selectedItems().first());
 			if(arc){
+				arc->unregisterAtEndPoints();
 				removeItem(arc);
 				delete arc;
 			}
