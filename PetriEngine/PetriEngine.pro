@@ -18,17 +18,15 @@ SOURCES		   += \
     PQL/Expressions.cpp \
     PQL/PQL.cpp \
     Reachability/HashUnderApproximation.cpp \
-    Reachability/BestFirstReachabilityStrategy.cpp \
-    Reachability/ClosestFirstReachability.cpp \
     PQL/CompiledCondition.cpp \
     Structures/DistanceMatrix.cpp \
-    Reachability/RandomPrioritizedReachability.cpp \
     LayoutBuilder.cpp \
     Reachability/RandomDFS.cpp \
     Reachability/HeuristicDFS.cpp \
     Reachability/BreadthFirstReachabilitySearch.cpp \
     DTAPN/DTAPNTranslator.cpp \
-    DTAPN/DTAPNPrinter.cpp
+    DTAPN/DTAPNPrinter.cpp \
+    Reachability/BestFirstReachabilitySearch.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -49,12 +47,9 @@ HEADERS		   += \
     Structures/BlockStack.h \
     Structures/PriorityQueue.h \
     Reachability/HashUnderApproximation.h \
-    Reachability/BestFirstReachabilityStrategy.h \
-    Reachability/ClosestFirstReachability.h \
     PQL/CompiledCondition.h \
     PQL/Contexts.h \
     Structures/DistanceMatrix.h \
-    Reachability/RandomPrioritizedReachability.h \
     Structures/StateAllocator.h \
     LayoutBuilder.h \
     Reachability/RandomDFS.h \
@@ -63,7 +58,8 @@ HEADERS		   += \
     AbstractDTAPNBuilder.h \
     DTAPN/DTAPNTranslator.h \
     DTAPN/AbstractDTAPNBuilder.h \
-    DTAPN/DTAPNPrinter.h
+    DTAPN/DTAPNPrinter.h \
+    Reachability/BestFirstReachabilitySearch.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine

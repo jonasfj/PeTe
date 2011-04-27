@@ -18,6 +18,7 @@ p.wait()
 modeldir = "Samples/"
 Kanban = ["Kanban5.pet","Kanban10.pet","Kanban20.pet","Kanban50.pet", "Kanban100.pet"]
 FMS = ["FMS2.pet","FMS10.pet"]
+IgnoreList = ["BestFS-ArcCount (Extreme, Average)","BestFS-ArcCount (Average, Average)","BestFS-ArcCount (Sum, Extreme)","BestFS-ArcCount-Deep (Extreme, Extreme)","BestFS-ArcCount-Deep (Average, Extreme)","BestFS-ArcCount-Deep (Sum, Extreme)","BestFS-TokenCost (Extreme, Extreme)","BestFS-TokenCost (Average, Extreme)","BestFS-TokenCost (Sum, Extreme)","BestFS-TokenCost-Deep (Extreme, Extreme)","BestFS-TokenCost-Deep (Average, Extreme)","BestFS-TokenCost-Deep (Sum, Extreme)","Naive DFS with Hash","Random DFS with Hash","Naive BFS with Hash","DFS-ArcCount","DFS-TokenCost"]
 modellists = [Kanban, FMS]
 
 def getPeTeMemory():
@@ -72,6 +73,9 @@ def listqueries(model):
 """ Run models, where scaledModels is a list of scaled models ordered from small to large """
 def runScaledModels(scaledModels, queriesToRun = 0):
 	for strategy in strategies:
+		if strategy in IgnoreList:
+			print "Skipped Strategy"
+			continue
 		for model in scaledModels:
 			queries = listqueries(modeldir + model)
 			queriesrun = 0

@@ -1,5 +1,6 @@
-#include "BestFirstReachabilityStrategy.h"
+#include "BestFirstReachabilitySearch.h"
 #include "../PQL/PQL.h"
+#include "../PQL/Contexts.h"
 #include "../Structures/PriorityQueue.h"
 #include "../Structures/StateSet.h"
 #include "../Structures/StateAllocator.h"
@@ -12,7 +13,7 @@ using namespace PetriEngine::PQL;
 namespace PetriEngine{
 namespace Reachability{
 
-ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
+ReachabilityResult BestFirstReachabilitySearch::reachable(const PetriNet &net,
 															const MarkVal *m0,
 															const VarVal *v0,
 															PQL::Condition *query){
@@ -118,8 +119,21 @@ ReachabilityResult BestFirstReachabilityStrategy::reachable(const PetriNet &net,
 							  "Query cannot be satisfied!", expandedStates, exploredStates);
 }
 
-//Empty default implementation
-void BestFirstReachabilityStrategy::initialize(const PQL::Condition*, const PetriNet&){}
+double BestFirstReachabilitySearch::priority(const Structures::State *state,
+											   const PQL::Condition *query,
+											   const PetriNet& net){
+	PQL::DistanceContext context(net,
+								 _distanceStrategy,
+								 state->marking(),
+								 state->valuation(),
+								 _dm);
+	return query->distance(context);
+}
+
+void BestFirstReachabilitySearch::initialize(const PQL::Condition*,
+											   const PetriNet& net){
+	_dm = new Structures::DistanceMatrix(net);
+}
 
 } // Reachability
 } // PetriEngine
