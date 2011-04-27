@@ -39,6 +39,7 @@ letter        [a-zA-Z_]
 "+"							{return TOKEN(PLUS);}
 "-"							{return TOKEN(MINUS);}
 "*"							{return TOKEN(MULTIPLY);}
+"="							{return TOKEN(EQUAL);}
 .							{printf("Unknown token %s!\n", pqlqtext); yyterminate();}
 
 %%
