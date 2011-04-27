@@ -30,6 +30,14 @@ public:
 	/** Setter for the transition the parent took to get here */
 	void setTransition(unsigned int t){ _parentTransition = t; }
 
+	/** Gets the length of the trace to this state */
+	int pathLength(){
+		if(_parent)
+			return 1 + _parent->pathLength();
+		else
+			return 0;
+	}
+
 	/** State specialisation of std::hash */
 	class hash : public std::unary_function<State*, size_t>{
 	public:

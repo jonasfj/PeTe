@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
 
 		//Print result
 		std::string r = result.result() == ReachabilityResult::Satisfied ? "Satisfied" : "Not Satisfied";
-		std::cout<<name.toStdString()<<",\t"<<queryName.toStdString()<<",\t"<<strategy.toStdString()<<",\t"<<r<<",\t"<<finishTime<<",\t"<<result.expandedStates()<<",\t"<<result.exploredStates()<<std::endl;
+		std::cout<<name.toStdString()<<",\t"<<queryName.toStdString()<<",\t"<<strategy.toStdString()<<",\t"<<r<<",\t"<<finishTime<<",\t"<<result.expandedStates()<<",\t\t"<<result.exploredStates()<<",\t\t"<<result.pathLength()<<std::endl;
 	}
 	return 0;
 }

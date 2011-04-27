@@ -51,9 +51,11 @@ def run(model, strategy, query, timeout = 5*60, memoryBound = 1048576, pollstep 
 	if p.poll() == None:
 		subprocess.Popen("kill -KILL `pidof PeTe`", shell=True)
 	if not retval and memout:
-		return False, os.path.basename(model) + ",\t" + query + ",\t" + strategy + ",\tOutOfMemory,\t-,\t-,\t-"
+		p.wait()
+		return False, os.path.basename(model) + ",\t" + query + ",\t" + strategy + ",\tOutOfMemory,\t-,\t-,\t\t-,\t\t-"
 	elif not retval and  not t < timeout:
-		return False, os.path.basename(model) + ",\t" + query + ",\t" + strategy + ",\tOutOfTime,\t-,\t-,\t-"
+		p.wait()
+		return False, os.path.basename(model) + ",\t" + query + ",\t" + strategy + ",\tOutOfTime,\t-,\t-,\t\t-,\t\t-"
 	p.wait()
 	return True, retval
 
