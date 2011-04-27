@@ -146,7 +146,7 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 			for(int i = 0; i < bound; i++){
 				string postptrans = postPlaceTransition(p->name, i);
 				string cond = p->name + " == " + i2s(i);
-				string assign = "L := L-1; " + tokenAgeVariable(p->name, i) + " := 0;";
+				string assign = "R := R-1; " + tokenAgeVariable(p->name, i) + " := 0;";
 				builder->addTransition(postptrans, cond, assign);
 				builder->addInputArc(postplace, postptrans);
 				builder->addOutputArc(postptrans, p->name);
