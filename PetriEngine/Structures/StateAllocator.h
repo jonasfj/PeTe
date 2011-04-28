@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 namespace PetriEngine {
 namespace Structures {
 
@@ -49,6 +50,18 @@ public:
 		s->_valuation = (VarVal*)(d + sizeof(State) + sizeof(MarkVal) * _nPlaces);
 		_offset++;
 		return s;
+	}
+	/** Get the size of a state, use for alloca */
+	static inline size_t stateSize(const PetriNet& net){
+		return sizeof(State) + sizeof(MarkVal) * net.numberOfPlaces() + sizeof(VarVal) * net.numberOfVariables();
+	}
+	/** Initialize state allocated using alloc, size of memory is expected to be stateSize(net) */
+	static inline void initializeState(State* memory, const PetriNet& net){
+		char* d = (char*)memory;
+		memory->_parent = NULL;
+		memory->_parentTransition = 0;
+		memory->_marking = (MarkVal*)(d + sizeof(State));
+		memory->_valuation = (VarVal*)(d + sizeof(State) + sizeof(MarkVal) * net.numberOfPlaces());
 	}
 private:
 	size_t stateSize(){

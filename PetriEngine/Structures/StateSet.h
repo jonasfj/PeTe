@@ -23,7 +23,9 @@ public:
 		std::pair<iter, bool> result = this->insert(state);
 		return result.second;
 	}
-
+	bool contains(State* state) const {
+		return this->count(state) > 0;
+	}
 private:
 	typedef std::tr1::unordered_set<State*, State::hash, State::equal_to>::const_iterator const_iter;
 	typedef std::tr1::unordered_set<State*, State::hash, State::equal_to>::iterator iter;

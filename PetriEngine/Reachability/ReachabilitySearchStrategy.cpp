@@ -33,6 +33,13 @@
 #define NAME_BestFSDeltaDeepSumExtreme			"BestFS-Delta-Deep (Sum, Extreme)"
 #define NAME_BestFSDeltaDeepSumAverage			"BestFS-Delta-Deep (Sum, Average)"
 
+// Experiments (Don't need to play with Avg/Extreme/Sum setting here:
+#define NAME_BestFSDeltaSumExtremeLH1			"BestFS-Delta (Sum, Extreme) Lookahead 1"
+#define NAME_BestFSDeltaSumExtremeLH2			"BestFS-Delta (Sum, Extreme) Lookahead 2"
+#define NAME_BestFSDeltaSumExtremeLH3			"BestFS-Delta (Sum, Extreme) Lookahead 3"
+#define NAME_BestFSDeltaSumExtremeLH4			"BestFS-Delta (Sum, Extreme) Lookahead 4"
+#define NAME_BestFSDeltaSumExtremeLH5			"BestFS-Delta (Sum, Extreme) Lookahead 5"
+
 //BestFirsts-ArcCount
 #define NAME_BestFSArcCount2Extreme				"BestFS-ArcCount (Extreme, Extreme)"
 #define NAME_BestFSArcCountExtremeAverage		"BestFS-ArcCount (Extreme, Average)"
@@ -91,7 +98,7 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_DFSArcCount,
 		NAME_DFSTokenCost,
 		NAME_BestFSDeltaSumExtreme,
-		NAME_BestFSDeltaDeepSumExtreme
+		NAME_BestFSDeltaDeepSumExtreme,
 		/*NAME_BestFSDeltaDeepSumAverage
 		NAME_BestFSDeltaSumAverage,
 		NAME_BestFSDeltaDeep2Extreme,
@@ -114,6 +121,11 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BestFSTokenCostDeep2Average,
 		NAME_BestFSTokenCostDeepSumExtreme,
 		NAME_BestFSTokenCostDeepSumAverage*/
+		NAME_BestFSDeltaSumExtremeLH1,
+		NAME_BestFSDeltaSumExtremeLH2,
+		NAME_BestFSDeltaSumExtremeLH3,
+		NAME_BestFSDeltaSumExtremeLH4,
+		NAME_BestFSDeltaSumExtremeLH5
 	};
 	return std::vector<std::string>(strats, strats + sizeof(strats) / sizeof(std::string));
 }
@@ -246,6 +258,28 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 		int flags = PQL::DistanceContext::TokenCost | PQL::DistanceContext::AndSum | PQL::DistanceContext::OrAverage;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, true);
 	}*/
+
+	//BestFSDelta-LHx
+	if(strategy == NAME_BestFSDeltaSumExtremeLH1){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 1);
+	}
+	if(strategy == NAME_BestFSDeltaSumExtremeLH2){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 2);
+	}
+	if(strategy == NAME_BestFSDeltaSumExtremeLH3){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 3);
+	}
+	if(strategy == NAME_BestFSDeltaSumExtremeLH4){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 4);
+	}
+	if(strategy == NAME_BestFSDeltaSumExtremeLH5){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 5);
+	}
 
 	//If we didn't find it
 	fprintf(stderr, "Reachability strategy: \"%s\" not found!\n", strategy.c_str());

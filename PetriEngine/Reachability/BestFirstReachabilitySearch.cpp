@@ -30,6 +30,7 @@ ReachabilityResult BestFirstReachabilitySearch::reachable(const PetriNet &net,
 	initialize(query, net);
 
 	StateSet states(net);
+	_states = &states;
 	states.add(s0);
 	PriorityQueue<State*> queue;
 	queue.push(0, s0);
@@ -127,12 +128,43 @@ double BestFirstReachabilitySearch::priority(const Structures::State *state,
 								 state->marking(),
 								 state->valuation(),
 								 _dm);
-	return query->distance(context);
+	double d = query->distance(context);
+	if(_lookahead > 0){
+		double d2 = lookaheadDistance(net, state, query, _lookahead);
+		d = d < d2 ? d : d2;
+	}
+	return d;
 }
 
 void BestFirstReachabilitySearch::initialize(const PQL::Condition*,
 											   const PetriNet& net){
 	_dm = new Structures::DistanceMatrix(net);
+}
+
+double BestFirstReachabilitySearch::lookaheadDistance(const PetriNet& net,
+													  const Structures::State* state,
+													  const PQL::Condition* query,
+													  int depth){
+	double min = -1;
+	State* ns = (State*)alloca(StateAllocator<>::stateSize(net));
+	StateAllocator<>::initializeState(ns, net);
+	for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
+		if(net.fire(t, state, ns) && !_states->contains(ns)){
+			PQL::DistanceContext context(net,
+										 _distanceStrategy,
+										 ns->marking(),
+										 ns->valuation(),
+										 _dm);
+			double d = query->distance(context);
+			if(d < min || min == -1)
+				min = d;
+			if(depth - 1 > 0)
+				d = lookaheadDistance(net, ns, query, depth-1);
+			if(d < min || min == -1)
+				min = d;
+		}
+	}
+	return min;
 }
 
 } // Reachability
