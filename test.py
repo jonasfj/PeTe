@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import subprocess, time, os
+import subprocess, time, os, shutil
 
 # Python script to run batch tests of PeTe
 
@@ -58,9 +58,14 @@ except:
 	print "Failed to load config"
 
 
-#Find some absolute paths
+# Find some absolute paths
 petebin = os.path.abspath(PeTe)
 modeldir = os.path.abspath(ModelDir) + "/"
+
+# Copy PeTe to /tmp during tests
+shutil.copyfile(petebin, "/tmp/PeTe-Test-Bin")
+shutil.copystat(petebin, "/tmp/PeTe-Test-Bin")
+petebin = "/tmp/PeTe-Test-Bin"
 
 # NULL-Device
 FNULL = open('/dev/null', 'w')
@@ -144,7 +149,6 @@ def runScaledModels(scaledModels):
 	global QueriesToRun
 	for strategy in strategies:
 		if strategy in IgnoreList:
-			print "Skipped Strategy"
 			continue
 		for model in scaledModels:
 			queries = listqueries(modeldir + model)
