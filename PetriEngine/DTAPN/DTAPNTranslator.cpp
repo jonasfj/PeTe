@@ -118,16 +118,10 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 			ai->endInterval = p.maxAge;
 	}
 
-	// Find Largest postset
-	unsigned int largestPostset = 0;
-	for(TransitionIter t = transitions.begin(); t != transitions.end(); t++)
-		largestPostset = MAX(largestPostset, postset(t->name).size());
-
 	// Build control variables (Transition Lock and Release Lock)
 	lockStateIdle = 0;
 	lockStateAgeing = transitions.size();
 	builder->addVariable("L", 0, transitions.size() + 1); //one for each transition + idle and ageing
-	builder->addVariable("R", 0, largestPostset);
 
 	// For each place
 	for(PlaceIter p = places.begin(); p != places.end(); p++){
@@ -137,21 +131,6 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 		// Build variables for token ages
 		for(int i = 0; i < bound; i++)
 			builder->addVariable(tokenAgeVariable(p->name, i), 0, p->maxAge);
-
-		// Build post-places
-		if(isEndPlace(p->name)){
-			string postplace = postPlace(p->name);
-			builder->addPlace(postplace, 0);
-			// Add a transition for each variable that can store the token age
-			for(int i = 0; i < bound; i++){
-				string postptrans = postPlaceTransition(p->name, i);
-				string cond = p->name + " == " + i2s(i);
-				string assign = "R := R-1; " + tokenAgeVariable(p->name, i) + " := 0;";
-				builder->addTransition(postptrans, cond, assign);
-				builder->addInputArc(postplace, postptrans);
-				builder->addOutputArc(postptrans, p->name);
-			}
-		}
 	}
 
 	// For each transition
@@ -161,7 +140,14 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 		OutArcList post = postset(t->name);
 
 		// Build original transition, remember to set release lock
-		string assign = "L := " + i2s(lockStateIdle) + "; R := " + i2s(post.size()) + ";";
+		string assign = "L := " + i2s(lockStateIdle) + "; \n";
+		// Create result assign
+		for(OutArcIter ai = post.begin(); ai != post.end(); ai++){
+			assign += tokenAgeVariable(ai->end, 0) + " := 0 ; \n";
+			for(int i = 1; i < bound-1; i++)
+				assign += tokenAgeVariable(ai->end, i) + " := "  + tokenAgeVariable(ai->end, i-1) + " ; \n";
+		}
+
 		builder->addTransition(t->name, "", assign);
 
 		// For each in-arc
@@ -185,9 +171,7 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 				// <ai->start>_<i> <= ai->endInterval
 				conds += tokenAgeVariable(ai->start, i) + " <= " + i2s(ai->endInterval) + " and \n";
 				// L == LockStateIdle or L == lockState(t->name)
-				conds += "( L == " + i2s(lockStateIdle) + " or L == " + lockState(t->name) + " ) and \n";
-				// Release lock clean
-				conds += "R == 0";
+				conds += "( L == " + i2s(lockStateIdle) + " or L == " + lockState(t->name) + " )";
 
 				// Create post-assignments
 				string assigns;
@@ -213,7 +197,7 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 
 		// Create arcs to post-places
 		for(OutArcIter ai = post.begin(); ai != post.end(); ai++)
-			builder->addOutputArc(t->name, postPlace(ai->end));
+			builder->addOutputArc(t->name, ai->end);
 	}
 
 	// Create control net (for ageing)
@@ -313,16 +297,6 @@ string DTAPNTranslator::prePlaceTransition(const string& transition, int inArcNr
 	return escapeIdentifier(transition + "_pre_t_" + i2s(inArcNr) + "_" + i2s(tokenIndex));
 }
 
-/** Post-place from a transition, only one per place */
-string DTAPNTranslator::postPlace(const string& place){
-	return escapeIdentifier(place + "_post");
-}
-
-/** Transition from post-place to place */
-string DTAPNTranslator::postPlaceTransition(const string& place, int tokenIndex){
-	return escapeIdentifier(place + "_t" + i2s(tokenIndex));
-}
-
 /** Variable representing the age of a specific token at a place */
 string DTAPNTranslator::tokenAgeVariable(const string& place, int tokenIndex){
 	return escapeIdentifier(place + "_" + i2s(tokenIndex));
@@ -330,7 +304,7 @@ string DTAPNTranslator::tokenAgeVariable(const string& place, int tokenIndex){
 
 /** Translates a DTAPN query into a PNDV query */
 string DTAPNTranslator::translateQuery(const std::string &query){
-	return "L == 0 and R == 0 and ( "+ query + " ) ";
+	return "L == 0 and ( "+ query + " ) ";
 }
 
 } // DTAPN
