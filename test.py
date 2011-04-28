@@ -129,7 +129,7 @@ def run(model, strategy, query):
 	if not retval and peekMem > MemoryBound:
 		p.wait()
 		return False, os.path.basename(model) + ",\t" + query + ",\t" + strategy + ",\tOutOfMemory,\t-,\t-,\t-,\t-", peekMem
-	elif not retval and  not t < timeout:
+	elif not retval and  not t < TimeOut:
 		p.wait()
 		return False, os.path.basename(model) + ",\t" + query + ",\t" + strategy + ",\tOutOfTime,\t-,\t-,\t-,\t-", peekMem
 	p.wait()
