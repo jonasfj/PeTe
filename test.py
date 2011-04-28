@@ -71,7 +71,7 @@ petebin = "/tmp/PeTe-Test-Bin"
 FNULL = open('/dev/null', 'w')
 
 # Get all available strategies from PeTe
-p = subprocess.Popen(petebin + " --strategies",shell=True,stdout=subprocess.PIPE)
+p = subprocess.Popen([petebin, "--strategies"], stdout=subprocess.PIPE)
 strategies = [i.strip() for i in p.stdout.readlines()]
 p.wait()
 
