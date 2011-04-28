@@ -16,10 +16,12 @@ p.wait()
 
 
 modeldir = "Samples/"
-Kanban = ["Kanban5.pet","Kanban10.pet","Kanban20.pet","Kanban50.pet", "Kanban100.pet"]
+Kanban = ["Kanban5.pet","Kanban10.pet","Kanban20.pet","Kanban50.pet", "Kanban100.pet", "Kanban200.pet", "Kanban500.pet", "Kanban1000.pet"]
 FMS = ["FMS2.pet","FMS10.pet"]
-IgnoreList = ["BestFS-Delta (Extreme, Average)","BestFS-Delta (Average, Average)","BestFS-Delta (Sum, Extreme)","BestFS-Delta-Deep (Extreme, Extreme)","BestFS-Delta-Deep (Average, Extreme)","BestFS-Delta-Deep (Sum, Extreme)","BestFS-TokenCost (Extreme, Extreme)","BestFS-TokenCost (Average, Extreme)","BestFS-TokenCost (Sum, Extreme)","BestFS-TokenCost-Deep (Extreme, Extreme)","BestFS-TokenCost-Deep (Average, Extreme)","BestFS-TokenCost-Deep (Sum, Extreme)","Naive DFS with Hash","Random DFS with Hash","Naive BFS with Hash","DFS-ArcCount","DFS-TokenCost"]
-modellists = [Kanban, FMS]
+MAPK = ["MAPK8.pet","MAPK40.pet","MAPK80.pet","MAPK160.pet","MAPK320.pet"]
+DTAPN = ["DTAPNs/PrimeNet-7.pet","DTAPNs/PrimeNet-11.pet","DTAPNs/PrimeNet-13.pet","DTAPNs/PrimeNet-17.pet","DTAPNs/PrimeNet-19.pet"]
+IgnoreList = ["Naive DFS with Hash","Random DFS with Hash","Naive BFS with Hash","DFS-ArcCount","DFS-TokenCost"]
+modellists = [MAPK, DTAPN, Kanban, FMS]
 
 def getPeTeMemory():
 	p2 = subprocess.Popen("ps -C PeTe -o vsz=", shell=True, stdout=subprocess.PIPE)
