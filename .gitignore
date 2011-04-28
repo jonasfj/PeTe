@@ -2,3 +2,5 @@
 *.lexer.cpp
 *.parser.cpp
 *.parser.hpp
+testconfig.py
+testconfig.pyc
