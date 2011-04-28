@@ -7,7 +7,7 @@ print "PeTe batch test script"
 
 FNULL = open('/dev/null', 'w')
 
-petedir = "../PeTe-build-desktop/PeTe"
+petedir = "../PeTe-build-desktop2/PeTe"
 
 # Get all available strategies from PeTe
 p = subprocess.Popen(petedir + " --strategies",shell=True,stdout=subprocess.PIPE)
@@ -33,7 +33,7 @@ def getPeTeMemory():
 	p2.wait()
 	return memory
 
-def run(model, strategy, query, timeout = 5*60, memoryBound = 1048576, pollstep = 3):
+def run(model, strategy, query, timeout = 1*60, memoryBound = 1048576, pollstep = 3):
 	cmd = petedir + " " + model + " --strategy \"" + strategy + "\" --query \"" + query + "\""
 	p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=FNULL)
 	t = 0
@@ -55,10 +55,10 @@ def run(model, strategy, query, timeout = 5*60, memoryBound = 1048576, pollstep 
 		subprocess.Popen("kill -KILL `pidof PeTe`", shell=True)
 	if not retval and memout:
 		p.wait()
-		return False, os.path.basename(model) + ",\t" + query + ",\t" + strategy + ",\tOutOfMemory,\t-,\t-,\t\t-,\t\t-"
+		return False, os.path.basename(model) + ",\t" + query + ",\t" + strategy + ",\tOutOfMemory,\t-,\t-,\t-,\t-"
 	elif not retval and  not t < timeout:
 		p.wait()
-		return False, os.path.basename(model) + ",\t" + query + ",\t" + strategy + ",\tOutOfTime,\t-,\t-,\t\t-,\t\t-"
+		return False, os.path.basename(model) + ",\t" + query + ",\t" + strategy + ",\tOutOfTime,\t-,\t-,\t-,\t-"
 	p.wait()
 	return True, retval
 
@@ -93,4 +93,4 @@ def runScaledModels(scaledModels, queriesToRun = 0):
 				break
 
 for ml in modellists:
-	runScaledModels(ml, 2)
+	runScaledModels(ml)
