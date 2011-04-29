@@ -17,6 +17,7 @@
 //Heuristics
 #define NAME_DFSArcCount						"DFS-ArcCount"
 #define NAME_DFSTokenCost						"DFS-TokenCost"
+#define NAME_DFSDelta							"DFS-Delta"
 
 //BestFirsts-Delta
 #define NAME_BestFSDelta2Extreme				"BestFS-Delta (Extreme, Extreme)"
@@ -97,6 +98,7 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BFS,
 		NAME_DFSArcCount,
 		NAME_DFSTokenCost,
+		NAME_DFSDelta,
 		NAME_BestFSDeltaSumExtreme,
 		NAME_BestFSDeltaDeepSumExtreme,
 		/*NAME_BestFSDeltaDeepSumAverage
@@ -144,6 +146,10 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	}
 	if(strategy == NAME_DFSTokenCost){
 		int flags = PQL::DistanceContext::TokenCost;
+		return new HeuristicDFS((PQL::DistanceContext::DistanceStrategy)flags);
+	}
+	if(strategy == NAME_DFSDelta){
+		int flags = 0;
 		return new HeuristicDFS((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 
