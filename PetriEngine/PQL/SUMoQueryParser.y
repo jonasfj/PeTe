@@ -13,7 +13,6 @@ void sumoerror(const char *s) {printf("ERROR: %s: %s\n", s, sumotext);}
 %}
 
 %name-prefix "sumo"
-%expect 6
 
 /* Data representation */
 %union {
@@ -28,6 +27,10 @@ void sumoerror(const char *s) {printf("ERROR: %s: %s\n", s, sumotext);}
 %token <token> LPAREN RPAREN LBRACKET RBRACKET
 %token <token> AND OR NOT REACHABLE INVARIANT
 %token <token> CONTAINS EQUALS STAR VALUE EQUAL
+
+/* Terminal associativity */
+%left AND OR
+%right NOT
 
 /* Nonterminal type definition */
 %type <cond> subformula atomic

@@ -10,7 +10,7 @@ void pqlqerror(const char *s) {printf("ERROR: %s\n", s);}
 %}
 
 %name-prefix "pqlq"
-%expect 8
+%expect 2
 
 /* Possible data representation */
 %union {
@@ -26,6 +26,10 @@ void pqlqerror(const char *s) {printf("ERROR: %s\n", s);}
 %token <token> AND OR NOT
 %token <token> EQUAL NEQUAL LESS LESSEQUAL GREATER GREATEREQUAL
 %token <token> PLUS MINUS MULTIPLY
+
+/* Terminal associativity */
+%left AND OR
+%right NOT
 
 /* Nonterminal type definition */
 %type <expr> expr term factor
