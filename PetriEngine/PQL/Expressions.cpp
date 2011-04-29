@@ -80,7 +80,7 @@ std::string CompareCondition::toString() const{
 }
 
 std::string NotCondition::toString() const {
-	return "!" + _cond->toString();
+	return "(not " + _cond->toString() + ")";
 }
 
 /******************** Context Analysis ********************/
