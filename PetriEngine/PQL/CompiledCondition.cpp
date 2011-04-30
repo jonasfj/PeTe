@@ -133,6 +133,10 @@ Value* CompiledCondition::codegen(CodeGenerationContext &context) const{
 	return  _cond->codegen(context);
 }
 
+void CompiledCondition::findConstraints(ConstraintAnalysisContext& context) const{
+	_cond->findConstraints(context);
+}
+
 double CompiledCondition::distance(DistanceContext& context) const{
 	return _cond->distance(context);
 }

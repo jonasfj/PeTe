@@ -18,6 +18,7 @@ namespace PQL{
 class AnalysisContext;
 class EvaluationContext;
 class DistanceContext;
+class ConstraintAnalysisContext;
 class CodeGenerationContext;
 
 /** Representation of a PQL error */
@@ -96,6 +97,8 @@ public:
 	virtual void analyze(AnalysisContext& context) = 0;
 	/** Evaluate condition */
 	virtual bool evaluate(const EvaluationContext& context) const = 0;
+	/** Analyze constraints for over-approximation */
+	virtual void findConstraints(ConstraintAnalysisContext& context) const = 0;
 	/** Generate LLVM intermediate code for this condition  */
 	virtual llvm::Value* codegen(CodeGenerationContext& context) const = 0;
 	/** Convert condition to string */

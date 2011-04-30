@@ -233,6 +233,248 @@ Expr::Types MinusExpr::type() const			{ return Expr::MinusExpr;		}
 Expr::Types LiteralExpr::type() const		{ return Expr::LiteralExpr;		}
 Expr::Types IdentifierExpr::type() const	{ return Expr::IdentifierExpr;	}
 
+/******************** Constraint Analysis ********************/
+
+void LogicalCondition::findConstraints(ConstraintAnalysisContext& context) const{
+	if(!context.canAnalyze)
+		return;
+	_cond1->findConstraints(context);
+	ConstraintAnalysisContext::ConstraintSet left = context.retval;
+	_cond2->findConstraints(context);
+	mergeConstraints(context.retval, left, context.negated);
+}
+
+void AndCondition::mergeConstraints(ConstraintAnalysisContext::ConstraintSet& result,
+									ConstraintAnalysisContext::ConstraintSet& other,
+									bool negated) const{
+	if(!negated)
+		result = Structures::StateConstraints::mergeAnd(result, other);
+	else
+		result = Structures::StateConstraints::mergeOr(result, other);
+}
+void OrCondition::mergeConstraints(ConstraintAnalysisContext::ConstraintSet& result,
+								   ConstraintAnalysisContext::ConstraintSet& other,
+								   bool negated) const{
+	if(!negated)
+		result = Structures::StateConstraints::mergeOr(result, other);
+	else
+		result = Structures::StateConstraints::mergeAnd(result, other);
+}
+
+void CompareCondition::findConstraints(ConstraintAnalysisContext& context) const{
+	if(!context.canAnalyze)
+		return;
+	context.retval.clear();
+	if(_expr1->type() == Expr::LiteralExpr && _expr2->type() == Expr::IdentifierExpr){
+		IdentifierExpr* id = (IdentifierExpr*)_expr2;
+		LiteralExpr* literal = (LiteralExpr*)_expr1;
+		addConstraints(context, literal->value(), id);
+	}else if(_expr1->type() == Expr::IdentifierExpr && _expr2->type() == Expr::LiteralExpr){
+		IdentifierExpr* id = (IdentifierExpr*)_expr1;
+		LiteralExpr* literal = (LiteralExpr*)_expr2;
+		addConstraints(context, id, literal->value());
+	}else
+		context.canAnalyze = false;
+}
+
+void NotCondition::findConstraints(ConstraintAnalysisContext& context) const{
+	if(context.canAnalyze){
+		context.negated = !context.negated;
+		this->_cond->findConstraints(context);
+		context.negated = !context.negated;
+	}
+}
+
+/******************** CompareCondition::addConstraints ********************/
+
+
+void EqualCondition::addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const{
+	if(!context.negated){
+		Structures::StateConstraints* s = NULL;
+		if(id->pfree())
+			s = Structures::StateConstraints::requireVarEqual(context.net(), id->offset(), value);
+		else
+			s = Structures::StateConstraints::requirePlaceEqual(context.net(), id->offset(), value);
+		assert(s);
+		context.retval.push_back(s);
+	}else{
+		Structures::StateConstraints* s1 = NULL;
+		Structures::StateConstraints* s2 = NULL;
+		if(id->pfree()){
+			s1 = Structures::StateConstraints::requireVarMin(context.net(), id->offset(), value + 1);
+			s2 = Structures::StateConstraints::requireVarMax(context.net(), id->offset(), value - 1);
+		}else{
+			s1 = Structures::StateConstraints::requirePlaceMin(context.net(), id->offset(), value + 1);
+			s2 = Structures::StateConstraints::requirePlaceMax(context.net(), id->offset(), value - 1);
+		}
+		assert(s1 && s2);
+		context.retval.push_back(s1);
+		context.retval.push_back(s2);
+	}
+}
+
+void EqualCondition::addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const{
+	addConstraints(context, id, value);
+}
+
+void NotEqualCondition::addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const{
+	if(context.negated){
+		Structures::StateConstraints* s = NULL;
+		if(id->pfree())
+			s = Structures::StateConstraints::requireVarEqual(context.net(), id->offset(), value);
+		else
+			s = Structures::StateConstraints::requirePlaceEqual(context.net(), id->offset(), value);
+		assert(s);
+		context.retval.push_back(s);
+	}else{
+		Structures::StateConstraints* s1 = NULL;
+		Structures::StateConstraints* s2 = NULL;
+		if(id->pfree()){
+			s1 = Structures::StateConstraints::requireVarMin(context.net(), id->offset(), value + 1);
+			s2 = Structures::StateConstraints::requireVarMax(context.net(), id->offset(), value - 1);
+		}else{
+			s1 = Structures::StateConstraints::requirePlaceMin(context.net(), id->offset(), value + 1);
+			s2 = Structures::StateConstraints::requirePlaceMax(context.net(), id->offset(), value - 1);
+		}
+		assert(s1 && s2);
+		context.retval.push_back(s1);
+		context.retval.push_back(s2);
+	}
+}
+
+void NotEqualCondition::addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const{
+	addConstraints(context, id, value);
+}
+
+void LessThanCondition::addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const{
+	Structures::StateConstraints* nc = new Structures::StateConstraints(context.net());
+	if(!context.negated){
+		if(!id->pfree())
+			nc->setPlaceMax(id->offset(), value-1);
+		else
+			nc->setVarMax(id->offset(), value-1);
+	}else{
+		if(!id->pfree())
+			nc->setPlaceMin(id->offset(), value);
+		else
+			nc->setVarMin(id->offset(), value);
+	}
+	context.retval.push_back(nc);
+}
+
+void LessThanCondition::addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const{
+	Structures::StateConstraints* nc = new Structures::StateConstraints(context.net());
+	if(!context.negated){
+		if(!id->pfree())
+			nc->setPlaceMin(id->offset(), value+1);
+		else
+			nc->setVarMin(id->offset(), value+1);
+	}else{
+		if(!id->pfree())
+			nc->setPlaceMax(id->offset(), value);
+		else
+			nc->setVarMax(id->offset(), value);
+	}
+	context.retval.push_back(nc);
+}
+
+
+void LessThanOrEqualCondition::addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const{
+	Structures::StateConstraints* nc = new Structures::StateConstraints(context.net());
+	if(!context.negated){
+		if(!id->pfree())
+			nc->setPlaceMax(id->offset(), value);
+		else
+			nc->setVarMax(id->offset(), value);
+	}else{
+		if(!id->pfree())
+			nc->setPlaceMin(id->offset(), value+1);
+		else
+			nc->setVarMin(id->offset(), value+1);
+	}
+	context.retval.push_back(nc);
+}
+
+void LessThanOrEqualCondition::addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const{
+	Structures::StateConstraints* nc = new Structures::StateConstraints(context.net());
+	if(!context.negated){
+		if(!id->pfree())
+			nc->setPlaceMin(id->offset(), value);
+		else
+			nc->setVarMin(id->offset(), value);
+	}else{
+		if(!id->pfree())
+			nc->setPlaceMax(id->offset(), value-1);
+		else
+			nc->setVarMax(id->offset(), value-1);
+	}
+	context.retval.push_back(nc);
+}
+
+void GreaterThanCondition::addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const{
+	Structures::StateConstraints* nc = new Structures::StateConstraints(context.net());
+	if(!context.negated){
+		if(!id->pfree()) // p1 > 5
+			nc->setPlaceMin(id->offset(), value+1);
+		else
+			nc->setVarMin(id->offset(), value+1);
+	}else{
+		if(!id->pfree())
+			nc->setPlaceMax(id->offset(), value);
+		else
+			nc->setVarMax(id->offset(), value);
+	}
+	context.retval.push_back(nc);
+}
+
+void GreaterThanCondition::addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const{
+	Structures::StateConstraints* nc = new Structures::StateConstraints(context.net());
+	if(!context.negated){
+		if(!id->pfree()) // 5 > p1
+			nc->setPlaceMax(id->offset(), value-1);
+		else
+			nc->setVarMax(id->offset(), value-1);
+	}else{
+		if(!id->pfree()) // !(5 > p1)
+			nc->setPlaceMin(id->offset(), value);
+		else
+			nc->setVarMin(id->offset(), value);
+	}
+	context.retval.push_back(nc);
+}
+
+void GreaterThanOrEqualCondition::addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const{
+	Structures::StateConstraints* nc = new Structures::StateConstraints(context.net());
+	if(!context.negated){
+		if(!id->pfree()) // p1 >= 5
+			nc->setPlaceMin(id->offset(), value);
+		else
+			nc->setVarMin(id->offset(), value);
+	}else{
+		if(!id->pfree()) // !(p1 >= 5)
+			nc->setPlaceMax(id->offset(), value-1);
+		else
+			nc->setVarMax(id->offset(), value-1);
+	}
+	context.retval.push_back(nc);
+}
+
+void GreaterThanOrEqualCondition::addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const{
+	Structures::StateConstraints* nc = new Structures::StateConstraints(context.net());
+	if(!context.negated){
+		if(!id->pfree()) // 5 >= p1
+			nc->setPlaceMax(id->offset(), value);
+		else
+			nc->setVarMax(id->offset(), value);
+	}else{
+		if(!id->pfree()) // !(5 >= p1)
+			nc->setPlaceMin(id->offset(), value+1);
+		else
+			nc->setVarMin(id->offset(), value+1);
+	}
+	context.retval.push_back(nc);
+}
+
 /******************** Distance Condition ********************/
 
 #define MAX(v1, v2)		(v1 > v2 ? v1 : v2)

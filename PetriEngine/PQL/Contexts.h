@@ -4,6 +4,7 @@
 #include "../PetriNet.h"
 #include "PQL.h"
 #include "../Structures/DistanceMatrix.h"
+#include "../Structures/StateConstraints.h"
 
 #include <string>
 #include <vector>
@@ -117,6 +118,23 @@ private:
 	DistanceStrategy _strategy;
 	bool _negated;
 	Structures::DistanceMatrix* _dm;
+};
+
+/** Constraint Analysis Context used for over-approximation */
+class ConstraintAnalysisContext{
+public:
+	typedef std::vector<Structures::StateConstraints*> ConstraintSet;
+
+	ConstraintAnalysisContext(const PetriNet& net) : _net(net) {
+		canAnalyze = true;
+		negated = false;
+	}
+	const PetriNet& net() const { return _net; }
+	bool canAnalyze;
+	bool negated;
+	ConstraintSet retval;
+private:
+	const PetriNet& _net;
 };
 
 /** Just-In-Time compilation context */

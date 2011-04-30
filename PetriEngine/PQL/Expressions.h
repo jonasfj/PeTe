@@ -2,9 +2,16 @@
 #define EXPRESSIONS_H
 
 #include "PQL.h"
+#include "Contexts.h"
 
 namespace PetriEngine {
+
+namespace Structures {
+	class StateConstraints;
+}
+
 namespace PQL {
+
 
 /******************** EXPRESSIONS ********************/
 
@@ -90,6 +97,7 @@ public:
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 	Expr::Types type() const;
+	int value() const { return _value; };
 private:
 	int _value;
 };
@@ -132,6 +140,7 @@ public:
 	~LogicalCondition();
 	void analyze(AnalysisContext& context);
 	bool evaluate(const EvaluationContext& context) const;
+	void findConstraints(ConstraintAnalysisContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	double distance(DistanceContext& context) const;
 	std::string toString() const;
@@ -141,6 +150,7 @@ private:
 	virtual int logicalOp() const = 0;
 	virtual double delta(double d1, double d2, const DistanceContext& context) const = 0;
 	virtual std::string op() const = 0;
+	virtual void mergeConstraints(ConstraintAnalysisContext::ConstraintSet& result, ConstraintAnalysisContext::ConstraintSet& other, bool negated) const = 0;
 	Condition* _cond1;
 	Condition* _cond2;
 };
@@ -153,6 +163,7 @@ private:
 	bool apply(bool b1, bool b2) const;
 	int logicalOp() const;
 	double delta(double d1, double d2, const DistanceContext& context) const;
+	void mergeConstraints(ConstraintAnalysisContext::ConstraintSet& result, ConstraintAnalysisContext::ConstraintSet& other, bool negated) const;
 	std::string op() const;
 };
 
@@ -164,6 +175,7 @@ private:
 	bool apply(bool b1, bool b2) const;
 	int logicalOp() const;
 	double delta(double d1, double d2, const DistanceContext& context) const;
+	void mergeConstraints(ConstraintAnalysisContext::ConstraintSet& result, ConstraintAnalysisContext::ConstraintSet& other, bool negated) const;
 	std::string op() const;
 };
 
@@ -177,6 +189,7 @@ public:
 	~CompareCondition();
 	void analyze(AnalysisContext& context);
 	bool evaluate(const EvaluationContext& context) const;
+	void findConstraints(ConstraintAnalysisContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	double distance(DistanceContext& context) const;
 	std::string toString() const;
@@ -186,6 +199,8 @@ private:
 	virtual int compareOp() const = 0;
 	virtual double delta(int v1, int v2, bool negated) const = 0;
 	virtual std::string op() const = 0;
+	virtual void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const = 0;
+	virtual void addConstraints(ConstraintAnalysisContext& context,	int value, IdentifierExpr* id) const = 0;
 	Expr* _expr1;
 	Expr* _expr2;
 };
@@ -198,6 +213,8 @@ private:
 	bool apply(int v1, int v2) const;
 	int compareOp() const;
 	double delta(int v1, int v2, bool negated) const;
+	void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const;
+	void addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const;
 	std::string op() const;
 };
 
@@ -209,6 +226,8 @@ private:
 	bool apply(int v1, int v2) const;
 	int compareOp() const;
 	double delta(int v1, int v2, bool negated) const;
+	void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const;
+	void addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const;
 	std::string op() const;
 };
 
@@ -220,6 +239,8 @@ private:
 	bool apply(int v1, int v2) const;
 	int compareOp() const;
 	double delta(int v1, int v2, bool negated) const;
+	void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const;
+	void addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const;
 	std::string op() const;
 };
 
@@ -231,6 +252,8 @@ private:
 	bool apply(int v1, int v2) const;
 	int compareOp() const;
 	double delta(int v1, int v2, bool negated) const;
+	void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const;
+	void addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const;
 	std::string op() const;
 };
 
@@ -242,6 +265,8 @@ private:
 	bool apply(int v1, int v2) const;
 	int compareOp() const;
 	double delta(int v1, int v2, bool negated) const;
+	void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const;
+	void addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const;
 	std::string op() const;
 };
 
@@ -253,6 +278,8 @@ private:
 	bool apply(int v1, int v2) const;
 	int compareOp() const;
 	double delta(int v1, int v2, bool negated) const;
+	void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const;
+	void addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const;
 	std::string op() const;
 };
 
@@ -265,6 +292,7 @@ public:
 	~NotCondition();
 	void analyze(AnalysisContext& context);
 	bool evaluate(const EvaluationContext& context) const;
+	void findConstraints(ConstraintAnalysisContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	double distance(DistanceContext& context) const;
 	std::string toString() const;

@@ -24,6 +24,7 @@ public:
 	bool compile();
 	llvm::Value* codegen(CodeGenerationContext &context) const;
 	bool evaluate(const EvaluationContext &context) const;
+	void findConstraints(ConstraintAnalysisContext& context) const;
 	double distance(DistanceContext& context) const;
 	std::string toString() const;
 private:
