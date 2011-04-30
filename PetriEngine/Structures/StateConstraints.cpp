@@ -2,6 +2,7 @@
 
 #include <lpsolve/lp_lib.h>
 #include <assert.h>
+#include <stdio.h>
 
 namespace PetriEngine{
 namespace Structures{
@@ -50,11 +51,11 @@ bool StateConstraints::isSuperSet(const StateConstraints* subset) const{
 void StateConstraints::reset(){
 	for(size_t p = 0; p < nPlaces; p++){
 		pcs[p].max = CONSTRAINT_INFTY;
-		pcs[p].min = -CONSTRAINT_INFTY;
+		pcs[p].min = 0;
 	}
 	for(size_t v = 0; v < nVars; v++){
 		vcs[v].max = CONSTRAINT_INFTY;
-		vcs[v].min = -CONSTRAINT_INFTY;
+		vcs[v].min = 0;
 	}
 }
 
@@ -162,11 +163,12 @@ bool StateConstraints::isImpossible(const PetriNet& net,
 	assert(lp);
 	if(!lp) return false;
 
-	// Set transition names (for debuggin)
-#ifndef NDEBUG
+	// Set verbosity
+	set_verbose(lp, IMPORTANT);
+
+	// Set transition names (not strictly needed)
 	for(size_t i = 0; i < net.numberOfTransitions(); i++)
-		set_col_name(lp, i+1, net.transitionNames()[i].c_str());
-#endif
+		set_col_name(lp, i+1, (char*)net.transitionNames()[i].c_str());
 
 	// Start adding rows
 	set_add_rowmode(lp, TRUE);
@@ -180,16 +182,16 @@ bool StateConstraints::isImpossible(const PetriNet& net,
 			row[1+t] = d;
 		}
 
-		if(pcs[p].min == pcs[p].max && pcs[p].min != CONSTRAINT_INFTY){
+		if(pcs[p].min == pcs[p].max &&
+		   pcs[p].max != CONSTRAINT_INFTY){
 			double target = pcs[p].min - m0[p];
 			bool ok = add_constraint(lp, row, EQ,  target);
 			assert(ok);
 		}else{
-			if(pcs[p].min != CONSTRAINT_INFTY){
-				double target = pcs[p].min - m0[p];
-				bool ok = add_constraint(lp, row, GE,  target);
-				assert(ok);
-			}
+			// There's always a min, even zero is interesting
+			double target = pcs[p].min - m0[p];
+			bool ok = add_constraint(lp, row, GE,  target);
+			assert(ok);
 			if(pcs[p].max != CONSTRAINT_INFTY){
 				double target = pcs[p].max - m0[p];
 				bool ok = add_constraint(lp, row, LE,  target);
@@ -216,6 +218,10 @@ bool StateConstraints::isImpossible(const PetriNet& net,
 	for(size_t i = 0; i < net.numberOfTransitions(); i++)
 		set_int(lp, 1+i, TRUE);
 
+	// Write it to stdout
+	//write_LP(lp, stdout);
+
+	// Attempt to solve the problem
 	int result = solve(lp);
 
 	// Delete the linear problem

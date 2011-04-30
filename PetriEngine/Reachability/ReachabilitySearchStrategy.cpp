@@ -5,6 +5,7 @@
 #include "BreadthFirstReachabilitySearch.h"
 #include "HashUnderApproximation.h"
 #include "BestFirstReachabilitySearch.h"
+#include "LinearOverApprox.h"
 #include "RandomDFS.h"
 #include "HeuristicDFS.h"
 #include "../PQL/Contexts.h"
@@ -71,6 +72,9 @@
 #define NAME_BestFSTokenCostDeepSumExtreme		"BestFS-TokenCost-Deep (Sum, Extreme)"
 #define NAME_BestFSTokenCostDeepSumAverage		"BestFS-TokenCost-Deep (Sum, Average)"
 
+//Over-approximation by linear programming
+#define NAME_LinearOverApprox					"Linear over-approximation"
+
 //Below defines are candidates for deletion
 #define NAME_HashUnderApproximation				"Hash under-approximation"
 #define NAME_ClosestFirstReachabilityAvg		"Closest-First (Avg)"
@@ -83,7 +87,6 @@
 #define NAME_ExtOrSumAnd						"Extreme-Or Sum-And"
 #define NAME_ExtOrSumAndDeep					"Extreme-Or Sum-And Deep!"
 #define NAME_HeuristicDFSSumAndExtremeOr		"Heuristic DFS (Extreme-Or Sum-And)"
-
 
 
 #include <stdio.h>
@@ -123,6 +126,7 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BestFSTokenCostDeep2Average,
 		NAME_BestFSTokenCostDeepSumExtreme,
 		NAME_BestFSTokenCostDeepSumAverage*/
+		NAME_LinearOverApprox,
 		NAME_BestFSDeltaSumExtremeLH1,
 		NAME_BestFSDeltaSumExtremeLH2,
 		NAME_BestFSDeltaSumExtremeLH3,
@@ -286,6 +290,12 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
 		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 5);
 	}
+
+	//Linear over-approximation
+	if(strategy == NAME_LinearOverApprox){
+		return new LinearOverApprox();
+	}
+
 
 	//If we didn't find it
 	fprintf(stderr, "Reachability strategy: \"%s\" not found!\n", strategy.c_str());

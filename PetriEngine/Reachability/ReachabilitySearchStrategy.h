@@ -42,6 +42,8 @@ public:
 	/** Create a reachability strategy from string, NULL if not found */
 	static ReachabilitySearchStrategy* createStrategy(const std::string& strategy);
 
+	/** Get the progress reporter, used for nesting strategies */
+	ProgressReporter* reporter() {return _reporter; }
 protected:
 	/** Reports the progress of reachability search (number between 0 and 1) */
 	void reportProgress(double status){

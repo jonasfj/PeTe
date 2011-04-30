@@ -27,7 +27,8 @@ SOURCES		   += \
     DTAPN/DTAPNTranslator.cpp \
     DTAPN/DTAPNPrinter.cpp \
     Reachability/BestFirstReachabilitySearch.cpp \
-    Structures/StateConstraints.cpp
+    Structures/StateConstraints.cpp \
+    Reachability/LinearOverApprox.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -61,7 +62,8 @@ HEADERS		   += \
     DTAPN/AbstractDTAPNBuilder.h \
     DTAPN/DTAPNPrinter.h \
     Reachability/BestFirstReachabilitySearch.h \
-    Structures/StateConstraints.h
+    Structures/StateConstraints.h \
+    Reachability/LinearOverApprox.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine
