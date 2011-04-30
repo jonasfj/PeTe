@@ -141,7 +141,15 @@ int main(int argc, char *argv[])
 			name = fileName.remove(0, index+1);
 
 		//Print result
-		std::string r = result.result() == ReachabilityResult::Satisfied ? "Satisfied" : "Not Satisfied";
+		std::string r;
+		if(result.result() == ReachabilityResult::Satisfied)
+			r = "Satisfied";
+		else if(result.result() == ReachabilityResult::NotSatisfied)
+			r = "Not satisfiable";
+		else{
+			Q_ASSERT(result.result() == ReachabilityResult::Unknown);
+			r = "Unknown";
+		}
 		std::cout<<name.toStdString()<<",\t"<<queryName.toStdString()<<",\t"<<strategy.toStdString()<<",\t"<<r<<",\t"<<finishTime<<",\t"<<result.expandedStates()<<",\t"<<result.exploredStates()<<",\t"<<result.pathLength()<<std::endl;
 	}
 	return 0;
