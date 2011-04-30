@@ -8,7 +8,7 @@
 namespace PetriEngine{
 namespace Structures{
 
-#define CONSTRAINT_INFTY	1<<20;
+#define CONSTRAINT_INFTY	1<<20
 
 /** A set of linear constraits that a state can satisfy */
 class StateConstraints
@@ -83,6 +83,9 @@ public:
 	}
 	/** Reset all constraints */
 	void reset();
+
+	/** Attempts to solve using lp_solve, returns True if the net cannot satisfy these constraints! */
+	bool isImpossible(const PetriNet& net, const MarkVal* marking, const VarVal* valuation) const;
 
 	/** Merge the two sets of StateConstraints such that one from A and one from B is always satisfied, when one in the return value is
 	 * @remarks This will take ownership of the provided StateConstraints, and delete them or own them

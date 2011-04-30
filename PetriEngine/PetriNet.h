@@ -53,6 +53,8 @@ public:
 	const std::vector<std::string>& placeNames() const {return _places;}
 	/** Get vector variable names, don't use this to get the number of variable */
 	const std::vector<std::string>& variableNames() const {return _variables;}
+	/** Get vector transition names, don't use this to get the number of variable */
+	const std::vector<std::string>& transitionNames() const {return _transitions;}
 private:
 	std::vector<std::string> _places;
 	std::vector<std::string> _transitions;

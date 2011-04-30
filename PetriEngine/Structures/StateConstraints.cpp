@@ -1,5 +1,8 @@
 #include "StateConstraints.h"
 
+#include <lpsolve/lp_lib.h>
+#include <assert.h>
+
 namespace PetriEngine{
 namespace Structures{
 
@@ -144,6 +147,83 @@ StateConstraints* StateConstraints::requireVarEqual(const PetriNet& net, int var
 	c->setVarMax(var, value);
 	c->setVarMin(var, value);
 	return c;
+}
+
+/** Attempts to solve using lp_solve, returns True if the net cannot satisfy these constraints! */
+bool StateConstraints::isImpossible(const PetriNet& net,
+									const MarkVal* m0,
+									const VarVal*) const{
+	assert(nPlaces == net.numberOfPlaces());
+	assert(nVars == net.numberOfVariables());
+
+	// Create linary problem
+	lprec* lp;
+	lp = make_lp(0, net.numberOfTransitions());	// One variable for each entry in the firing vector
+	assert(lp);
+	if(!lp) return false;
+
+	// Set transition names (for debuggin)
+#ifndef NDEBUG
+	for(size_t i = 0; i < net.numberOfTransitions(); i++)
+		set_col_name(lp, i+1, net.transitionNames()[i].c_str());
+#endif
+
+	// Start adding rows
+	set_add_rowmode(lp, TRUE);
+
+	REAL row[net.numberOfTransitions() + 1];
+	for(int p = 0; p < nPlaces; p++){
+		// Set row zero
+		memset(row, 0, sizeof(REAL) * net.numberOfTransitions() + 1);
+		for(size_t t = 0; t < net.numberOfTransitions(); t++){
+			int d = net.outArc(t, p) - net.inArc(p, t);
+			row[1+t] = d;
+		}
+
+		if(pcs[p].min == pcs[p].max && pcs[p].min != CONSTRAINT_INFTY){
+			double target = pcs[p].min - m0[p];
+			bool ok = add_constraint(lp, row, EQ,  target);
+			assert(ok);
+		}else{
+			if(pcs[p].min != CONSTRAINT_INFTY){
+				double target = pcs[p].min - m0[p];
+				bool ok = add_constraint(lp, row, GE,  target);
+				assert(ok);
+			}
+			if(pcs[p].max != CONSTRAINT_INFTY){
+				double target = pcs[p].max - m0[p];
+				bool ok = add_constraint(lp, row, LE,  target);
+				assert(ok);
+			}
+		}
+	}
+
+	// Finished adding rows
+	set_add_rowmode(lp, FALSE);
+
+	// Create objective
+	memset(row, 0, sizeof(REAL) * net.numberOfTransitions() + 1);
+	for(size_t t = 0; t < net.numberOfTransitions(); t++)
+		row[1+t] = 1;	// The sum the components in the firing vector
+
+	// Set objective
+	set_obj_fn(lp, row);
+
+	// Minimize the objective
+	set_minim(lp);
+
+	// Set variables as integer variables
+	for(size_t i = 0; i < net.numberOfTransitions(); i++)
+		set_int(lp, 1+i, TRUE);
+
+	int result = solve(lp);
+
+	// Delete the linear problem
+	delete_lp(lp);
+	lp = NULL;
+
+	// Return true, if it was infeasible
+	return result == INFEASIBLE;
 }
 
 
