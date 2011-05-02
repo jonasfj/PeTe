@@ -235,15 +235,15 @@ Expr::Types IdentifierExpr::type() const	{ return Expr::IdentifierExpr;	}
 
 /******************** Scale Expression ********************/
 
-void BinaryExpr::scale(int factor)	{_expr1->scale(factor);_expr2->scale(factor);}
+void BinaryExpr::scale(int factor)	{_expr1->scale(factor); _expr2->scale(factor);}
 void MinusExpr::scale(int factor)	{_expr->scale(factor);}
-void LiteralExpr::scale(int factor)	{_value *= factor;}
+void LiteralExpr::scale(int factor)	{_value = _value * factor;}
 void IdentifierExpr::scale(int)		{}
 
 /******************** Scale Conditions ********************/
 
 void LogicalCondition::scale(int factor)	{_cond1->scale(factor);_cond2->scale(factor);}
-void CompareCondition::scale(int factor)	{_expr2->scale(factor);_expr2->scale(factor);}
+void CompareCondition::scale(int factor)	{_expr1->scale(factor);_expr2->scale(factor);}
 void NotCondition::scale(int factor)		{_cond->scale(factor);}
 
 /******************** Constraint Analysis ********************/
