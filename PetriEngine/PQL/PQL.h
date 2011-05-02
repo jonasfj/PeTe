@@ -84,6 +84,8 @@ public:
 	virtual std::string toString() const = 0;
 	/** Expression type */
 	virtual Types type() const = 0;
+	/** Scale all nested literals by factor */
+	virtual void scale(int factor) = 0;
 };
 
 /** Base condition */
@@ -105,6 +107,8 @@ public:
 	virtual std::string toString() const = 0;
 	/** Get distance to query */
 	virtual double distance(DistanceContext& context) const = 0;
+	/** Scale all nested literals by factor */
+	virtual void scale(int factor) = 0;
 };
 
 /** Assignment expression */

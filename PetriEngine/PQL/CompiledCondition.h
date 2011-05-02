@@ -27,6 +27,7 @@ public:
 	void findConstraints(ConstraintAnalysisContext& context) const;
 	double distance(DistanceContext& context) const;
 	std::string toString() const;
+	void scale(int factor);
 private:
 	Condition* _cond;
 	llvm::ExecutionEngine* _engine;

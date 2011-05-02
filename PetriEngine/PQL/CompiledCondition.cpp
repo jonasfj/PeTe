@@ -145,5 +145,7 @@ string CompiledCondition::toString() const{
 	return _cond->toString();
 }
 
+void CompiledCondition::scale(int factor){ _cond->scale(factor); }
+
 } // PQL
 } // PetriEngine
