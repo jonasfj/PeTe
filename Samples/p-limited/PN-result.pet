@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+     <net>
+          <place id="p1">
+               <graphics>
+                    <position x="158.158" y="115.519"/>
+               </graphics>
+               <name>
+                    <value>p1</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="p2">
+               <graphics>
+                    <position x="184.539" y="115.809"/>
+               </graphics>
+               <name>
+                    <value>p2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="p1x">
+               <graphics>
+                    <position x="133.623" y="115.519"/>
+               </graphics>
+               <name>
+                    <value>p1x</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="p1x_">
+               <graphics>
+                    <position x="106.839" y="115.519"/>
+               </graphics>
+               <name>
+                    <value>p1x_</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="p2x">
+               <graphics>
+                    <position x="214.225" y="115.519"/>
+               </graphics>
+               <name>
+                    <value>p2x</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="p2x_">
+               <graphics>
+                    <position x="241.942" y="115.519"/>
+               </graphics>
+               <name>
+                    <value>p2x_</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="px">
+               <graphics>
+                    <position x="48.5123" y="115.519"/>
+               </graphics>
+               <name>
+                    <value>px</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="px_">
+               <graphics>
+                    <position x="79.0725" y="115.519"/>
+               </graphics>
+               <name>
+                    <value>px_</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <transition id="t1">
+               <graphics>
+                    <position x="97.8581" y="195.371"/>
+               </graphics>
+               <name>
+                    <value>t1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="t2">
+               <graphics>
+                    <position x="183.864" y="195.371"/>
+               </graphics>
+               <name>
+                    <value>t2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="t3">
+               <graphics>
+                    <position x="97.8581" y="27.9852"/>
+               </graphics>
+               <name>
+                    <value>t3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="t4">
+               <graphics>
+                    <position x="183.864" y="27.9852"/>
+               </graphics>
+               <name>
+                    <value>t4</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <arc source="p1" target="t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="p1" target="t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="p1" target="t3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="p1" target="t4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t1" target="p1">
+               <inscription>
+                    <value>2</value>
+               </inscription>
+          </arc>
+          <arc source="t3" target="p1">
+               <inscription>
+                    <value>2</value>
+               </inscription>
+          </arc>
+          <arc source="t2" target="p1">
+               <inscription>
+                    <value>2</value>
+               </inscription>
+          </arc>
+          <arc source="t4" target="p1">
+               <inscription>
+                    <value>2</value>
+               </inscription>
+          </arc>
+          <arc source="t1" target="p2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t3" target="p2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t2" target="p2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t4" target="p2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="p1x_" target="t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t1" target="p1x">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="p2x_" target="t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t1" target="p2x">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="p1x_" target="t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t2" target="p1x">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="p2x" target="t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t2" target="p2x_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="p1x" target="t3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t3" target="p1x_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="p2x_" target="t3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t3" target="p2x">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="p1x" target="t4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t4" target="p1x_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="p2x" target="t4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t4" target="p2x_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="px_" target="t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t1" target="px_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="px_" target="t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t2" target="px">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="px_" target="t3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t3" target="px">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="px_" target="t4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="t4" target="px_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+     </net>
+     <queries>
+          <query name="p2 is coverable" strategy="Naive DFS with Hash" jit="false">p2 &gt; 0</query>
+          <query name="p1 == 1" strategy="Naive DFS with Hash" jit="false">p1 == 1</query>
+          <query name="p1 == 2" strategy="Naive DFS with Hash" jit="false">p1 == 2</query>
+          <query name="p1 == 3" strategy="Naive DFS with Hash" jit="false">p1 == 3</query>
+     </queries>
+</pnml>

@@ -1,0 +1,134 @@
+Example run on:
+	P = {p1, p2}
+	T = {t0}
+	X = {x}
+	Range(x) = 1
+	Pre(t1)  = "x != 1"
+	Post(t1) = "x := p1 - p2"
+	F(p1, t0)	= 1
+	F(t0, p1)	= 2
+	F(t0, p2)	= 1
+
+Example run:
+
+P' = {p1, p2}
+T' = {}
+for x in X:																(x)
+	P' = P' u {px, px'}
+	for p1 in P:														(p1)
+		P' =  P' u {p1x, p1x'}
+	for p2 in P:														(p2)
+		P' =  P' u {p2x, p2x'}
+P' = {p1, p2, px, px', p1x, p1x', p2x, p2x'}
+MMV = Range(x) = 1
+for t0 in T:															(t0)
+	for V over X:														(V = {x -> 0})
+		V |- "x != 1" -> {Mc}, where Mc(p) = 0 for all p in P
+		for Mc in C:													(Mc = {p1 -> 0, p2 -> 0})
+			for M over P where M(p) < MMV for all p in P:				(M = {p1 -> 0, p2 -> 0})
+				T' = T' u {t1}
+				for p1 in P:											(p1)
+					F'(p1, t1)	= MAX(F(p1, t0), Mc(p1)) 							= 1
+					F'(t1, p1)	= F(t0, p1) + MAX(F(p1, t0), Mc(p1)) - F(p1, t0)	= 2
+				for p2 in P:											(p2)
+					F'(p2, t1)	= MAX(F(p2, t0), Mc(p2)) 							= 0
+					F'(t1, p2)	= F(t0, p2) + MAX(F(p2, t0), Mc(p2)) - F(p2, t0)	= 1
+				V' = eval("x := p1 - p2", V, M) = {x -> 0}
+				M'(p1) = M(p1) - F(p1, t0) + F(t0, P1) = 1
+				M'(p2) = M(p2) - F(p2, t0) + F(t0, P2) = 1
+				for x in X:												(x)
+					F'(px, t1)	= V(x)				= 0
+					F'(px', t1)	= Range(x) - V(x)	= 1
+					F'(t1, px)	= V'(x)				= 0
+					F'(t1, px')	= Range(x) - V'(x)	= 1
+					for p1 in P:										(p1)
+						F'(p1x,  t1)	= M(p1) mod (Range(x)+1)	= 0
+						F'(p1x', t1)	= Range(x) - F'(p1x, t1)	= 1
+						F'(t1, p1x)		= M'(p1) mod (Range(x)+1)	= 1
+						F'(t1, p1x')	= Range(x) - F'(t1, p1x)	= 0
+					for p2 in P:										(p2)
+						F'(p2x,  t1)	= M(p2) mod (Range(x)+1)	= 0
+						F'(p2x', t1)	= Range(x) - F'(p1x, t1)	= 1
+						F'(t1, p2x)		= M'(p2) mod (Range(x)+1)	= 1
+						F'(t1, p2x')	= Range(x) - F'(t1, p2x)	= 0
+			for M over P where M(p) < MMV for all p in P:				(M = {p1 -> 0, p2 -> 1})
+				T' = T' u {t2}
+				for p1 in P:											(p1)
+					F'(p1, t2)	= MAX(F(p1, t0), Mc(p1)) 							= 1
+					F'(t2, p1)	= F(t0, p1) + MAX(F(p1, t0), Mc(p1)) - F(p1, t0)	= 2
+				for p2 in P:											(p2)
+					F'(p2, t2)	= MAX(F(p2, t0), Mc(p2)) 							= 0
+					F'(t2, p2)	= F(t0, p2) + MAX(F(p2, t0), Mc(p2)) - F(p2, t0)	= 1
+				V' = eval("x := p1 - p2", V, M) = {x -> 1}
+				M'(p1) = M(p1) - F(p1, t0) + F(t0, P1) = 1
+				M'(p2) = M(p2) - F(p2, t0) + F(t0, P2) = 2
+				for x in X:												(x)
+					F'(px, t2)	= V(x)				= 0
+					F'(px', t2)	= Range(x) - V(x)	= 1
+					F'(t2, px)	= V'(x)				= 1
+					F'(t2, px')	= Range(x) - V'(x)	= 0
+					for p1 in P:										(p1)
+						F'(p1x,  t2)	= M(p1) mod (Range(x)+1)	= 0
+						F'(p1x', t2)	= Range(x) - F'(p1x, t2)	= 1
+						F'(t2, p1x)		= M'(p1) mod (Range(x)+1)	= 1
+						F'(t2, p1x')	= Range(x) - F'(t2, p1x)	= 0
+					for p2 in P:										(p2)
+						F'(p2x,  t2)	= M(p2) mod (Range(x)+1)	= 1
+						F'(p2x', t2)	= Range(x) - F'(p1x, t2)	= 0
+						F'(t2, p2x)		= M'(p2) mod (Range(x)+1)	= 0
+						F'(t2, p2x')	= Range(x) - F'(t2, p2x)	= 1
+			for M over P where M(p) < MMV for all p in P:				(M = {p1 -> 1, p2 -> 0})
+				T' = T' u {t3}
+				for p1 in P:											(p1)
+					F'(p1, t3)	= MAX(F(p1, t0), Mc(p1)) 							= 1
+					F'(t3, p1)	= F(t0, p1) + MAX(F(p1, t0), Mc(p1)) - F(p1, t0)	= 2
+				for p2 in P:											(p2)
+					F'(p2, t3)	= MAX(F(p2, t0), Mc(p2)) 							= 0
+					F'(t3, p2)	= F(t0, p2) + MAX(F(p2, t0), Mc(p2)) - F(p2, t0)	= 1
+				V' = eval("x := p1 - p2", V, M) = {x -> 1}
+				M'(p1) = M(p1) - F(p1, t0) + F(t0, P1) = 2
+				M'(p2) = M(p2) - F(p2, t0) + F(t0, P2) = 1
+				for x in X:												(x)
+					F'(px, t3)	= V(x)				= 0
+					F'(px', t3)	= Range(x) - V(x)	= 1
+					F'(t3, px)	= V'(x)				= 1
+					F'(t3, px')	= Range(x) - V'(x)	= 0
+					for p1 in P:										(p1)
+						F'(p1x,  t3)	= M(p1) mod (Range(x)+1)	= 1
+						F'(p1x', t3)	= Range(x) - F'(p1x, t3)	= 0
+						F'(t3, p1x)		= M'(p1) mod (Range(x)+1)	= 0
+						F'(t3, p1x')	= Range(x) - F'(t3, p1x)	= 1
+					for p2 in P:										(p2)
+						F'(p2x,  t3)	= M(p2) mod (Range(x)+1)	= 0
+						F'(p2x', t3)	= Range(x) - F'(p1x, t3)	= 1
+						F'(t3, p2x)		= M'(p2) mod (Range(x)+1)	= 1
+						F'(t3, p2x')	= Range(x) - F'(t3, p2x)	= 0
+			for M over P where M(p) < MMV for all p in P:				(M = {p1 -> 1, p2 -> 1})
+				T' = T' u {t4}
+				for p1 in P:											(p1)
+					F'(p1, t4)	= MAX(F(p1, t0), Mc(p1)) 							= 1
+					F'(t4, p1)	= F(t0, p1) + MAX(F(p1, t0), Mc(p1)) - F(p1, t0)	= 2
+				for p2 in P:											(p2)
+					F'(p2, t4)	= MAX(F(p2, t0), Mc(p2)) 							= 0
+					F'(t4, p2)	= F(t0, p2) + MAX(F(p2, t0), Mc(p2)) - F(p2, t0)	= 1
+				V' = eval("x := p1 - p2", V, M) = {x -> 0}
+				M'(p1) = M(p1) - F(p1, t0) + F(t0, P1) = 2
+				M'(p2) = M(p2) - F(p2, t0) + F(t0, P2) = 2
+				for x in X:												(x)
+					F'(px, t4)	= V(x)				= 0
+					F'(px', t4)	= Range(x) - V(x)	= 1
+					F'(t4, px)	= V'(x)				= 0
+					F'(t4, px')	= Range(x) - V'(x)	= 1
+					for p1 in P:										(p1)
+						F'(p1x,  t4)	= M(p1) mod (Range(x)+1)	= 1
+						F'(p1x', t4)	= Range(x) - F'(p1x, t4)	= 0
+						F'(t4, p1x)		= M'(p1) mod (Range(x)+1)	= 0
+						F'(t4, p1x')	= Range(x) - F'(t4, p1x)	= 1
+					for p2 in P:										(p2)
+						F'(p2x,  t4)	= M(p2) mod (Range(x)+1)	= 1
+						F'(p2x', t4)	= Range(x) - F'(p1x, t4)	= 0
+						F'(t4, p2x)		= M'(p2) mod (Range(x)+1)	= 0
+						F'(t4, p2x')	= Range(x) - F'(t4, p2x)	= 1
+	for V over X:														(V = {x -> 1})
+		V |- "x != 1" -> Ø
+return (P', T', F')

@@ -1,0 +1,1510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+     <net>
+          <variable name="L" initial-value="0" range="3"/>
+          <variable name="R" initial-value="0" range="1"/>
+          <variable name="lock_state__0" initial-value="0" range="0"/>
+          <variable name="lock_state__1" initial-value="0" range="0"/>
+          <variable name="lock_state__2" initial-value="0" range="0"/>
+          <variable name="lock_state__3" initial-value="0" range="0"/>
+          <variable name="lock_state__4" initial-value="0" range="0"/>
+          <variable name="critial_section__0" initial-value="0" range="0"/>
+          <variable name="critial_section__1" initial-value="0" range="0"/>
+          <variable name="critial_section__2" initial-value="0" range="0"/>
+          <variable name="critial_section__3" initial-value="0" range="0"/>
+          <variable name="critial_section__4" initial-value="0" range="0"/>
+          <variable name="access_requests__0" initial-value="0" range="0"/>
+          <variable name="access_requests__1" initial-value="0" range="0"/>
+          <variable name="access_requests__2" initial-value="0" range="0"/>
+          <variable name="access_requests__3" initial-value="0" range="0"/>
+          <variable name="access_requests__4" initial-value="0" range="0"/>
+          <transition id="access_requests__age_t_4">
+               <graphics>
+                    <position x="444.913" y="236.32"/>
+               </graphics>
+               <name>
+                    <value>access_requests__age_t_4</value>
+               </name>
+               <conditions>access_requests__4 &lt; 0</conditions>
+               <assignments>access_requests__4 := access_requests__4 + 1 ;</assignments>
+          </transition>
+          <transition id="access_requests__max_t_4">
+               <graphics>
+                    <position x="496.485" y="137.081"/>
+               </graphics>
+               <name>
+                    <value>access_requests__max_t_4</value>
+               </name>
+               <conditions>access_requests__4 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="access_requests__age_t_3">
+               <graphics>
+                    <position x="377.11" y="133.703"/>
+               </graphics>
+               <name>
+                    <value>access_requests__age_t_3</value>
+               </name>
+               <conditions>access_requests__3 &lt; 0</conditions>
+               <assignments>access_requests__3 := access_requests__3 + 1 ;</assignments>
+          </transition>
+          <transition id="access_requests__max_t_3">
+               <graphics>
+                    <position x="360.747" y="189.363"/>
+               </graphics>
+               <name>
+                    <value>access_requests__max_t_3</value>
+               </name>
+               <conditions>access_requests__3 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="access_requests__age_t_2">
+               <graphics>
+                    <position x="287.828" y="89.6026"/>
+               </graphics>
+               <name>
+                    <value>access_requests__age_t_2</value>
+               </name>
+               <conditions>access_requests__2 &lt; 0</conditions>
+               <assignments>access_requests__2 := access_requests__2 + 1 ;</assignments>
+          </transition>
+          <transition id="access_requests__max_t_2">
+               <graphics>
+                    <position x="267.915" y="162.663"/>
+               </graphics>
+               <name>
+                    <value>access_requests__max_t_2</value>
+               </name>
+               <conditions>access_requests__2 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="access_requests__age_t_1">
+               <graphics>
+                    <position x="175.163" y="135.895"/>
+               </graphics>
+               <name>
+                    <value>access_requests__age_t_1</value>
+               </name>
+               <conditions>access_requests__1 &lt; 0</conditions>
+               <assignments>access_requests__1 := access_requests__1 + 1 ;</assignments>
+          </transition>
+          <transition id="access_requests__max_t_1">
+               <graphics>
+                    <position x="204.361" y="55.9867"/>
+               </graphics>
+               <name>
+                    <value>access_requests__max_t_1</value>
+               </name>
+               <conditions>access_requests__1 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="access_requests__age_t_0">
+               <graphics>
+                    <position x="83.4949" y="113.519"/>
+               </graphics>
+               <name>
+                    <value>access_requests__age_t_0</value>
+               </name>
+               <conditions>access_requests__0 &lt; 0</conditions>
+               <assignments>access_requests__0 := access_requests__0 + 1 ;</assignments>
+          </transition>
+          <transition id="access_requests__max_t_0">
+               <graphics>
+                    <position x="110.018" y="43.7853"/>
+               </graphics>
+               <name>
+                    <value>access_requests__max_t_0</value>
+               </name>
+               <conditions>access_requests__0 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="critial_section__age_t_4">
+               <graphics>
+                    <position x="305.1" y="283.495"/>
+               </graphics>
+               <name>
+                    <value>critial_section__age_t_4</value>
+               </name>
+               <conditions>critial_section__4 &lt; 0</conditions>
+               <assignments>critial_section__4 := critial_section__4 + 1 ;</assignments>
+          </transition>
+          <transition id="critial_section__max_t_4">
+               <graphics>
+                    <position x="388.834" y="307.977"/>
+               </graphics>
+               <name>
+                    <value>critial_section__max_t_4</value>
+               </name>
+               <conditions>critial_section__4 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="critial_section__age_t_3">
+               <graphics>
+                    <position x="229.397" y="351.151"/>
+               </graphics>
+               <name>
+                    <value>critial_section__age_t_3</value>
+               </name>
+               <conditions>critial_section__3 &lt; 0</conditions>
+               <assignments>critial_section__3 := critial_section__3 + 1 ;</assignments>
+          </transition>
+          <transition id="critial_section__max_t_3">
+               <graphics>
+                    <position x="275.239" y="386.671"/>
+               </graphics>
+               <name>
+                    <value>critial_section__max_t_3</value>
+               </name>
+               <conditions>critial_section__3 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="critial_section__age_t_2">
+               <graphics>
+                    <position x="169.795" y="427.316"/>
+               </graphics>
+               <name>
+                    <value>critial_section__age_t_2</value>
+               </name>
+               <conditions>critial_section__2 &lt; 0</conditions>
+               <assignments>critial_section__2 := critial_section__2 + 1 ;</assignments>
+          </transition>
+          <transition id="critial_section__max_t_2">
+               <graphics>
+                    <position x="216.543" y="463.396"/>
+               </graphics>
+               <name>
+                    <value>critial_section__max_t_2</value>
+               </name>
+               <conditions>critial_section__2 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="critial_section__age_t_1">
+               <graphics>
+                    <position x="157.65" y="539.949"/>
+               </graphics>
+               <name>
+                    <value>critial_section__age_t_1</value>
+               </name>
+               <conditions>critial_section__1 &lt; 0</conditions>
+               <assignments>critial_section__1 := critial_section__1 + 1 ;</assignments>
+          </transition>
+          <transition id="critial_section__max_t_1">
+               <graphics>
+                    <position x="110.817" y="504.019"/>
+               </graphics>
+               <name>
+                    <value>critial_section__max_t_1</value>
+               </name>
+               <conditions>critial_section__1 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="critial_section__age_t_0">
+               <graphics>
+                    <position x="50.645" y="576.769"/>
+               </graphics>
+               <name>
+                    <value>critial_section__age_t_0</value>
+               </name>
+               <conditions>critial_section__0 &lt; 0</conditions>
+               <assignments>critial_section__0 := critial_section__0 + 1 ;</assignments>
+          </transition>
+          <transition id="critial_section__max_t_0">
+               <graphics>
+                    <position x="103.073" y="616.977"/>
+               </graphics>
+               <name>
+                    <value>critial_section__max_t_0</value>
+               </name>
+               <conditions>critial_section__0 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="lock_state__age_t_4">
+               <graphics>
+                    <position x="515.412" y="352.323"/>
+               </graphics>
+               <name>
+                    <value>lock_state__age_t_4</value>
+               </name>
+               <conditions>lock_state__4 &lt; 0</conditions>
+               <assignments>lock_state__4 := lock_state__4 + 1 ;</assignments>
+          </transition>
+          <transition id="lock_state__max_t_4">
+               <graphics>
+                    <position x="576.423" y="402.147"/>
+               </graphics>
+               <name>
+                    <value>lock_state__max_t_4</value>
+               </name>
+               <conditions>lock_state__4 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="lock_state__age_t_3">
+               <graphics>
+                    <position x="624.682" y="326.663"/>
+               </graphics>
+               <name>
+                    <value>lock_state__age_t_3</value>
+               </name>
+               <conditions>lock_state__3 &lt; 0</conditions>
+               <assignments>lock_state__3 := lock_state__3 + 1 ;</assignments>
+          </transition>
+          <transition id="lock_state__max_t_3">
+               <graphics>
+                    <position x="579.763" y="289.995"/>
+               </graphics>
+               <name>
+                    <value>lock_state__max_t_3</value>
+               </name>
+               <conditions>lock_state__3 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="lock_state__age_t_2">
+               <graphics>
+                    <position x="686.208" y="251.921"/>
+               </graphics>
+               <name>
+                    <value>lock_state__age_t_2</value>
+               </name>
+               <conditions>lock_state__2 &lt; 0</conditions>
+               <assignments>lock_state__2 := lock_state__2 + 1 ;</assignments>
+          </transition>
+          <transition id="lock_state__max_t_2">
+               <graphics>
+                    <position x="640.314" y="214.793"/>
+               </graphics>
+               <name>
+                    <value>lock_state__max_t_2</value>
+               </name>
+               <conditions>lock_state__2 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="lock_state__age_t_1">
+               <graphics>
+                    <position x="746.958" y="176.607"/>
+               </graphics>
+               <name>
+                    <value>lock_state__age_t_1</value>
+               </name>
+               <conditions>lock_state__1 &lt; 0</conditions>
+               <assignments>lock_state__1 := lock_state__1 + 1 ;</assignments>
+          </transition>
+          <transition id="lock_state__max_t_1">
+               <graphics>
+                    <position x="700.982" y="139.619"/>
+               </graphics>
+               <name>
+                    <value>lock_state__max_t_1</value>
+               </name>
+               <conditions>lock_state__1 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="lock_state__age_t_0">
+               <graphics>
+                    <position x="808.767" y="105.179"/>
+               </graphics>
+               <name>
+                    <value>lock_state__age_t_0</value>
+               </name>
+               <conditions>L == 0 and lock_state__0 &lt; 0</conditions>
+               <assignments>L := 2 ; lock_state__0 := lock_state__0 + 1 ;</assignments>
+          </transition>
+          <transition id="lock_state__max_t_0">
+               <graphics>
+                    <position x="757.178" y="63.8506"/>
+               </graphics>
+               <name>
+                    <value>lock_state__max_t_0</value>
+               </name>
+               <conditions>L == 0 and lock_state__0 == 0</conditions>
+               <assignments>L := 2 ; </assignments>
+          </transition>
+          <place id="access_requests__age_4">
+               <graphics>
+                    <position x="415.828" y="175.365"/>
+               </graphics>
+               <name>
+                    <value>access_requests__age_4</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="access_requests__age_3">
+               <graphics>
+                    <position x="322.62" y="147.868"/>
+               </graphics>
+               <name>
+                    <value>access_requests__age_3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="access_requests__age_2">
+               <graphics>
+                    <position x="229.685" y="120.813"/>
+               </graphics>
+               <name>
+                    <value>access_requests__age_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="access_requests__age_1">
+               <graphics>
+                    <position x="136.745" y="94.2721"/>
+               </graphics>
+               <name>
+                    <value>access_requests__age_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="access_requests__age_0">
+               <graphics>
+                    <position x="38.1356" y="66.2996"/>
+               </graphics>
+               <name>
+                    <value>access_requests__age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="critial_section__age_4">
+               <graphics>
+                    <position x="282.276" y="330.285"/>
+               </graphics>
+               <name>
+                    <value>critial_section__age_4</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="critial_section__age_3">
+               <graphics>
+                    <position x="222.752" y="407.094"/>
+               </graphics>
+               <name>
+                    <value>critial_section__age_3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="critial_section__age_2">
+               <graphics>
+                    <position x="163.606" y="483.687"/>
+               </graphics>
+               <name>
+                    <value>critial_section__age_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="critial_section__age_1">
+               <graphics>
+                    <position x="104.796" y="560.386"/>
+               </graphics>
+               <name>
+                    <value>critial_section__age_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="critial_section__age_0">
+               <graphics>
+                    <position x="50" y="631.927"/>
+               </graphics>
+               <name>
+                    <value>critial_section__age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="lock_state__age_4">
+               <graphics>
+                    <position x="571.279" y="346.191"/>
+               </graphics>
+               <name>
+                    <value>lock_state__age_4</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="lock_state__age_3">
+               <graphics>
+                    <position x="632.799" y="270.941"/>
+               </graphics>
+               <name>
+                    <value>lock_state__age_3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="lock_state__age_2">
+               <graphics>
+                    <position x="693.684" y="195.735"/>
+               </graphics>
+               <name>
+                    <value>lock_state__age_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="lock_state__age_1">
+               <graphics>
+                    <position x="754.274" y="120.406"/>
+               </graphics>
+               <name>
+                    <value>lock_state__age_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="lock_state__age_0">
+               <graphics>
+                    <position x="808.915" y="44.2149"/>
+               </graphics>
+               <name>
+                    <value>lock_state__age_0</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <transition id="T1__pre_t_0_4">
+               <graphics>
+                    <position x="314.687" y="973.938"/>
+               </graphics>
+               <name>
+                    <value>T1__pre_t_0_4</value>
+               </name>
+               <conditions>T1__pre_0 == 0 and 
+critial_section_ &gt;= 4 and 
+0 &lt;= critial_section__4 and 
+critial_section__4 &lt;= 0 and 
+( L == 0 or L == 2 ) and 
+R == 0</conditions>
+               <assignments>L := 2 ; 
+</assignments>
+          </transition>
+          <transition id="T1__pre_t_0_3">
+               <graphics>
+                    <position x="306.962" y="953.618"/>
+               </graphics>
+               <name>
+                    <value>T1__pre_t_0_3</value>
+               </name>
+               <conditions>T1__pre_0 == 0 and 
+critial_section_ &gt;= 3 and 
+0 &lt;= critial_section__3 and 
+critial_section__3 &lt;= 0 and 
+( L == 0 or L == 2 ) and 
+R == 0</conditions>
+               <assignments>L := 2 ; 
+critial_section__3 := critial_section__4 ; 
+</assignments>
+          </transition>
+          <transition id="T1__pre_t_0_2">
+               <graphics>
+                    <position x="258.124" y="956.114"/>
+               </graphics>
+               <name>
+                    <value>T1__pre_t_0_2</value>
+               </name>
+               <conditions>T1__pre_0 == 0 and 
+critial_section_ &gt;= 2 and 
+0 &lt;= critial_section__2 and 
+critial_section__2 &lt;= 0 and 
+( L == 0 or L == 2 ) and 
+R == 0</conditions>
+               <assignments>L := 2 ; 
+critial_section__2 := critial_section__3 ; 
+critial_section__3 := critial_section__4 ; 
+</assignments>
+          </transition>
+          <transition id="T1__pre_t_0_1">
+               <graphics>
+                    <position x="328.283" y="946.99"/>
+               </graphics>
+               <name>
+                    <value>T1__pre_t_0_1</value>
+               </name>
+               <conditions>T1__pre_0 == 0 and 
+critial_section_ &gt;= 1 and 
+0 &lt;= critial_section__1 and 
+critial_section__1 &lt;= 0 and 
+( L == 0 or L == 2 ) and 
+R == 0</conditions>
+               <assignments>L := 2 ; 
+critial_section__1 := critial_section__2 ; 
+critial_section__2 := critial_section__3 ; 
+critial_section__3 := critial_section__4 ; 
+</assignments>
+          </transition>
+          <transition id="T1__pre_t_0_0">
+               <graphics>
+                    <position x="281.591" y="961.72"/>
+               </graphics>
+               <name>
+                    <value>T1__pre_t_0_0</value>
+               </name>
+               <conditions>T1__pre_0 == 0 and 
+critial_section_ &gt;= 0 and 
+0 &lt;= critial_section__0 and 
+critial_section__0 &lt;= 0 and 
+( L == 0 or L == 2 ) and 
+R == 0</conditions>
+               <assignments>L := 2 ; 
+critial_section__0 := critial_section__1 ; 
+critial_section__1 := critial_section__2 ; 
+critial_section__2 := critial_section__3 ; 
+critial_section__3 := critial_section__4 ; 
+</assignments>
+          </transition>
+          <place id="T1__pre_0">
+               <graphics>
+                    <position x="274.079" y="1004.77"/>
+               </graphics>
+               <name>
+                    <value>T1__pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <transition id="T1_">
+               <graphics>
+                    <position x="213.426" y="1036.43"/>
+               </graphics>
+               <name>
+                    <value>T1_</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 1;</assignments>
+          </transition>
+          <transition id="T0__pre_t_1_4">
+               <graphics>
+                    <position x="130.414" y="722.568"/>
+               </graphics>
+               <name>
+                    <value>T0__pre_t_1_4</value>
+               </name>
+               <conditions>T0__pre_1 == 0 and 
+access_requests_ &gt;= 4 and 
+0 &lt;= access_requests__4 and 
+access_requests__4 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+</assignments>
+          </transition>
+          <transition id="T0__pre_t_1_3">
+               <graphics>
+                    <position x="93.9301" y="722.81"/>
+               </graphics>
+               <name>
+                    <value>T0__pre_t_1_3</value>
+               </name>
+               <conditions>T0__pre_1 == 0 and 
+access_requests_ &gt;= 3 and 
+0 &lt;= access_requests__3 and 
+access_requests__3 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+access_requests__3 := access_requests__4 ; 
+</assignments>
+          </transition>
+          <transition id="T0__pre_t_1_2">
+               <graphics>
+                    <position x="177.012" y="719.47"/>
+               </graphics>
+               <name>
+                    <value>T0__pre_t_1_2</value>
+               </name>
+               <conditions>T0__pre_1 == 0 and 
+access_requests_ &gt;= 2 and 
+0 &lt;= access_requests__2 and 
+access_requests__2 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+access_requests__2 := access_requests__3 ; 
+access_requests__3 := access_requests__4 ; 
+</assignments>
+          </transition>
+          <transition id="T0__pre_t_1_1">
+               <graphics>
+                    <position x="88.2686" y="743.012"/>
+               </graphics>
+               <name>
+                    <value>T0__pre_t_1_1</value>
+               </name>
+               <conditions>T0__pre_1 == 0 and 
+access_requests_ &gt;= 1 and 
+0 &lt;= access_requests__1 and 
+access_requests__1 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+access_requests__1 := access_requests__2 ; 
+access_requests__2 := access_requests__3 ; 
+access_requests__3 := access_requests__4 ; 
+</assignments>
+          </transition>
+          <transition id="T0__pre_t_1_0">
+               <graphics>
+                    <position x="162.129" y="704.637"/>
+               </graphics>
+               <name>
+                    <value>T0__pre_t_1_0</value>
+               </name>
+               <conditions>T0__pre_1 == 0 and 
+access_requests_ &gt;= 0 and 
+0 &lt;= access_requests__0 and 
+access_requests__0 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+access_requests__0 := access_requests__1 ; 
+access_requests__1 := access_requests__2 ; 
+access_requests__2 := access_requests__3 ; 
+access_requests__3 := access_requests__4 ; 
+</assignments>
+          </transition>
+          <place id="T0__pre_1">
+               <graphics>
+                    <position x="141.717" y="765.353"/>
+               </graphics>
+               <name>
+                    <value>T0__pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <transition id="T0__pre_t_0_4">
+               <graphics>
+                    <position x="119.829" y="919.268"/>
+               </graphics>
+               <name>
+                    <value>T0__pre_t_0_4</value>
+               </name>
+               <conditions>T0__pre_0 == 0 and 
+lock_state_ &gt;= 4 and 
+0 &lt;= lock_state__4 and 
+lock_state__4 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+</assignments>
+          </transition>
+          <transition id="T0__pre_t_0_3">
+               <graphics>
+                    <position x="50" y="920.217"/>
+               </graphics>
+               <name>
+                    <value>T0__pre_t_0_3</value>
+               </name>
+               <conditions>T0__pre_0 == 0 and 
+lock_state_ &gt;= 3 and 
+0 &lt;= lock_state__3 and 
+lock_state__3 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+lock_state__3 := lock_state__4 ; 
+</assignments>
+          </transition>
+          <transition id="T0__pre_t_0_2">
+               <graphics>
+                    <position x="73.6235" y="909.824"/>
+               </graphics>
+               <name>
+                    <value>T0__pre_t_0_2</value>
+               </name>
+               <conditions>T0__pre_0 == 0 and 
+lock_state_ &gt;= 2 and 
+0 &lt;= lock_state__2 and 
+lock_state__2 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+lock_state__2 := lock_state__3 ; 
+lock_state__3 := lock_state__4 ; 
+</assignments>
+          </transition>
+          <transition id="T0__pre_t_0_1">
+               <graphics>
+                    <position x="96.9369" y="914.494"/>
+               </graphics>
+               <name>
+                    <value>T0__pre_t_0_1</value>
+               </name>
+               <conditions>T0__pre_0 == 0 and 
+lock_state_ &gt;= 1 and 
+0 &lt;= lock_state__1 and 
+lock_state__1 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+lock_state__1 := lock_state__2 ; 
+lock_state__2 := lock_state__3 ; 
+lock_state__3 := lock_state__4 ; 
+</assignments>
+          </transition>
+          <transition id="T0__pre_t_0_0">
+               <graphics>
+                    <position x="55.0361" y="899.023"/>
+               </graphics>
+               <name>
+                    <value>T0__pre_t_0_0</value>
+               </name>
+               <conditions>T0__pre_0 == 0 and 
+lock_state_ &gt;= 0 and 
+0 &lt;= lock_state__0 and 
+lock_state__0 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+lock_state__0 := lock_state__1 ; 
+lock_state__1 := lock_state__2 ; 
+lock_state__2 := lock_state__3 ; 
+lock_state__3 := lock_state__4 ; 
+</assignments>
+          </transition>
+          <place id="T0__pre_0">
+               <graphics>
+                    <position x="103.018" y="867.107"/>
+               </graphics>
+               <name>
+                    <value>T0__pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <transition id="T0_">
+               <graphics>
+                    <position x="157.854" y="825.937"/>
+               </graphics>
+               <name>
+                    <value>T0_</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 1;</assignments>
+          </transition>
+          <place id="access_requests_">
+               <graphics>
+                    <position x="119.551" y="681.927"/>
+               </graphics>
+               <name>
+                    <value>access_requests_</value>
+               </name>
+               <initialMarking>
+                    <value>5</value>
+               </initialMarking>
+          </place>
+          <transition id="critial_section__t4">
+               <graphics>
+                    <position x="280.899" y="861.883"/>
+               </graphics>
+               <name>
+                    <value>critial_section__t4</value>
+               </name>
+               <conditions>critial_section_ == 4</conditions>
+               <assignments>L := L-1; critial_section__4 := 0;</assignments>
+          </transition>
+          <transition id="critial_section__t3">
+               <graphics>
+                    <position x="298.347" y="848.342"/>
+               </graphics>
+               <name>
+                    <value>critial_section__t3</value>
+               </name>
+               <conditions>critial_section_ == 3</conditions>
+               <assignments>L := L-1; critial_section__3 := 0;</assignments>
+          </transition>
+          <transition id="critial_section__t2">
+               <graphics>
+                    <position x="237.379" y="888.025"/>
+               </graphics>
+               <name>
+                    <value>critial_section__t2</value>
+               </name>
+               <conditions>critial_section_ == 2</conditions>
+               <assignments>L := L-1; critial_section__2 := 0;</assignments>
+          </transition>
+          <transition id="critial_section__t1">
+               <graphics>
+                    <position x="275.865" y="840.357"/>
+               </graphics>
+               <name>
+                    <value>critial_section__t1</value>
+               </name>
+               <conditions>critial_section_ == 1</conditions>
+               <assignments>L := L-1; critial_section__1 := 0;</assignments>
+          </transition>
+          <transition id="critial_section__t0">
+               <graphics>
+                    <position x="254.617" y="871.161"/>
+               </graphics>
+               <name>
+                    <value>critial_section__t0</value>
+               </name>
+               <conditions>critial_section_ == 0</conditions>
+               <assignments>L := L-1; critial_section__0 := 0;</assignments>
+          </transition>
+          <place id="critial_section__post">
+               <graphics>
+                    <position x="225.794" y="834.687"/>
+               </graphics>
+               <name>
+                    <value>critial_section__post</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="critial_section_">
+               <graphics>
+                    <position x="293.447" y="907.264"/>
+               </graphics>
+               <name>
+                    <value>critial_section_</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <transition id="lock_state__t4">
+               <graphics>
+                    <position x="103.32" y="1024.54"/>
+               </graphics>
+               <name>
+                    <value>lock_state__t4</value>
+               </name>
+               <conditions>lock_state_ == 4</conditions>
+               <assignments>L := L-1; lock_state__4 := 0;</assignments>
+          </transition>
+          <transition id="lock_state__t3">
+               <graphics>
+                    <position x="113.683" y="1001.44"/>
+               </graphics>
+               <name>
+                    <value>lock_state__t3</value>
+               </name>
+               <conditions>lock_state_ == 3</conditions>
+               <assignments>L := L-1; lock_state__3 := 0;</assignments>
+          </transition>
+          <transition id="lock_state__t2">
+               <graphics>
+                    <position x="135.345" y="989.828"/>
+               </graphics>
+               <name>
+                    <value>lock_state__t2</value>
+               </name>
+               <conditions>lock_state_ == 2</conditions>
+               <assignments>L := L-1; lock_state__2 := 0;</assignments>
+          </transition>
+          <transition id="lock_state__t1">
+               <graphics>
+                    <position x="82.4739" y="1027.08"/>
+               </graphics>
+               <name>
+                    <value>lock_state__t1</value>
+               </name>
+               <conditions>lock_state_ == 1</conditions>
+               <assignments>L := L-1; lock_state__1 := 0;</assignments>
+          </transition>
+          <transition id="lock_state__t0">
+               <graphics>
+                    <position x="71.3551" y="1009.82"/>
+               </graphics>
+               <name>
+                    <value>lock_state__t0</value>
+               </name>
+               <conditions>lock_state_ == 0</conditions>
+               <assignments>L := L-1; lock_state__0 := 0;</assignments>
+          </transition>
+          <place id="lock_state__post">
+               <graphics>
+                    <position x="145.114" y="1038.82"/>
+               </graphics>
+               <name>
+                    <value>lock_state__post</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="lock_state_">
+               <graphics>
+                    <position x="80.2709" y="963.669"/>
+               </graphics>
+               <name>
+                    <value>lock_state_</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <arc source="access_requests__age_4" target="access_requests__age_t_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_4" target="access_requests__max_t_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_t_3" target="access_requests__age_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__max_t_3" target="access_requests__age_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_3" target="access_requests__age_t_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_3" target="access_requests__max_t_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_t_2" target="access_requests__age_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__max_t_2" target="access_requests__age_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_2" target="access_requests__age_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_2" target="access_requests__max_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_t_1" target="access_requests__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__max_t_1" target="access_requests__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_1" target="access_requests__age_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_1" target="access_requests__max_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_t_0" target="access_requests__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__max_t_0" target="access_requests__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_0" target="access_requests__age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests__age_0" target="access_requests__max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_4" target="critial_section__age_t_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_4" target="critial_section__max_t_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_t_3" target="critial_section__age_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__max_t_3" target="critial_section__age_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_3" target="critial_section__age_t_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_3" target="critial_section__max_t_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_t_2" target="critial_section__age_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__max_t_2" target="critial_section__age_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_2" target="critial_section__age_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_2" target="critial_section__max_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_t_1" target="critial_section__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__max_t_1" target="critial_section__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_1" target="critial_section__age_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_1" target="critial_section__max_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_t_0" target="critial_section__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__max_t_0" target="critial_section__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_0" target="critial_section__age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__age_0" target="critial_section__max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_4" target="lock_state__age_t_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_4" target="lock_state__max_t_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_t_3" target="lock_state__age_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__max_t_3" target="lock_state__age_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_3" target="lock_state__age_t_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_3" target="lock_state__max_t_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_t_2" target="lock_state__age_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__max_t_2" target="lock_state__age_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_2" target="lock_state__age_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_2" target="lock_state__max_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_t_1" target="lock_state__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__max_t_1" target="lock_state__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_1" target="lock_state__age_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_1" target="lock_state__max_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_t_0" target="lock_state__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__max_t_0" target="lock_state__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_0" target="lock_state__age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__age_0" target="lock_state__max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1_" target="lock_state__post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1__pre_0" target="T1_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1__pre_t_0_4" target="T1__pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section_" target="T1__pre_t_0_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1__pre_t_0_3" target="T1__pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section_" target="T1__pre_t_0_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1__pre_t_0_2" target="T1__pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section_" target="T1__pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1__pre_t_0_1" target="T1__pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section_" target="T1__pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1__pre_t_0_0" target="T1__pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section_" target="T1__pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0_" target="critial_section__post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0__pre_1" target="T0_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0__pre_t_1_4" target="T0__pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests_" target="T0__pre_t_1_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0__pre_t_1_3" target="T0__pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests_" target="T0__pre_t_1_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0__pre_t_1_2" target="T0__pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests_" target="T0__pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0__pre_t_1_1" target="T0__pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests_" target="T0__pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0__pre_t_1_0" target="T0__pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="access_requests_" target="T0__pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0__pre_0" target="T0_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0__pre_t_0_4" target="T0__pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state_" target="T0__pre_t_0_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0__pre_t_0_3" target="T0__pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state_" target="T0__pre_t_0_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0__pre_t_0_2" target="T0__pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state_" target="T0__pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0__pre_t_0_1" target="T0__pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state_" target="T0__pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0__pre_t_0_0" target="T0__pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state_" target="T0__pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__t4" target="critial_section_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__post" target="critial_section__t4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__t3" target="critial_section_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__post" target="critial_section__t3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__t2" target="critial_section_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__post" target="critial_section__t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__t1" target="critial_section_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__post" target="critial_section__t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__t0" target="critial_section_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="critial_section__post" target="critial_section__t0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__t4" target="lock_state_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__post" target="lock_state__t4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__t3" target="lock_state_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__post" target="lock_state__t3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__t2" target="lock_state_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__post" target="lock_state__t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__t1" target="lock_state_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__post" target="lock_state__t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__t0" target="lock_state_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="lock_state__post" target="lock_state__t0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+     </net>
+</pnml>

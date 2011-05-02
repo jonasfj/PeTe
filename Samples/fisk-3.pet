@@ -1,0 +1,5000 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+     <net>
+          <variable name="L" initial-value="0" range="16"/>
+          <variable name="R" initial-value="0" range="3"/>
+          <variable name="A__0" initial-value="0" range="0"/>
+          <variable name="A__1" initial-value="0" range="0"/>
+          <variable name="A__2" initial-value="0" range="0"/>
+          <variable name="A_0" initial-value="0" range="0"/>
+          <variable name="A_1" initial-value="0" range="0"/>
+          <variable name="A_2" initial-value="0" range="0"/>
+          <variable name="B_0" initial-value="0" range="3"/>
+          <variable name="B_1" initial-value="0" range="3"/>
+          <variable name="B_2" initial-value="0" range="3"/>
+          <variable name="B__0" initial-value="0" range="3"/>
+          <variable name="B__1" initial-value="0" range="3"/>
+          <variable name="B__2" initial-value="0" range="3"/>
+          <variable name="udf_0" initial-value="0" range="0"/>
+          <variable name="udf_1" initial-value="0" range="0"/>
+          <variable name="udf_2" initial-value="0" range="0"/>
+          <variable name="C_0" initial-value="0" range="0"/>
+          <variable name="C_1" initial-value="0" range="0"/>
+          <variable name="C_2" initial-value="0" range="0"/>
+          <variable name="CS_0" initial-value="0" range="0"/>
+          <variable name="CS_1" initial-value="0" range="0"/>
+          <variable name="CS_2" initial-value="0" range="0"/>
+          <variable name="CS__0" initial-value="0" range="0"/>
+          <variable name="CS__1" initial-value="0" range="0"/>
+          <variable name="CS__2" initial-value="0" range="0"/>
+          <variable name="C__0" initial-value="0" range="3"/>
+          <variable name="C__1" initial-value="0" range="3"/>
+          <variable name="C__2" initial-value="0" range="3"/>
+          <transition id="C__age_t_2">
+               <graphics>
+                    <position x="606.272" y="1573.96"/>
+               </graphics>
+               <name>
+                    <value>C__age_t_2</value>
+               </name>
+               <conditions>C__2 &lt; 3</conditions>
+               <assignments>L := 0 ; C__2 := C__2 + 1 ;</assignments>
+          </transition>
+          <transition id="C__max_t_2">
+               <graphics>
+                    <position x="602.022" y="1534.52"/>
+               </graphics>
+               <name>
+                    <value>C__max_t_2</value>
+               </name>
+               <conditions>C__2 == 3</conditions>
+               <assignments>L := 0 ; </assignments>
+          </transition>
+          <transition id="C__age_t_1">
+               <graphics>
+                    <position x="489.4" y="1572.9"/>
+               </graphics>
+               <name>
+                    <value>C__age_t_1</value>
+               </name>
+               <conditions>C__1 &lt; 3</conditions>
+               <assignments>C__1 := C__1 + 1 ;</assignments>
+          </transition>
+          <transition id="C__max_t_1">
+               <graphics>
+                    <position x="494.284" y="1533.6"/>
+               </graphics>
+               <name>
+                    <value>C__max_t_1</value>
+               </name>
+               <conditions>C__1 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="C__age_t_0">
+               <graphics>
+                    <position x="389.767" y="1508.02"/>
+               </graphics>
+               <name>
+                    <value>C__age_t_0</value>
+               </name>
+               <conditions>C__0 &lt; 3</conditions>
+               <assignments>C__0 := C__0 + 1 ;</assignments>
+          </transition>
+          <transition id="C__max_t_0">
+               <graphics>
+                    <position x="375.828" y="1544.96"/>
+               </graphics>
+               <name>
+                    <value>C__max_t_0</value>
+               </name>
+               <conditions>C__0 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="CS__age_t_2">
+               <graphics>
+                    <position x="293.915" y="1458.77"/>
+               </graphics>
+               <name>
+                    <value>CS__age_t_2</value>
+               </name>
+               <conditions>CS__2 &lt; 0</conditions>
+               <assignments>CS__2 := CS__2 + 1 ;</assignments>
+          </transition>
+          <transition id="CS__max_t_2">
+               <graphics>
+                    <position x="271.804" y="1491.71"/>
+               </graphics>
+               <name>
+                    <value>CS__max_t_2</value>
+               </name>
+               <conditions>CS__2 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="CS__age_t_1">
+               <graphics>
+                    <position x="211.967" y="1388.86"/>
+               </graphics>
+               <name>
+                    <value>CS__age_t_1</value>
+               </name>
+               <conditions>CS__1 &lt; 0</conditions>
+               <assignments>CS__1 := CS__1 + 1 ;</assignments>
+          </transition>
+          <transition id="CS__max_t_1">
+               <graphics>
+                    <position x="182.952" y="1415.73"/>
+               </graphics>
+               <name>
+                    <value>CS__max_t_1</value>
+               </name>
+               <conditions>CS__1 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="CS__age_t_0">
+               <graphics>
+                    <position x="148.732" y="1301.76"/>
+               </graphics>
+               <name>
+                    <value>CS__age_t_0</value>
+               </name>
+               <conditions>CS__0 &lt; 0</conditions>
+               <assignments>CS__0 := CS__0 + 1 ;</assignments>
+          </transition>
+          <transition id="CS__max_t_0">
+               <graphics>
+                    <position x="114.1" y="1321.27"/>
+               </graphics>
+               <name>
+                    <value>CS__max_t_0</value>
+               </name>
+               <conditions>CS__0 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="CS_age_t_2">
+               <graphics>
+                    <position x="106.99" y="1202.43"/>
+               </graphics>
+               <name>
+                    <value>CS_age_t_2</value>
+               </name>
+               <conditions>CS_2 &lt; 0</conditions>
+               <assignments>CS_2 := CS_2 + 1 ;</assignments>
+          </transition>
+          <transition id="CS_max_t_2">
+               <graphics>
+                    <position x="69.0197" y="1213.43"/>
+               </graphics>
+               <name>
+                    <value>CS_max_t_2</value>
+               </name>
+               <conditions>CS_2 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="CS_age_t_1">
+               <graphics>
+                    <position x="89.5759" y="1096.16"/>
+               </graphics>
+               <name>
+                    <value>CS_age_t_1</value>
+               </name>
+               <conditions>CS_1 &lt; 0</conditions>
+               <assignments>CS_1 := CS_1 + 1 ;</assignments>
+          </transition>
+          <transition id="CS_max_t_1">
+               <graphics>
+                    <position x="50" y="1098.04"/>
+               </graphics>
+               <name>
+                    <value>CS_max_t_1</value>
+               </name>
+               <conditions>CS_1 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="CS_age_t_0">
+               <graphics>
+                    <position x="97.1904" y="988.796"/>
+               </graphics>
+               <name>
+                    <value>CS_age_t_0</value>
+               </name>
+               <conditions>CS_0 &lt; 0</conditions>
+               <assignments>CS_0 := CS_0 + 1 ;</assignments>
+          </transition>
+          <transition id="CS_max_t_0">
+               <graphics>
+                    <position x="58.2464" y="981.373"/>
+               </graphics>
+               <name>
+                    <value>CS_max_t_0</value>
+               </name>
+               <conditions>CS_0 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="C_age_t_2">
+               <graphics>
+                    <position x="93.287" y="869.891"/>
+               </graphics>
+               <name>
+                    <value>C_age_t_2</value>
+               </name>
+               <conditions>C_2 &lt; 0</conditions>
+               <assignments>C_2 := C_2 + 1 ;</assignments>
+          </transition>
+          <transition id="C_max_t_2">
+               <graphics>
+                    <position x="129.482" y="886.038"/>
+               </graphics>
+               <name>
+                    <value>C_max_t_2</value>
+               </name>
+               <conditions>C_2 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="C_age_t_1">
+               <graphics>
+                    <position x="152.871" y="769.25"/>
+               </graphics>
+               <name>
+                    <value>C_age_t_1</value>
+               </name>
+               <conditions>C_1 &lt; 0</conditions>
+               <assignments>C_1 := C_1 + 1 ;</assignments>
+          </transition>
+          <transition id="C_max_t_1">
+               <graphics>
+                    <position x="184.371" y="793.186"/>
+               </graphics>
+               <name>
+                    <value>C_max_t_1</value>
+               </name>
+               <conditions>C_1 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="C_age_t_0">
+               <graphics>
+                    <position x="234.131" y="685.097"/>
+               </graphics>
+               <name>
+                    <value>C_age_t_0</value>
+               </name>
+               <conditions>C_0 &lt; 0</conditions>
+               <assignments>C_0 := C_0 + 1 ;</assignments>
+          </transition>
+          <transition id="C_max_t_0">
+               <graphics>
+                    <position x="259.308" y="715.702"/>
+               </graphics>
+               <name>
+                    <value>C_max_t_0</value>
+               </name>
+               <conditions>C_0 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="udf_age_t_2">
+               <graphics>
+                    <position x="349.987" y="657.471"/>
+               </graphics>
+               <name>
+                    <value>udf_age_t_2</value>
+               </name>
+               <conditions>udf_2 &lt; 0</conditions>
+               <assignments>udf_2 := udf_2 + 1 ;</assignments>
+          </transition>
+          <transition id="udf_max_t_2">
+               <graphics>
+                    <position x="332.535" y="621.947"/>
+               </graphics>
+               <name>
+                    <value>udf_max_t_2</value>
+               </name>
+               <conditions>udf_2 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="udf_age_t_1">
+               <graphics>
+                    <position x="451.541" y="621.588"/>
+               </graphics>
+               <name>
+                    <value>udf_age_t_1</value>
+               </name>
+               <conditions>udf_1 &lt; 0</conditions>
+               <assignments>udf_1 := udf_1 + 1 ;</assignments>
+          </transition>
+          <transition id="udf_max_t_1">
+               <graphics>
+                    <position x="442.769" y="582.947"/>
+               </graphics>
+               <name>
+                    <value>udf_max_t_1</value>
+               </name>
+               <conditions>udf_1 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="udf_age_t_0">
+               <graphics>
+                    <position x="558.686" y="609.988"/>
+               </graphics>
+               <name>
+                    <value>udf_age_t_0</value>
+               </name>
+               <conditions>udf_0 &lt; 0</conditions>
+               <assignments>udf_0 := udf_0 + 1 ;</assignments>
+          </transition>
+          <transition id="udf_max_t_0">
+               <graphics>
+                    <position x="558.993" y="570.478"/>
+               </graphics>
+               <name>
+                    <value>udf_max_t_0</value>
+               </name>
+               <conditions>udf_0 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="B__age_t_2">
+               <graphics>
+                    <position x="675.041" y="585.025"/>
+               </graphics>
+               <name>
+                    <value>B__age_t_2</value>
+               </name>
+               <conditions>B__2 &lt; 3</conditions>
+               <assignments>B__2 := B__2 + 1 ;</assignments>
+          </transition>
+          <transition id="B__max_t_2">
+               <graphics>
+                    <position x="665.556" y="623.52"/>
+               </graphics>
+               <name>
+                    <value>B__max_t_2</value>
+               </name>
+               <conditions>B__2 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="B__age_t_1">
+               <graphics>
+                    <position x="784.477" y="625.947"/>
+               </graphics>
+               <name>
+                    <value>B__age_t_1</value>
+               </name>
+               <conditions>B__1 &lt; 3</conditions>
+               <assignments>B__1 := B__1 + 1 ;</assignments>
+          </transition>
+          <transition id="B__max_t_1">
+               <graphics>
+                    <position x="766.499" y="661.141"/>
+               </graphics>
+               <name>
+                    <value>B__max_t_1</value>
+               </name>
+               <conditions>B__1 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="B__age_t_0">
+               <graphics>
+                    <position x="881.611" y="691.082"/>
+               </graphics>
+               <name>
+                    <value>B__age_t_0</value>
+               </name>
+               <conditions>B__0 &lt; 3</conditions>
+               <assignments>B__0 := B__0 + 1 ;</assignments>
+          </transition>
+          <transition id="B__max_t_0">
+               <graphics>
+                    <position x="855.836" y="721.22"/>
+               </graphics>
+               <name>
+                    <value>B__max_t_0</value>
+               </name>
+               <conditions>B__0 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="B_age_t_2">
+               <graphics>
+                    <position x="961.052" y="776.788"/>
+               </graphics>
+               <name>
+                    <value>B_age_t_2</value>
+               </name>
+               <conditions>B_2 &lt; 3</conditions>
+               <assignments>B_2 := B_2 + 1 ;</assignments>
+          </transition>
+          <transition id="B_max_t_2">
+               <graphics>
+                    <position x="929.045" y="800.148"/>
+               </graphics>
+               <name>
+                    <value>B_max_t_2</value>
+               </name>
+               <conditions>B_2 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="B_age_t_1">
+               <graphics>
+                    <position x="1018.38" y="878.654"/>
+               </graphics>
+               <name>
+                    <value>B_age_t_1</value>
+               </name>
+               <conditions>B_1 &lt; 3</conditions>
+               <assignments>B_1 := B_1 + 1 ;</assignments>
+          </transition>
+          <transition id="B_max_t_1">
+               <graphics>
+                    <position x="981.817" y="893.972"/>
+               </graphics>
+               <name>
+                    <value>B_max_t_1</value>
+               </name>
+               <conditions>B_1 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="B_age_t_0">
+               <graphics>
+                    <position x="1011.62" y="997.411"/>
+               </graphics>
+               <name>
+                    <value>B_age_t_0</value>
+               </name>
+               <conditions>B_0 &lt; 3</conditions>
+               <assignments>B_0 := B_0 + 1 ;</assignments>
+          </transition>
+          <transition id="B_max_t_0">
+               <graphics>
+                    <position x="1050.72" y="991.038"/>
+               </graphics>
+               <name>
+                    <value>B_max_t_0</value>
+               </name>
+               <conditions>B_0 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="A_age_t_2">
+               <graphics>
+                    <position x="1016.65" y="1104.99"/>
+               </graphics>
+               <name>
+                    <value>A_age_t_2</value>
+               </name>
+               <conditions>A_2 &lt; 0</conditions>
+               <assignments>A_2 := A_2 + 1 ;</assignments>
+          </transition>
+          <transition id="A_max_t_2">
+               <graphics>
+                    <position x="1056.11" y="1107.83"/>
+               </graphics>
+               <name>
+                    <value>A_max_t_2</value>
+               </name>
+               <conditions>A_2 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="A_age_t_1">
+               <graphics>
+                    <position x="1034.4" y="1222.68"/>
+               </graphics>
+               <name>
+                    <value>A_age_t_1</value>
+               </name>
+               <conditions>A_1 &lt; 0</conditions>
+               <assignments>A_1 := A_1 + 1 ;</assignments>
+          </transition>
+          <transition id="A_max_t_1">
+               <graphics>
+                    <position x="996.624" y="1210.88"/>
+               </graphics>
+               <name>
+                    <value>A_max_t_1</value>
+               </name>
+               <conditions>A_1 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="A_age_t_0">
+               <graphics>
+                    <position x="952.541" y="1309.16"/>
+               </graphics>
+               <name>
+                    <value>A_age_t_0</value>
+               </name>
+               <conditions>A_0 &lt; 0</conditions>
+               <assignments>A_0 := A_0 + 1 ;</assignments>
+          </transition>
+          <transition id="A_max_t_0">
+               <graphics>
+                    <position x="986.634" y="1329.39"/>
+               </graphics>
+               <name>
+                    <value>A_max_t_0</value>
+               </name>
+               <conditions>A_0 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="A__age_t_2">
+               <graphics>
+                    <position x="915.749" y="1422.21"/>
+               </graphics>
+               <name>
+                    <value>A__age_t_2</value>
+               </name>
+               <conditions>A__2 &lt; 0</conditions>
+               <assignments>A__2 := A__2 + 1 ;</assignments>
+          </transition>
+          <transition id="A__max_t_2">
+               <graphics>
+                    <position x="887.216" y="1394.89"/>
+               </graphics>
+               <name>
+                    <value>A__max_t_2</value>
+               </name>
+               <conditions>A__2 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="A__age_t_1">
+               <graphics>
+                    <position x="803.92" y="1463.11"/>
+               </graphics>
+               <name>
+                    <value>A__age_t_1</value>
+               </name>
+               <conditions>A__1 &lt; 0</conditions>
+               <assignments>A__1 := A__1 + 1 ;</assignments>
+          </transition>
+          <transition id="A__max_t_1">
+               <graphics>
+                    <position x="825.263" y="1496.48"/>
+               </graphics>
+               <name>
+                    <value>A__max_t_1</value>
+               </name>
+               <conditions>A__1 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="A__age_t_0">
+               <graphics>
+                    <position x="707.048" y="1510.64"/>
+               </graphics>
+               <name>
+                    <value>A__age_t_0</value>
+               </name>
+               <conditions>L == 0 and A__0 &lt; 0</conditions>
+               <assignments>L := 15 ; A__0 := A__0 + 1 ;</assignments>
+          </transition>
+          <transition id="A__max_t_0">
+               <graphics>
+                    <position x="720.275" y="1547.93"/>
+               </graphics>
+               <name>
+                    <value>A__max_t_0</value>
+               </name>
+               <conditions>L == 0 and A__0 == 0</conditions>
+               <assignments>L := 15 ; </assignments>
+          </transition>
+          <transition id="Choose2A_pre_t_1_2">
+               <graphics>
+                    <position x="426.25" y="284.057"/>
+               </graphics>
+               <name>
+                    <value>Choose2A_pre_t_1_2</value>
+               </name>
+               <conditions>Choose2A_pre_1 == 0 and 
+B &gt;= 2 and 
+0 &lt;= B_2 and 
+B_2 &lt;= 2 and 
+( L == 0 or L == 15 ) and 
+R == 0</conditions>
+               <assignments>L := 15 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2A_pre_t_1_1">
+               <graphics>
+                    <position x="410.852" y="256.026"/>
+               </graphics>
+               <name>
+                    <value>Choose2A_pre_t_1_1</value>
+               </name>
+               <conditions>Choose2A_pre_1 == 0 and 
+B &gt;= 1 and 
+0 &lt;= B_1 and 
+B_1 &lt;= 2 and 
+( L == 0 or L == 15 ) and 
+R == 0</conditions>
+               <assignments>L := 15 ; 
+B_1 := B_2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2A_pre_t_1_0">
+               <graphics>
+                    <position x="421.424" y="268.614"/>
+               </graphics>
+               <name>
+                    <value>Choose2A_pre_t_1_0</value>
+               </name>
+               <conditions>Choose2A_pre_1 == 0 and 
+B &gt;= 0 and 
+0 &lt;= B_0 and 
+B_0 &lt;= 2 and 
+( L == 0 or L == 15 ) and 
+R == 0</conditions>
+               <assignments>L := 15 ; 
+B_0 := B_1 ; 
+B_1 := B_2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2A_pre_t_0_2">
+               <graphics>
+                    <position x="376.341" y="458.3"/>
+               </graphics>
+               <name>
+                    <value>Choose2A_pre_t_0_2</value>
+               </name>
+               <conditions>Choose2A_pre_0 == 0 and 
+A_ &gt;= 2 and 
+0 &lt;= A__2 and 
+A__2 &lt;= 0 and 
+( L == 0 or L == 15 ) and 
+R == 0</conditions>
+               <assignments>L := 15 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2A_pre_t_0_1">
+               <graphics>
+                    <position x="354.977" y="466.223"/>
+               </graphics>
+               <name>
+                    <value>Choose2A_pre_t_0_1</value>
+               </name>
+               <conditions>Choose2A_pre_0 == 0 and 
+A_ &gt;= 1 and 
+0 &lt;= A__1 and 
+A__1 &lt;= 0 and 
+( L == 0 or L == 15 ) and 
+R == 0</conditions>
+               <assignments>L := 15 ; 
+A__1 := A__2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2A_pre_t_0_0">
+               <graphics>
+                    <position x="333.072" y="474.082"/>
+               </graphics>
+               <name>
+                    <value>Choose2A_pre_t_0_0</value>
+               </name>
+               <conditions>Choose2A_pre_0 == 0 and 
+A_ &gt;= 0 and 
+0 &lt;= A__0 and 
+A__0 &lt;= 0 and 
+( L == 0 or L == 15 ) and 
+R == 0</conditions>
+               <assignments>L := 15 ; 
+A__0 := A__1 ; 
+A__1 := A__2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2A">
+               <graphics>
+                    <position x="295.658" y="316.022"/>
+               </graphics>
+               <name>
+                    <value>Choose2A</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 2;</assignments>
+          </transition>
+          <transition id="Enter_pre_t_0_2">
+               <graphics>
+                    <position x="488.222" y="350.332"/>
+               </graphics>
+               <name>
+                    <value>Enter_pre_t_0_2</value>
+               </name>
+               <conditions>Enter_pre_0 == 0 and 
+C_ &gt;= 2 and 
+3 &lt;= C__2 and 
+C__2 &lt;= 3 and 
+( L == 0 or L == 14 ) and 
+R == 0</conditions>
+               <assignments>L := 14 ; 
+</assignments>
+          </transition>
+          <transition id="Enter_pre_t_0_1">
+               <graphics>
+                    <position x="485.108" y="338.515"/>
+               </graphics>
+               <name>
+                    <value>Enter_pre_t_0_1</value>
+               </name>
+               <conditions>Enter_pre_0 == 0 and 
+C_ &gt;= 1 and 
+3 &lt;= C__1 and 
+C__1 &lt;= 3 and 
+( L == 0 or L == 14 ) and 
+R == 0</conditions>
+               <assignments>L := 14 ; 
+C__1 := C__2 ; 
+</assignments>
+          </transition>
+          <transition id="Enter_pre_t_0_0">
+               <graphics>
+                    <position x="487.093" y="362.462"/>
+               </graphics>
+               <name>
+                    <value>Enter_pre_t_0_0</value>
+               </name>
+               <conditions>Enter_pre_0 == 0 and 
+C_ &gt;= 0 and 
+3 &lt;= C__0 and 
+C__0 &lt;= 3 and 
+( L == 0 or L == 14 ) and 
+R == 0</conditions>
+               <assignments>L := 14 ; 
+C__0 := C__1 ; 
+C__1 := C__2 ; 
+</assignments>
+          </transition>
+          <transition id="Enter">
+               <graphics>
+                    <position x="546.709" y="193.331"/>
+               </graphics>
+               <name>
+                    <value>Enter</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 1;</assignments>
+          </transition>
+          <transition id="Exit1_pre_t_0_2">
+               <graphics>
+                    <position x="323.576" y="57.377"/>
+               </graphics>
+               <name>
+                    <value>Exit1_pre_t_0_2</value>
+               </name>
+               <conditions>Exit1_pre_0 == 0 and 
+CS_ &gt;= 2 and 
+0 &lt;= CS__2 and 
+CS__2 &lt;= 0 and 
+( L == 0 or L == 13 ) and 
+R == 0</conditions>
+               <assignments>L := 13 ; 
+</assignments>
+          </transition>
+          <transition id="Exit1_pre_t_0_1">
+               <graphics>
+                    <position x="309.452" y="55.3974"/>
+               </graphics>
+               <name>
+                    <value>Exit1_pre_t_0_1</value>
+               </name>
+               <conditions>Exit1_pre_0 == 0 and 
+CS_ &gt;= 1 and 
+0 &lt;= CS__1 and 
+CS__1 &lt;= 0 and 
+( L == 0 or L == 13 ) and 
+R == 0</conditions>
+               <assignments>L := 13 ; 
+CS__1 := CS__2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit1_pre_t_0_0">
+               <graphics>
+                    <position x="332.387" y="70.6705"/>
+               </graphics>
+               <name>
+                    <value>Exit1_pre_t_0_0</value>
+               </name>
+               <conditions>Exit1_pre_0 == 0 and 
+CS_ &gt;= 0 and 
+0 &lt;= CS__0 and 
+CS__0 &lt;= 0 and 
+( L == 0 or L == 13 ) and 
+R == 0</conditions>
+               <assignments>L := 13 ; 
+CS__0 := CS__1 ; 
+CS__1 := CS__2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit1">
+               <graphics>
+                    <position x="250.605" y="213.678"/>
+               </graphics>
+               <name>
+                    <value>Exit1</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 2;</assignments>
+          </transition>
+          <transition id="Exit3_pre_t_1_2">
+               <graphics>
+                    <position x="61.3704" y="353.835"/>
+               </graphics>
+               <name>
+                    <value>Exit3_pre_t_1_2</value>
+               </name>
+               <conditions>Exit3_pre_1 == 0 and 
+CS &gt;= 2 and 
+0 &lt;= CS_2 and 
+CS_2 &lt;= 0 and 
+( L == 0 or L == 12 ) and 
+R == 0</conditions>
+               <assignments>L := 12 ; 
+</assignments>
+          </transition>
+          <transition id="Exit3_pre_t_1_1">
+               <graphics>
+                    <position x="50" y="324.084"/>
+               </graphics>
+               <name>
+                    <value>Exit3_pre_t_1_1</value>
+               </name>
+               <conditions>Exit3_pre_1 == 0 and 
+CS &gt;= 1 and 
+0 &lt;= CS_1 and 
+CS_1 &lt;= 0 and 
+( L == 0 or L == 12 ) and 
+R == 0</conditions>
+               <assignments>L := 12 ; 
+CS_1 := CS_2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit3_pre_t_1_0">
+               <graphics>
+                    <position x="55.4694" y="339.644"/>
+               </graphics>
+               <name>
+                    <value>Exit3_pre_t_1_0</value>
+               </name>
+               <conditions>Exit3_pre_1 == 0 and 
+CS &gt;= 0 and 
+0 &lt;= CS_0 and 
+CS_0 &lt;= 0 and 
+( L == 0 or L == 12 ) and 
+R == 0</conditions>
+               <assignments>L := 12 ; 
+CS_0 := CS_1 ; 
+CS_1 := CS_2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit3_pre_t_0_2">
+               <graphics>
+                    <position x="70.7407" y="155.67"/>
+               </graphics>
+               <name>
+                    <value>Exit3_pre_t_0_2</value>
+               </name>
+               <conditions>Exit3_pre_0 == 0 and 
+udf &gt;= 2 and 
+0 &lt;= udf_2 and 
+udf_2 &lt;= 0 and 
+( L == 0 or L == 12 ) and 
+R == 0</conditions>
+               <assignments>L := 12 ; 
+</assignments>
+          </transition>
+          <transition id="Exit3_pre_t_0_1">
+               <graphics>
+                    <position x="83.8826" y="134.214"/>
+               </graphics>
+               <name>
+                    <value>Exit3_pre_t_0_1</value>
+               </name>
+               <conditions>Exit3_pre_0 == 0 and 
+udf &gt;= 1 and 
+0 &lt;= udf_1 and 
+udf_1 &lt;= 0 and 
+( L == 0 or L == 12 ) and 
+R == 0</conditions>
+               <assignments>L := 12 ; 
+udf_1 := udf_2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit3_pre_t_0_0">
+               <graphics>
+                    <position x="77.595" y="144.651"/>
+               </graphics>
+               <name>
+                    <value>Exit3_pre_t_0_0</value>
+               </name>
+               <conditions>Exit3_pre_0 == 0 and 
+udf &gt;= 0 and 
+0 &lt;= udf_0 and 
+udf_0 &lt;= 0 and 
+( L == 0 or L == 12 ) and 
+R == 0</conditions>
+               <assignments>L := 12 ; 
+udf_0 := udf_1 ; 
+udf_1 := udf_2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit3">
+               <graphics>
+                    <position x="167.712" y="254.898"/>
+               </graphics>
+               <name>
+                    <value>Exit3</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 2;</assignments>
+          </transition>
+          <transition id="Choose3_pre_t_0_2">
+               <graphics>
+                    <position x="260.811" y="510.878"/>
+               </graphics>
+               <name>
+                    <value>Choose3_pre_t_0_2</value>
+               </name>
+               <conditions>Choose3_pre_0 == 0 and 
+B_ &gt;= 2 and 
+0 &lt;= B__2 and 
+B__2 &lt;= 2 and 
+( L == 0 or L == 11 ) and 
+R == 0</conditions>
+               <assignments>L := 11 ; 
+</assignments>
+          </transition>
+          <transition id="Choose3_pre_t_0_1">
+               <graphics>
+                    <position x="275.81" y="510.064"/>
+               </graphics>
+               <name>
+                    <value>Choose3_pre_t_0_1</value>
+               </name>
+               <conditions>Choose3_pre_0 == 0 and 
+B_ &gt;= 1 and 
+0 &lt;= B__1 and 
+B__1 &lt;= 2 and 
+( L == 0 or L == 11 ) and 
+R == 0</conditions>
+               <assignments>L := 11 ; 
+B__1 := B__2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose3_pre_t_0_0">
+               <graphics>
+                    <position x="290.736" y="507.874"/>
+               </graphics>
+               <name>
+                    <value>Choose3_pre_t_0_0</value>
+               </name>
+               <conditions>Choose3_pre_0 == 0 and 
+B_ &gt;= 0 and 
+0 &lt;= B__0 and 
+B__0 &lt;= 2 and 
+( L == 0 or L == 11 ) and 
+R == 0</conditions>
+               <assignments>L := 11 ; 
+B__0 := B__1 ; 
+B__1 := B__2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose3">
+               <graphics>
+                    <position x="324.778" y="367.177"/>
+               </graphics>
+               <name>
+                    <value>Choose3</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 1;</assignments>
+          </transition>
+          <transition id="Choose2C_pre_t_1_2">
+               <graphics>
+                    <position x="444.756" y="413.858"/>
+               </graphics>
+               <name>
+                    <value>Choose2C_pre_t_1_2</value>
+               </name>
+               <conditions>Choose2C_pre_1 == 0 and 
+C_ &gt;= 2 and 
+0 &lt;= C__2 and 
+C__2 &lt;= 3 and 
+( L == 0 or L == 10 ) and 
+R == 0</conditions>
+               <assignments>L := 10 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2C_pre_t_1_1">
+               <graphics>
+                    <position x="464.162" y="392.431"/>
+               </graphics>
+               <name>
+                    <value>Choose2C_pre_t_1_1</value>
+               </name>
+               <conditions>Choose2C_pre_1 == 0 and 
+C_ &gt;= 1 and 
+0 &lt;= C__1 and 
+C__1 &lt;= 3 and 
+( L == 0 or L == 10 ) and 
+R == 0</conditions>
+               <assignments>L := 10 ; 
+C__1 := C__2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2C_pre_t_1_0">
+               <graphics>
+                    <position x="455.762" y="404.343"/>
+               </graphics>
+               <name>
+                    <value>Choose2C_pre_t_1_0</value>
+               </name>
+               <conditions>Choose2C_pre_1 == 0 and 
+C_ &gt;= 0 and 
+0 &lt;= C__0 and 
+C__0 &lt;= 3 and 
+( L == 0 or L == 10 ) and 
+R == 0</conditions>
+               <assignments>L := 10 ; 
+C__0 := C__1 ; 
+C__1 := C__2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2C_pre_t_0_2">
+               <graphics>
+                    <position x="485.82" y="230.089"/>
+               </graphics>
+               <name>
+                    <value>Choose2C_pre_t_0_2</value>
+               </name>
+               <conditions>Choose2C_pre_0 == 0 and 
+B &gt;= 2 and 
+0 &lt;= B_2 and 
+B_2 &lt;= 2 and 
+( L == 0 or L == 10 ) and 
+R == 0</conditions>
+               <assignments>L := 10 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2C_pre_t_0_1">
+               <graphics>
+                    <position x="482.375" y="216.297"/>
+               </graphics>
+               <name>
+                    <value>Choose2C_pre_t_0_1</value>
+               </name>
+               <conditions>Choose2C_pre_0 == 0 and 
+B &gt;= 1 and 
+0 &lt;= B_1 and 
+B_1 &lt;= 2 and 
+( L == 0 or L == 10 ) and 
+R == 0</conditions>
+               <assignments>L := 10 ; 
+B_1 := B_2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2C_pre_t_0_0">
+               <graphics>
+                    <position x="489.55" y="243.869"/>
+               </graphics>
+               <name>
+                    <value>Choose2C_pre_t_0_0</value>
+               </name>
+               <conditions>Choose2C_pre_0 == 0 and 
+B &gt;= 0 and 
+0 &lt;= B_0 and 
+B_0 &lt;= 2 and 
+( L == 0 or L == 10 ) and 
+R == 0</conditions>
+               <assignments>L := 10 ; 
+B_0 := B_1 ; 
+B_1 := B_2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2C">
+               <graphics>
+                    <position x="375.024" y="282.602"/>
+               </graphics>
+               <name>
+                    <value>Choose2C</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 2;</assignments>
+          </transition>
+          <transition id="Choose1_pre_t_1_2">
+               <graphics>
+                    <position x="198.034" y="113.634"/>
+               </graphics>
+               <name>
+                    <value>Choose1_pre_t_1_2</value>
+               </name>
+               <conditions>Choose1_pre_1 == 0 and 
+udf &gt;= 2 and 
+0 &lt;= udf_2 and 
+udf_2 &lt;= 0 and 
+( L == 0 or L == 9 ) and 
+R == 0</conditions>
+               <assignments>L := 9 ; 
+</assignments>
+          </transition>
+          <transition id="Choose1_pre_t_1_1">
+               <graphics>
+                    <position x="202.042" y="125.888"/>
+               </graphics>
+               <name>
+                    <value>Choose1_pre_t_1_1</value>
+               </name>
+               <conditions>Choose1_pre_1 == 0 and 
+udf &gt;= 1 and 
+0 &lt;= udf_1 and 
+udf_1 &lt;= 0 and 
+( L == 0 or L == 9 ) and 
+R == 0</conditions>
+               <assignments>L := 9 ; 
+udf_1 := udf_2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose1_pre_t_1_0">
+               <graphics>
+                    <position x="188.771" y="131.368"/>
+               </graphics>
+               <name>
+                    <value>Choose1_pre_t_1_0</value>
+               </name>
+               <conditions>Choose1_pre_1 == 0 and 
+udf &gt;= 0 and 
+0 &lt;= udf_0 and 
+udf_0 &lt;= 0 and 
+( L == 0 or L == 9 ) and 
+R == 0</conditions>
+               <assignments>L := 9 ; 
+udf_0 := udf_1 ; 
+udf_1 := udf_2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose1_pre_t_0_2">
+               <graphics>
+                    <position x="457.162" y="176.929"/>
+               </graphics>
+               <name>
+                    <value>Choose1_pre_t_0_2</value>
+               </name>
+               <conditions>Choose1_pre_0 == 0 and 
+B &gt;= 2 and 
+0 &lt;= B_2 and 
+B_2 &lt;= 2 and 
+( L == 0 or L == 9 ) and 
+R == 0</conditions>
+               <assignments>L := 9 ; 
+</assignments>
+          </transition>
+          <transition id="Choose1_pre_t_0_1">
+               <graphics>
+                    <position x="432.669" y="162.317"/>
+               </graphics>
+               <name>
+                    <value>Choose1_pre_t_0_1</value>
+               </name>
+               <conditions>Choose1_pre_0 == 0 and 
+B &gt;= 1 and 
+0 &lt;= B_1 and 
+B_1 &lt;= 2 and 
+( L == 0 or L == 9 ) and 
+R == 0</conditions>
+               <assignments>L := 9 ; 
+B_1 := B_2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose1_pre_t_0_0">
+               <graphics>
+                    <position x="445.745" y="167.389"/>
+               </graphics>
+               <name>
+                    <value>Choose1_pre_t_0_0</value>
+               </name>
+               <conditions>Choose1_pre_0 == 0 and 
+B &gt;= 0 and 
+0 &lt;= B_0 and 
+B_0 &lt;= 2 and 
+( L == 0 or L == 9 ) and 
+R == 0</conditions>
+               <assignments>L := 9 ; 
+B_0 := B_1 ; 
+B_1 := B_2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose1">
+               <graphics>
+                    <position x="323.296" y="223.431"/>
+               </graphics>
+               <name>
+                    <value>Choose1</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 1;</assignments>
+          </transition>
+          <transition id="Fail2_pre_t_1_2">
+               <graphics>
+                    <position x="241.423" y="66.0959"/>
+               </graphics>
+               <name>
+                    <value>Fail2_pre_t_1_2</value>
+               </name>
+               <conditions>Fail2_pre_1 == 0 and 
+C &gt;= 2 and 
+0 &lt;= C_2 and 
+C_2 &lt;= 0 and 
+( L == 0 or L == 8 ) and 
+R == 0</conditions>
+               <assignments>L := 8 ; 
+</assignments>
+          </transition>
+          <transition id="Fail2_pre_t_1_1">
+               <graphics>
+                    <position x="256.414" y="62.6507"/>
+               </graphics>
+               <name>
+                    <value>Fail2_pre_t_1_1</value>
+               </name>
+               <conditions>Fail2_pre_1 == 0 and 
+C &gt;= 1 and 
+0 &lt;= C_1 and 
+C_1 &lt;= 0 and 
+( L == 0 or L == 8 ) and 
+R == 0</conditions>
+               <assignments>L := 8 ; 
+C_1 := C_2 ; 
+</assignments>
+          </transition>
+          <transition id="Fail2_pre_t_1_0">
+               <graphics>
+                    <position x="272.079" y="60.7651"/>
+               </graphics>
+               <name>
+                    <value>Fail2_pre_t_1_0</value>
+               </name>
+               <conditions>Fail2_pre_1 == 0 and 
+C &gt;= 0 and 
+0 &lt;= C_0 and 
+C_0 &lt;= 0 and 
+( L == 0 or L == 8 ) and 
+R == 0</conditions>
+               <assignments>L := 8 ; 
+C_0 := C_1 ; 
+C_1 := C_2 ; 
+</assignments>
+          </transition>
+          <transition id="Fail2_pre_t_0_2">
+               <graphics>
+                    <position x="145.069" y="86.3727"/>
+               </graphics>
+               <name>
+                    <value>Fail2_pre_t_0_2</value>
+               </name>
+               <conditions>Fail2_pre_0 == 0 and 
+udf &gt;= 2 and 
+0 &lt;= udf_2 and 
+udf_2 &lt;= 0 and 
+( L == 0 or L == 8 ) and 
+R == 0</conditions>
+               <assignments>L := 8 ; 
+</assignments>
+          </transition>
+          <transition id="Fail2_pre_t_0_1">
+               <graphics>
+                    <position x="160.118" y="86.4871"/>
+               </graphics>
+               <name>
+                    <value>Fail2_pre_t_0_1</value>
+               </name>
+               <conditions>Fail2_pre_0 == 0 and 
+udf &gt;= 1 and 
+0 &lt;= udf_1 and 
+udf_1 &lt;= 0 and 
+( L == 0 or L == 8 ) and 
+R == 0</conditions>
+               <assignments>L := 8 ; 
+udf_1 := udf_2 ; 
+</assignments>
+          </transition>
+          <transition id="Fail2_pre_t_0_0">
+               <graphics>
+                    <position x="146.28" y="99.08"/>
+               </graphics>
+               <name>
+                    <value>Fail2_pre_t_0_0</value>
+               </name>
+               <conditions>Fail2_pre_0 == 0 and 
+udf &gt;= 0 and 
+0 &lt;= udf_0 and 
+udf_0 &lt;= 0 and 
+( L == 0 or L == 8 ) and 
+R == 0</conditions>
+               <assignments>L := 8 ; 
+udf_0 := udf_1 ; 
+udf_1 := udf_2 ; 
+</assignments>
+          </transition>
+          <transition id="Fail2">
+               <graphics>
+                    <position x="242.35" y="197.897"/>
+               </graphics>
+               <name>
+                    <value>Fail2</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 2;</assignments>
+          </transition>
+          <transition id="Fail1_pre_t_1_2">
+               <graphics>
+                    <position x="347.397" y="403.033"/>
+               </graphics>
+               <name>
+                    <value>Fail1_pre_t_1_2</value>
+               </name>
+               <conditions>Fail1_pre_1 == 0 and 
+C_ &gt;= 2 and 
+0 &lt;= C__2 and 
+C__2 &lt;= 3 and 
+( L == 0 or L == 7 ) and 
+R == 0</conditions>
+               <assignments>L := 7 ; 
+</assignments>
+          </transition>
+          <transition id="Fail1_pre_t_1_1">
+               <graphics>
+                    <position x="361.046" y="406.345"/>
+               </graphics>
+               <name>
+                    <value>Fail1_pre_t_1_1</value>
+               </name>
+               <conditions>Fail1_pre_1 == 0 and 
+C_ &gt;= 1 and 
+0 &lt;= C__1 and 
+C__1 &lt;= 3 and 
+( L == 0 or L == 7 ) and 
+R == 0</conditions>
+               <assignments>L := 7 ; 
+C__1 := C__2 ; 
+</assignments>
+          </transition>
+          <transition id="Fail1_pre_t_1_0">
+               <graphics>
+                    <position x="347.005" y="387.312"/>
+               </graphics>
+               <name>
+                    <value>Fail1_pre_t_1_0</value>
+               </name>
+               <conditions>Fail1_pre_1 == 0 and 
+C_ &gt;= 0 and 
+0 &lt;= C__0 and 
+C__0 &lt;= 3 and 
+( L == 0 or L == 7 ) and 
+R == 0</conditions>
+               <assignments>L := 7 ; 
+C__0 := C__1 ; 
+C__1 := C__2 ; 
+</assignments>
+          </transition>
+          <transition id="Fail1_pre_t_0_2">
+               <graphics>
+                    <position x="105.753" y="181.054"/>
+               </graphics>
+               <name>
+                    <value>Fail1_pre_t_0_2</value>
+               </name>
+               <conditions>Fail1_pre_0 == 0 and 
+udf &gt;= 2 and 
+0 &lt;= udf_2 and 
+udf_2 &lt;= 0 and 
+( L == 0 or L == 7 ) and 
+R == 0</conditions>
+               <assignments>L := 7 ; 
+</assignments>
+          </transition>
+          <transition id="Fail1_pre_t_0_1">
+               <graphics>
+                    <position x="87.1998" y="196.579"/>
+               </graphics>
+               <name>
+                    <value>Fail1_pre_t_0_1</value>
+               </name>
+               <conditions>Fail1_pre_0 == 0 and 
+udf &gt;= 1 and 
+0 &lt;= udf_1 and 
+udf_1 &lt;= 0 and 
+( L == 0 or L == 7 ) and 
+R == 0</conditions>
+               <assignments>L := 7 ; 
+udf_1 := udf_2 ; 
+</assignments>
+          </transition>
+          <transition id="Fail1_pre_t_0_0">
+               <graphics>
+                    <position x="91.1414" y="184.496"/>
+               </graphics>
+               <name>
+                    <value>Fail1_pre_t_0_0</value>
+               </name>
+               <conditions>Fail1_pre_0 == 0 and 
+udf &gt;= 0 and 
+0 &lt;= udf_0 and 
+udf_0 &lt;= 0 and 
+( L == 0 or L == 7 ) and 
+R == 0</conditions>
+               <assignments>L := 7 ; 
+udf_0 := udf_1 ; 
+udf_1 := udf_2 ; 
+</assignments>
+          </transition>
+          <transition id="Fail1">
+               <graphics>
+                    <position x="210.084" y="307.624"/>
+               </graphics>
+               <name>
+                    <value>Fail1</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 2;</assignments>
+          </transition>
+          <transition id="Exit2CS_pre_t_1_2">
+               <graphics>
+                    <position x="323.496" y="109.83"/>
+               </graphics>
+               <name>
+                    <value>Exit2CS_pre_t_1_2</value>
+               </name>
+               <conditions>Exit2CS_pre_1 == 0 and 
+CS_ &gt;= 2 and 
+0 &lt;= CS__2 and 
+CS__2 &lt;= 0 and 
+( L == 0 or L == 6 ) and 
+R == 0</conditions>
+               <assignments>L := 6 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2CS_pre_t_1_1">
+               <graphics>
+                    <position x="293.322" y="85.8522"/>
+               </graphics>
+               <name>
+                    <value>Exit2CS_pre_t_1_1</value>
+               </name>
+               <conditions>Exit2CS_pre_1 == 0 and 
+CS_ &gt;= 1 and 
+0 &lt;= CS__1 and 
+CS__1 &lt;= 0 and 
+( L == 0 or L == 6 ) and 
+R == 0</conditions>
+               <assignments>L := 6 ; 
+CS__1 := CS__2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2CS_pre_t_1_0">
+               <graphics>
+                    <position x="308.093" y="99.6178"/>
+               </graphics>
+               <name>
+                    <value>Exit2CS_pre_t_1_0</value>
+               </name>
+               <conditions>Exit2CS_pre_1 == 0 and 
+CS_ &gt;= 0 and 
+0 &lt;= CS__0 and 
+CS__0 &lt;= 0 and 
+( L == 0 or L == 6 ) and 
+R == 0</conditions>
+               <assignments>L := 6 ; 
+CS__0 := CS__1 ; 
+CS__1 := CS__2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2CS_pre_t_0_2">
+               <graphics>
+                    <position x="75.184" y="284.733"/>
+               </graphics>
+               <name>
+                    <value>Exit2CS_pre_t_0_2</value>
+               </name>
+               <conditions>Exit2CS_pre_0 == 0 and 
+CS &gt;= 2 and 
+0 &lt;= CS_2 and 
+CS_2 &lt;= 0 and 
+( L == 0 or L == 6 ) and 
+R == 0</conditions>
+               <assignments>L := 6 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2CS_pre_t_0_1">
+               <graphics>
+                    <position x="81.3176" y="309.974"/>
+               </graphics>
+               <name>
+                    <value>Exit2CS_pre_t_0_1</value>
+               </name>
+               <conditions>Exit2CS_pre_0 == 0 and 
+CS &gt;= 1 and 
+0 &lt;= CS_1 and 
+CS_1 &lt;= 0 and 
+( L == 0 or L == 6 ) and 
+R == 0</conditions>
+               <assignments>L := 6 ; 
+CS_1 := CS_2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2CS_pre_t_0_0">
+               <graphics>
+                    <position x="70.9445" y="297.205"/>
+               </graphics>
+               <name>
+                    <value>Exit2CS_pre_t_0_0</value>
+               </name>
+               <conditions>Exit2CS_pre_0 == 0 and 
+CS &gt;= 0 and 
+0 &lt;= CS_0 and 
+CS_0 &lt;= 0 and 
+( L == 0 or L == 6 ) and 
+R == 0</conditions>
+               <assignments>L := 6 ; 
+CS_0 := CS_1 ; 
+CS_1 := CS_2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2CS">
+               <graphics>
+                    <position x="228.127" y="233.763"/>
+               </graphics>
+               <name>
+                    <value>Exit2CS</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 3;</assignments>
+          </transition>
+          <transition id="Exit2C_pre_t_1_2">
+               <graphics>
+                    <position x="377.948" y="370.074"/>
+               </graphics>
+               <name>
+                    <value>Exit2C_pre_t_1_2</value>
+               </name>
+               <conditions>Exit2C_pre_1 == 0 and 
+C_ &gt;= 2 and 
+0 &lt;= C__2 and 
+C__2 &lt;= 3 and 
+( L == 0 or L == 5 ) and 
+R == 0</conditions>
+               <assignments>L := 5 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2C_pre_t_1_1">
+               <graphics>
+                    <position x="375.511" y="387.38"/>
+               </graphics>
+               <name>
+                    <value>Exit2C_pre_t_1_1</value>
+               </name>
+               <conditions>Exit2C_pre_1 == 0 and 
+C_ &gt;= 1 and 
+0 &lt;= C__1 and 
+C__1 &lt;= 3 and 
+( L == 0 or L == 5 ) and 
+R == 0</conditions>
+               <assignments>L := 5 ; 
+C__1 := C__2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2C_pre_t_1_0">
+               <graphics>
+                    <position x="364.16" y="364.095"/>
+               </graphics>
+               <name>
+                    <value>Exit2C_pre_t_1_0</value>
+               </name>
+               <conditions>Exit2C_pre_1 == 0 and 
+C_ &gt;= 0 and 
+0 &lt;= C__0 and 
+C__0 &lt;= 3 and 
+( L == 0 or L == 5 ) and 
+R == 0</conditions>
+               <assignments>L := 5 ; 
+C__0 := C__1 ; 
+C__1 := C__2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2C_pre_t_0_2">
+               <graphics>
+                    <position x="150.949" y="388.457"/>
+               </graphics>
+               <name>
+                    <value>Exit2C_pre_t_0_2</value>
+               </name>
+               <conditions>Exit2C_pre_0 == 0 and 
+CS &gt;= 2 and 
+0 &lt;= CS_2 and 
+CS_2 &lt;= 0 and 
+( L == 0 or L == 5 ) and 
+R == 0</conditions>
+               <assignments>L := 5 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2C_pre_t_0_1">
+               <graphics>
+                    <position x="137.277" y="371.255"/>
+               </graphics>
+               <name>
+                    <value>Exit2C_pre_t_0_1</value>
+               </name>
+               <conditions>Exit2C_pre_0 == 0 and 
+CS &gt;= 1 and 
+0 &lt;= CS_1 and 
+CS_1 &lt;= 0 and 
+( L == 0 or L == 5 ) and 
+R == 0</conditions>
+               <assignments>L := 5 ; 
+CS_1 := CS_2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2C_pre_t_0_0">
+               <graphics>
+                    <position x="138.794" y="390.506"/>
+               </graphics>
+               <name>
+                    <value>Exit2C_pre_t_0_0</value>
+               </name>
+               <conditions>Exit2C_pre_0 == 0 and 
+CS &gt;= 0 and 
+0 &lt;= CS_0 and 
+CS_0 &lt;= 0 and 
+( L == 0 or L == 5 ) and 
+R == 0</conditions>
+               <assignments>L := 5 ; 
+CS_0 := CS_1 ; 
+CS_1 := CS_2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2C">
+               <graphics>
+                    <position x="258.896" y="285.067"/>
+               </graphics>
+               <name>
+                    <value>Exit2C</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 3;</assignments>
+          </transition>
+          <transition id="Exit2B_pre_t_1_2">
+               <graphics>
+                    <position x="101.684" y="381.615"/>
+               </graphics>
+               <name>
+                    <value>Exit2B_pre_t_1_2</value>
+               </name>
+               <conditions>Exit2B_pre_1 == 0 and 
+CS &gt;= 2 and 
+0 &lt;= CS_2 and 
+CS_2 &lt;= 0 and 
+( L == 0 or L == 4 ) and 
+R == 0</conditions>
+               <assignments>L := 4 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2B_pre_t_1_1">
+               <graphics>
+                    <position x="111.27" y="391.661"/>
+               </graphics>
+               <name>
+                    <value>Exit2B_pre_t_1_1</value>
+               </name>
+               <conditions>Exit2B_pre_1 == 0 and 
+CS &gt;= 1 and 
+0 &lt;= CS_1 and 
+CS_1 &lt;= 0 and 
+( L == 0 or L == 4 ) and 
+R == 0</conditions>
+               <assignments>L := 4 ; 
+CS_1 := CS_2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2B_pre_t_1_0">
+               <graphics>
+                    <position x="97.1669" y="368.484"/>
+               </graphics>
+               <name>
+                    <value>Exit2B_pre_t_1_0</value>
+               </name>
+               <conditions>Exit2B_pre_1 == 0 and 
+CS &gt;= 0 and 
+0 &lt;= CS_0 and 
+CS_0 &lt;= 0 and 
+( L == 0 or L == 4 ) and 
+R == 0</conditions>
+               <assignments>L := 4 ; 
+CS_0 := CS_1 ; 
+CS_1 := CS_2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2B_pre_t_0_2">
+               <graphics>
+                    <position x="196.806" y="436.403"/>
+               </graphics>
+               <name>
+                    <value>Exit2B_pre_t_0_2</value>
+               </name>
+               <conditions>Exit2B_pre_0 == 0 and 
+B_ &gt;= 2 and 
+0 &lt;= B__2 and 
+B__2 &lt;= 3 and 
+( L == 0 or L == 4 ) and 
+R == 0</conditions>
+               <assignments>L := 4 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2B_pre_t_0_1">
+               <graphics>
+                    <position x="208.867" y="445.797"/>
+               </graphics>
+               <name>
+                    <value>Exit2B_pre_t_0_1</value>
+               </name>
+               <conditions>Exit2B_pre_0 == 0 and 
+B_ &gt;= 1 and 
+0 &lt;= B__1 and 
+B__1 &lt;= 3 and 
+( L == 0 or L == 4 ) and 
+R == 0</conditions>
+               <assignments>L := 4 ; 
+B__1 := B__2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2B_pre_t_0_0">
+               <graphics>
+                    <position x="221.755" y="436.871"/>
+               </graphics>
+               <name>
+                    <value>Exit2B_pre_t_0_0</value>
+               </name>
+               <conditions>Exit2B_pre_0 == 0 and 
+B_ &gt;= 0 and 
+0 &lt;= B__0 and 
+B__0 &lt;= 3 and 
+( L == 0 or L == 4 ) and 
+R == 0</conditions>
+               <assignments>L := 4 ; 
+B__0 := B__1 ; 
+B__1 := B__2 ; 
+</assignments>
+          </transition>
+          <transition id="Exit2B">
+               <graphics>
+                    <position x="232.728" y="303.472"/>
+               </graphics>
+               <name>
+                    <value>Exit2B</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 3;</assignments>
+          </transition>
+          <transition id="Choose2CS_pre_t_1_2">
+               <graphics>
+                    <position x="404.654" y="117.469"/>
+               </graphics>
+               <name>
+                    <value>Choose2CS_pre_t_1_2</value>
+               </name>
+               <conditions>Choose2CS_pre_1 == 0 and 
+CS_ &gt;= 2 and 
+0 &lt;= CS__2 and 
+CS__2 &lt;= 0 and 
+( L == 0 or L == 3 ) and 
+R == 0</conditions>
+               <assignments>L := 3 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2CS_pre_t_1_1">
+               <graphics>
+                    <position x="382.874" y="107.519"/>
+               </graphics>
+               <name>
+                    <value>Choose2CS_pre_t_1_1</value>
+               </name>
+               <conditions>Choose2CS_pre_1 == 0 and 
+CS_ &gt;= 1 and 
+0 &lt;= CS__1 and 
+CS__1 &lt;= 0 and 
+( L == 0 or L == 3 ) and 
+R == 0</conditions>
+               <assignments>L := 3 ; 
+CS__1 := CS__2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2CS_pre_t_1_0">
+               <graphics>
+                    <position x="396.962" y="105.141"/>
+               </graphics>
+               <name>
+                    <value>Choose2CS_pre_t_1_0</value>
+               </name>
+               <conditions>Choose2CS_pre_1 == 0 and 
+CS_ &gt;= 0 and 
+0 &lt;= CS__0 and 
+CS__0 &lt;= 0 and 
+( L == 0 or L == 3 ) and 
+R == 0</conditions>
+               <assignments>L := 3 ; 
+CS__0 := CS__1 ; 
+CS__1 := CS__2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2CS_pre_t_0_2">
+               <graphics>
+                    <position x="442.833" y="201.017"/>
+               </graphics>
+               <name>
+                    <value>Choose2CS_pre_t_0_2</value>
+               </name>
+               <conditions>Choose2CS_pre_0 == 0 and 
+B &gt;= 2 and 
+0 &lt;= B_2 and 
+B_2 &lt;= 2 and 
+( L == 0 or L == 3 ) and 
+R == 0</conditions>
+               <assignments>L := 3 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2CS_pre_t_0_1">
+               <graphics>
+                    <position x="452.059" y="216.136"/>
+               </graphics>
+               <name>
+                    <value>Choose2CS_pre_t_0_1</value>
+               </name>
+               <conditions>Choose2CS_pre_0 == 0 and 
+B &gt;= 1 and 
+0 &lt;= B_1 and 
+B_1 &lt;= 2 and 
+( L == 0 or L == 3 ) and 
+R == 0</conditions>
+               <assignments>L := 3 ; 
+B_1 := B_2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2CS_pre_t_0_0">
+               <graphics>
+                    <position x="424.012" y="191.683"/>
+               </graphics>
+               <name>
+                    <value>Choose2CS_pre_t_0_0</value>
+               </name>
+               <conditions>Choose2CS_pre_0 == 0 and 
+B &gt;= 0 and 
+0 &lt;= B_0 and 
+B_0 &lt;= 2 and 
+( L == 0 or L == 3 ) and 
+R == 0</conditions>
+               <assignments>L := 3 ; 
+B_0 := B_1 ; 
+B_1 := B_2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2CS">
+               <graphics>
+                    <position x="323.118" y="255.395"/>
+               </graphics>
+               <name>
+                    <value>Choose2CS</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 2;</assignments>
+          </transition>
+          <transition id="Choose2B_pre_t_1_2">
+               <graphics>
+                    <position x="265.914" y="448.643"/>
+               </graphics>
+               <name>
+                    <value>Choose2B_pre_t_1_2</value>
+               </name>
+               <conditions>Choose2B_pre_1 == 0 and 
+B_ &gt;= 2 and 
+0 &lt;= B__2 and 
+B__2 &lt;= 3 and 
+( L == 0 or L == 2 ) and 
+R == 0</conditions>
+               <assignments>L := 2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2B_pre_t_1_1">
+               <graphics>
+                    <position x="274.545" y="460.227"/>
+               </graphics>
+               <name>
+                    <value>Choose2B_pre_t_1_1</value>
+               </name>
+               <conditions>Choose2B_pre_1 == 0 and 
+B_ &gt;= 1 and 
+0 &lt;= B__1 and 
+B__1 &lt;= 3 and 
+( L == 0 or L == 2 ) and 
+R == 0</conditions>
+               <assignments>L := 2 ; 
+B__1 := B__2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2B_pre_t_1_0">
+               <graphics>
+                    <position x="289.123" y="458.907"/>
+               </graphics>
+               <name>
+                    <value>Choose2B_pre_t_1_0</value>
+               </name>
+               <conditions>Choose2B_pre_1 == 0 and 
+B_ &gt;= 0 and 
+0 &lt;= B__0 and 
+B__0 &lt;= 3 and 
+( L == 0 or L == 2 ) and 
+R == 0</conditions>
+               <assignments>L := 2 ; 
+B__0 := B__1 ; 
+B__1 := B__2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2B_pre_t_0_2">
+               <graphics>
+                    <position x="473.952" y="282.068"/>
+               </graphics>
+               <name>
+                    <value>Choose2B_pre_t_0_2</value>
+               </name>
+               <conditions>Choose2B_pre_0 == 0 and 
+B &gt;= 2 and 
+0 &lt;= B_2 and 
+B_2 &lt;= 2 and 
+( L == 0 or L == 2 ) and 
+R == 0</conditions>
+               <assignments>L := 2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2B_pre_t_0_1">
+               <graphics>
+                    <position x="472.322" y="267.474"/>
+               </graphics>
+               <name>
+                    <value>Choose2B_pre_t_0_1</value>
+               </name>
+               <conditions>Choose2B_pre_0 == 0 and 
+B &gt;= 1 and 
+0 &lt;= B_1 and 
+B_1 &lt;= 2 and 
+( L == 0 or L == 2 ) and 
+R == 0</conditions>
+               <assignments>L := 2 ; 
+B_1 := B_2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2B_pre_t_0_0">
+               <graphics>
+                    <position x="465.283" y="293.335"/>
+               </graphics>
+               <name>
+                    <value>Choose2B_pre_t_0_0</value>
+               </name>
+               <conditions>Choose2B_pre_0 == 0 and 
+B &gt;= 0 and 
+0 &lt;= B_0 and 
+B_0 &lt;= 2 and 
+( L == 0 or L == 2 ) and 
+R == 0</conditions>
+               <assignments>L := 2 ; 
+B_0 := B_1 ; 
+B_1 := B_2 ; 
+</assignments>
+          </transition>
+          <transition id="Choose2B">
+               <graphics>
+                    <position x="314.36" y="309.461"/>
+               </graphics>
+               <name>
+                    <value>Choose2B</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 2;</assignments>
+          </transition>
+          <transition id="Initiate_pre_t_1_2">
+               <graphics>
+                    <position x="122.104" y="99.5561"/>
+               </graphics>
+               <name>
+                    <value>Initiate_pre_t_1_2</value>
+               </name>
+               <conditions>Initiate_pre_1 == 0 and 
+udf &gt;= 2 and 
+0 &lt;= udf_2 and 
+udf_2 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+</assignments>
+          </transition>
+          <transition id="Initiate_pre_t_1_1">
+               <graphics>
+                    <position x="121.595" y="112.708"/>
+               </graphics>
+               <name>
+                    <value>Initiate_pre_t_1_1</value>
+               </name>
+               <conditions>Initiate_pre_1 == 0 and 
+udf &gt;= 1 and 
+0 &lt;= udf_1 and 
+udf_1 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+udf_1 := udf_2 ; 
+</assignments>
+          </transition>
+          <transition id="Initiate_pre_t_1_0">
+               <graphics>
+                    <position x="108.094" y="116.168"/>
+               </graphics>
+               <name>
+                    <value>Initiate_pre_t_1_0</value>
+               </name>
+               <conditions>Initiate_pre_1 == 0 and 
+udf &gt;= 0 and 
+0 &lt;= udf_0 and 
+udf_0 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+udf_0 := udf_1 ; 
+udf_1 := udf_2 ; 
+</assignments>
+          </transition>
+          <transition id="Initiate_pre_t_0_2">
+               <graphics>
+                    <position x="69.9356" y="221.319"/>
+               </graphics>
+               <name>
+                    <value>Initiate_pre_t_0_2</value>
+               </name>
+               <conditions>Initiate_pre_0 == 0 and 
+A &gt;= 2 and 
+0 &lt;= A_2 and 
+A_2 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+</assignments>
+          </transition>
+          <transition id="Initiate_pre_t_0_1">
+               <graphics>
+                    <position x="64.6705" y="260.242"/>
+               </graphics>
+               <name>
+                    <value>Initiate_pre_t_0_1</value>
+               </name>
+               <conditions>Initiate_pre_0 == 0 and 
+A &gt;= 1 and 
+0 &lt;= A_1 and 
+A_1 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+A_1 := A_2 ; 
+</assignments>
+          </transition>
+          <transition id="Initiate_pre_t_0_0">
+               <graphics>
+                    <position x="65.502" y="240.153"/>
+               </graphics>
+               <name>
+                    <value>Initiate_pre_t_0_0</value>
+               </name>
+               <conditions>Initiate_pre_0 == 0 and 
+A &gt;= 0 and 
+0 &lt;= A_0 and 
+A_0 &lt;= 0 and 
+( L == 0 or L == 1 ) and 
+R == 0</conditions>
+               <assignments>L := 1 ; 
+A_0 := A_1 ; 
+A_1 := A_2 ; 
+</assignments>
+          </transition>
+          <transition id="Initiate">
+               <graphics>
+                    <position x="213.932" y="220.404"/>
+               </graphics>
+               <name>
+                    <value>Initiate</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; R := 2;</assignments>
+          </transition>
+          <transition id="C__t2">
+               <graphics>
+                    <position x="389.6" y="335.671"/>
+               </graphics>
+               <name>
+                    <value>C__t2</value>
+               </name>
+               <conditions>C_ == 2</conditions>
+               <assignments>L := L-1; C__2 := 0;</assignments>
+          </transition>
+          <transition id="C__t1">
+               <graphics>
+                    <position x="376.961" y="332.735"/>
+               </graphics>
+               <name>
+                    <value>C__t1</value>
+               </name>
+               <conditions>C_ == 1</conditions>
+               <assignments>L := L-1; C__1 := 0;</assignments>
+          </transition>
+          <transition id="C__t0">
+               <graphics>
+                    <position x="391.446" y="325.019"/>
+               </graphics>
+               <name>
+                    <value>C__t0</value>
+               </name>
+               <conditions>C_ == 0</conditions>
+               <assignments>L := L-1; C__0 := 0;</assignments>
+          </transition>
+          <transition id="CS__t2">
+               <graphics>
+                    <position x="448.007" y="73.9944"/>
+               </graphics>
+               <name>
+                    <value>CS__t2</value>
+               </name>
+               <conditions>CS_ == 2</conditions>
+               <assignments>L := L-1; CS__2 := 0;</assignments>
+          </transition>
+          <transition id="CS__t1">
+               <graphics>
+                    <position x="430.689" y="50"/>
+               </graphics>
+               <name>
+                    <value>CS__t1</value>
+               </name>
+               <conditions>CS_ == 1</conditions>
+               <assignments>L := L-1; CS__1 := 0;</assignments>
+          </transition>
+          <transition id="CS__t0">
+               <graphics>
+                    <position x="440.951" y="60.9718"/>
+               </graphics>
+               <name>
+                    <value>CS__t0</value>
+               </name>
+               <conditions>CS_ == 0</conditions>
+               <assignments>L := L-1; CS__0 := 0;</assignments>
+          </transition>
+          <transition id="CS_t2">
+               <graphics>
+                    <position x="171.188" y="321.371"/>
+               </graphics>
+               <name>
+                    <value>CS_t2</value>
+               </name>
+               <conditions>CS == 2</conditions>
+               <assignments>L := L-1; CS_2 := 0;</assignments>
+          </transition>
+          <transition id="CS_t1">
+               <graphics>
+                    <position x="182.016" y="334.773"/>
+               </graphics>
+               <name>
+                    <value>CS_t1</value>
+               </name>
+               <conditions>CS == 1</conditions>
+               <assignments>L := L-1; CS_1 := 0;</assignments>
+          </transition>
+          <transition id="CS_t0">
+               <graphics>
+                    <position x="161.228" y="307.653"/>
+               </graphics>
+               <name>
+                    <value>CS_t0</value>
+               </name>
+               <conditions>CS == 0</conditions>
+               <assignments>L := L-1; CS_0 := 0;</assignments>
+          </transition>
+          <transition id="C_t2">
+               <graphics>
+                    <position x="319.408" y="161.774"/>
+               </graphics>
+               <name>
+                    <value>C_t2</value>
+               </name>
+               <conditions>C == 2</conditions>
+               <assignments>L := L-1; C_2 := 0;</assignments>
+          </transition>
+          <transition id="C_t1">
+               <graphics>
+                    <position x="333.515" y="162.856"/>
+               </graphics>
+               <name>
+                    <value>C_t1</value>
+               </name>
+               <conditions>C == 1</conditions>
+               <assignments>L := L-1; C_1 := 0;</assignments>
+          </transition>
+          <transition id="C_t0">
+               <graphics>
+                    <position x="305.054" y="166.213"/>
+               </graphics>
+               <name>
+                    <value>C_t0</value>
+               </name>
+               <conditions>C == 0</conditions>
+               <assignments>L := L-1; C_0 := 0;</assignments>
+          </transition>
+          <transition id="udf_t2">
+               <graphics>
+                    <position x="171.205" y="197.369"/>
+               </graphics>
+               <name>
+                    <value>udf_t2</value>
+               </name>
+               <conditions>udf == 2</conditions>
+               <assignments>L := L-1; udf_2 := 0;</assignments>
+          </transition>
+          <transition id="udf_t1">
+               <graphics>
+                    <position x="165.17" y="204.008"/>
+               </graphics>
+               <name>
+                    <value>udf_t1</value>
+               </name>
+               <conditions>udf == 1</conditions>
+               <assignments>L := L-1; udf_1 := 0;</assignments>
+          </transition>
+          <transition id="udf_t0">
+               <graphics>
+                    <position x="179.456" y="193.018"/>
+               </graphics>
+               <name>
+                    <value>udf_t0</value>
+               </name>
+               <conditions>udf == 0</conditions>
+               <assignments>L := L-1; udf_0 := 0;</assignments>
+          </transition>
+          <transition id="B__t2">
+               <graphics>
+                    <position x="169.057" y="461.104"/>
+               </graphics>
+               <name>
+                    <value>B__t2</value>
+               </name>
+               <conditions>B_ == 2</conditions>
+               <assignments>L := L-1; B__2 := 0;</assignments>
+          </transition>
+          <transition id="B__t1">
+               <graphics>
+                    <position x="164.294" y="449.309"/>
+               </graphics>
+               <name>
+                    <value>B__t1</value>
+               </name>
+               <conditions>B_ == 1</conditions>
+               <assignments>L := L-1; B__1 := 0;</assignments>
+          </transition>
+          <transition id="B__t0">
+               <graphics>
+                    <position x="181.854" y="465.969"/>
+               </graphics>
+               <name>
+                    <value>B__t0</value>
+               </name>
+               <conditions>B_ == 0</conditions>
+               <assignments>L := L-1; B__0 := 0;</assignments>
+          </transition>
+          <transition id="B_t2">
+               <graphics>
+                    <position x="349.421" y="227.279"/>
+               </graphics>
+               <name>
+                    <value>B_t2</value>
+               </name>
+               <conditions>B == 2</conditions>
+               <assignments>L := L-1; B_2 := 0;</assignments>
+          </transition>
+          <transition id="B_t1">
+               <graphics>
+                    <position x="350.222" y="239.411"/>
+               </graphics>
+               <name>
+                    <value>B_t1</value>
+               </name>
+               <conditions>B == 1</conditions>
+               <assignments>L := L-1; B_1 := 0;</assignments>
+          </transition>
+          <transition id="B_t0">
+               <graphics>
+                    <position x="348.753" y="215.879"/>
+               </graphics>
+               <name>
+                    <value>B_t0</value>
+               </name>
+               <conditions>B == 0</conditions>
+               <assignments>L := L-1; B_0 := 0;</assignments>
+          </transition>
+          <transition id="A_t2">
+               <graphics>
+                    <position x="186.372" y="262.969"/>
+               </graphics>
+               <name>
+                    <value>A_t2</value>
+               </name>
+               <conditions>A == 2</conditions>
+               <assignments>L := L-1; A_2 := 0;</assignments>
+          </transition>
+          <transition id="A_t1">
+               <graphics>
+                    <position x="182.371" y="280.973"/>
+               </graphics>
+               <name>
+                    <value>A_t1</value>
+               </name>
+               <conditions>A == 1</conditions>
+               <assignments>L := L-1; A_1 := 0;</assignments>
+          </transition>
+          <transition id="A_t0">
+               <graphics>
+                    <position x="185.356" y="295.606"/>
+               </graphics>
+               <name>
+                    <value>A_t0</value>
+               </name>
+               <conditions>A == 0</conditions>
+               <assignments>L := L-1; A_0 := 0;</assignments>
+          </transition>
+          <place id="C__age_2">
+               <graphics>
+                    <position x="547.989" y="1558.05"/>
+               </graphics>
+               <name>
+                    <value>C__age_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="C__age_1">
+               <graphics>
+                    <position x="436.363" y="1543.97"/>
+               </graphics>
+               <name>
+                    <value>C__age_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="C__age_0">
+               <graphics>
+                    <position x="330.827" y="1504.79"/>
+               </graphics>
+               <name>
+                    <value>C__age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="CS__age_2">
+               <graphics>
+                    <position x="237.377" y="1442.05"/>
+               </graphics>
+               <name>
+                    <value>CS__age_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="CS__age_1">
+               <graphics>
+                    <position x="160.973" y="1359.39"/>
+               </graphics>
+               <name>
+                    <value>CS__age_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="CS__age_0">
+               <graphics>
+                    <position x="105.73" y="1261.4"/>
+               </graphics>
+               <name>
+                    <value>CS__age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="CS_age_2">
+               <graphics>
+                    <position x="74.5214" y="1153.2"/>
+               </graphics>
+               <name>
+                    <value>CS_age_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="CS_age_1">
+               <graphics>
+                    <position x="69.4451" y="1040.76"/>
+               </graphics>
+               <name>
+                    <value>CS_age_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="CS_age_0">
+               <graphics>
+                    <position x="90.5166" y="930.212"/>
+               </graphics>
+               <name>
+                    <value>CS_age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="C_age_2">
+               <graphics>
+                    <position x="136.313" y="827.417"/>
+               </graphics>
+               <name>
+                    <value>C_age_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="C_age_1">
+               <graphics>
+                    <position x="204.657" y="737.831"/>
+               </graphics>
+               <name>
+                    <value>C_age_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="C_age_0">
+               <graphics>
+                    <position x="291.585" y="666.448"/>
+               </graphics>
+               <name>
+                    <value>C_age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="udf_age_2">
+               <graphics>
+                    <position x="392.779" y="616.961"/>
+               </graphics>
+               <name>
+                    <value>udf_age_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="udf_age_1">
+               <graphics>
+                    <position x="502.518" y="591.946"/>
+               </graphics>
+               <name>
+                    <value>udf_age_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="udf_age_0">
+               <graphics>
+                    <position x="615.114" y="592.992"/>
+               </graphics>
+               <name>
+                    <value>udf_age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="B__age_2">
+               <graphics>
+                    <position x="724.37" y="619.864"/>
+               </graphics>
+               <name>
+                    <value>B__age_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="B__age_1">
+               <graphics>
+                    <position x="824.614" y="671.161"/>
+               </graphics>
+               <name>
+                    <value>B__age_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="B__age_0">
+               <graphics>
+                    <position x="910.106" y="744.329"/>
+               </graphics>
+               <name>
+                    <value>B__age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="B_age_2">
+               <graphics>
+                    <position x="976.313" y="835.223"/>
+               </graphics>
+               <name>
+                    <value>B_age_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="B_age_1">
+               <graphics>
+                    <position x="1019.91" y="939.076"/>
+               </graphics>
+               <name>
+                    <value>B_age_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="B_age_0">
+               <graphics>
+                    <position x="1038.15" y="1050.06"/>
+               </graphics>
+               <name>
+                    <value>B_age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="A_age_2">
+               <graphics>
+                    <position x="1030.15" y="1162.37"/>
+               </graphics>
+               <name>
+                    <value>A_age_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="A_age_1">
+               <graphics>
+                    <position x="996.52" y="1269.83"/>
+               </graphics>
+               <name>
+                    <value>A_age_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="A_age_0">
+               <graphics>
+                    <position x="938.979" y="1366.57"/>
+               </graphics>
+               <name>
+                    <value>A_age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="A__age_2">
+               <graphics>
+                    <position x="860.748" y="1447.58"/>
+               </graphics>
+               <name>
+                    <value>A__age_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="A__age_1">
+               <graphics>
+                    <position x="765.95" y="1508.25"/>
+               </graphics>
+               <name>
+                    <value>A__age_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="A__age_0">
+               <graphics>
+                    <position x="659.796" y="1545.85"/>
+               </graphics>
+               <name>
+                    <value>A__age_0</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="Choose2A_pre_1">
+               <graphics>
+                    <position x="363.102" y="298.987"/>
+               </graphics>
+               <name>
+                    <value>Choose2A_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Choose2A_pre_0">
+               <graphics>
+                    <position x="318.225" y="400.892"/>
+               </graphics>
+               <name>
+                    <value>Choose2A_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Enter_pre_0">
+               <graphics>
+                    <position x="534.715" y="294.193"/>
+               </graphics>
+               <name>
+                    <value>Enter_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Exit1_pre_0">
+               <graphics>
+                    <position x="277.96" y="127.542"/>
+               </graphics>
+               <name>
+                    <value>Exit1_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Exit3_pre_1">
+               <graphics>
+                    <position x="100.603" y="296.19"/>
+               </graphics>
+               <name>
+                    <value>Exit3_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Exit3_pre_0">
+               <graphics>
+                    <position x="108.477" y="203.975"/>
+               </graphics>
+               <name>
+                    <value>Exit3_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Choose3_pre_0">
+               <graphics>
+                    <position x="318.816" y="455.195"/>
+               </graphics>
+               <name>
+                    <value>Choose3_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Choose2C_pre_1">
+               <graphics>
+                    <position x="436.444" y="347.454"/>
+               </graphics>
+               <name>
+                    <value>Choose2C_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Choose2C_pre_0">
+               <graphics>
+                    <position x="449.944" y="269.132"/>
+               </graphics>
+               <name>
+                    <value>Choose2C_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Choose1_pre_1">
+               <graphics>
+                    <position x="259.483" y="159.148"/>
+               </graphics>
+               <name>
+                    <value>Choose1_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Choose1_pre_0">
+               <graphics>
+                    <position x="390.851" y="175.376"/>
+               </graphics>
+               <name>
+                    <value>Choose1_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Fail2_pre_1">
+               <graphics>
+                    <position x="243.837" y="124.291"/>
+               </graphics>
+               <name>
+                    <value>Fail2_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Fail2_pre_0">
+               <graphics>
+                    <position x="195.287" y="142.809"/>
+               </graphics>
+               <name>
+                    <value>Fail2_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Fail1_pre_1">
+               <graphics>
+                    <position x="279.111" y="360.578"/>
+               </graphics>
+               <name>
+                    <value>Fail1_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Fail1_pre_0">
+               <graphics>
+                    <position x="132.489" y="249.228"/>
+               </graphics>
+               <name>
+                    <value>Fail1_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Exit2CS_pre_1">
+               <graphics>
+                    <position x="264.01" y="156.948"/>
+               </graphics>
+               <name>
+                    <value>Exit2CS_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Exit2CS_pre_0">
+               <graphics>
+                    <position x="137.098" y="263.55"/>
+               </graphics>
+               <name>
+                    <value>Exit2CS_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Exit2C_pre_1">
+               <graphics>
+                    <position x="304.559" y="338.327"/>
+               </graphics>
+               <name>
+                    <value>Exit2C_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Exit2C_pre_0">
+               <graphics>
+                    <position x="202.925" y="349.455"/>
+               </graphics>
+               <name>
+                    <value>Exit2C_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Exit2B_pre_1">
+               <graphics>
+                    <position x="165.739" y="347.35"/>
+               </graphics>
+               <name>
+                    <value>Exit2B_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Exit2B_pre_0">
+               <graphics>
+                    <position x="222.17" y="374.869"/>
+               </graphics>
+               <name>
+                    <value>Exit2B_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Choose2CS_pre_1">
+               <graphics>
+                    <position x="363.331" y="172.707"/>
+               </graphics>
+               <name>
+                    <value>Choose2CS_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Choose2CS_pre_0">
+               <graphics>
+                    <position x="388.044" y="227.984"/>
+               </graphics>
+               <name>
+                    <value>Choose2CS_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Choose2B_pre_1">
+               <graphics>
+                    <position x="294.22" y="391.493"/>
+               </graphics>
+               <name>
+                    <value>Choose2B_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Choose2B_pre_0">
+               <graphics>
+                    <position x="404.584" y="304.259"/>
+               </graphics>
+               <name>
+                    <value>Choose2B_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Initiate_pre_1">
+               <graphics>
+                    <position x="167.717" y="157.692"/>
+               </graphics>
+               <name>
+                    <value>Initiate_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Initiate_pre_0">
+               <graphics>
+                    <position x="130.917" y="225.087"/>
+               </graphics>
+               <name>
+                    <value>Initiate_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="C__post">
+               <graphics>
+                    <position x="336.256" y="297.407"/>
+               </graphics>
+               <name>
+                    <value>C__post</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="C_">
+               <graphics>
+                    <position x="417.234" y="373.95"/>
+               </graphics>
+               <name>
+                    <value>C_</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="CS__post">
+               <graphics>
+                    <position x="503.396" y="102.145"/>
+               </graphics>
+               <name>
+                    <value>CS__post</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="CS_">
+               <graphics>
+                    <position x="371.355" y="69.8874"/>
+               </graphics>
+               <name>
+                    <value>CS_</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="CS_post">
+               <graphics>
+                    <position x="243.486" y="283.573"/>
+               </graphics>
+               <name>
+                    <value>CS_post</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="CS">
+               <graphics>
+                    <position x="110" y="341.074"/>
+               </graphics>
+               <name>
+                    <value>CS</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="C_post">
+               <graphics>
+                    <position x="308.021" y="237.775"/>
+               </graphics>
+               <name>
+                    <value>C_post</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="C">
+               <graphics>
+                    <position x="310.001" y="90.1728"/>
+               </graphics>
+               <name>
+                    <value>C</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="udf_post">
+               <graphics>
+                    <position x="212.105" y="247.375"/>
+               </graphics>
+               <name>
+                    <value>udf_post</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="udf">
+               <graphics>
+                    <position x="137.465" y="147.896"/>
+               </graphics>
+               <name>
+                    <value>udf</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="B__post">
+               <graphics>
+                    <position x="182.795" y="387.87"/>
+               </graphics>
+               <name>
+                    <value>B__post</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="B_">
+               <graphics>
+                    <position x="226.882" y="483.956"/>
+               </graphics>
+               <name>
+                    <value>B_</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="B_post">
+               <graphics>
+                    <position x="280.529" y="249.855"/>
+               </graphics>
+               <name>
+                    <value>B_post</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="B">
+               <graphics>
+                    <position x="424.297" y="228.755"/>
+               </graphics>
+               <name>
+                    <value>B</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="A_post">
+               <graphics>
+                    <position x="234.61" y="273.149"/>
+               </graphics>
+               <name>
+                    <value>A_post</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="A">
+               <graphics>
+                    <position x="69.8932" y="435.447"/>
+               </graphics>
+               <name>
+                    <value>A</value>
+               </name>
+               <initialMarking>
+                    <value>3</value>
+               </initialMarking>
+          </place>
+          <place id="A_">
+               <graphics>
+                    <position x="378.344" y="520.478"/>
+               </graphics>
+               <name>
+                    <value>A_</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <arc source="C__age_t_2" target="A__age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__max_t_2" target="A__age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__age_t_1" target="C__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__max_t_1" target="C__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__age_t_0" target="C__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__max_t_0" target="C__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__age_t_2" target="C__age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__max_t_2" target="C__age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__age_t_1" target="CS__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__max_t_1" target="CS__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__age_t_0" target="CS__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__max_t_0" target="CS__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_age_t_2" target="CS__age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_max_t_2" target="CS__age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_age_t_1" target="CS_age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_max_t_1" target="CS_age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_age_t_0" target="CS_age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_max_t_0" target="CS_age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_age_t_2" target="CS_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_max_t_2" target="CS_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_age_t_1" target="C_age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_max_t_1" target="C_age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_age_t_0" target="C_age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_max_t_0" target="C_age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_age_t_2" target="C_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_max_t_2" target="C_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_age_t_1" target="udf_age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_max_t_1" target="udf_age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_age_t_0" target="udf_age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_max_t_0" target="udf_age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__age_t_2" target="udf_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__max_t_2" target="udf_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__age_t_1" target="B__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__max_t_1" target="B__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__age_t_0" target="B__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__max_t_0" target="B__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_age_t_2" target="B__age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_max_t_2" target="B__age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_age_t_1" target="B_age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_max_t_1" target="B_age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_age_t_0" target="B_age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_max_t_0" target="B_age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_age_t_2" target="B_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_max_t_2" target="B_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_age_t_1" target="A_age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_max_t_1" target="A_age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_age_t_0" target="A_age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_max_t_0" target="A_age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A__age_t_2" target="A_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A__max_t_2" target="A_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A__age_t_1" target="A__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A__max_t_1" target="A__age_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A__age_t_0" target="A__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A__max_t_0" target="A__age_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2A" target="C__post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2A" target="A_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2A_pre_t_1_2" target="Choose2A_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2A_pre_t_1_1" target="Choose2A_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2A_pre_t_1_0" target="Choose2A_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2A_pre_t_0_2" target="Choose2A_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2A_pre_t_0_1" target="Choose2A_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2A_pre_t_0_0" target="Choose2A_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Enter" target="CS__post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Enter_pre_t_0_2" target="Enter_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Enter_pre_t_0_1" target="Enter_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Enter_pre_t_0_0" target="Enter_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit1" target="udf_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit1" target="A_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit1_pre_t_0_2" target="Exit1_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit1_pre_t_0_1" target="Exit1_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit1_pre_t_0_0" target="Exit1_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit3" target="udf_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit3" target="A_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit3_pre_t_1_2" target="Exit3_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit3_pre_t_1_1" target="Exit3_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit3_pre_t_1_0" target="Exit3_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit3_pre_t_0_2" target="Exit3_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit3_pre_t_0_1" target="Exit3_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit3_pre_t_0_0" target="Exit3_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose3" target="C__post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose3_pre_t_0_2" target="Choose3_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose3_pre_t_0_1" target="Choose3_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose3_pre_t_0_0" target="Choose3_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2C" target="C__post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2C" target="C_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2C_pre_t_1_2" target="Choose2C_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2C_pre_t_1_1" target="Choose2C_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2C_pre_t_1_0" target="Choose2C_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2C_pre_t_0_2" target="Choose2C_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2C_pre_t_0_1" target="Choose2C_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2C_pre_t_0_0" target="Choose2C_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose1" target="C__post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose1_pre_t_1_2" target="Choose1_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose1_pre_t_1_1" target="Choose1_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose1_pre_t_1_0" target="Choose1_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose1_pre_t_0_2" target="Choose1_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose1_pre_t_0_1" target="Choose1_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose1_pre_t_0_0" target="Choose1_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail2" target="udf_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail2" target="B_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail2_pre_t_1_2" target="Fail2_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail2_pre_t_1_1" target="Fail2_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail2_pre_t_1_0" target="Fail2_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail2_pre_t_0_2" target="Fail2_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail2_pre_t_0_1" target="Fail2_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail2_pre_t_0_0" target="Fail2_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail1" target="udf_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail1" target="B__post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail1_pre_t_1_2" target="Fail1_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail1_pre_t_1_1" target="Fail1_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail1_pre_t_1_0" target="Fail1_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail1_pre_t_0_2" target="Fail1_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail1_pre_t_0_1" target="Fail1_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail1_pre_t_0_0" target="Fail1_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2CS" target="CS_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2CS" target="udf_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2CS" target="A_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2CS_pre_t_1_2" target="Exit2CS_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2CS_pre_t_1_1" target="Exit2CS_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2CS_pre_t_1_0" target="Exit2CS_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2CS_pre_t_0_2" target="Exit2CS_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2CS_pre_t_0_1" target="Exit2CS_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2CS_pre_t_0_0" target="Exit2CS_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2C" target="C_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2C" target="udf_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2C" target="A_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2C_pre_t_1_2" target="Exit2C_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2C_pre_t_1_1" target="Exit2C_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2C_pre_t_1_0" target="Exit2C_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2C_pre_t_0_2" target="Exit2C_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2C_pre_t_0_1" target="Exit2C_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2C_pre_t_0_0" target="Exit2C_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2B" target="udf_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2B" target="B_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2B" target="A_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2B_pre_t_1_2" target="Exit2B_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2B_pre_t_1_1" target="Exit2B_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2B_pre_t_1_0" target="Exit2B_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2B_pre_t_0_2" target="Exit2B_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2B_pre_t_0_1" target="Exit2B_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2B_pre_t_0_0" target="Exit2B_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2CS" target="C__post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2CS" target="CS_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2CS_pre_t_1_2" target="Choose2CS_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2CS_pre_t_1_1" target="Choose2CS_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2CS_pre_t_1_0" target="Choose2CS_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2CS_pre_t_0_2" target="Choose2CS_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2CS_pre_t_0_1" target="Choose2CS_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2CS_pre_t_0_0" target="Choose2CS_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2B" target="C__post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2B" target="B_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2B_pre_t_1_2" target="Choose2B_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2B_pre_t_1_1" target="Choose2B_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2B_pre_t_1_0" target="Choose2B_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2B_pre_t_0_2" target="Choose2B_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2B_pre_t_0_1" target="Choose2B_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2B_pre_t_0_0" target="Choose2B_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Initiate" target="udf_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Initiate" target="B_post">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Initiate_pre_t_1_2" target="Initiate_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Initiate_pre_t_1_1" target="Initiate_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Initiate_pre_t_1_0" target="Initiate_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Initiate_pre_t_0_2" target="Initiate_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Initiate_pre_t_0_1" target="Initiate_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Initiate_pre_t_0_0" target="Initiate_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__t2" target="C_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__t1" target="C_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__t0" target="C_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__t2" target="CS_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__t1" target="CS_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__t0" target="CS_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_t2" target="CS">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_t1" target="CS">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_t0" target="CS">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_t2" target="C">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_t1" target="C">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_t0" target="C">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_t2" target="udf">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_t1" target="udf">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_t0" target="udf">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__t2" target="B_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__t1" target="B_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__t0" target="B_">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_t2" target="B">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_t1" target="B">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_t0" target="B">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_t2" target="A">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_t1" target="A">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_t0" target="A">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__age_2" target="C__age_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__age_2" target="C__max_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__age_1" target="C__age_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__age_1" target="C__max_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__age_0" target="C__age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__age_0" target="C__max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__age_2" target="CS__age_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__age_2" target="CS__max_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__age_1" target="CS__age_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__age_1" target="CS__max_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__age_0" target="CS__age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__age_0" target="CS__max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_age_2" target="CS_age_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_age_2" target="CS_max_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_age_1" target="CS_age_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_age_1" target="CS_max_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_age_0" target="CS_age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_age_0" target="CS_max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_age_2" target="C_age_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_age_2" target="C_max_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_age_1" target="C_age_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_age_1" target="C_max_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_age_0" target="C_age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_age_0" target="C_max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_age_2" target="udf_age_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_age_2" target="udf_max_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_age_1" target="udf_age_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_age_1" target="udf_max_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_age_0" target="udf_age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_age_0" target="udf_max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__age_2" target="B__age_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__age_2" target="B__max_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__age_1" target="B__age_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__age_1" target="B__max_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__age_0" target="B__age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__age_0" target="B__max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_age_2" target="B_age_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_age_2" target="B_max_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_age_1" target="B_age_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_age_1" target="B_max_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_age_0" target="B_age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_age_0" target="B_max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_age_2" target="A_age_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_age_2" target="A_max_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_age_1" target="A_age_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_age_1" target="A_max_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_age_0" target="A_age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_age_0" target="A_max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A__age_2" target="A__age_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A__age_2" target="A__max_t_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A__age_1" target="A__age_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A__age_1" target="A__max_t_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A__age_0" target="A__age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A__age_0" target="A__max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2A_pre_1" target="Choose2A">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose2A_pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose2A_pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose2A_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2A_pre_0" target="Choose2A">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_" target="Choose2A_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_" target="Choose2A_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_" target="Choose2A_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Enter_pre_0" target="Enter">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_" target="Enter_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_" target="Enter_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_" target="Enter_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit1_pre_0" target="Exit1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_" target="Exit1_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_" target="Exit1_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_" target="Exit1_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit3_pre_1" target="Exit3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS" target="Exit3_pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS" target="Exit3_pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS" target="Exit3_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit3_pre_0" target="Exit3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Exit3_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Exit3_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Exit3_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose3_pre_0" target="Choose3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_" target="Choose3_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_" target="Choose3_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_" target="Choose3_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2C_pre_1" target="Choose2C">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_" target="Choose2C_pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_" target="Choose2C_pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_" target="Choose2C_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2C_pre_0" target="Choose2C">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose2C_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose2C_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose2C_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose1_pre_1" target="Choose1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Choose1_pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Choose1_pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Choose1_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose1_pre_0" target="Choose1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose1_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose1_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose1_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail2_pre_1" target="Fail2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C" target="Fail2_pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C" target="Fail2_pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C" target="Fail2_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail2_pre_0" target="Fail2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Fail2_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Fail2_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Fail2_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail1_pre_1" target="Fail1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_" target="Fail1_pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_" target="Fail1_pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_" target="Fail1_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Fail1_pre_0" target="Fail1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Fail1_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Fail1_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Fail1_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2CS_pre_1" target="Exit2CS">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_" target="Exit2CS_pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_" target="Exit2CS_pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_" target="Exit2CS_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2CS_pre_0" target="Exit2CS">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS" target="Exit2CS_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS" target="Exit2CS_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS" target="Exit2CS_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2C_pre_1" target="Exit2C">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_" target="Exit2C_pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_" target="Exit2C_pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_" target="Exit2C_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2C_pre_0" target="Exit2C">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS" target="Exit2C_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS" target="Exit2C_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS" target="Exit2C_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2B_pre_1" target="Exit2B">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS" target="Exit2B_pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS" target="Exit2B_pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS" target="Exit2B_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Exit2B_pre_0" target="Exit2B">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_" target="Exit2B_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_" target="Exit2B_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_" target="Exit2B_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2CS_pre_1" target="Choose2CS">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_" target="Choose2CS_pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_" target="Choose2CS_pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_" target="Choose2CS_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2CS_pre_0" target="Choose2CS">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose2CS_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose2CS_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose2CS_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2B_pre_1" target="Choose2B">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_" target="Choose2B_pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_" target="Choose2B_pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_" target="Choose2B_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Choose2B_pre_0" target="Choose2B">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose2B_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose2B_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B" target="Choose2B_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Initiate_pre_1" target="Initiate">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Initiate_pre_t_1_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Initiate_pre_t_1_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf" target="Initiate_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Initiate_pre_0" target="Initiate">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A" target="Initiate_pre_t_0_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A" target="Initiate_pre_t_0_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A" target="Initiate_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__post" target="C__t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__post" target="C__t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C__post" target="C__t0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__post" target="CS__t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__post" target="CS__t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS__post" target="CS__t0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_post" target="CS_t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_post" target="CS_t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="CS_post" target="CS_t0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_post" target="C_t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_post" target="C_t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="C_post" target="C_t0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_post" target="udf_t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_post" target="udf_t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="udf_post" target="udf_t0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__post" target="B__t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__post" target="B__t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B__post" target="B__t0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_post" target="B_t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_post" target="B_t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="B_post" target="B_t0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_post" target="A_t2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_post" target="A_t1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="A_post" target="A_t0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+     </net>
+     <queries>
+          <query name="Mutual Exclusion Violation" strategy="" jit="true">L == 0 and R == 0 and (  (CS&gt;=2 or CS_&gt;=2 or (CS&gt;=1 and CS_&gt;=1)) ) </query>
+     </queries>
+</pnml>

@@ -191,7 +191,7 @@
                     <value>P2</value>
                </name>
                <initialMarking>
-                    <value>50</value>
+                    <value>5</value>
                </initialMarking>
           </place>
           <place id="Pm2">
@@ -235,7 +235,7 @@
                     <value>P1</value>
                </name>
                <initialMarking>
-                    <value>50</value>
+                    <value>5</value>
                </initialMarking>
           </place>
           <place id="Pm1">
@@ -290,7 +290,7 @@
                     <value>P4</value>
                </name>
                <initialMarking>
-                    <value>50</value>
+                    <value>5</value>
                </initialMarking>
           </place>
           <place id="Pout3">
@@ -334,7 +334,7 @@
                     <value>P3</value>
                </name>
                <initialMarking>
-                    <value>50</value>
+                    <value>5</value>
                </initialMarking>
           </place>
           <arc source="tsynch4_23" target="Pm2">
@@ -539,25 +539,15 @@
           </arc>
      </net>
      <queries>
-          <query name="fOK541016" strategy="Closest-First (Extreme, TokenCost)" jit="true">((Pout4 == 30) and ((Pout2 == 10) and ((Pout3 == 0) and ((Pout1 == 10) and ((P4 == 0) and ((P1 == 20) and ((Pm3 == 0) and ((Pm4 == 10) and ((P3 == 0) and ((Pm1 == 10) and ((Pm2 == 10) and ((P2 == 0) and ((Pback1 == 10) and ((Pback2 == 30) and ((Pback3 == 50) and (Pback4 == 10))))))))))))))))</query>
-          <query name="fOK546289" strategy="Closest-First (Extreme, TokenCost)" jit="true">((Pout4 == 10) and ((Pout2 == 0) and ((Pout3 == 0) and ((Pout1 == 20) and ((P4 == 0) and ((P1 == 20) and ((Pm3 == 40) and ((Pm4 == 30) and ((P3 == 10) and ((Pm1 == 10) and ((Pm2 == 10) and ((P2 == 10) and ((Pback1 == 0) and ((Pback2 == 30) and ((Pback3 == 0) and (Pback4 == 10))))))))))))))))</query>
-          <query name="fOK540199" strategy="Closest-First (Extreme, TokenCost)" jit="true">((Pout4 == 30) and ((Pout2 == 30) and ((Pout3 == 10) and ((Pout1 == 10) and ((P4 == 10) and ((P1 == 20) and ((Pm3 == 0) and ((Pm4 == 0) and ((P3 == 0) and ((Pm1 == 10) and ((Pm2 == 10) and ((P2 == 0) and ((Pback1 == 10) and ((Pback2 == 10) and ((Pback3 == 40) and (Pback4 == 10))))))))))))))))</query>
-          <query name="fOK543180" strategy="Closest-First (Extreme, TokenCost)" jit="true">((Pout4 == 10) and ((Pout2 == 0) and ((Pout3 == 20) and ((Pout1 == 30) and ((P4 == 0) and ((P1 == 20) and ((Pm3 == 30) and ((Pm4 == 30) and ((P3 == 0) and ((Pm1 == 0) and ((Pm2 == 10) and ((P2 == 0) and ((Pback1 == 0) and ((Pback2 == 40) and ((Pback3 == 0) and (Pback4 == 10))))))))))))))))</query>
-          <query name="fOK547802" strategy="Closest-First (Extreme, TokenCost)" jit="true">((Pout4 == 0) and ((Pout2 == 20) and ((Pout3 == 40) and ((Pout1 == 10) and ((P4 == 40) and ((P1 == 20) and ((Pm3 == 10) and ((Pm4 == 0) and ((P3 == 0) and ((Pm1 == 20) and ((Pm2 == 10) and ((P2 == 0) and ((Pback1 == 0) and ((Pback2 == 20) and ((Pback3 == 0) and (Pback4 == 10))))))))))))))))</query>
-          <query name="fOK547894" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 10) and ((Pout2 == 0) and ((Pout3 == 0) and ((Pout1 == 10) and ((P4 == 10) and ((P1 == 20) and ((Pm3 == 10) and ((Pm4 == 20) and ((P3 == 30) and ((Pm1 == 20) and ((Pm2 == 10) and ((P2 == 30) and ((Pback1 == 0) and ((Pback2 == 10) and ((Pback3 == 10) and (Pback4 == 10))))))))))))))))</query>
-          <query name="fOK543026" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 30) and ((Pout2 == 10) and ((Pout3 == 0) and ((Pout1 == 30) and ((P4 == 0) and ((P1 == 20) and ((Pm3 == 30) and ((Pm4 == 10) and ((P3 == 0) and ((Pm1 == 0) and ((Pm2 == 10) and ((P2 == 0) and ((Pback1 == 0) and ((Pback2 == 30) and ((Pback3 == 20) and (Pback4 == 10))))))))))))))))</query>
-          <query name="fOK543863" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 0) and ((Pout2 == 30) and ((Pout3 == 20) and ((Pout1 == 0) and ((P4 == 20) and ((P1 == 20) and ((Pm3 == 20) and ((Pm4 == 20) and ((P3 == 10) and ((Pm1 == 30) and ((Pm2 == 10) and ((P2 == 10) and ((Pback1 == 0) and ((Pback2 == 0) and ((Pback3 == 0) and (Pback4 == 10))))))))))))))))</query>
-          <query name="fOK548296" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 30) and ((Pout2 == 30) and ((Pout3 == 20) and ((Pout1 == 10) and ((P4 == 10) and ((P1 == 20) and ((Pm3 == 10) and ((Pm4 == 0) and ((P3 == 10) and ((Pm1 == 20) and ((Pm2 == 10) and ((P2 == 10) and ((Pback1 == 0) and ((Pback2 == 0) and ((Pback3 == 10) and (Pback4 == 10))))))))))))))))</query>
-          <query name="fOK546741" strategy="Naive Karp-Millar DFS with hashing" jit="false">((Pout4 == 10) and ((Pout2 == 20) and ((Pout3 == 10) and ((Pout1 == 20) and ((P4 == 30) and ((P1 == 20) and ((Pm3 == 10) and ((Pm4 == 0) and ((P3 == 10) and ((Pm1 == 10) and ((Pm2 == 10) and ((P2 == 10) and ((Pback1 == 0) and ((Pback2 == 10) and ((Pback3 == 20) and (Pback4 == 10))))))))))))))))</query>
-          <query name="fNOK543825" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 10)) and (Pout2 == 20)) and (Pout3 == 10)) and (Pout1 == 30)) and (P4 == 20)) and (P1 == 20)) and (Pm3 == 20)) and (Pm4 == 10)) and (P3 == 10)) and (Pm1 == 0)) and (Pm2 == 10)) and (P2 == 10)) and (Pback1 == 0)) and (Pback2 == 10)) and (Pback3 == 10)) and (Pback4 == 10))</query>
-          <query name="fNOK540588" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 40)) and (Pout2 == 10)) and (Pout3 == 20)) and (Pout1 == 20)) and (P4 == 0)) and (P1 == 20)) and (Pm3 == 0)) and (Pm4 == 0)) and (P3 == 20)) and (Pm1 == 0)) and (Pm2 == 10)) and (P2 == 20)) and (Pback1 == 10)) and (Pback2 == 10)) and (Pback3 == 10)) and (Pback4 == 10))</query>
-          <query name="fNOK541622" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 0)) and (Pout2 == 0)) and (Pout3 == 0)) and (Pout1 == 30)) and (P4 == 10)) and (P1 == 20)) and (Pm3 == 50)) and (Pm4 == 30)) and (P3 == 0)) and (Pm1 == 0)) and (Pm2 == 10)) and (P2 == 0)) and (Pback1 == 0)) and (Pback2 == 40)) and (Pback3 == 0)) and (Pback4 == 10))</query>
-          <query name="fNOK545850" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 0)) and (Pout2 == 10)) and (Pout3 == 0)) and (Pout1 == 30)) and (P4 == 20)) and (P1 == 20)) and (Pm3 == 40)) and (Pm4 == 20)) and (P3 == 10)) and (Pm1 == 0)) and (Pm2 == 10)) and (P2 == 10)) and (Pback1 == 0)) and (Pback2 == 20)) and (Pback3 == 0)) and (Pback4 == 10))</query>
-          <query name="fNOK544831" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 10)) and (Pout2 == 30)) and (Pout3 == 30)) and (Pout1 == 30)) and (P4 == 10)) and (P1 == 20)) and (Pm3 == 20)) and (Pm4 == 20)) and (P3 == 0)) and (Pm1 == 0)) and (Pm2 == 10)) and (P2 == 0)) and (Pback1 == 0)) and (Pback2 == 10)) and (Pback3 == 0)) and (Pback4 == 10))</query>
-          <query name="fNOK540958" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 10)) and (Pout2 == 30)) and (Pout3 == 10)) and (Pout1 == 20)) and (P4 == 0)) and (P1 == 20)) and (Pm3 == 0)) and (Pm4 == 30)) and (P3 == 10)) and (Pm1 == 0)) and (Pm2 == 10)) and (P2 == 10)) and (Pback1 == 10)) and (Pback2 == 0)) and (Pback3 == 30)) and (Pback4 == 10))</query>
-          <query name="fNOK542590" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 10)) and (Pout2 == 10)) and (Pout3 == 0)) and (Pout1 == 30)) and (P4 == 10)) and (P1 == 20)) and (Pm3 == 30)) and (Pm4 == 20)) and (P3 == 0)) and (Pm1 == 0)) and (Pm2 == 10)) and (P2 == 0)) and (Pback1 == 0)) and (Pback2 == 30)) and (Pback3 == 20)) and (Pback4 == 10))</query>
-          <query name="fNOK542499" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 20)) and (Pout2 == 20)) and (Pout3 == 10)) and (Pout1 == 0)) and (P4 == 10)) and (P1 == 20)) and (Pm3 == 30)) and (Pm4 == 10)) and (P3 == 10)) and (Pm1 == 30)) and (Pm2 == 10)) and (P2 == 10)) and (Pback1 == 0)) and (Pback2 == 10)) and (Pback3 == 0)) and (Pback4 == 10))</query>
-          <query name="fNOK543317" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 10)) and (Pout2 == 0)) and (Pout3 == 0)) and (Pout1 == 20)) and (P4 == 30)) and (P1 == 20)) and (Pm3 == 20)) and (Pm4 == 0)) and (P3 == 30)) and (Pm1 == 10)) and (Pm2 == 10)) and (P2 == 30)) and (Pback1 == 0)) and (Pback2 == 10)) and (Pback3 == 0)) and (Pback4 == 10))</query>
-          <query name="fNOK541448" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 0)) and (Pout2 == 40)) and (Pout3 == 0)) and (Pout1 == 10)) and (P4 == 0)) and (P1 == 20)) and (Pm3 == 0)) and (Pm4 == 40)) and (P3 == 0)) and (Pm1 == 10)) and (Pm2 == 10)) and (P2 == 0)) and (Pback1 == 10)) and (Pback2 == 0)) and (Pback3 == 50)) and (Pback4 == 10))</query>
+          <query name="SUMo Query 0" strategy="Closest-First (Extreme, ArcCount)" jit="false">((Pout4 == 3) and ((Pout2 == 1) and ((Pout3 == 0) and ((Pout1 == 1) and ((P4 == 0) and ((P1 == 2) and ((Pm3 == 0) and ((Pm4 == 1) and ((P3 == 0) and ((Pm1 == 1) and ((Pm2 == 1) and ((P2 == 0) and ((Pback1 == 1) and ((Pback2 == 3) and ((Pback3 == 5) and (Pback4 == 1))))))))))))))))</query>
+          <query name="SUMo Query 1" strategy="Closest-First (Extreme, ArcCount)" jit="false">((Pout4 == 1) and ((Pout2 == 0) and ((Pout3 == 0) and ((Pout1 == 2) and ((P4 == 0) and ((P1 == 2) and ((Pm3 == 4) and ((Pm4 == 3) and ((P3 == 1) and ((Pm1 == 1) and ((Pm2 == 1) and ((P2 == 1) and ((Pback1 == 0) and ((Pback2 == 3) and ((Pback3 == 0) and (Pback4 == 1))))))))))))))))</query>
+          <query name="SUMo Query 2" strategy="Closest-First (Extreme, ArcCount)" jit="false">((Pout4 == 3) and ((Pout2 == 3) and ((Pout3 == 1) and ((Pout1 == 1) and ((P4 == 1) and ((P1 == 2) and ((Pm3 == 0) and ((Pm4 == 0) and ((P3 == 0) and ((Pm1 == 1) and ((Pm2 == 1) and ((P2 == 0) and ((Pback1 == 1) and ((Pback2 == 1) and ((Pback3 == 4) and (Pback4 == 1))))))))))))))))</query>
+          <query name="SUMo Query 3" strategy="Closest-First (Extreme, ArcCount)" jit="false">((Pout4 == 1) and ((Pout2 == 0) and ((Pout3 == 2) and ((Pout1 == 3) and ((P4 == 0) and ((P1 == 2) and ((Pm3 == 3) and ((Pm4 == 3) and ((P3 == 0) and ((Pm1 == 0) and ((Pm2 == 1) and ((P2 == 0) and ((Pback1 == 0) and ((Pback2 == 4) and ((Pback3 == 0) and (Pback4 == 1))))))))))))))))</query>
+          <query name="SUMo Query 4" strategy="Closest-First (Extreme, ArcCount)" jit="false">((Pout4 == 0) and ((Pout2 == 2) and ((Pout3 == 4) and ((Pout1 == 1) and ((P4 == 4) and ((P1 == 2) and ((Pm3 == 1) and ((Pm4 == 0) and ((P3 == 0) and ((Pm1 == 2) and ((Pm2 == 1) and ((P2 == 0) and ((Pback1 == 0) and ((Pback2 == 2) and ((Pback3 == 0) and (Pback4 == 1))))))))))))))))</query>
+          <query name="SUMo Query 5" strategy="Closest-First (Extreme, ArcCount)" jit="false">((Pout4 == 1) and ((Pout2 == 0) and ((Pout3 == 0) and ((Pout1 == 1) and ((P4 == 1) and ((P1 == 2) and ((Pm3 == 1) and ((Pm4 == 2) and ((P3 == 3) and ((Pm1 == 2) and ((Pm2 == 1) and ((P2 == 3) and ((Pback1 == 0) and ((Pback2 == 1) and ((Pback3 == 1) and (Pback4 == 1))))))))))))))))</query>
+          <query name="SUMo Query 6" strategy="Closest-First (Extreme, ArcCount)" jit="false">((Pout4 == 3) and ((Pout2 == 1) and ((Pout3 == 0) and ((Pout1 == 3) and ((P4 == 0) and ((P1 == 2) and ((Pm3 == 3) and ((Pm4 == 1) and ((P3 == 0) and ((Pm1 == 0) and ((Pm2 == 1) and ((P2 == 0) and ((Pback1 == 0) and ((Pback2 == 3) and ((Pback3 == 2) and (Pback4 == 1))))))))))))))))</query>
+          <query name="SUMo Query 7" strategy="Closest-First (Extreme, ArcCount)" jit="false">((Pout4 == 0) and ((Pout2 == 3) and ((Pout3 == 2) and ((Pout1 == 0) and ((P4 == 2) and ((P1 == 2) and ((Pm3 == 2) and ((Pm4 == 2) and ((P3 == 1) and ((Pm1 == 3) and ((Pm2 == 1) and ((P2 == 1) and ((Pback1 == 0) and ((Pback2 == 0) and ((Pback3 == 0) and (Pback4 == 1))))))))))))))))</query>
+          <query name="SUMo Query 8" strategy="Closest-First (Extreme, ArcCount)" jit="false">((Pout4 == 3) and ((Pout2 == 3) and ((Pout3 == 2) and ((Pout1 == 1) and ((P4 == 1) and ((P1 == 2) and ((Pm3 == 1) and ((Pm4 == 0) and ((P3 == 1) and ((Pm1 == 2) and ((Pm2 == 1) and ((P2 == 1) and ((Pback1 == 0) and ((Pback2 == 0) and ((Pback3 == 1) and (Pback4 == 1))))))))))))))))</query>
+          <query name="SUMo Query 9" strategy="Closest-First (Extreme, ArcCount)" jit="false">((Pout4 == 1) and ((Pout2 == 2) and ((Pout3 == 1) and ((Pout1 == 2) and ((P4 == 3) and ((P1 == 2) and ((Pm3 == 1) and ((Pm4 == 0) and ((P3 == 1) and ((Pm1 == 1) and ((Pm2 == 1) and ((P2 == 1) and ((Pback1 == 0) and ((Pback2 == 1) and ((Pback3 == 2) and (Pback4 == 1))))))))))))))))</query>
      </queries>
 </pnml>
