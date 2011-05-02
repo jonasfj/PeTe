@@ -1,0 +1,21 @@
+MAPK8.pet,	fOK192210,	Naive DFS with Hash,	Satisfied,	18.9,	103027,	4533062,	4430036,	780064
+MAPK8.pet,	fOK195246,	Naive DFS with Hash,	Satisfied,	23.44,	139225,	5473794,	5334570,	915956
+MAPK8.pet,	fOK193646,	Naive DFS with Hash,	Satisfied,	18.43,	98999,	4415885,	4316887,	779048
+MAPK8.pet,	fOK191292,	Naive DFS with Hash,	Satisfied,	14.39,	83351,	3894186,	3810836,	638432
+MAPK8.pet,	fOK193040,	Naive DFS with Hash,	Satisfied,	19.83,	103147,	4536490,	4433344,	795928
+MAPK8.pet,	fOK195609,	Naive DFS with Hash,	Satisfied,	12.44,	67945,	3266624,	3198680,	504528
+MAPK8.pet,	fOK191935,	Naive DFS with Hash,	Satisfied,	12.28,	60912,	2966880,	2905969,	497796
+MAPK8.pet,	fOK195881,	Naive DFS with Hash,	Satisfied,	9.82,	54806,	2676337,	2621532,	490768
+MAPK8.pet,	fOK191385,	Naive DFS with Hash,	Satisfied,	15.42,	89680,	4127955,	4038276,	639588
+MAPK8.pet,	fOK198144,	Naive DFS with Hash,	Satisfied,	13.88,	80249,	3779488,	3699240,	637772
+MAPK40.pet,	fOK192210,	Naive DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1049764
+MAPK40.pet,	fOK195246,	Naive DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1050556
+MAPK40.pet,	fOK193646,	Naive DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1049764
+MAPK40.pet,	fOK191292,	Naive DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1053988
+MAPK40.pet,	fOK193040,	Naive DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1049764
+MAPK40.pet,	fOK195609,	Naive DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1050920
+MAPK40.pet,	fOK191935,	Naive DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1051712
+MAPK40.pet,	fOK195881,	Naive DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1060944
+MAPK40.pet,	fOK191385,	Naive DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1048972
+MAPK40.pet,	fOK198144,	Naive DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1051612
+

@@ -164,5 +164,18 @@ def runScaledModels(scaledModels):
 			if failed:
 				break
 
+#for ml in modellists:
+#	runScaledModels(ml)
+
 for ml in modellists:
-	runScaledModels(ml)
+	for i in range(1,10):
+		strategy = "Random DFS with Hash"
+		for model in ml:
+			queries = listqueries(modeldir+model)
+			failed = True
+			for query in queries:
+				ret, data, mem = run(modeldir + model, strategy, query)
+				print data.strip() + ",\t" + str(mem)
+				failed = failed and not ret
+			if failed:
+				break

@@ -145,15 +145,15 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	if(strategy == NAME_BFS)
 		return new BreadthFirstReachabilitySearch();
 	if(strategy == NAME_DFSArcCount){
-		int flags = PQL::DistanceContext::ArcCount;
+		int flags = PQL::DistanceContext::ArcCount | PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
 		return new HeuristicDFS((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	if(strategy == NAME_DFSTokenCost){
-		int flags = PQL::DistanceContext::TokenCost;
+		int flags = PQL::DistanceContext::TokenCost | PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;;
 		return new HeuristicDFS((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 	if(strategy == NAME_DFSDelta){
-		int flags = 0;
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;;
 		return new HeuristicDFS((PQL::DistanceContext::DistanceStrategy)flags);
 	}
 
