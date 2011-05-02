@@ -157,6 +157,12 @@ bool StateConstraints::isImpossible(const PetriNet& net,
 	assert(nPlaces == net.numberOfPlaces());
 	assert(nVars == net.numberOfVariables());
 
+	/*printf("-------\n");
+	for(int p = 0; p < nPlaces; p++){
+		printf("%s: [%i, %i]\n", net.placeNames()[p].c_str(), pcs[p].min, pcs[p].max);
+	}
+	printf("-------\n");*/
+
 	// Create linary problem
 	lprec* lp;
 	lp = make_lp(0, net.numberOfTransitions());	// One variable for each entry in the firing vector
