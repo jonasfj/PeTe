@@ -34,7 +34,6 @@ IgnoreList = IgnoreList = [
 "BestFS-Delta (Sum, Extreme) Lookahead 4",
 "BestFS-Delta (Sum, Extreme) Lookahead 5"]
 
-
 # List of models to run on
 Models = ["MAPK", "DTAPN", "Kanban", "FMS"]
 
@@ -53,13 +52,21 @@ TimeOut = 60
 # Number of queries to run from each model (0 for all)
 QueriesToRun = 0
 
+# Query prefixes to ignore
+QueryPrefixIgnoreList = [
+#"fOK",
+"fNOK",
+]
+
 #####################################################################
 #                   End of Default Configuration                    #
 #####################################################################
 
 #load config
 try:
+	kill = False
 	import testconfig
+	kill = True
 	PeTe 			= testconfig.PeTe
 	ModelDir		= testconfig.ModelDir
 	IgnoreList 		= testconfig.IgnoreList
@@ -69,9 +76,12 @@ try:
 	InitialPollTime	= testconfig.InitialPollTime
 	TimeOut 		= testconfig.TimeOut
 	QueriesToRun 	= testconfig.QueriesToRun
+	QueryPrefixIgnoreList = testconfig.QueryPrefixIgnoreList
 except:
 	print "Failed to load config"
-
+	if kill:
+		print "Attempted to load config, but failed check that you have all settings!"
+		exit()
 
 # Find some absolute paths
 petebin = os.path.abspath(PeTe)
@@ -171,6 +181,10 @@ def runScaledModels(scaledModels):
 			queriesrun = 0
 			failed = True
 			for query in queries:
+				skipByPrefix = False
+				for prefix in QueryPrefixIgnoreList:
+					skipByPrefix |= query.startswith(prefix)
+				if skipByPrefix: continue
 				ret, data, mem = run(modeldir + model, strategy, query)
 				print data.strip() + ",\t" + str(mem)
 				failed = failed and not ret
