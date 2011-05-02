@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+     <net>
+          <place id="P3">
+               <graphics>
+                    <position x="474" y="180"/>
+               </graphics>
+               <name>
+                    <value>P3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <transition id="T2">
+               <graphics>
+                    <position x="380" y="268"/>
+               </graphics>
+               <name>
+                    <value>T2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <place id="P2">
+               <graphics>
+                    <position x="381" y="337"/>
+               </graphics>
+               <name>
+                    <value>P2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <transition id="T1">
+               <graphics>
+                    <position x="124" y="189"/>
+               </graphics>
+               <name>
+                    <value>T1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <place id="P1">
+               <graphics>
+                    <position x="215" y="131"/>
+               </graphics>
+               <name>
+                    <value>P1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <arc source="P2" target="T2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P3" target="T2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1" target="T1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+     </net>
+</pnml>

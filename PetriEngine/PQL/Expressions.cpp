@@ -233,6 +233,19 @@ Expr::Types MinusExpr::type() const			{ return Expr::MinusExpr;		}
 Expr::Types LiteralExpr::type() const		{ return Expr::LiteralExpr;		}
 Expr::Types IdentifierExpr::type() const	{ return Expr::IdentifierExpr;	}
 
+/******************** Scale Expression ********************/
+
+void BinaryExpr::scale(int factor)	{_expr1->scale(factor); _expr2->scale(factor);}
+void MinusExpr::scale(int factor)	{_expr->scale(factor);}
+void LiteralExpr::scale(int factor)	{_value = _value * factor;}
+void IdentifierExpr::scale(int)		{}
+
+/******************** Scale Conditions ********************/
+
+void LogicalCondition::scale(int factor)	{_cond1->scale(factor);_cond2->scale(factor);}
+void CompareCondition::scale(int factor)	{_expr1->scale(factor);_expr2->scale(factor);}
+void NotCondition::scale(int factor)		{_cond->scale(factor);}
+
 /******************** Constraint Analysis ********************/
 
 void LogicalCondition::findConstraints(ConstraintAnalysisContext& context) const{
@@ -290,26 +303,34 @@ void NotCondition::findConstraints(ConstraintAnalysisContext& context) const{
 
 void EqualCondition::addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const{
 	if(!context.negated){
-		Structures::StateConstraints* s = NULL;
-		if(id->pfree())
-			s = Structures::StateConstraints::requireVarEqual(context.net(), id->offset(), value);
-		else
-			s = Structures::StateConstraints::requirePlaceEqual(context.net(), id->offset(), value);
+		Structures::StateConstraints* s = new Structures::StateConstraints(context.net());
+		if(id->pfree()){
+			s->setVarMin(id->offset(), value);
+			s->setVarMax(id->offset(), value);
+		}else{
+			s->setPlaceMin(id->offset(), value);
+			s->setPlaceMax(id->offset(), value);
+		}
 		assert(s);
 		context.retval.push_back(s);
 	}else{
-		Structures::StateConstraints* s1 = NULL;
+		Structures::StateConstraints* s1 = new Structures::StateConstraints(context.net());
 		Structures::StateConstraints* s2 = NULL;
+		if(value != 0)
+			s2 = new Structures::StateConstraints(context.net());
 		if(id->pfree()){
-			s1 = Structures::StateConstraints::requireVarMin(context.net(), id->offset(), value + 1);
-			s2 = Structures::StateConstraints::requireVarMax(context.net(), id->offset(), value - 1);
+			s1->setVarMin(id->offset(), value+1);
+			if(value != 0)
+				s2->setVarMax(id->offset(), value-1);
 		}else{
-			s1 = Structures::StateConstraints::requirePlaceMin(context.net(), id->offset(), value + 1);
-			s2 = Structures::StateConstraints::requirePlaceMax(context.net(), id->offset(), value - 1);
+			s1->setPlaceMin(id->offset(), value+1);
+			if(value != 0)
+				s2->setPlaceMax(id->offset(), value-1);
 		}
-		assert(s1 && s2);
+		assert((s2 || value == 0) && s1);
 		context.retval.push_back(s1);
-		context.retval.push_back(s2);
+		if(value != 0)
+			context.retval.push_back(s2);
 	}
 }
 
@@ -319,26 +340,34 @@ void EqualCondition::addConstraints(ConstraintAnalysisContext& context, int valu
 
 void NotEqualCondition::addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const{
 	if(context.negated){
-		Structures::StateConstraints* s = NULL;
-		if(id->pfree())
-			s = Structures::StateConstraints::requireVarEqual(context.net(), id->offset(), value);
-		else
-			s = Structures::StateConstraints::requirePlaceEqual(context.net(), id->offset(), value);
+		Structures::StateConstraints* s = new Structures::StateConstraints(context.net());
+		if(id->pfree()){
+			s->setVarMin(id->offset(), value);
+			s->setVarMax(id->offset(), value);
+		}else{
+			s->setPlaceMin(id->offset(), value);
+			s->setPlaceMax(id->offset(), value);
+		}
 		assert(s);
 		context.retval.push_back(s);
 	}else{
-		Structures::StateConstraints* s1 = NULL;
+		Structures::StateConstraints* s1 = new Structures::StateConstraints(context.net());
 		Structures::StateConstraints* s2 = NULL;
+		if(value != 0)
+			s2 = new Structures::StateConstraints(context.net());
 		if(id->pfree()){
-			s1 = Structures::StateConstraints::requireVarMin(context.net(), id->offset(), value + 1);
-			s2 = Structures::StateConstraints::requireVarMax(context.net(), id->offset(), value - 1);
+			s1->setVarMin(id->offset(), value+1);
+			if(value != 0)
+				s2->setVarMax(id->offset(), value-1);
 		}else{
-			s1 = Structures::StateConstraints::requirePlaceMin(context.net(), id->offset(), value + 1);
-			s2 = Structures::StateConstraints::requirePlaceMax(context.net(), id->offset(), value - 1);
+			s1->setPlaceMin(id->offset(), value+1);
+			if(value != 0)
+				s2->setPlaceMax(id->offset(), value-1);
 		}
-		assert(s1 && s2);
+		assert((s2 || value == 0) && s1);
 		context.retval.push_back(s1);
-		context.retval.push_back(s2);
+		if(value != 0)
+			context.retval.push_back(s2);
 	}
 }
 

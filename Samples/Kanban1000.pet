@@ -1,304 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pnml>
      <net>
-          <transition id="tok2">
+          <place id="P3">
                <graphics>
-                    <position x="398" y="357"/>
+                    <position x="456" y="367"/>
                </graphics>
                <name>
-                    <value>tok2</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tback2">
-               <graphics>
-                    <position x="313" y="433"/>
-               </graphics>
-               <name>
-                    <value>tback2</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tback1">
-               <graphics>
-                    <position x="218" y="619"/>
-               </graphics>
-               <name>
-                    <value>tback1</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tredo1">
-               <graphics>
-                    <position x="218" y="543"/>
-               </graphics>
-               <name>
-                    <value>tredo1</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tsynch4_23">
-               <graphics>
-                    <position x="254" y="261"/>
-               </graphics>
-               <name>
-                    <value>tsynch4_23</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tok1">
-               <graphics>
-                    <position x="291" y="543"/>
-               </graphics>
-               <name>
-                    <value>tok1</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tout1">
-               <graphics>
-                    <position x="291" y="619"/>
-               </graphics>
-               <name>
-                    <value>tout1</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tsynch1_23">
-               <graphics>
-                    <position x="254" y="465"/>
-               </graphics>
-               <name>
-                    <value>tsynch1_23</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tback4">
-               <graphics>
-                    <position x="187" y="239"/>
-               </graphics>
-               <name>
-                    <value>tback4</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tok4">
-               <graphics>
-                    <position x="254" y="153"/>
-               </graphics>
-               <name>
-                    <value>tok4</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tin4">
-               <graphics>
-                    <position x="221" y="72"/>
-               </graphics>
-               <name>
-                    <value>tin4</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tredo4">
-               <graphics>
-                    <position x="187" y="153"/>
-               </graphics>
-               <name>
-                    <value>tredo4</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tok3">
-               <graphics>
-                    <position x="115" y="357"/>
-               </graphics>
-               <name>
-                    <value>tok3</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tredo2">
-               <graphics>
-                    <position x="313" y="357"/>
-               </graphics>
-               <name>
-                    <value>tredo2</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tredo3">
-               <graphics>
-                    <position x="203" y="357"/>
-               </graphics>
-               <name>
-                    <value>tredo3</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="tback3">
-               <graphics>
-                    <position x="203" y="428"/>
-               </graphics>
-               <name>
-                    <value>tback3</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <place id="Pback2">
-               <graphics>
-                    <position x="314" y="389"/>
-               </graphics>
-               <name>
-                    <value>Pback2</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="Pout2">
-               <graphics>
-                    <position x="399" y="389"/>
-               </graphics>
-               <name>
-                    <value>Pout2</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="P2">
-               <graphics>
-                    <position x="64" y="364"/>
-               </graphics>
-               <name>
-                    <value>P2</value>
+                    <value>P3</value>
                </name>
                <initialMarking>
                     <value>1000</value>
                </initialMarking>
           </place>
-          <place id="Pm2">
+          <place id="Pm3">
                <graphics>
-                    <position x="357" y="305"/>
+                    <position x="161" y="305"/>
                </graphics>
                <name>
-                    <value>Pm2</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="Pback1">
-               <graphics>
-                    <position x="219" y="575"/>
-               </graphics>
-               <name>
-                    <value>Pback1</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="Pout1">
-               <graphics>
-                    <position x="292" y="575"/>
-               </graphics>
-               <name>
-                    <value>Pout1</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="P1">
-               <graphics>
-                    <position x="337" y="526"/>
-               </graphics>
-               <name>
-                    <value>P1</value>
-               </name>
-               <initialMarking>
-                    <value>1000</value>
-               </initialMarking>
-          </place>
-          <place id="Pm1">
-               <graphics>
-                    <position x="255" y="499"/>
-               </graphics>
-               <name>
-                    <value>Pm1</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="Pout4">
-               <graphics>
-                    <position x="255" y="190"/>
-               </graphics>
-               <name>
-                    <value>Pout4</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="Pback4">
-               <graphics>
-                    <position x="188" y="190"/>
-               </graphics>
-               <name>
-                    <value>Pback4</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="Pm4">
-               <graphics>
-                    <position x="222" y="109"/>
-               </graphics>
-               <name>
-                    <value>Pm4</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="P4">
-               <graphics>
-                    <position x="307" y="153"/>
-               </graphics>
-               <name>
-                    <value>P4</value>
-               </name>
-               <initialMarking>
-                    <value>1000</value>
-               </initialMarking>
-          </place>
-          <place id="Pout3">
-               <graphics>
-                    <position x="116" y="389"/>
-               </graphics>
-               <name>
-                    <value>Pout3</value>
+                    <value>Pm3</value>
                </name>
                <initialMarking>
                     <value>0</value>
@@ -315,214 +34,310 @@
                     <value>0</value>
                </initialMarking>
           </place>
-          <place id="Pm3">
+          <place id="Pout3">
                <graphics>
-                    <position x="161" y="305"/>
+                    <position x="116" y="389"/>
                </graphics>
                <name>
-                    <value>Pm3</value>
+                    <value>Pout3</value>
                </name>
                <initialMarking>
                     <value>0</value>
                </initialMarking>
           </place>
-          <place id="P3">
+          <place id="P4">
                <graphics>
-                    <position x="456" y="367"/>
+                    <position x="307" y="153"/>
                </graphics>
                <name>
-                    <value>P3</value>
+                    <value>P4</value>
                </name>
                <initialMarking>
                     <value>1000</value>
                </initialMarking>
           </place>
-          <arc source="tsynch4_23" target="Pm2">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tsynch4_23" target="Pm3">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="P3" target="tsynch4_23">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tsynch4_23" target="P4">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pout4" target="tsynch4_23">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="P2" target="tsynch4_23">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pm1" target="tok1">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tok1" target="Pout1">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pout1" target="tout1">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tout1" target="P1">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tsynch1_23" target="P2">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tsynch1_23" target="Pm1">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="P1" target="tsynch1_23">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tsynch1_23" target="P3">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pout3" target="tsynch1_23">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pout2" target="tsynch1_23">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pback2" target="tback2">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tback2" target="Pm2">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pm2" target="tok2">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tok2" target="Pout2">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pm1" target="tredo1">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tredo1" target="Pback1">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pback1" target="tback1">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tback1" target="Pm1">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pm3" target="tredo3">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tredo3" target="Pback3">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pback3" target="tback3">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tback3" target="Pm3">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pm3" target="tok3">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tok3" target="Pout3">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pm2" target="tredo2">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tredo2" target="Pback2">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tin4" target="Pm4">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="P4" target="tin4">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tredo4" target="Pback4">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pm4" target="tredo4">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="tback4" target="Pm4">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="Pback4" target="tback4">
+          <place id="Pm4">
+               <graphics>
+                    <position x="222" y="109"/>
+               </graphics>
+               <name>
+                    <value>Pm4</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pback4">
+               <graphics>
+                    <position x="188" y="190"/>
+               </graphics>
+               <name>
+                    <value>Pback4</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pout4">
+               <graphics>
+                    <position x="255" y="190"/>
+               </graphics>
+               <name>
+                    <value>Pout4</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pm1">
+               <graphics>
+                    <position x="255" y="499"/>
+               </graphics>
+               <name>
+                    <value>Pm1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P1">
+               <graphics>
+                    <position x="337" y="526"/>
+               </graphics>
+               <name>
+                    <value>P1</value>
+               </name>
+               <initialMarking>
+                    <value>1000</value>
+               </initialMarking>
+          </place>
+          <place id="Pout1">
+               <graphics>
+                    <position x="292" y="575"/>
+               </graphics>
+               <name>
+                    <value>Pout1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pback1">
+               <graphics>
+                    <position x="219" y="575"/>
+               </graphics>
+               <name>
+                    <value>Pback1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pm2">
+               <graphics>
+                    <position x="357" y="305"/>
+               </graphics>
+               <name>
+                    <value>Pm2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P2">
+               <graphics>
+                    <position x="64" y="364"/>
+               </graphics>
+               <name>
+                    <value>P2</value>
+               </name>
+               <initialMarking>
+                    <value>1000</value>
+               </initialMarking>
+          </place>
+          <place id="Pout2">
+               <graphics>
+                    <position x="399" y="389"/>
+               </graphics>
+               <name>
+                    <value>Pout2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Pback2">
+               <graphics>
+                    <position x="314" y="389"/>
+               </graphics>
+               <name>
+                    <value>Pback2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <transition id="tback3">
+               <graphics>
+                    <position x="203" y="428"/>
+               </graphics>
+               <name>
+                    <value>tback3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tredo3">
+               <graphics>
+                    <position x="203" y="357"/>
+               </graphics>
+               <name>
+                    <value>tredo3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tredo2">
+               <graphics>
+                    <position x="313" y="357"/>
+               </graphics>
+               <name>
+                    <value>tredo2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tok3">
+               <graphics>
+                    <position x="115" y="357"/>
+               </graphics>
+               <name>
+                    <value>tok3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tredo4">
+               <graphics>
+                    <position x="187" y="153"/>
+               </graphics>
+               <name>
+                    <value>tredo4</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tin4">
+               <graphics>
+                    <position x="221" y="72"/>
+               </graphics>
+               <name>
+                    <value>tin4</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tok4">
+               <graphics>
+                    <position x="254" y="153"/>
+               </graphics>
+               <name>
+                    <value>tok4</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tback4">
+               <graphics>
+                    <position x="187" y="239"/>
+               </graphics>
+               <name>
+                    <value>tback4</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tsynch1_23">
+               <graphics>
+                    <position x="254" y="465"/>
+               </graphics>
+               <name>
+                    <value>tsynch1_23</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tout1">
+               <graphics>
+                    <position x="291" y="619"/>
+               </graphics>
+               <name>
+                    <value>tout1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tok1">
+               <graphics>
+                    <position x="291" y="543"/>
+               </graphics>
+               <name>
+                    <value>tok1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tsynch4_23">
+               <graphics>
+                    <position x="254" y="261"/>
+               </graphics>
+               <name>
+                    <value>tsynch4_23</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tredo1">
+               <graphics>
+                    <position x="218" y="543"/>
+               </graphics>
+               <name>
+                    <value>tredo1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tback1">
+               <graphics>
+                    <position x="218" y="619"/>
+               </graphics>
+               <name>
+                    <value>tback1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tback2">
+               <graphics>
+                    <position x="313" y="433"/>
+               </graphics>
+               <name>
+                    <value>tback2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="tok2">
+               <graphics>
+                    <position x="398" y="357"/>
+               </graphics>
+               <name>
+                    <value>tok2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <arc source="Pm4" target="tok4">
                <inscription>
                     <value>1</value>
                </inscription>
@@ -532,7 +347,192 @@
                     <value>1</value>
                </inscription>
           </arc>
-          <arc source="Pm4" target="tok4">
+          <arc source="Pback4" target="tback4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tback4" target="Pm4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm4" target="tredo4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tredo4" target="Pback4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P4" target="tin4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tin4" target="Pm4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tredo2" target="Pback2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm2" target="tredo2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tok3" target="Pout3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm3" target="tok3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tback3" target="Pm3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pback3" target="tback3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tredo3" target="Pback3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm3" target="tredo3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tback1" target="Pm1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pback1" target="tback1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tredo1" target="Pback1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm1" target="tredo1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tok2" target="Pout2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm2" target="tok2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tback2" target="Pm2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pback2" target="tback2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pout2" target="tsynch1_23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pout3" target="tsynch1_23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tsynch1_23" target="P3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P1" target="tsynch1_23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tsynch1_23" target="Pm1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tsynch1_23" target="P2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tout1" target="P1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pout1" target="tout1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tok1" target="Pout1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pm1" target="tok1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2" target="tsynch4_23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Pout4" target="tsynch4_23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tsynch4_23" target="P4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P3" target="tsynch4_23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tsynch4_23" target="Pm3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="tsynch4_23" target="Pm2">
                <inscription>
                     <value>1</value>
                </inscription>
@@ -549,5 +549,15 @@
           <query name="fOK543863" strategy="Naive DFS with Hash" jit="false">((Pout4 == 0) and ((Pout2 == 600) and ((Pout3 == 400) and ((Pout1 == 0) and ((P4 == 400) and ((P1 == 400) and ((Pm3 == 400) and ((Pm4 == 400) and ((P3 == 200) and ((Pm1 == 600) and ((Pm2 == 200) and ((P2 == 200) and ((Pback1 == 0) and ((Pback2 == 0) and ((Pback3 == 0) and (Pback4 == 200))))))))))))))))</query>
           <query name="fOK548296" strategy="Naive DFS with Hash" jit="false">((Pout4 == 600) and ((Pout2 == 600) and ((Pout3 == 400) and ((Pout1 == 200) and ((P4 == 200) and ((P1 == 400) and ((Pm3 == 200) and ((Pm4 == 0) and ((P3 == 200) and ((Pm1 == 400) and ((Pm2 == 200) and ((P2 == 200) and ((Pback1 == 0) and ((Pback2 == 0) and ((Pback3 == 200) and (Pback4 == 200))))))))))))))))</query>
           <query name="fOK546741" strategy="Naive DFS with Hash" jit="false">((Pout4 == 200) and ((Pout2 == 400) and ((Pout3 == 200) and ((Pout1 == 400) and ((P4 == 600) and ((P1 == 400) and ((Pm3 == 200) and ((Pm4 == 0) and ((P3 == 200) and ((Pm1 == 200) and ((Pm2 == 200) and ((P2 == 200) and ((Pback1 == 0) and ((Pback2 == 200) and ((Pback3 == 400) and (Pback4 == 200))))))))))))))))</query>
+          <query name="fNOK543825" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 200)) and (Pout2 == 400)) and (Pout3 == 200)) and (Pout1 == 600)) and (P4 == 400)) and (P1 == 400)) and (Pm3 == 400)) and (Pm4 == 200)) and (P3 == 200)) and (Pm1 == 0)) and (Pm2 == 200)) and (P2 == 200)) and (Pback1 == 0)) and (Pback2 == 200)) and (Pback3 == 200)) and (Pback4 == 200))</query>
+          <query name="fNOK540588" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 800)) and (Pout2 == 200)) and (Pout3 == 400)) and (Pout1 == 400)) and (P4 == 0)) and (P1 == 400)) and (Pm3 == 0)) and (Pm4 == 0)) and (P3 == 400)) and (Pm1 == 0)) and (Pm2 == 200)) and (P2 == 400)) and (Pback1 == 200)) and (Pback2 == 200)) and (Pback3 == 200)) and (Pback4 == 200))</query>
+          <query name="fNOK541622" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 0)) and (Pout2 == 0)) and (Pout3 == 0)) and (Pout1 == 600)) and (P4 == 200)) and (P1 == 400)) and (Pm3 == 1000)) and (Pm4 == 600)) and (P3 == 0)) and (Pm1 == 0)) and (Pm2 == 200)) and (P2 == 0)) and (Pback1 == 0)) and (Pback2 == 800)) and (Pback3 == 0)) and (Pback4 == 200))</query>
+          <query name="fNOK545850" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 0)) and (Pout2 == 200)) and (Pout3 == 0)) and (Pout1 == 600)) and (P4 == 400)) and (P1 == 400)) and (Pm3 == 800)) and (Pm4 == 400)) and (P3 == 200)) and (Pm1 == 0)) and (Pm2 == 200)) and (P2 == 200)) and (Pback1 == 0)) and (Pback2 == 400)) and (Pback3 == 0)) and (Pback4 == 200))</query>
+          <query name="fNOK544831" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 200)) and (Pout2 == 600)) and (Pout3 == 600)) and (Pout1 == 600)) and (P4 == 200)) and (P1 == 400)) and (Pm3 == 400)) and (Pm4 == 400)) and (P3 == 0)) and (Pm1 == 0)) and (Pm2 == 200)) and (P2 == 0)) and (Pback1 == 0)) and (Pback2 == 200)) and (Pback3 == 0)) and (Pback4 == 200))</query>
+          <query name="fNOK540958" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 200)) and (Pout2 == 600)) and (Pout3 == 200)) and (Pout1 == 400)) and (P4 == 0)) and (P1 == 400)) and (Pm3 == 0)) and (Pm4 == 600)) and (P3 == 200)) and (Pm1 == 0)) and (Pm2 == 200)) and (P2 == 200)) and (Pback1 == 200)) and (Pback2 == 0)) and (Pback3 == 600)) and (Pback4 == 200))</query>
+          <query name="fNOK542590" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 200)) and (Pout2 == 200)) and (Pout3 == 0)) and (Pout1 == 600)) and (P4 == 200)) and (P1 == 400)) and (Pm3 == 600)) and (Pm4 == 400)) and (P3 == 0)) and (Pm1 == 0)) and (Pm2 == 200)) and (P2 == 0)) and (Pback1 == 0)) and (Pback2 == 600)) and (Pback3 == 400)) and (Pback4 == 200))</query>
+          <query name="fNOK542499" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 400)) and (Pout2 == 400)) and (Pout3 == 200)) and (Pout1 == 0)) and (P4 == 200)) and (P1 == 400)) and (Pm3 == 600)) and (Pm4 == 200)) and (P3 == 200)) and (Pm1 == 600)) and (Pm2 == 200)) and (P2 == 200)) and (Pback1 == 0)) and (Pback2 == 200)) and (Pback3 == 0)) and (Pback4 == 200))</query>
+          <query name="fNOK543317" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 200)) and (Pout2 == 0)) and (Pout3 == 0)) and (Pout1 == 400)) and (P4 == 600)) and (P1 == 400)) and (Pm3 == 400)) and (Pm4 == 0)) and (P3 == 600)) and (Pm1 == 200)) and (Pm2 == 200)) and (P2 == 600)) and (Pback1 == 0)) and (Pback2 == 200)) and (Pback3 == 0)) and (Pback4 == 200))</query>
+          <query name="fNOK541448" strategy="Linear over-approximation" jit="false">((((((((((((((((not (Pout4 == 0)) and (Pout2 == 800)) and (Pout3 == 0)) and (Pout1 == 200)) and (P4 == 0)) and (P1 == 400)) and (Pm3 == 0)) and (Pm4 == 800)) and (P3 == 0)) and (Pm1 == 200)) and (Pm2 == 200)) and (P2 == 0)) and (Pback1 == 200)) and (Pback2 == 0)) and (Pback3 == 1000)) and (Pback4 == 200))</query>
      </queries>
 </pnml>

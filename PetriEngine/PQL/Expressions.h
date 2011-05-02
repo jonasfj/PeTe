@@ -28,6 +28,7 @@ public:
 	int evaluate(const EvaluationContext& context) const;
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
+	void scale(int factor);
 private:
 	virtual int apply(int v1, int v2) const = 0;
 	/** LLVM binary operator (llvm::Instruction::BinaryOps) */
@@ -83,6 +84,7 @@ public:
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	std::string toString() const;
 	Expr::Types type() const;
+	void scale(int factor);
 private:
 	Expr* _expr;
 };
@@ -98,6 +100,7 @@ public:
 	std::string toString() const;
 	Expr::Types type() const;
 	int value() const { return _value; };
+	void scale(int factor);
 private:
 	int _value;
 };
@@ -117,6 +120,7 @@ public:
 	Expr::Types type() const;
 	/** Offset in marking or valuation */
 	int offset() const{ return _offsetInMarking; }
+	void scale(int factor);
 private:
 	/** Is this identifier a place? Or a variable.. */
 	bool isPlace;
@@ -144,6 +148,7 @@ public:
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	double distance(DistanceContext& context) const;
 	std::string toString() const;
+	void scale(int factor);
 private:
 	virtual bool apply(bool b1, bool b2) const = 0;
 	/** LLVM binary operator (llvm::Instruction::BinaryOps) */
@@ -193,6 +198,7 @@ public:
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	double distance(DistanceContext& context) const;
 	std::string toString() const;
+	void scale(int factor);
 private:
 	virtual bool apply(int v1, int v2) const = 0;
 	/** LLVM Comparison predicate (llvm::ICmpInst::Predicate) */
@@ -296,6 +302,7 @@ public:
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	double distance(DistanceContext& context) const;
 	std::string toString() const;
+	void scale(int factor);
 private:
 	Condition* _cond;
 };

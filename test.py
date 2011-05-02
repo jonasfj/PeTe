@@ -18,7 +18,21 @@ PeTe = "../PeTe-build-desktop/PeTe"
 ModelDir = "Samples/"
 
 # List of strategies to ignore
-IgnoreList = ["Naive DFS with Hash", "Random DFS with Hash", "Naive BFS with Hash", "DFS-ArcCount", "DFS-TokenCost"]
+IgnoreList = IgnoreList = [
+"Naive DFS with Hash",
+"Random DFS with Hash",
+"Naive BFS with Hash",
+"DFS-ArcCount",
+"DFS-Delta",
+"DFS-TokenCost",
+#"Linear over-approximation",
+"BestFS-Delta (Sum, Extreme)",
+"BestFS-Delta-Deep (Sum, Extreme)",
+"BestFS-Delta (Sum, Extreme) Lookahead 1",
+"BestFS-Delta (Sum, Extreme) Lookahead 2",
+"BestFS-Delta (Sum, Extreme) Lookahead 3",
+"BestFS-Delta (Sum, Extreme) Lookahead 4",
+"BestFS-Delta (Sum, Extreme) Lookahead 5"]
 
 # List of models to run on
 Models = ["MAPK", "DTAPN", "Kanban", "FMS"]
@@ -38,13 +52,21 @@ TimeOut = 60
 # Number of queries to run from each model (0 for all)
 QueriesToRun = 0
 
+# Query prefixes to ignore
+QueryPrefixIgnoreList = [
+#"fOK",
+"fNOK",
+]
+
 #####################################################################
 #                   End of Default Configuration                    #
 #####################################################################
 
 #load config
 try:
+	kill = False
 	import testconfig
+	kill = True
 	PeTe 			= testconfig.PeTe
 	ModelDir		= testconfig.ModelDir
 	IgnoreList 		= testconfig.IgnoreList
@@ -54,9 +76,12 @@ try:
 	InitialPollTime	= testconfig.InitialPollTime
 	TimeOut 		= testconfig.TimeOut
 	QueriesToRun 	= testconfig.QueriesToRun
+	QueryPrefixIgnoreList = testconfig.QueryPrefixIgnoreList
 except:
 	print "Failed to load config"
-
+	if kill:
+		print "Attempted to load config, but failed check that you have all settings!"
+		exit()
 
 # Find some absolute paths
 petebin = os.path.abspath(PeTe)
@@ -76,14 +101,15 @@ strategies = [i.strip() for i in p.stdout.readlines()]
 p.wait()
 
 Kanban = ["Kanban5.pet", "Kanban10.pet", "Kanban20.pet", "Kanban50.pet", "Kanban100.pet", "Kanban200.pet", "Kanban500.pet", "Kanban1000.pet"]
-FMS = ["FMS2.pet", "FMS10.pet"]
+FMS = ["FMS2.pet", "FMS10.pet", "FMS50.pet", "FMS100.pet", "FMS200.pet", "FMS500.pet"]
 MAPK = ["MAPK8.pet", "MAPK40.pet", "MAPK80.pet", "MAPK160.pet", "MAPK320.pet"]
 DTAPN = ["DTAPNs/PrimeNet-7.pet", "DTAPNs/PrimeNet-11.pet", "DTAPNs/PrimeNet-13.pet", "DTAPNs/PrimeNet-17.pet", "DTAPNs/PrimeNet-19.pet"]
 modellists = []
-if "MAPK" in Models: modellists += (MAPK,)
-if "DTAPN" in Models: modellists += (DTAPN,)
-if "Kanban" in Models: modellists += (Kanban,)
-if "FMS" in Models: modellists += (FMS,)
+for m in Models:
+	if m == "MAPK": modellists += (MAPK,)
+	if m == "DTAPN": modellists += (DTAPN,)
+	if m == "Kanban": modellists += (Kanban,)
+	if m == "FMS": modellists += (FMS,)
 
 def getMemory(pid):
 	argvs = ["ps", "-p", str(pid), "-o", "vsz="]
@@ -155,6 +181,10 @@ def runScaledModels(scaledModels):
 			queriesrun = 0
 			failed = True
 			for query in queries:
+				skipByPrefix = False
+				for prefix in QueryPrefixIgnoreList:
+					skipByPrefix |= query.startswith(prefix)
+				if skipByPrefix: continue
 				ret, data, mem = run(modeldir + model, strategy, query)
 				print data.strip() + ",\t" + str(mem)
 				failed = failed and not ret

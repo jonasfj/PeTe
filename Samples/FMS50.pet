@@ -3,7 +3,7 @@
      <net>
           <place id="P1d">
                <graphics>
-                    <position x="458" y="318"/>
+                    <position x="181" y="315"/>
                </graphics>
                <name>
                     <value>P1d</value>
@@ -14,7 +14,7 @@
           </place>
           <place id="P1s">
                <graphics>
-                    <position x="431" y="394"/>
+                    <position x="154" y="391"/>
                </graphics>
                <name>
                     <value>P1s</value>
@@ -25,7 +25,7 @@
           </place>
           <place id="P1wP2">
                <graphics>
-                    <position x="484" y="394"/>
+                    <position x="207" y="391"/>
                </graphics>
                <name>
                     <value>P1wP2</value>
@@ -36,7 +36,7 @@
           </place>
           <place id="P12">
                <graphics>
-                    <position x="530" y="432"/>
+                    <position x="253" y="429"/>
                </graphics>
                <name>
                     <value>P12</value>
@@ -47,18 +47,18 @@
           </place>
           <place id="P1">
                <graphics>
-                    <position x="458" y="100"/>
+                    <position x="181" y="97"/>
                </graphics>
                <name>
                     <value>P1</value>
                </name>
                <initialMarking>
-                    <value>2</value>
+                    <value>50</value>
                </initialMarking>
           </place>
           <place id="P1wM1">
                <graphics>
-                    <position x="458" y="166"/>
+                    <position x="181" y="163"/>
                </graphics>
                <name>
                     <value>P1wM1</value>
@@ -69,7 +69,7 @@
           </place>
           <place id="P1M1">
                <graphics>
-                    <position x="458" y="242"/>
+                    <position x="181" y="239"/>
                </graphics>
                <name>
                     <value>P1M1</value>
@@ -80,7 +80,7 @@
           </place>
           <place id="M1">
                <graphics>
-                    <position x="418" y="242"/>
+                    <position x="141" y="239"/>
                </graphics>
                <name>
                     <value>M1</value>
@@ -91,7 +91,7 @@
           </place>
           <place id="P2wM2">
                <graphics>
-                    <position x="604" y="166"/>
+                    <position x="327" y="163"/>
                </graphics>
                <name>
                     <value>P2wM2</value>
@@ -102,18 +102,18 @@
           </place>
           <place id="P2">
                <graphics>
-                    <position x="604" y="100"/>
+                    <position x="327" y="97"/>
                </graphics>
                <name>
                     <value>P2</value>
                </name>
                <initialMarking>
-                    <value>2</value>
+                    <value>50</value>
                </initialMarking>
           </place>
           <place id="M2">
                <graphics>
-                    <position x="642" y="242"/>
+                    <position x="365" y="239"/>
                </graphics>
                <name>
                     <value>M2</value>
@@ -124,7 +124,7 @@
           </place>
           <place id="P2M2">
                <graphics>
-                    <position x="604" y="242"/>
+                    <position x="327" y="239"/>
                </graphics>
                <name>
                     <value>P2M2</value>
@@ -135,7 +135,7 @@
           </place>
           <place id="P12M3">
                <graphics>
-                    <position x="530" y="598"/>
+                    <position x="253" y="595"/>
                </graphics>
                <name>
                     <value>P12M3</value>
@@ -146,7 +146,7 @@
           </place>
           <place id="P12wM3">
                <graphics>
-                    <position x="530" y="517"/>
+                    <position x="253" y="514"/>
                </graphics>
                <name>
                     <value>P12wM3</value>
@@ -157,7 +157,7 @@
           </place>
           <place id="P12s">
                <graphics>
-                    <position x="530" y="679"/>
+                    <position x="253" y="676"/>
                </graphics>
                <name>
                     <value>P12s</value>
@@ -168,7 +168,7 @@
           </place>
           <place id="M3">
                <graphics>
-                    <position x="575" y="598"/>
+                    <position x="298" y="595"/>
                </graphics>
                <name>
                     <value>M3</value>
@@ -179,7 +179,7 @@
           </place>
           <place id="P3s">
                <graphics>
-                    <position x="739" y="318"/>
+                    <position x="462" y="315"/>
                </graphics>
                <name>
                     <value>P3s</value>
@@ -190,7 +190,7 @@
           </place>
           <place id="P3M2">
                <graphics>
-                    <position x="739" y="196"/>
+                    <position x="462" y="193"/>
                </graphics>
                <name>
                     <value>P3M2</value>
@@ -201,7 +201,7 @@
           </place>
           <place id="P2wP1">
                <graphics>
-                    <position x="577" y="394"/>
+                    <position x="300" y="391"/>
                </graphics>
                <name>
                     <value>P2wP1</value>
@@ -212,7 +212,7 @@
           </place>
           <place id="P2d">
                <graphics>
-                    <position x="604" y="318"/>
+                    <position x="327" y="315"/>
                </graphics>
                <name>
                     <value>P2d</value>
@@ -223,18 +223,18 @@
           </place>
           <place id="P3">
                <graphics>
-                    <position x="739" y="100"/>
+                    <position x="462" y="97"/>
                </graphics>
                <name>
                     <value>P3</value>
                </name>
                <initialMarking>
-                    <value>2</value>
+                    <value>50</value>
                </initialMarking>
           </place>
           <place id="P2s">
                <graphics>
-                    <position x="630" y="394"/>
+                    <position x="353" y="391"/>
                </graphics>
                <name>
                     <value>P2s</value>
@@ -245,7 +245,7 @@
           </place>
           <transition id="tM1">
                <graphics>
-                    <position x="457" y="210"/>
+                    <position x="180" y="207"/>
                </graphics>
                <name>
                     <value>tM1</value>
@@ -255,7 +255,7 @@
           </transition>
           <transition id="tP1">
                <graphics>
-                    <position x="457" y="139"/>
+                    <position x="180" y="136"/>
                </graphics>
                <name>
                     <value>tP1</value>
@@ -265,7 +265,7 @@
           </transition>
           <transition id="tM3">
                <graphics>
-                    <position x="529" y="561"/>
+                    <position x="252" y="558"/>
                </graphics>
                <name>
                     <value>tM3</value>
@@ -275,7 +275,7 @@
           </transition>
           <transition id="tP12M3">
                <graphics>
-                    <position x="529" y="642"/>
+                    <position x="252" y="639"/>
                </graphics>
                <name>
                     <value>tP12M3</value>
@@ -285,7 +285,7 @@
           </transition>
           <transition id="tx">
                <graphics>
-                    <position x="529" y="400"/>
+                    <position x="252" y="397"/>
                </graphics>
                <name>
                     <value>tx</value>
@@ -295,7 +295,7 @@
           </transition>
           <transition id="tP12">
                <graphics>
-                    <position x="529" y="480"/>
+                    <position x="252" y="477"/>
                </graphics>
                <name>
                     <value>tP12</value>
@@ -305,7 +305,7 @@
           </transition>
           <transition id="tP1s">
                <graphics>
-                    <position x="430" y="438"/>
+                    <position x="153" y="435"/>
                </graphics>
                <name>
                     <value>tP1s</value>
@@ -315,7 +315,7 @@
           </transition>
           <transition id="tP1j">
                <graphics>
-                    <position x="483" y="362"/>
+                    <position x="206" y="359"/>
                </graphics>
                <name>
                     <value>tP1j</value>
@@ -325,7 +325,7 @@
           </transition>
           <transition id="tP1M1">
                <graphics>
-                    <position x="457" y="286"/>
+                    <position x="180" y="283"/>
                </graphics>
                <name>
                     <value>tP1M1</value>
@@ -335,7 +335,7 @@
           </transition>
           <transition id="tP1e">
                <graphics>
-                    <position x="430" y="362"/>
+                    <position x="153" y="359"/>
                </graphics>
                <name>
                     <value>tP1e</value>
@@ -345,7 +345,7 @@
           </transition>
           <transition id="tP2s">
                <graphics>
-                    <position x="629" y="438"/>
+                    <position x="352" y="435"/>
                </graphics>
                <name>
                     <value>tP2s</value>
@@ -355,7 +355,7 @@
           </transition>
           <transition id="tP3">
                <graphics>
-                    <position x="738" y="154"/>
+                    <position x="461" y="151"/>
                </graphics>
                <name>
                     <value>tP3</value>
@@ -365,7 +365,7 @@
           </transition>
           <transition id="tP2j">
                <graphics>
-                    <position x="576" y="362"/>
+                    <position x="299" y="359"/>
                </graphics>
                <name>
                     <value>tP2j</value>
@@ -375,7 +375,7 @@
           </transition>
           <transition id="tP2e">
                <graphics>
-                    <position x="629" y="362"/>
+                    <position x="352" y="359"/>
                </graphics>
                <name>
                     <value>tP2e</value>
@@ -385,7 +385,7 @@
           </transition>
           <transition id="tM2">
                <graphics>
-                    <position x="603" y="210"/>
+                    <position x="326" y="207"/>
                </graphics>
                <name>
                     <value>tM2</value>
@@ -395,7 +395,7 @@
           </transition>
           <transition id="tP2M2">
                <graphics>
-                    <position x="603" y="286"/>
+                    <position x="326" y="283"/>
                </graphics>
                <name>
                     <value>tP2M2</value>
@@ -405,7 +405,7 @@
           </transition>
           <transition id="tP12s">
                <graphics>
-                    <position x="529" y="728"/>
+                    <position x="252" y="725"/>
                </graphics>
                <name>
                     <value>tP12s</value>
@@ -415,7 +415,7 @@
           </transition>
           <transition id="tP2">
                <graphics>
-                    <position x="603" y="139"/>
+                    <position x="326" y="136"/>
                </graphics>
                <name>
                     <value>tP2</value>
@@ -425,7 +425,7 @@
           </transition>
           <transition id="tP3s">
                <graphics>
-                    <position x="797" y="226"/>
+                    <position x="520" y="223"/>
                </graphics>
                <name>
                     <value>tP3s</value>
@@ -435,7 +435,7 @@
           </transition>
           <transition id="tP3M2">
                <graphics>
-                    <position x="738" y="248"/>
+                    <position x="461" y="245"/>
                </graphics>
                <name>
                     <value>tP3M2</value>
@@ -695,25 +695,225 @@
           </arc>
      </net>
      <queries>
-          <query name="fOK0320" strategy="Naive Karp-Millar DFS with hashing" jit="false">((P12 == 0) and ((P1wP2 == 1) and ((P12wM3 == 0) and ((P3s == 1) and ((P12s == 0) and ((P2s == 0) and ((P1 == 0) and ((M3 == 2) and ((P1s == 0) and ((M2 == 0) and ((P3 == 1) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 0) and ((P2wP1 == 1) and ((P1wM1 == 1) and ((P1M1 == 0) and ((P2M2 == 1) and ((P1d == 0) and ((P3M2 == 0) and (P12M3 == 0))))))))))))))))))))))</query>
-          <query name="fOK0350" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 0) and ((P12wM3 == 0) and ((P3s == 1) and ((P12s == 0) and ((P2s == 0) and ((P1 == 0) and ((M3 == 2) and ((P1s == 0) and ((M2 == 0) and ((P3 == 0) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 0) and ((P2wP1 == 1) and ((P1wM1 == 2) and ((P1M1 == 0) and ((P2M2 == 1) and ((P1d == 0) and ((P3M2 == 1) and (P12M3 == 0))))))))))))))))))))))</query>
-          <query name="fOK0033" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 1) and ((P12wM3 == 1) and ((P3s == 2) and ((P12s == 0) and ((P2s == 0) and ((P1 == 0) and ((M3 == 2) and ((P1s == 0) and ((M2 == 0) and ((P3 == 0) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 0) and ((P2wP1 == 0) and ((P1wM1 == 0) and ((P1M1 == 0) and ((P2M2 == 1) and ((P1d == 0) and ((P3M2 == 0) and (P12M3 == 0))))))))))))))))))))))</query>
-          <query name="fOK2565" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 0) and ((P12wM3 == 0) and ((P3s == 1) and ((P12s == 0) and ((P2s == 0) and ((P1 == 1) and ((M3 == 2) and ((P1s == 1) and ((M2 == 1) and ((P3 == 0) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 1) and ((P2d == 1) and ((P2wP1 == 0) and ((P1wM1 == 0) and ((P1M1 == 0) and ((P2M2 == 0) and ((P1d == 0) and ((P3M2 == 1) and (P12M3 == 0))))))))))))))))))))))</query>
-          <query name="fOK2861" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 0) and ((P12wM3 == 0) and ((P3s == 0) and ((P12s == 0) and ((P2s == 0) and ((P1 == 0) and ((M3 == 1) and ((P1s == 0) and ((M2 == 1) and ((P3 == 1) and ((P2 == 1) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 0) and ((P2wP1 == 0) and ((P1wM1 == 1) and ((P1M1 == 0) and ((P2M2 == 0) and ((P1d == 0) and ((P3M2 == 1) and (P12M3 == 1))))))))))))))))))))))</query>
-          <query name="fOK2025" strategy="" jit="false">((P12 == 1) and ((P1wP2 == 0) and ((P12wM3 == 0) and ((P3s == 0) and ((P12s == 0) and ((P2s == 1) and ((P1 == 0) and ((M3 == 2) and ((P1s == 0) and ((M2 == 1) and ((P3 == 1) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 0) and ((P2wP1 == 0) and ((P1wM1 == 0) and ((P1M1 == 0) and ((P2M2 == 0) and ((P1d == 1) and ((P3M2 == 1) and (P12M3 == 0))))))))))))))))))))))</query>
-          <query name="fOK0761" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 1) and ((P12wM3 == 0) and ((P3s == 0) and ((P12s == 0) and ((P2s == 0) and ((P1 == 0) and ((M3 == 2) and ((P1s == 1) and ((M2 == 0) and ((P3 == 2) and ((P2 == 1) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 0) and ((P2wP1 == 0) and ((P1wM1 == 0) and ((P1M1 == 0) and ((P2M2 == 1) and ((P1d == 0) and ((P3M2 == 0) and (P12M3 == 0))))))))))))))))))))))</query>
-          <query name="fOK2182" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 0) and ((P12wM3 == 0) and ((P3s == 1) and ((P12s == 0) and ((P2s == 1) and ((P1 == 0) and ((M3 == 2) and ((P1s == 0) and ((M2 == 1) and ((P3 == 1) and ((P2 == 0) and ((M1 == 2) and ((P2wM2 == 1) and ((P2d == 0) and ((P2wP1 == 0) and ((P1wM1 == 1) and ((P1M1 == 1) and ((P2M2 == 0) and ((P1d == 0) and ((P3M2 == 0) and (P12M3 == 0))))))))))))))))))))))</query>
-          <query name="fOK2039" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 1) and ((P12wM3 == 0) and ((P3s == 1) and ((P12s == 0) and ((P2s == 1) and ((P1 == 0) and ((M3 == 2) and ((P1s == 0) and ((M2 == 1) and ((P3 == 0) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 0) and ((P2d == 1) and ((P2wP1 == 0) and ((P1wM1 == 0) and ((P1M1 == 0) and ((P2M2 == 0) and ((P1d == 1) and ((P3M2 == 1) and (P12M3 == 0))))))))))))))))))))))</query>
-          <query name="fOK1341" strategy="" jit="false">((P12 == 0) and ((P1wP2 == 0) and ((P12wM3 == 0) and ((P3s == 1) and ((P12s == 0) and ((P2s == 0) and ((P1 == 1) and ((M3 == 2) and ((P1s == 1) and ((M2 == 1) and ((P3 == 0) and ((P2 == 0) and ((M1 == 3) and ((P2wM2 == 1) and ((P2d == 0) and ((P2wP1 == 1) and ((P1wM1 == 0) and ((P1M1 == 0) and ((P2M2 == 0) and ((P1d == 0) and ((P3M2 == 1) and (P12M3 == 0))))))))))))))))))))))</query>
-          <query name="fNOK2169" strategy="" jit="false">((((((((((((((((((((((not (P12 == 0)) and (P1wP2 == 0)) and (P12wM3 == 0)) and (P3s == 0)) and (P12s == 0)) and (P2s == 1)) and (P1 == 0)) and (M3 == 2)) and (P1s == 0)) and (M2 == 1)) and (P3 == 1)) and (P2 == 1)) and (M1 == 3)) and (P2wM2 == 0)) and (P2d == 0)) and (P2wP1 == 0)) and (P1wM1 == 2)) and (P1M1 == 0)) and (P2M2 == 0)) and (P1d == 0)) and (P3M2 == 1)) and (P12M3 == 0))</query>
-          <query name="fNOK0024" strategy="" jit="false">((((((((((((((((((((((not (P12 == 0)) and (P1wP2 == 1)) and (P12wM3 == 1)) and (P3s == 1)) and (P12s == 0)) and (P2s == 0)) and (P1 == 0)) and (M3 == 2)) and (P1s == 0)) and (M2 == 0)) and (P3 == 1)) and (P2 == 0)) and (M1 == 3)) and (P2wM2 == 0)) and (P2d == 0)) and (P2wP1 == 0)) and (P1wM1 == 0)) and (P1M1 == 0)) and (P2M2 == 1)) and (P1d == 0)) and (P3M2 == 0)) and (P12M3 == 0))</query>
-          <query name="fNOK3429" strategy="" jit="false">((((((((((((((((((((((not (P12 == 0)) and (P1wP2 == 0)) and (P12wM3 == 0)) and (P3s == 2)) and (P12s == 1)) and (P2s == 0)) and (P1 == 0)) and (M3 == 2)) and (P1s == 1)) and (M2 == 1)) and (P3 == 0)) and (P2 == 0)) and (M1 == 3)) and (P2wM2 == 0)) and (P2d == 1)) and (P2wP1 == 0)) and (P1wM1 == 0)) and (P1M1 == 0)) and (P2M2 == 0)) and (P1d == 0)) and (P3M2 == 0)) and (P12M3 == 0))</query>
-          <query name="fNOK2612" strategy="" jit="false">((((((((((((((((((((((not (P12 == 0)) and (P1wP2 == 0)) and (P12wM3 == 0)) and (P3s == 1)) and (P12s == 0)) and (P2s == 0)) and (P1 == 0)) and (M3 == 2)) and (P1s == 0)) and (M2 == 1)) and (P3 == 1)) and (P2 == 0)) and (M1 == 3)) and (P2wM2 == 1)) and (P2d == 1)) and (P2wP1 == 0)) and (P1wM1 == 0)) and (P1M1 == 0)) and (P2M2 == 0)) and (P1d == 2)) and (P3M2 == 0)) and (P12M3 == 0))</query>
-          <query name="fNOK1660" strategy="" jit="false">((((((((((((((((((((((not (P12 == 1)) and (P1wP2 == 0)) and (P12wM3 == 0)) and (P3s == 0)) and (P12s == 0)) and (P2s == 0)) and (P1 == 0)) and (M3 == 2)) and (P1s == 0)) and (M2 == 1)) and (P3 == 0)) and (P2 == 0)) and (M1 == 3)) and (P2wM2 == 0)) and (P2d == 0)) and (P2wP1 == 1)) and (P1wM1 == 1)) and (P1M1 == 0)) and (P2M2 == 0)) and (P1d == 0)) and (P3M2 == 2)) and (P12M3 == 0))</query>
-          <query name="fNOK2943" strategy="" jit="false">((((((((((((((((((((((not (P12 == 0)) and (P1wP2 == 1)) and (P12wM3 == 0)) and (P3s == 0)) and (P12s == 0)) and (P2s == 0)) and (P1 == 0)) and (M3 == 2)) and (P1s == 1)) and (M2 == 1)) and (P3 == 2)) and (P2 == 0)) and (M1 == 3)) and (P2wM2 == 0)) and (P2d == 2)) and (P2wP1 == 0)) and (P1wM1 == 0)) and (P1M1 == 0)) and (P2M2 == 0)) and (P1d == 0)) and (P3M2 == 0)) and (P12M3 == 0))</query>
-          <query name="fNOK3359" strategy="" jit="false">((((((((((((((((((((((not (P12 == 0)) and (P1wP2 == 0)) and (P12wM3 == 0)) and (P3s == 0)) and (P12s == 0)) and (P2s == 0)) and (P1 == 0)) and (M3 == 2)) and (P1s == 2)) and (M2 == 1)) and (P3 == 0)) and (P2 == 0)) and (M1 == 3)) and (P2wM2 == 0)) and (P2d == 2)) and (P2wP1 == 0)) and (P1wM1 == 0)) and (P1M1 == 0)) and (P2M2 == 0)) and (P1d == 0)) and (P3M2 == 2)) and (P12M3 == 0))</query>
-          <query name="fNOK3140" strategy="" jit="false">((((((((((((((((((((((not (P12 == 0)) and (P1wP2 == 0)) and (P12wM3 == 0)) and (P3s == 0)) and (P12s == 0)) and (P2s == 0)) and (P1 == 0)) and (M3 == 2)) and (P1s == 0)) and (M2 == 1)) and (P3 == 1)) and (P2 == 1)) and (M1 == 1)) and (P2wM2 == 0)) and (P2d == 1)) and (P2wP1 == 0)) and (P1wM1 == 0)) and (P1M1 == 2)) and (P2M2 == 0)) and (P1d == 0)) and (P3M2 == 1)) and (P12M3 == 0))</query>
-          <query name="fNOK1958" strategy="" jit="false">((((((((((((((((((((((not (P12 == 0)) and (P1wP2 == 0)) and (P12wM3 == 0)) and (P3s == 1)) and (P12s == 1)) and (P2s == 1)) and (P1 == 1)) and (M3 == 2)) and (P1s == 0)) and (M2 == 1)) and (P3 == 0)) and (P2 == 0)) and (M1 == 3)) and (P2wM2 == 0)) and (P2d == 0)) and (P2wP1 == 0)) and (P1wM1 == 0)) and (P1M1 == 0)) and (P2M2 == 0)) and (P1d == 0)) and (P3M2 == 1)) and (P12M3 == 0))</query>
-          <query name="fNOK1042" strategy="" jit="false">((((((((((((((((((((((not (P12 == 0)) and (P1wP2 == 0)) and (P12wM3 == 0)) and (P3s == 1)) and (P12s == 0)) and (P2s == 0)) and (P1 == 0)) and (M3 == 2)) and (P1s == 0)) and (M2 == 1)) and (P3 == 0)) and (P2 == 0)) and (M1 == 2)) and (P2wM2 == 0)) and (P2d == 0)) and (P2wP1 == 2)) and (P1wM1 == 0)) and (P1M1 == 1)) and (P2M2 == 0)) and (P1d == 1)) and (P3M2 == 1)) and (P12M3 == 0))</query>
+          <query name="fOK0320" strategy="BestFS-Delta (Sum, Extreme)" jit="false">P12 == 0 and
+P1wP2 == 25 and
+P12wM3 == 0 and
+P3s == 25 and
+P12s == 0 and
+P2s == 0 and
+P1 == 0 and
+M3 == 2 and
+P1s == 0 and
+M2 == 0 and
+P3 == 25 and
+P2 == 0 and
+M1 == 3 and
+P2wM2 == 24 and
+P2d == 0 and
+P2wP1 == 25 and
+P1wM1 == 25 and
+P1M1 == 0 and
+P2M2 == 1 and
+P1d == 0 and
+P3M2 == 0 and
+P12M3 == 0</query>
+          <query name="fOK0350" strategy="BestFS-Delta (Sum, Extreme)" jit="false">P12 == 0 and
+P1wP2 == 0 and
+P12wM3 == 0 and
+P3s == 25 and
+P12s == 0 and
+P2s == 0 and
+P1 == 0 and
+M3 == 2 and
+P1s == 0 and
+M2 == 0 and
+P3 == 0 and
+P2 == 0 and
+M1 == 3 and
+P2wM2 == 24 and
+P2d == 0 and
+P2wP1 == 25 and
+P1wM1 == 50 and
+P1M1 == 0 and
+P2M2 == 1 and
+P1d == 0 and
+P3M2 == 25 and
+P12M3 == 0</query>
+          <query name="fOK0033" strategy="Linear over-approximation" jit="false">P12 == 0 and
+P1wP2 == 25 and
+P12wM3 == 25 and
+P3s == 50 and
+P12s == 0 and
+P2s == 0 and
+P1 == 0 and
+M3 == 2 and
+P1s == 0 and
+M2 == 0 and
+P3 == 0 and
+P2 == 0 and
+M1 == 3 and
+P2wM2 == 24 and
+P2d == 0 and
+P2wP1 == 0 and
+P1wM1 == 0 and
+P1M1 == 0 and
+P2M2 == 1 and
+P1d == 0 and
+P3M2 == 0 and
+P12M3 == 0</query>
+          <query name="fOK2565" strategy="BestFS-Delta (Sum, Extreme)" jit="false">P12 == 0 and
+P1wP2 == 0 and
+P12wM3 == 0 and
+P3s == 25 and
+P12s == 0 and
+P2s == 0 and
+P1 == 25 and
+M3 == 2 and
+P1s == 25 and
+M2 == 1 and
+P3 == 0 and
+P2 == 0 and
+M1 == 3 and
+P2wM2 == 25 and
+P2d == 25 and
+P2wP1 == 0 and
+P1wM1 == 0 and
+P1M1 == 0 and
+P2M2 == 0 and
+P1d == 0 and
+P3M2 == 25 and
+P12M3 == 0</query>
+          <query name="fOK2861" strategy="BestFS-Delta (Sum, Extreme)" jit="false">P12 == 0 and
+P1wP2 == 0 and
+P12wM3 == 24 and
+P3s == 0 and
+P12s == 0 and
+P2s == 0 and
+P1 == 0 and
+M3 == 1 and
+P1s == 0 and
+M2 == 1 and
+P3 == 25 and
+P2 == 25 and
+M1 == 3 and
+P2wM2 == 0 and
+P2d == 0 and
+P2wP1 == 0 and
+P1wM1 == 25 and
+P1M1 == 0 and
+P2M2 == 0 and
+P1d == 0 and
+P3M2 == 25 and
+P12M3 == 1</query>
+          <query name="fOK2025" strategy="BestFS-Delta (Sum, Extreme)" jit="false">P12 == 25 and
+P1wP2 == 0 and
+P12wM3 == 0 and
+P3s == 0 and
+P12s == 0 and
+P2s == 25 and
+P1 == 0 and
+M3 == 2 and
+P1s == 0 and
+M2 == 1 and
+P3 == 25 and
+P2 == 0 and
+M1 == 3 and
+P2wM2 == 0 and
+P2d == 0 and
+P2wP1 == 0 and
+P1wM1 == 0 and
+P1M1 == 0 and
+P2M2 == 0 and
+P1d == 25 and
+P3M2 == 25 and
+P12M3 == 0</query>
+          <query name="fOK0761" strategy="BestFS-Delta (Sum, Extreme)" jit="false">P12 == 0 and
+P1wP2 == 25 and
+P12wM3 == 0 and
+P3s == 0 and
+P12s == 0 and
+P2s == 0 and
+P1 == 0 and
+M3 == 2 and
+P1s == 25 and
+M2 == 0 and
+P3 == 50 and
+P2 == 25 and
+M1 == 3 and
+P2wM2 == 24 and
+P2d == 0 and
+P2wP1 == 0 and
+P1wM1 == 0 and
+P1M1 == 0 and
+P2M2 == 1 and
+P1d == 0 and
+P3M2 == 0 and
+P12M3 == 0</query>
+          <query name="fOK2182" strategy="BestFS-Delta (Sum, Extreme)" jit="false">P12 == 0 and
+P1wP2 == 0 and
+P12wM3 == 0 and
+P3s == 25 and
+P12s == 0 and
+P2s == 25 and
+P1 == 0 and
+M3 == 2 and
+P1s == 0 and
+M2 == 1 and
+P3 == 25 and
+P2 == 0 and
+M1 == 2 and
+P2wM2 == 25 and
+P2d == 0 and
+P2wP1 == 0 and
+P1wM1 == 49 and
+P1M1 == 1 and
+P2M2 == 0 and
+P1d == 0 and
+P3M2 == 0 and
+P12M3 == 0</query>
+          <query name="fOK2039" strategy="BestFS-Delta (Sum, Extreme)" jit="false">P12 == 0 and
+P1wP2 == 25 and
+P12wM3 == 0 and
+P3s == 25 and
+P12s == 0 and
+P2s == 25 and
+P1 == 0 and
+M3 == 2 and
+P1s == 0 and
+M2 == 1 and
+P3 == 0 and
+P2 == 0 and
+M1 == 3 and
+P2wM2 == 0 and
+P2d == 25 and
+P2wP1 == 0 and
+P1wM1 == 0 and
+P1M1 == 0 and
+P2M2 == 0 and
+P1d == 25 and
+P3M2 == 25 and
+P12M3 == 0</query>
+          <query name="fOK1341" strategy="BestFS-Delta (Sum, Extreme)" jit="false">P12 == 0 and
+P1wP2 == 0 and
+P12wM3 == 0 and
+P3s == 25 and
+P12s == 0 and
+P2s == 0 and
+P1 == 25 and
+M3 == 2 and
+P1s == 25 and
+M2 == 1 and
+P3 == 0 and
+P2 == 0 and
+M1 == 3 and
+P2wM2 == 25 and
+P2d == 0 and
+P2wP1 == 25 and
+P1wM1 == 0 and
+P1M1 == 0 and
+P2M2 == 0 and
+P1d == 0 and
+P3M2 == 25 and
+P12M3 == 0</query>
      </queries>
 </pnml>
