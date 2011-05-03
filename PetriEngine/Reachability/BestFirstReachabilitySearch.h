@@ -26,9 +26,11 @@ public:
 	 */
 	BestFirstReachabilitySearch(PQL::DistanceContext::DistanceStrategy distanceStrategy,
 								bool fireUntillNoBetter = false,
+								bool depthFirst = true,
 								int lookahead = 0){
 		this->_distanceStrategy = distanceStrategy;
 		this->fireUntillNoBetter = fireUntillNoBetter;
+		this->depthFirst = depthFirst;
 		_lookahead = lookahead;
 	}
 	ReachabilityResult reachable(const PetriNet &net,
@@ -45,6 +47,7 @@ private:
 	Structures::DistanceMatrix* _dm;
 	bool fireUntillNoBetter;
 	int _lookahead;
+	bool depthFirst;
 
 	/** Find the best distance in depth steps from state */
 	double lookaheadDistance(const PetriNet& net,

@@ -272,23 +272,23 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	//BestFSDelta-LHx
 	if(strategy == NAME_BestFSDeltaSumExtremeLH1){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
-		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 1);
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, true, 1);
 	}
 	if(strategy == NAME_BestFSDeltaSumExtremeLH2){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
-		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 2);
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, true, 2);
 	}
 	if(strategy == NAME_BestFSDeltaSumExtremeLH3){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
-		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 3);
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, true, 3);
 	}
 	if(strategy == NAME_BestFSDeltaSumExtremeLH4){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
-		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 4);
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, true, 4);
 	}
 	if(strategy == NAME_BestFSDeltaSumExtremeLH5){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
-		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 5);
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, true, 5);
 	}
 
 	//Linear over-approximation

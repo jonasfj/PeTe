@@ -2,6 +2,7 @@
 #include "../PQL/PQL.h"
 #include "../PQL/Contexts.h"
 #include "../Structures/PriorityQueue.h"
+#include "../Structures/EnhancedPriorityQueue.h"
 #include "../Structures/StateSet.h"
 #include "../Structures/StateAllocator.h"
 
@@ -32,7 +33,8 @@ ReachabilityResult BestFirstReachabilitySearch::reachable(const PetriNet &net,
 	StateSet states(net);
 	_states = &states;
 	states.add(s0);
-	PriorityQueue<State*> queue;
+	//PriorityQueue<State*> queue;
+	EnhancedPriorityQueue<State*> queue;
 	queue.push(0, s0);
 
 	//Allocate new state
@@ -55,10 +57,7 @@ ReachabilityResult BestFirstReachabilitySearch::reachable(const PetriNet &net,
 		}
 
 		//Take something out of the queue
-		PriorityQueue<State*>::Iterator it = queue.pop();
-		if(!it++) break;	//Assume there's a first element
-		State* s = it.item();
-		queue.remove(it);	//Remove the element
+		State* s = queue.pop(depthFirst);
 		expandedStates++;
 
 		// Attempt to fire each transition
