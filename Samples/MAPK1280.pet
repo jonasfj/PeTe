@@ -1,0 +1,1019 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+     <net>
+          <transition id="k5">
+               <graphics>
+                    <position x="388.667" y="638.333"/>
+               </graphics>
+               <name>
+                    <value>k5</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k16">
+               <graphics>
+                    <position x="765.667" y="343.333"/>
+               </graphics>
+               <name>
+                    <value>k16</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k30">
+               <graphics>
+                    <position x="1301.67" y="415.333"/>
+               </graphics>
+               <name>
+                    <value>k30</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k17">
+               <graphics>
+                    <position x="765.667" y="415.333"/>
+               </graphics>
+               <name>
+                    <value>k17</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k29">
+               <graphics>
+                    <position x="1207.67" y="415.333"/>
+               </graphics>
+               <name>
+                    <value>k29</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k4">
+               <graphics>
+                    <position x="388.667" y="562.333"/>
+               </graphics>
+               <name>
+                    <value>k4</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k19">
+               <graphics>
+                    <position x="1072.67" y="343.333"/>
+               </graphics>
+               <name>
+                    <value>k19</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k22">
+               <graphics>
+                    <position x="1082.67" y="474.333"/>
+               </graphics>
+               <name>
+                    <value>k22</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k27">
+               <graphics>
+                    <position x="1403.67" y="415.333"/>
+               </graphics>
+               <name>
+                    <value>k27</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k13">
+               <graphics>
+                    <position x="866.667" y="343.333"/>
+               </graphics>
+               <name>
+                    <value>k13</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k14">
+               <graphics>
+                    <position x="935.667" y="415.333"/>
+               </graphics>
+               <name>
+                    <value>k14</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k28">
+               <graphics>
+                    <position x="1258.67" y="343.333"/>
+               </graphics>
+               <name>
+                    <value>k28</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k7">
+               <graphics>
+                    <position x="524.667" y="415.333"/>
+               </graphics>
+               <name>
+                    <value>k7</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k10">
+               <graphics>
+                    <position x="623.667" y="562.333"/>
+               </graphics>
+               <name>
+                    <value>k10</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k23">
+               <graphics>
+                    <position x="1082.67" y="580.333"/>
+               </graphics>
+               <name>
+                    <value>k23</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k20">
+               <graphics>
+                    <position x="1031.67" y="415.333"/>
+               </graphics>
+               <name>
+                    <value>k20</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k11">
+               <graphics>
+                    <position x="588.667" y="678.333"/>
+               </graphics>
+               <name>
+                    <value>k11</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k8">
+               <graphics>
+                    <position x="472.667" y="506.333"/>
+               </graphics>
+               <name>
+                    <value>k8</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k26">
+               <graphics>
+                    <position x="1492.67" y="415.333"/>
+               </graphics>
+               <name>
+                    <value>k26</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k25">
+               <graphics>
+                    <position x="1449.67" y="343.333"/>
+               </graphics>
+               <name>
+                    <value>k25</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k15">
+               <graphics>
+                    <position x="813.667" y="415.333"/>
+               </graphics>
+               <name>
+                    <value>k15</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k24">
+               <graphics>
+                    <position x="1151.67" y="497.333"/>
+               </graphics>
+               <name>
+                    <value>k24</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k9">
+               <graphics>
+                    <position x="573.667" y="506.333"/>
+               </graphics>
+               <name>
+                    <value>k9</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k12">
+               <graphics>
+                    <position x="657.667" y="678.333"/>
+               </graphics>
+               <name>
+                    <value>k12</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k21">
+               <graphics>
+                    <position x="1107.67" y="415.333"/>
+               </graphics>
+               <name>
+                    <value>k21</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k18">
+               <graphics>
+                    <position x="644.667" y="377.333"/>
+               </graphics>
+               <name>
+                    <value>k18</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k3">
+               <graphics>
+                    <position x="97.6667" y="655.333"/>
+               </graphics>
+               <name>
+                    <value>k3</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k6">
+               <graphics>
+                    <position x="317.667" y="598.333"/>
+               </graphics>
+               <name>
+                    <value>k6</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k1">
+               <graphics>
+                    <position x="182.667" y="564.333"/>
+               </graphics>
+               <name>
+                    <value>k1</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="k2">
+               <graphics>
+                    <position x="270.667" y="655.333"/>
+               </graphics>
+               <name>
+                    <value>k2</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <place id="Raf">
+               <graphics>
+                    <position x="271.667" y="592.333"/>
+               </graphics>
+               <name>
+                    <value>Raf</value>
+               </name>
+               <initialMarking>
+                    <value>1280</value>
+               </initialMarking>
+          </place>
+          <place id="RasGTP">
+               <graphics>
+                    <position x="183.667" y="512.333"/>
+               </graphics>
+               <name>
+                    <value>RasGTP</value>
+               </name>
+               <initialMarking>
+                    <value>320</value>
+               </initialMarking>
+          </place>
+          <place id="RafP_Phase1">
+               <graphics>
+                    <position x="389.667" y="592.333"/>
+               </graphics>
+               <name>
+                    <value>RafP_Phase1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="MEK_RafP">
+               <graphics>
+                    <position x="525.667" y="449.333"/>
+               </graphics>
+               <name>
+                    <value>MEK_RafP</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Raf_RasGTP">
+               <graphics>
+                    <position x="183.667" y="599.333"/>
+               </graphics>
+               <name>
+                    <value>Raf_RasGTP</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="RafP">
+               <graphics>
+                    <position x="525.667" y="556.333"/>
+               </graphics>
+               <name>
+                    <value>RafP</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="ERK">
+               <graphics>
+                    <position x="1073.67" y="291.333"/>
+               </graphics>
+               <name>
+                    <value>ERK</value>
+               </name>
+               <initialMarking>
+                    <value>960</value>
+               </initialMarking>
+          </place>
+          <place id="MEKPP_Phase2">
+               <graphics>
+                    <position x="867.667" y="371.333"/>
+               </graphics>
+               <name>
+                    <value>MEKPP_Phase2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="MEKP_Phase2">
+               <graphics>
+                    <position x="766.667" y="371.333"/>
+               </graphics>
+               <name>
+                    <value>MEKP_Phase2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="MEKP_RafP">
+               <graphics>
+                    <position x="624.667" y="619.333"/>
+               </graphics>
+               <name>
+                    <value>MEKP_RafP</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="ERKPP">
+               <graphics>
+                    <position x="1493.67" y="491.333"/>
+               </graphics>
+               <name>
+                    <value>ERKPP</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="MEKP">
+               <graphics>
+                    <position x="624.667" y="500.333"/>
+               </graphics>
+               <name>
+                    <value>MEKP</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Phase3">
+               <graphics>
+                    <position x="1384.67" y="291.333"/>
+               </graphics>
+               <name>
+                    <value>Phase3</value>
+               </name>
+               <initialMarking>
+                    <value>960</value>
+               </initialMarking>
+          </place>
+          <place id="Phase2">
+               <graphics>
+                    <position x="814.667" y="291.333"/>
+               </graphics>
+               <name>
+                    <value>Phase2</value>
+               </name>
+               <initialMarking>
+                    <value>640</value>
+               </initialMarking>
+          </place>
+          <place id="MEKPP">
+               <graphics>
+                    <position x="971.667" y="337.333"/>
+               </graphics>
+               <name>
+                    <value>MEKPP</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="ERKP">
+               <graphics>
+                    <position x="1175.67" y="337.333"/>
+               </graphics>
+               <name>
+                    <value>ERKP</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="ERKP_Phase3">
+               <graphics>
+                    <position x="1259.67" y="371.333"/>
+               </graphics>
+               <name>
+                    <value>ERKP_Phase3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="ERKPP_Phase3">
+               <graphics>
+                    <position x="1450.67" y="371.333"/>
+               </graphics>
+               <name>
+                    <value>ERKPP_Phase3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="MEK">
+               <graphics>
+                    <position x="525.667" y="371.333"/>
+               </graphics>
+               <name>
+                    <value>MEK</value>
+               </name>
+               <initialMarking>
+                    <value>640</value>
+               </initialMarking>
+          </place>
+          <place id="Phase1">
+               <graphics>
+                    <position x="389.667" y="520.333"/>
+               </graphics>
+               <name>
+                    <value>Phase1</value>
+               </name>
+               <initialMarking>
+                    <value>960</value>
+               </initialMarking>
+          </place>
+          <place id="ERKP_MEKPP">
+               <graphics>
+                    <position x="1083.67" y="526.333"/>
+               </graphics>
+               <name>
+                    <value>ERKP_MEKPP</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="ERK_MEKPP">
+               <graphics>
+                    <position x="1073.67" y="371.333"/>
+               </graphics>
+               <name>
+                    <value>ERK_MEKPP</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <arc source="k29" target="ERKP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Phase3" target="k28">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="ERKP" target="k28">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k28" target="ERKP_Phase3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEKP" target="k16">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Phase2" target="k16">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEKP_Phase2" target="k17">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k16" target="MEKP_Phase2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEKPP_Phase2" target="k14">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k14" target="Phase2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k17" target="Phase2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k17" target="MEKP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="ERKP_Phase3" target="k29">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k29" target="Phase3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="ERKP_MEKPP" target="k24">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k15" target="MEKP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k24" target="MEKPP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k24" target="ERKPP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="RasGTP" target="k1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Raf" target="k1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Raf_RasGTP" target="k2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k1" target="Raf_RasGTP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k30" target="ERK">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k30" target="Phase3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k27" target="ERKP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="ERKP_Phase3" target="k30">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="ERKPP_Phase3" target="k27">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k27" target="Phase3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k2" target="Raf">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k2" target="RasGTP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k7" target="MEK_RafP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="RafP" target="k10">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEKP_RafP" target="k12">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k9" target="RafP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k12" target="RafP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k12" target="MEKPP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k18" target="Phase2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k18" target="MEK">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="ERKP" target="k22">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k22" target="ERKP_MEKPP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k19" target="ERK_MEKPP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEKPP" target="k22">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEKPP" target="k19">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="ERK" target="k19">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEKP" target="k10">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k10" target="MEKP_RafP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k3" target="RafP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Raf_RasGTP" target="k3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEKP_Phase2" target="k18">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k21" target="MEKPP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k15" target="Phase2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEKPP_Phase2" target="k15">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k9" target="MEKP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEK_RafP" target="k9">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k23" target="MEKPP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="ERKP_MEKPP" target="k23">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k21" target="ERKP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="ERK_MEKPP" target="k21">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k6" target="Phase1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k6" target="Raf">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="RafP_Phase1" target="k6">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k3" target="RasGTP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="RafP" target="k7">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEK" target="k7">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k23" target="ERKP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="ERK_MEKPP" target="k20">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k20" target="MEKPP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k20" target="ERK">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k8" target="RafP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k8" target="MEK">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k26" target="Phase3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="ERKPP_Phase3" target="k26">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k11" target="RafP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEKP_RafP" target="k11">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k25" target="ERKPP_Phase3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="ERKPP" target="k25">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEK_RafP" target="k8">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k11" target="MEKP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Phase2" target="k13">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k14" target="MEKPP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k13" target="MEKPP_Phase2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MEKPP" target="k13">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k26" target="ERKPP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Phase3" target="k25">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k4" target="RafP_Phase1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="RafP" target="k4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k5" target="Phase1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="RafP_Phase1" target="k5">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Phase1" target="k4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="k5" target="RafP">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+     </net>
+     <queries>
+          <query name="fOK192210" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((ERK_MEKPP == 0) and (ERKPP == 160)) and (ERKP == 160)) and (Raf == 160)) and (ERK == 160)) and (MEK == 160)) and (MEKP == 160)) and (Raf_RasGTP == 160)) and (RasGTP == 160)) and (ERKPP_Phase3 == 480)) and (Phase3 == 480)) and (RafP_Phase1 == 640)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 0)) and (MEKPP == 0)) and (ERKP_Phase3 == 0)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 320)) and (MEKP_RafP == 0)) and (Phase2 == 640)) and (RafP == 0)) and (Phase1 == 320))</query>
+          <query name="fOK195246" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((ERK_MEKPP == 0) and (ERKPP == 160)) and (ERKP == 160)) and (Raf == 0)) and (ERK == 160)) and (MEK == 0)) and (MEKP == 0)) and (Raf_RasGTP == 320)) and (RasGTP == 0)) and (ERKPP_Phase3 == 480)) and (Phase3 == 480)) and (RafP_Phase1 == 160)) and (MEKPP_Phase2 == 320)) and (MEKP_Phase2 == 0)) and (MEKPP == 0)) and (ERKP_Phase3 == 0)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 320)) and (MEKP_RafP == 0)) and (Phase2 == 320)) and (RafP == 480)) and (Phase1 == 800))</query>
+          <query name="fOK193646" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((ERK_MEKPP == 0) and (ERKPP == 0)) and (ERKP == 320)) and (Raf == 320)) and (ERK == 160)) and (MEK == 0)) and (MEKP == 0)) and (Raf_RasGTP == 320)) and (RasGTP == 0)) and (ERKPP_Phase3 == 480)) and (Phase3 == 480)) and (RafP_Phase1 == 0)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 160)) and (MEKPP == 0)) and (ERKP_Phase3 == 0)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 320)) and (MEKP_RafP == 160)) and (Phase2 == 480)) and (RafP == 160)) and (Phase1 == 960))</query>
+          <query name="fOK191292" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((ERK_MEKPP == 0) and (ERKPP == 0)) and (ERKP == 320)) and (Raf == 320)) and (ERK == 160)) and (MEK == 0)) and (MEKP == 160)) and (Raf_RasGTP == 160)) and (RasGTP == 160)) and (ERKPP_Phase3 == 480)) and (Phase3 == 480)) and (RafP_Phase1 == 0)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 0)) and (MEKPP == 160)) and (ERKP_Phase3 == 0)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 320)) and (MEKP_RafP == 0)) and (Phase2 == 640)) and (RafP == 480)) and (Phase1 == 960))</query>
+          <query name="fOK193040" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((ERK_MEKPP == 0) and (ERKPP == 160)) and (ERKP == 0)) and (Raf == 0)) and (ERK == 160)) and (MEK == 160)) and (MEKP == 0)) and (Raf_RasGTP == 160)) and (RasGTP == 160)) and (ERKPP_Phase3 == 480)) and (Phase3 == 320)) and (RafP_Phase1 == 480)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 0)) and (MEKPP == 160)) and (ERKP_Phase3 == 160)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 320)) and (MEKP_RafP == 0)) and (Phase2 == 640)) and (RafP == 320)) and (Phase1 == 480))</query>
+          <query name="fOK195609" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((ERK_MEKPP == 160) and (ERKPP == 0)) and (ERKP == 0)) and (Raf == 960)) and (ERK == 160)) and (MEK == 0)) and (MEKP == 0)) and (Raf_RasGTP == 0)) and (RasGTP == 320)) and (ERKPP_Phase3 == 480)) and (Phase3 == 320)) and (RafP_Phase1 == 0)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 160)) and (MEKPP == 0)) and (ERKP_Phase3 == 160)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 160)) and (MEKP_RafP == 160)) and (Phase2 == 480)) and (RafP == 0)) and (Phase1 == 960))</query>
+          <query name="fOK191935" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((ERK_MEKPP == 160) and (ERKPP == 0)) and (ERKP == 0)) and (Raf == 160)) and (ERK == 160)) and (MEK == 0)) and (MEKP == 0)) and (Raf_RasGTP == 160)) and (RasGTP == 160)) and (ERKPP_Phase3 == 480)) and (Phase3 == 320)) and (RafP_Phase1 == 640)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 160)) and (MEKPP == 0)) and (ERKP_Phase3 == 160)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 320)) and (MEKP_RafP == 0)) and (Phase2 == 480)) and (RafP == 0)) and (Phase1 == 320))</query>
+          <query name="fOK195881" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((ERK_MEKPP == 0) and (ERKPP == 0)) and (ERKP == 320)) and (Raf == 960)) and (ERK == 160)) and (MEK == 320)) and (MEKP == 0)) and (Raf_RasGTP == 0)) and (RasGTP == 320)) and (ERKPP_Phase3 == 480)) and (Phase3 == 480)) and (RafP_Phase1 == 160)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 160)) and (MEKPP == 0)) and (ERKP_Phase3 == 0)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 160)) and (MEKP_RafP == 0)) and (Phase2 == 480)) and (RafP == 0)) and (Phase1 == 800))</query>
+          <query name="fOK191385" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((ERK_MEKPP == 0) and (ERKPP == 160)) and (ERKP == 0)) and (Raf == 640)) and (ERK == 160)) and (MEK == 0)) and (MEKP == 0)) and (Raf_RasGTP == 160)) and (RasGTP == 160)) and (ERKPP_Phase3 == 480)) and (Phase3 == 320)) and (RafP_Phase1 == 0)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 160)) and (MEKPP == 160)) and (ERKP_Phase3 == 160)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 320)) and (MEKP_RafP == 0)) and (Phase2 == 480)) and (RafP == 160)) and (Phase1 == 960))</query>
+          <query name="fOK198144" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((ERK_MEKPP == 0) and (ERKPP == 0)) and (ERKP == 160)) and (Raf == 480)) and (ERK == 160)) and (MEK == 0)) and (MEKP == 160)) and (Raf_RasGTP == 0)) and (RasGTP == 320)) and (ERKPP_Phase3 == 480)) and (Phase3 == 480)) and (RafP_Phase1 == 320)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 0)) and (MEKPP == 0)) and (ERKP_Phase3 == 0)) and (ERKP_MEKPP == 160)) and (MEK_RafP == 160)) and (MEKP_RafP == 160)) and (Phase2 == 640)) and (RafP == 160)) and (Phase1 == 640))</query>
+          <query name="fNOK190939" strategy="Linear over-approximation" jit="false">((((((((((((((((((((((not (ERK_MEKPP == 0)) and (ERKPP == 0)) and (ERKP == 0)) and (Raf == 320)) and (ERK == 160)) and (MEK == 160)) and (MEKP == 0)) and (Raf_RasGTP == 160)) and (RasGTP == 160)) and (ERKPP_Phase3 == 480)) and (Phase3 == 160)) and (RafP_Phase1 == 320)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 160)) and (MEKPP == 0)) and (ERKP_Phase3 == 320)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 320)) and (MEKP_RafP == 0)) and (Phase2 == 480)) and (RafP == 160)) and (Phase1 == 640))</query>
+          <query name="fNOK190212" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((not (ERK_MEKPP == 0)) and (ERKPP == 0)) and (ERKP == 0)) and (Raf == 800)) and (ERK == 160)) and (MEK == 0)) and (MEKP == 0)) and (Raf_RasGTP == 160)) and (RasGTP == 160)) and (ERKPP_Phase3 == 480)) and (Phase3 == 160)) and (RafP_Phase1 == 0)) and (MEKPP_Phase2 == 160)) and (MEKP_Phase2 == 160)) and (MEKPP == 0)) and (ERKP_Phase3 == 320)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 320)) and (MEKP_RafP == 0)) and (Phase2 == 320)) and (RafP == 0)) and (Phase1 == 960))</query>
+          <query name="fNOK199690" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((not (ERK_MEKPP == 0)) and (ERKPP == 0)) and (ERKP == 160)) and (Raf == 480)) and (ERK == 160)) and (MEK == 320)) and (MEKP == 0)) and (Raf_RasGTP == 0)) and (RasGTP == 320)) and (ERKPP_Phase3 == 480)) and (Phase3 == 480)) and (RafP_Phase1 == 320)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 0)) and (MEKPP == 0)) and (ERKP_Phase3 == 0)) and (ERKP_MEKPP == 160)) and (MEK_RafP == 160)) and (MEKP_RafP == 0)) and (Phase2 == 640)) and (RafP == 320)) and (Phase1 == 640))</query>
+          <query name="fNOK190700" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((not (ERK_MEKPP == 0)) and (ERKPP == 0)) and (ERKP == 160)) and (Raf == 480)) and (ERK == 160)) and (MEK == 160)) and (MEKP == 0)) and (Raf_RasGTP == 160)) and (RasGTP == 160)) and (ERKPP_Phase3 == 480)) and (Phase3 == 480)) and (RafP_Phase1 == 320)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 0)) and (MEKPP == 0)) and (ERKP_Phase3 == 0)) and (ERKP_MEKPP == 160)) and (MEK_RafP == 320)) and (MEKP_RafP == 0)) and (Phase2 == 640)) and (RafP == 0)) and (Phase1 == 640))</query>
+          <query name="fNOK198469" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((not (ERK_MEKPP == 0)) and (ERKPP == 0)) and (ERKP == 0)) and (Raf == 480)) and (ERK == 160)) and (MEK == 320)) and (MEKP == 0)) and (Raf_RasGTP == 0)) and (RasGTP == 320)) and (ERKPP_Phase3 == 480)) and (Phase3 == 160)) and (RafP_Phase1 == 0)) and (MEKPP_Phase2 == 160)) and (MEKP_Phase2 == 0)) and (MEKPP == 0)) and (ERKP_Phase3 == 320)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 160)) and (MEKP_RafP == 0)) and (Phase2 == 480)) and (RafP == 640)) and (Phase1 == 960))</query>
+          <query name="fNOK191135" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((not (ERK_MEKPP == 0)) and (ERKPP == 160)) and (ERKP == 0)) and (Raf == 320)) and (ERK == 160)) and (MEK == 0)) and (MEKP == 0)) and (Raf_RasGTP == 160)) and (RasGTP == 160)) and (ERKPP_Phase3 == 480)) and (Phase3 == 320)) and (RafP_Phase1 == 0)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 0)) and (MEKPP == 320)) and (ERKP_Phase3 == 160)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 320)) and (MEKP_RafP == 0)) and (Phase2 == 640)) and (RafP == 480)) and (Phase1 == 960))</query>
+          <query name="fNOK193050" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((not (ERK_MEKPP == 0)) and (ERKPP == 160)) and (ERKP == 0)) and (Raf == 0)) and (ERK == 160)) and (MEK == 160)) and (MEKP == 160)) and (Raf_RasGTP == 160)) and (RasGTP == 160)) and (ERKPP_Phase3 == 480)) and (Phase3 == 320)) and (RafP_Phase1 == 800)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 0)) and (MEKPP == 0)) and (ERKP_Phase3 == 160)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 320)) and (MEKP_RafP == 0)) and (Phase2 == 640)) and (RafP == 0)) and (Phase1 == 160))</query>
+          <query name="fNOK196324" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((not (ERK_MEKPP == 0)) and (ERKPP == 0)) and (ERKP == 160)) and (Raf == 960)) and (ERK == 160)) and (MEK == 320)) and (MEKP == 0)) and (Raf_RasGTP == 0)) and (RasGTP == 320)) and (ERKPP_Phase3 == 480)) and (Phase3 == 480)) and (RafP_Phase1 == 0)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 0)) and (MEKPP == 0)) and (ERKP_Phase3 == 0)) and (ERKP_MEKPP == 160)) and (MEK_RafP == 160)) and (MEKP_RafP == 0)) and (Phase2 == 640)) and (RafP == 160)) and (Phase1 == 960))</query>
+          <query name="fNOK194463" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((not (ERK_MEKPP == 0)) and (ERKPP == 0)) and (ERKP == 320)) and (Raf == 160)) and (ERK == 160)) and (MEK == 0)) and (MEKP == 0)) and (Raf_RasGTP == 320)) and (RasGTP == 0)) and (ERKPP_Phase3 == 480)) and (Phase3 == 480)) and (RafP_Phase1 == 160)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 160)) and (MEKPP == 160)) and (ERKP_Phase3 == 0)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 320)) and (MEKP_RafP == 0)) and (Phase2 == 480)) and (RafP == 320)) and (Phase1 == 800))</query>
+          <query name="fNOK196130" strategy="BestFS-Delta (Sum, Extreme)" jit="false">((((((((((((((((((((((not (ERK_MEKPP == 0)) and (ERKPP == 320)) and (ERKP == 0)) and (Raf == 960)) and (ERK == 160)) and (MEK == 0)) and (MEKP == 320)) and (Raf_RasGTP == 0)) and (RasGTP == 320)) and (ERKPP_Phase3 == 480)) and (Phase3 == 480)) and (RafP_Phase1 == 0)) and (MEKPP_Phase2 == 0)) and (MEKP_Phase2 == 0)) and (MEKPP == 160)) and (ERKP_Phase3 == 0)) and (ERKP_MEKPP == 0)) and (MEK_RafP == 160)) and (MEKP_RafP == 0)) and (Phase2 == 640)) and (RafP == 160)) and (Phase1 == 960))</query>
+     </queries>
+</pnml>

@@ -186,7 +186,7 @@ void QueryModel::importSUMoQueries(QIODevice &f){
 		Query q;
 		//You can hardcode scaling into the queries here
 		//This will only work for queries where all literals need be scaled
-		//c.query->scale(1);	//Yes, just hardcode for the imports we need...
+		//c.query->scale(320);	//Yes, just hardcode for the imports we need...
 		//Please do remember to comment it out again, or I will!!!
 		// - write you a polite letter explaining the situation :)
 		q.name = c.name.c_str();

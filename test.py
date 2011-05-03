@@ -25,8 +25,8 @@ IgnoreList = IgnoreList = [
 "DFS-ArcCount",
 "DFS-Delta",
 "DFS-TokenCost",
-#"Linear over-approximation",
-"BestFS-Delta (Sum, Extreme)",
+"Linear over-approximation",
+#"BestFS-Delta (Sum, Extreme)",
 "BestFS-Delta-Deep (Sum, Extreme)",
 "BestFS-Delta (Sum, Extreme) Lookahead 1",
 "BestFS-Delta (Sum, Extreme) Lookahead 2",
@@ -100,14 +100,38 @@ p = subprocess.Popen([petebin, "--strategies"], stdout=subprocess.PIPE)
 strategies = [i.strip() for i in p.stdout.readlines()]
 p.wait()
 
-Kanban = ["Kanban5.pet", "Kanban10.pet", "Kanban20.pet", "Kanban50.pet", "Kanban100.pet", "Kanban200.pet", "Kanban500.pet", "Kanban1000.pet"]
-FMS = ["FMS2.pet", "FMS10.pet", "FMS50.pet", "FMS100.pet", "FMS200.pet", "FMS500.pet"]
-MAPK = ["MAPK8.pet", "MAPK40.pet", "MAPK80.pet", "MAPK160.pet", "MAPK320.pet"]
+Kanban = [
+#"Kanban5.pet", 
+#"Kanban10.pet", 
+#"Kanban20.pet", 
+#"Kanban50.pet", 
+#"Kanban100.pet", 
+#"Kanban200.pet", 
+#"Kanban500.pet", 
+#"Kanban1000.pet"
+]
+FMS = [
+#"FMS2.pet", 
+#"FMS10.pet", 
+#"FMS50.pet", 
+#"FMS100.pet", 
+#"FMS200.pet", 
+#"FMS500.pet"
+]
+MAPK = [
+#"MAPK8.pet", 
+#"MAPK40.pet", 
+#"MAPK80.pet", 
+#"MAPK160.pet", 
+#"MAPK320.pet",
+"MAPK640.pet",
+"MAPK1280.pet",
+"MAPK2560.pet"]
 DTAPN = ["DTAPNs/PrimeNet-7.pet", "DTAPNs/PrimeNet-11.pet", "DTAPNs/PrimeNet-13.pet", "DTAPNs/PrimeNet-17.pet", "DTAPNs/PrimeNet-19.pet"]
 modellists = []
 for m in Models:
 	if m == "MAPK": modellists += (MAPK,)
-	if m == "DTAPN": modellists += (DTAPN,)
+	#if m == "DTAPN": modellists += (DTAPN,)
 	if m == "Kanban": modellists += (Kanban,)
 	if m == "FMS": modellists += (FMS,)
 
@@ -194,9 +218,10 @@ def runScaledModels(scaledModels):
 			if failed:
 				break
 
-#for ml in modellists:
-#	runScaledModels(ml)
+for ml in modellists:
+	runScaledModels(ml)
 
+"""
 for ml in modellists:
 	for i in range(1,10):
 		strategy = "Random DFS with Hash"
@@ -209,3 +234,4 @@ for ml in modellists:
 				failed = failed and not ret
 			if failed:
 				break
+"""
