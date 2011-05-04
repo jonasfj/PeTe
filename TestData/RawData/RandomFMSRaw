@@ -1,0 +1,481 @@
+PeTe batch test script
+FMS2.pet,	fOK0320,	Random DFS with Hash,	Satisfied,	0.07,	1510,	3181,	901,	45052
+FMS2.pet,	fOK0350,	Random DFS with Hash,	Satisfied,	0.07,	658,	2013,	629,	45052
+FMS2.pet,	fOK0033,	Random DFS with Hash,	Satisfied,	0.07,	731,	2174,	686,	45520
+FMS2.pet,	fOK2565,	Random DFS with Hash,	Satisfied,	0.07,	1044,	2698,	855,	45464
+FMS2.pet,	fOK2861,	Random DFS with Hash,	Satisfied,	0.07,	556,	1810,	540,	45052
+FMS2.pet,	fOK2025,	Random DFS with Hash,	Satisfied,	0.07,	442,	1502,	430,	45052
+FMS2.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	0.06,	258,	841,	244,	45052
+FMS2.pet,	fOK2182,	Random DFS with Hash,	Satisfied,	0.06,	590,	1803,	540,	45052
+FMS2.pet,	fOK2039,	Random DFS with Hash,	Satisfied,	0.06,	225,	845,	226,	45052
+FMS2.pet,	fOK1341,	Random DFS with Hash,	Satisfied,	0.07,	45,	196,	46,	45052
+FMS2.pet,	fNOK2169,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK0024,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45108
+FMS2.pet,	fNOK3429,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2612,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1660,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2943,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3359,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3140,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1958,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1042,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS10.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1136608
+FMS10.pet,	fOK0350,	Random DFS with Hash,	Satisfied,	1.95,	109251,	781087,	109242,	197252
+FMS10.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071220
+FMS10.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072368
+FMS10.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072672
+FMS10.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072540
+FMS10.pet,	fOK0761,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070956
+FMS10.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072144
+FMS10.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071612
+FMS10.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071088
+FMS10.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072756
+FMS10.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070424
+FMS10.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071832
+FMS10.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1069768
+FMS10.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072092
+FMS10.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071088
+FMS10.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1069636
+FMS10.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070788
+FMS10.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071744
+FMS10.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070428
+FMS20.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076904
+FMS20.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077828
+FMS20.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077432
+FMS20.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077300
+FMS20.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076740
+FMS20.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077660
+FMS20.pet,	fOK0761,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075716
+FMS20.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075716
+FMS20.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076640
+FMS20.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077524
+FMS20.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074924
+FMS20.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076108
+FMS20.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075320
+FMS20.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075948
+FMS20.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075188
+FMS20.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074660
+FMS20.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076328
+FMS20.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075320
+FMS20.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074924
+FMS20.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076208
+FMS2.pet,	fOK0320,	Random DFS with Hash,	Satisfied,	0.06,	789,	2276,	700,	45052
+FMS2.pet,	fOK0350,	Random DFS with Hash,	Satisfied,	0.08,	1415,	3091,	863,	45052
+FMS2.pet,	fOK0033,	Random DFS with Hash,	Satisfied,	0.07,	1334,	2957,	844,	45052
+FMS2.pet,	fOK2565,	Random DFS with Hash,	Satisfied,	0.06,	197,	702,	198,	45052
+FMS2.pet,	fOK2861,	Random DFS with Hash,	Satisfied,	0.08,	779,	2149,	642,	45052
+FMS2.pet,	fOK2025,	Random DFS with Hash,	Satisfied,	0.07,	974,	2688,	889,	45052
+FMS2.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	0.08,	488,	1641,	472,	45052
+FMS2.pet,	fOK2182,	Random DFS with Hash,	Satisfied,	0.08,	376,	1358,	373,	45376
+FMS2.pet,	fOK2039,	Random DFS with Hash,	Satisfied,	0.07,	646,	2049,	632,	45052
+FMS2.pet,	fOK1341,	Random DFS with Hash,	Satisfied,	0.06,	95,	353,	96,	45408
+FMS2.pet,	fNOK2169,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK0024,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3429,	Random DFS with Hash,	Not satisfiable,	0.07,	3444,	3443,	0,	45376
+FMS2.pet,	fNOK2612,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1660,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2943,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3359,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3140,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1958,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1042,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45464
+FMS10.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072244
+FMS10.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073020
+FMS10.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073152
+FMS10.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1069896
+FMS10.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072404
+FMS10.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072144
+FMS10.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	4.62,	249874,	1783673,	249830,	329344
+FMS10.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070956
+FMS10.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071352
+FMS10.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070296
+FMS10.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075572
+FMS10.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1069632
+FMS10.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1134676
+FMS10.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1079140
+FMS10.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070296
+FMS10.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071088
+FMS10.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1069240
+FMS10.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077424
+FMS10.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1080060
+FMS10.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1084520
+FMS20.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1145768
+FMS20.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1139304
+FMS20.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1142208
+FMS20.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076196
+FMS20.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075056
+FMS20.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073604
+FMS20.pet,	fOK0761,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074528
+FMS20.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076592
+FMS20.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074792
+FMS20.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075544
+FMS20.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072944
+FMS20.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072944
+FMS20.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1149040
+FMS20.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074264
+FMS20.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075188
+FMS20.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077004
+FMS20.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075452
+FMS20.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074892
+FMS20.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074788
+FMS20.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074528
+FMS2.pet,	fOK0320,	Random DFS with Hash,	Satisfied,	0.07,	330,	1179,	330,	45052
+FMS2.pet,	fOK0350,	Random DFS with Hash,	Satisfied,	0.07,	761,	2254,	722,	45052
+FMS2.pet,	fOK0033,	Random DFS with Hash,	Satisfied,	0.08,	1451,	3117,	887,	45052
+FMS2.pet,	fOK2565,	Random DFS with Hash,	Satisfied,	0.08,	1524,	3174,	860,	45052
+FMS2.pet,	fOK2861,	Random DFS with Hash,	Satisfied,	0.07,	408,	1335,	398,	45052
+FMS2.pet,	fOK2025,	Random DFS with Hash,	Satisfied,	0.06,	110,	396,	108,	45052
+FMS2.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	0.07,	60,	258,	61,	45052
+FMS2.pet,	fOK2182,	Random DFS with Hash,	Satisfied,	0.07,	414,	1392,	404,	45052
+FMS2.pet,	fOK2039,	Random DFS with Hash,	Satisfied,	0.07,	98,	404,	99,	45052
+FMS2.pet,	fOK1341,	Random DFS with Hash,	Satisfied,	0.07,	125,	485,	126,	45152
+FMS2.pet,	fNOK2169,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK0024,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3429,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2612,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1660,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2943,	Random DFS with Hash,	Not satisfiable,	0.07,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3359,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3140,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1958,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1042,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS10.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070428
+FMS10.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071484
+FMS10.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072408
+FMS10.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072012
+FMS10.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073168
+FMS10.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073960
+FMS10.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	3.02,	150448,	1081129,	150430,	261268
+FMS10.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073068
+FMS10.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072276
+FMS10.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070956
+FMS10.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070428
+FMS10.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1136088
+FMS10.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1069896
+FMS10.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070824
+FMS10.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071088
+FMS10.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1069900
+FMS10.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1068976
+FMS10.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1137284
+FMS10.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1137540
+FMS10.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1083464
+FMS20.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1147484
+FMS20.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1140328
+FMS20.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073968
+FMS20.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072944
+FMS20.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1150096
+FMS20.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073604
+FMS20.pet,	fOK0761,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075056
+FMS20.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074396
+FMS20.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1145740
+FMS20.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1082944
+FMS20.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077528
+FMS20.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073340
+FMS20.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1140492
+FMS20.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073208
+FMS20.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1149732
+FMS20.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1149600
+FMS20.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1138512
+FMS20.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1147620
+FMS20.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073868
+FMS20.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073472
+FMS2.pet,	fOK0320,	Random DFS with Hash,	Satisfied,	0.07,	323,	1076,	316,	45052
+FMS2.pet,	fOK0350,	Random DFS with Hash,	Satisfied,	0.08,	432,	1433,	425,	45120
+FMS2.pet,	fOK0033,	Random DFS with Hash,	Satisfied,	0.08,	1112,	2854,	914,	45108
+FMS2.pet,	fOK2565,	Random DFS with Hash,	Satisfied,	0.08,	1356,	3116,	939,	45052
+FMS2.pet,	fOK2861,	Random DFS with Hash,	Satisfied,	0.06,	538,	1665,	518,	45376
+FMS2.pet,	fOK2025,	Random DFS with Hash,	Satisfied,	0.06,	478,	1506,	458,	45052
+FMS2.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	0.08,	1058,	2741,	861,	45052
+FMS2.pet,	fOK2182,	Random DFS with Hash,	Satisfied,	0.08,	697,	2113,	646,	45052
+FMS2.pet,	fOK2039,	Random DFS with Hash,	Satisfied,	0.06,	57,	228,	58,	45052
+FMS2.pet,	fOK1341,	Random DFS with Hash,	Satisfied,	0.06,	284,	974,	280,	45052
+FMS2.pet,	fNOK2169,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK0024,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3429,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2612,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1660,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2943,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3359,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3140,	Random DFS with Hash,	Not satisfiable,	0.07,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1958,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1042,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS10.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1082176
+FMS10.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1068976
+FMS10.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1069368
+FMS10.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071352
+FMS10.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072408
+FMS10.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073168
+FMS10.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	7.16,	350960,	2508317,	350849,	411880
+FMS10.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072540
+FMS10.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072536
+FMS10.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071216
+FMS10.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072244
+FMS10.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070956
+FMS10.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071084
+FMS10.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071616
+FMS10.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071088
+FMS10.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071352
+FMS10.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070952
+FMS10.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1069368
+FMS10.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071352
+FMS10.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071744
+FMS20.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1079100
+FMS20.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077432
+FMS20.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076508
+FMS20.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1078356
+FMS20.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1078092
+FMS20.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1078620
+FMS20.pet,	fOK0761,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077960
+FMS20.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1078448
+FMS20.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077960
+FMS20.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077564
+FMS20.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075848
+FMS20.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075848
+FMS20.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077664
+FMS20.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076772
+FMS20.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077524
+FMS20.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075188
+FMS20.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076640
+FMS20.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076856
+FMS20.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076468
+FMS20.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074924
+FMS2.pet,	fOK0320,	Random DFS with Hash,	Satisfied,	0.08,	1081,	2730,	860,	45052
+FMS2.pet,	fOK0350,	Random DFS with Hash,	Satisfied,	0.07,	1219,	2873,	924,	45052
+FMS2.pet,	fOK0033,	Random DFS with Hash,	Satisfied,	0.09,	1330,	3019,	958,	45052
+FMS2.pet,	fOK2565,	Random DFS with Hash,	Satisfied,	0.09,	694,	1998,	629,	45052
+FMS2.pet,	fOK2861,	Random DFS with Hash,	Satisfied,	0.08,	764,	2223,	706,	45052
+FMS2.pet,	fOK2025,	Random DFS with Hash,	Satisfied,	0.07,	1418,	3119,	888,	45052
+FMS2.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	0.06,	28,	151,	29,	45052
+FMS2.pet,	fOK2182,	Random DFS with Hash,	Satisfied,	0.06,	454,	1492,	436,	45052
+FMS2.pet,	fOK2039,	Random DFS with Hash,	Satisfied,	0.08,	527,	1739,	510,	45052
+FMS2.pet,	fOK1341,	Random DFS with Hash,	Satisfied,	0.07,	111,	423,	112,	45052
+FMS2.pet,	fNOK2169,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK0024,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3429,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2612,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1660,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2943,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3359,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3140,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1958,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1042,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS10.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072408
+FMS10.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072012
+FMS10.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070428
+FMS10.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072536
+FMS10.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071748
+FMS10.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073696
+FMS10.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	14.39,	637989,	4582284,	637644,	688900
+FMS10.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072800
+FMS10.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072408
+FMS10.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072804
+FMS10.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071084
+FMS10.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071876
+FMS10.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072144
+FMS10.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1069636
+FMS10.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071352
+FMS10.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071616
+FMS10.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071220
+FMS10.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071088
+FMS10.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070032
+FMS10.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070428
+FMS20.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077004
+FMS20.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1079380
+FMS20.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1079108
+FMS20.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077036
+FMS20.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077960
+FMS20.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1078456
+FMS20.pet,	fOK0761,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1078880
+FMS20.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1078752
+FMS20.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076640
+FMS20.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076772
+FMS20.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076376
+FMS20.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075416
+FMS20.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076112
+FMS20.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074528
+FMS20.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1078188
+FMS20.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075288
+FMS20.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075980
+FMS20.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074528
+FMS20.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075280
+FMS20.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077928
+FMS2.pet,	fOK0320,	Random DFS with Hash,	Satisfied,	0.08,	1332,	3011,	856,	45052
+FMS2.pet,	fOK0350,	Random DFS with Hash,	Satisfied,	0.07,	1538,	3164,	817,	45052
+FMS2.pet,	fOK0033,	Random DFS with Hash,	Satisfied,	0.07,	919,	2373,	698,	45052
+FMS2.pet,	fOK2565,	Random DFS with Hash,	Satisfied,	0.06,	62,	255,	63,	45052
+FMS2.pet,	fOK2861,	Random DFS with Hash,	Satisfied,	0.08,	108,	458,	109,	45052
+FMS2.pet,	fOK2025,	Random DFS with Hash,	Satisfied,	0.07,	196,	775,	196,	45052
+FMS2.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	0.08,	688,	2063,	649,	45052
+FMS2.pet,	fOK2182,	Random DFS with Hash,	Satisfied,	0.08,	743,	2160,	689,	45052
+FMS2.pet,	fOK2039,	Random DFS with Hash,	Satisfied,	0.08,	288,	1037,	289,	45052
+FMS2.pet,	fOK1341,	Random DFS with Hash,	Satisfied,	0.08,	1076,	2766,	920,	45052
+FMS2.pet,	fNOK2169,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK0024,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3429,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2612,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1660,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2943,	Random DFS with Hash,	Not satisfiable,	0.07,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3359,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3140,	Random DFS with Hash,	Not satisfiable,	0.07,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1958,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1042,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS10.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072804
+FMS10.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073152
+FMS10.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073332
+FMS10.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073332
+FMS10.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072408
+FMS10.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071876
+FMS10.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	17.51,	783551,	5621052,	783067,	811588
+FMS10.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072008
+FMS10.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072404
+FMS10.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072144
+FMS10.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1069896
+FMS10.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071612
+FMS10.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071220
+FMS10.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071088
+FMS10.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071352
+FMS10.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071088
+FMS10.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071876
+FMS10.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070652
+FMS10.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070296
+FMS10.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070824
+FMS20.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077828
+FMS20.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1079100
+FMS20.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076768
+FMS20.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077036
+FMS20.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077300
+FMS20.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1079908
+FMS20.pet,	fOK0761,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077432
+FMS20.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077788
+FMS20.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1078092
+FMS20.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1078320
+FMS20.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075188
+FMS20.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075716
+FMS20.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077252
+FMS20.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075716
+FMS20.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075932
+FMS20.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075452
+FMS20.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076204
+FMS20.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1075188
+FMS20.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076376
+FMS20.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1076244
+FMS2.pet,	fOK0320,	Random DFS with Hash,	Satisfied,	0.07,	1488,	3034,	782,	45052
+FMS2.pet,	fOK0350,	Random DFS with Hash,	Satisfied,	0.06,	573,	1850,	559,	45052
+FMS2.pet,	fOK0033,	Random DFS with Hash,	Satisfied,	0.07,	816,	2307,	731,	45052
+FMS2.pet,	fOK2565,	Random DFS with Hash,	Satisfied,	0.08,	533,	1667,	495,	45052
+FMS2.pet,	fOK2861,	Random DFS with Hash,	Satisfied,	0.08,	556,	1744,	518,	45052
+FMS2.pet,	fOK2025,	Random DFS with Hash,	Satisfied,	0.07,	873,	2314,	674,	45052
+FMS2.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	0.08,	1246,	2897,	862,	45052
+FMS2.pet,	fOK2182,	Random DFS with Hash,	Satisfied,	0.07,	185,	658,	182,	45052
+FMS2.pet,	fOK2039,	Random DFS with Hash,	Satisfied,	0.07,	1227,	2943,	937,	45052
+FMS2.pet,	fOK1341,	Random DFS with Hash,	Satisfied,	0.07,	1524,	3129,	897,	45052
+FMS2.pet,	fNOK2169,	Random DFS with Hash,	Not satisfiable,	0.07,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK0024,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3429,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2612,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1660,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2943,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3359,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3140,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1958,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1042,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS10.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072936
+FMS10.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073284
+FMS10.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072540
+FMS10.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072636
+FMS10.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072936
+FMS10.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072272
+FMS10.pet,	fOK0761,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072276
+FMS10.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073728
+FMS10.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1073200
+FMS10.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072804
+FMS10.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071616
+FMS10.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1080064
+FMS10.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1074092
+FMS10.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135072
+FMS10.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135468
+FMS10.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1083980
+FMS10.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1134412
+FMS10.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1079536
+FMS10.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1134412
+FMS10.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1134676
+FMS2.pet,	fOK0320,	Random DFS with Hash,	Satisfied,	0.07,	128,	419,	127,	45052
+FMS2.pet,	fOK0350,	Random DFS with Hash,	Satisfied,	0.07,	260,	800,	247,	45052
+FMS2.pet,	fOK0033,	Random DFS with Hash,	Satisfied,	0.08,	1147,	2788,	896,	45244
+FMS2.pet,	fOK2565,	Random DFS with Hash,	Satisfied,	0.08,	1355,	3049,	844,	45052
+FMS2.pet,	fOK2861,	Random DFS with Hash,	Satisfied,	0.08,	541,	1811,	520,	45052
+FMS2.pet,	fOK2025,	Random DFS with Hash,	Satisfied,	0.07,	118,	472,	119,	45052
+FMS2.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	0.07,	293,	1076,	294,	45432
+FMS2.pet,	fOK2182,	Random DFS with Hash,	Satisfied,	0.07,	54,	228,	55,	45052
+FMS2.pet,	fOK2039,	Random DFS with Hash,	Satisfied,	0.08,	669,	2067,	647,	45376
+FMS2.pet,	fOK1341,	Random DFS with Hash,	Satisfied,	0.08,	311,	1100,	309,	45376
+FMS2.pet,	fNOK2169,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	42820
+FMS2.pet,	fNOK0024,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45496
+FMS2.pet,	fNOK3429,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2612,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45376
+FMS2.pet,	fNOK1660,	Random DFS with Hash,	Not satisfiable,	0.1,	3444,	3443,	0,	55552
+FMS2.pet,	fNOK2943,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45316
+FMS2.pet,	fNOK3359,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	42820
+FMS2.pet,	fNOK3140,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1958,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45548
+FMS2.pet,	fNOK1042,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS10.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1081732
+FMS10.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1082572
+FMS10.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1083492
+FMS10.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135696
+FMS10.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1084512
+FMS10.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072108
+FMS10.pet,	fOK0761,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071880
+FMS10.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070792
+FMS10.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1069104
+FMS10.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1083496
+FMS10.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135204
+FMS10.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1134412
+FMS10.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135336
+FMS10.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135816
+FMS10.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135204
+FMS10.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1134672
+FMS10.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135568
+FMS10.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1134280
+FMS10.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135068
+FMS10.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1134408
+FMS2.pet,	fOK0320,	Random DFS with Hash,	Satisfied,	0.07,	726,	2201,	687,	45052
+FMS2.pet,	fOK0350,	Random DFS with Hash,	Satisfied,	0.07,	306,	1071,	306,	45052
+FMS2.pet,	fOK0033,	Random DFS with Hash,	Satisfied,	0.08,	1536,	3165,	813,	45052
+FMS2.pet,	fOK2565,	Random DFS with Hash,	Satisfied,	0.06,	713,	2125,	655,	45052
+FMS2.pet,	fOK2861,	Random DFS with Hash,	Satisfied,	0.06,	148,	538,	149,	45052
+FMS2.pet,	fOK2025,	Random DFS with Hash,	Satisfied,	0.07,	506,	1641,	492,	45052
+FMS2.pet,	fOK0761,	Random DFS with Hash,	Satisfied,	0.07,	41,	185,	42,	45052
+FMS2.pet,	fOK2182,	Random DFS with Hash,	Satisfied,	0.07,	505,	1616,	483,	45052
+FMS2.pet,	fOK2039,	Random DFS with Hash,	Satisfied,	0.08,	1280,	2833,	829,	45052
+FMS2.pet,	fOK1341,	Random DFS with Hash,	Satisfied,	0.08,	1217,	2878,	921,	45052
+FMS2.pet,	fNOK2169,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK0024,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3429,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45188
+FMS2.pet,	fNOK2612,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1660,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK2943,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3359,	Random DFS with Hash,	Not satisfiable,	0.09,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK3140,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1958,	Random DFS with Hash,	Not satisfiable,	0.08,	3444,	3443,	0,	45052
+FMS2.pet,	fNOK1042,	Random DFS with Hash,	Not satisfiable,	0.07,	3444,	3443,	0,	45052
+FMS10.pet,	fOK0320,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135436
+FMS10.pet,	fOK0350,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1134676
+FMS10.pet,	fOK0033,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1070428
+FMS10.pet,	fOK2565,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1134808
+FMS10.pet,	fOK2861,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135552
+FMS10.pet,	fOK2025,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071056
+FMS10.pet,	fOK0761,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072896
+FMS10.pet,	fOK2182,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135684
+FMS10.pet,	fOK2039,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077028
+FMS10.pet,	fOK1341,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1080592
+FMS10.pet,	fNOK2169,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135832
+FMS10.pet,	fNOK0024,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135204
+FMS10.pet,	fNOK3429,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1077816
+FMS10.pet,	fNOK2612,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1068976
+FMS10.pet,	fNOK1660,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1080324
+FMS10.pet,	fNOK2943,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1136128
+FMS10.pet,	fNOK3359,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071484
+FMS10.pet,	fNOK3140,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1071088
+FMS10.pet,	fNOK1958,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1135072
+FMS10.pet,	fNOK1042,	Random DFS with Hash,	OutOfMemory,	-,	-,	-,	-,	1072672
