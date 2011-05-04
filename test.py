@@ -101,29 +101,29 @@ strategies = [i.strip() for i in p.stdout.readlines()]
 p.wait()
 
 Kanban = [
-#"Kanban5.pet", 
-#"Kanban10.pet", 
-#"Kanban20.pet", 
-#"Kanban50.pet", 
-#"Kanban100.pet", 
-#"Kanban200.pet", 
-#"Kanban500.pet", 
-#"Kanban1000.pet"
+"Kanban5.pet", 
+"Kanban10.pet", 
+"Kanban20.pet", 
+"Kanban50.pet", 
+"Kanban100.pet", 
+"Kanban200.pet", 
+"Kanban500.pet", 
+"Kanban1000.pet"
 ]
 FMS = [
-#"FMS2.pet", 
-#"FMS10.pet", 
-#"FMS50.pet", 
-#"FMS100.pet", 
-#"FMS200.pet", 
-#"FMS500.pet"
+"FMS2.pet", 
+"FMS10.pet", 
+"FMS50.pet", 
+"FMS100.pet", 
+"FMS200.pet", 
+"FMS500.pet"
 ]
 MAPK = [
-#"MAPK8.pet", 
-#"MAPK40.pet", 
-#"MAPK80.pet", 
-#"MAPK160.pet", 
-#"MAPK320.pet",
+"MAPK8.pet", 
+"MAPK40.pet", 
+"MAPK80.pet", 
+"MAPK160.pet", 
+"MAPK320.pet",
 "MAPK640.pet",
 "MAPK1280.pet",
 "MAPK2560.pet"]
@@ -131,7 +131,7 @@ DTAPN = ["DTAPNs/PrimeNet-7.pet", "DTAPNs/PrimeNet-11.pet", "DTAPNs/PrimeNet-13.
 modellists = []
 for m in Models:
 	if m == "MAPK": modellists += (MAPK,)
-	#if m == "DTAPN": modellists += (DTAPN,)
+	if m == "DTAPN": modellists += (DTAPN,)
 	if m == "Kanban": modellists += (Kanban,)
 	if m == "FMS": modellists += (FMS,)
 

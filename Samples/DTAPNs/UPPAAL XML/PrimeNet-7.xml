@@ -1,0 +1,1190 @@
+<nta>
+<declaration>
+chan T0_T0;
+
+chan T1_T0;
+
+chan T2_T0;
+
+chan T3_T0;
+
+chan T3_T1;
+
+chan T3_T2;
+
+chan T3_T3;
+
+chan T3_T4;
+
+chan T3_T5;
+
+chan T3_T6;
+
+</declaration>
+<template>
+<name x="5" y="5">Token0</name>
+<declaration>
+clock x; 
+</declaration>
+<location id="a46" x="192" y="95">
+<name x="192" y="95">P0</name>
+</location>
+<location id="a47" x="237" y="95">
+<name x="237" y="95">P1</name>
+</location>
+<location id="a48" x="282" y="95">
+<name x="282" y="95">P2</name>
+</location>
+<location id="a49" x="237" y="177">
+<name x="237" y="177">Target</name>
+</location>
+<location id="a50" x="192" y="140">
+<name x="192" y="140">P3</name>
+</location>
+<location id="a51" x="50" y="200">
+<name x="50" y="200">P_capacity</name>
+</location>
+<location id="a52" x="50" y="5">
+<name x="50" y="5">P_lock</name>
+</location>
+<location id="a57" x="157" y="140">
+<name x="157" y="140">T3_hp_0</name>
+</location>
+<location id="a59" x="197" y="140">
+<name x="197" y="140">T3_hp1</name>
+</location>
+<location id="a60" x="177" y="115">
+<name x="177" y="115">T3_im1</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a62" x="237" y="140">
+<name x="237" y="140">T3_hp2</name>
+</location>
+<location id="a63" x="217" y="115">
+<name x="217" y="115">T3_im2</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a65" x="257" y="115">
+<name x="257" y="115">T3_im3</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a67" x="257" y="165">
+<name x="257" y="165">T3_im4</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a69" x="217" y="165">
+<name x="217" y="165">T3_im5</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a71" x="177" y="165">
+<name x="177" y="165">T3_im6</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<init ref="a52"/>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T0_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a46"/>
+<target ref="a46"/>
+<label kind="guard" x="432" y="64">x &gt;=3 &amp;&amp;  x &lt;=3</label>
+<label kind="synchronisation" x="200" y="120">T0_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T1_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a47"/>
+<target ref="a47"/>
+<label kind="guard" x="432" y="64">x &gt;=5 &amp;&amp;  x &lt;=5</label>
+<label kind="synchronisation" x="200" y="120">T1_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T2_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a48"/>
+<target ref="a48"/>
+<label kind="guard" x="432" y="64">x &gt;=7 &amp;&amp;  x &lt;=7</label>
+<label kind="synchronisation" x="200" y="120">T2_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a57"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a46"/>
+<target ref="a60"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a47"/>
+<target ref="a59"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T1!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a60"/>
+<target ref="a63"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T1?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a48"/>
+<target ref="a62"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T2!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a63"/>
+<target ref="a65"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T2?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a50"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64">x &gt; 0</label>
+<label kind="synchronisation" x="200" y="120">T3_T3!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a65"/>
+<target ref="a67"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T3?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a62"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T4!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a67"/>
+<target ref="a69"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T4?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a59"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T5!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a69"/>
+<target ref="a71"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T5?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a57"/>
+<target ref="a49"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T6!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a71"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T6?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+</template><template>
+<name x="5" y="5">Token1</name>
+<declaration>
+clock x; 
+</declaration>
+<location id="a46" x="192" y="95">
+<name x="192" y="95">P0</name>
+</location>
+<location id="a47" x="237" y="95">
+<name x="237" y="95">P1</name>
+</location>
+<location id="a48" x="282" y="95">
+<name x="282" y="95">P2</name>
+</location>
+<location id="a49" x="237" y="177">
+<name x="237" y="177">Target</name>
+</location>
+<location id="a50" x="192" y="140">
+<name x="192" y="140">P3</name>
+</location>
+<location id="a51" x="50" y="200">
+<name x="50" y="200">P_capacity</name>
+</location>
+<location id="a52" x="50" y="5">
+<name x="50" y="5">P_lock</name>
+</location>
+<location id="a57" x="157" y="140">
+<name x="157" y="140">T3_hp_0</name>
+</location>
+<location id="a59" x="197" y="140">
+<name x="197" y="140">T3_hp1</name>
+</location>
+<location id="a60" x="177" y="115">
+<name x="177" y="115">T3_im1</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a62" x="237" y="140">
+<name x="237" y="140">T3_hp2</name>
+</location>
+<location id="a63" x="217" y="115">
+<name x="217" y="115">T3_im2</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a65" x="257" y="115">
+<name x="257" y="115">T3_im3</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a67" x="257" y="165">
+<name x="257" y="165">T3_im4</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a69" x="217" y="165">
+<name x="217" y="165">T3_im5</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a71" x="177" y="165">
+<name x="177" y="165">T3_im6</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<init ref="a46"/>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T0_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a46"/>
+<target ref="a46"/>
+<label kind="guard" x="432" y="64">x &gt;=3 &amp;&amp;  x &lt;=3</label>
+<label kind="synchronisation" x="200" y="120">T0_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T1_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a47"/>
+<target ref="a47"/>
+<label kind="guard" x="432" y="64">x &gt;=5 &amp;&amp;  x &lt;=5</label>
+<label kind="synchronisation" x="200" y="120">T1_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T2_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a48"/>
+<target ref="a48"/>
+<label kind="guard" x="432" y="64">x &gt;=7 &amp;&amp;  x &lt;=7</label>
+<label kind="synchronisation" x="200" y="120">T2_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a57"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a46"/>
+<target ref="a60"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a47"/>
+<target ref="a59"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T1!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a60"/>
+<target ref="a63"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T1?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a48"/>
+<target ref="a62"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T2!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a63"/>
+<target ref="a65"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T2?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a50"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64">x &gt; 0</label>
+<label kind="synchronisation" x="200" y="120">T3_T3!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a65"/>
+<target ref="a67"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T3?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a62"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T4!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a67"/>
+<target ref="a69"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T4?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a59"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T5!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a69"/>
+<target ref="a71"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T5?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a57"/>
+<target ref="a49"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T6!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a71"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T6?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+</template><template>
+<name x="5" y="5">Token2</name>
+<declaration>
+clock x; 
+</declaration>
+<location id="a46" x="192" y="95">
+<name x="192" y="95">P0</name>
+</location>
+<location id="a47" x="237" y="95">
+<name x="237" y="95">P1</name>
+</location>
+<location id="a48" x="282" y="95">
+<name x="282" y="95">P2</name>
+</location>
+<location id="a49" x="237" y="177">
+<name x="237" y="177">Target</name>
+</location>
+<location id="a50" x="192" y="140">
+<name x="192" y="140">P3</name>
+</location>
+<location id="a51" x="50" y="200">
+<name x="50" y="200">P_capacity</name>
+</location>
+<location id="a52" x="50" y="5">
+<name x="50" y="5">P_lock</name>
+</location>
+<location id="a57" x="157" y="140">
+<name x="157" y="140">T3_hp_0</name>
+</location>
+<location id="a59" x="197" y="140">
+<name x="197" y="140">T3_hp1</name>
+</location>
+<location id="a60" x="177" y="115">
+<name x="177" y="115">T3_im1</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a62" x="237" y="140">
+<name x="237" y="140">T3_hp2</name>
+</location>
+<location id="a63" x="217" y="115">
+<name x="217" y="115">T3_im2</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a65" x="257" y="115">
+<name x="257" y="115">T3_im3</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a67" x="257" y="165">
+<name x="257" y="165">T3_im4</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a69" x="217" y="165">
+<name x="217" y="165">T3_im5</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a71" x="177" y="165">
+<name x="177" y="165">T3_im6</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<init ref="a47"/>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T0_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a46"/>
+<target ref="a46"/>
+<label kind="guard" x="432" y="64">x &gt;=3 &amp;&amp;  x &lt;=3</label>
+<label kind="synchronisation" x="200" y="120">T0_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T1_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a47"/>
+<target ref="a47"/>
+<label kind="guard" x="432" y="64">x &gt;=5 &amp;&amp;  x &lt;=5</label>
+<label kind="synchronisation" x="200" y="120">T1_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T2_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a48"/>
+<target ref="a48"/>
+<label kind="guard" x="432" y="64">x &gt;=7 &amp;&amp;  x &lt;=7</label>
+<label kind="synchronisation" x="200" y="120">T2_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a57"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a46"/>
+<target ref="a60"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a47"/>
+<target ref="a59"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T1!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a60"/>
+<target ref="a63"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T1?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a48"/>
+<target ref="a62"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T2!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a63"/>
+<target ref="a65"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T2?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a50"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64">x &gt; 0</label>
+<label kind="synchronisation" x="200" y="120">T3_T3!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a65"/>
+<target ref="a67"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T3?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a62"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T4!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a67"/>
+<target ref="a69"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T4?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a59"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T5!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a69"/>
+<target ref="a71"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T5?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a57"/>
+<target ref="a49"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T6!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a71"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T6?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+</template><template>
+<name x="5" y="5">Token3</name>
+<declaration>
+clock x; 
+</declaration>
+<location id="a46" x="192" y="95">
+<name x="192" y="95">P0</name>
+</location>
+<location id="a47" x="237" y="95">
+<name x="237" y="95">P1</name>
+</location>
+<location id="a48" x="282" y="95">
+<name x="282" y="95">P2</name>
+</location>
+<location id="a49" x="237" y="177">
+<name x="237" y="177">Target</name>
+</location>
+<location id="a50" x="192" y="140">
+<name x="192" y="140">P3</name>
+</location>
+<location id="a51" x="50" y="200">
+<name x="50" y="200">P_capacity</name>
+</location>
+<location id="a52" x="50" y="5">
+<name x="50" y="5">P_lock</name>
+</location>
+<location id="a57" x="157" y="140">
+<name x="157" y="140">T3_hp_0</name>
+</location>
+<location id="a59" x="197" y="140">
+<name x="197" y="140">T3_hp1</name>
+</location>
+<location id="a60" x="177" y="115">
+<name x="177" y="115">T3_im1</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a62" x="237" y="140">
+<name x="237" y="140">T3_hp2</name>
+</location>
+<location id="a63" x="217" y="115">
+<name x="217" y="115">T3_im2</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a65" x="257" y="115">
+<name x="257" y="115">T3_im3</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a67" x="257" y="165">
+<name x="257" y="165">T3_im4</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a69" x="217" y="165">
+<name x="217" y="165">T3_im5</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a71" x="177" y="165">
+<name x="177" y="165">T3_im6</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<init ref="a48"/>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T0_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a46"/>
+<target ref="a46"/>
+<label kind="guard" x="432" y="64">x &gt;=3 &amp;&amp;  x &lt;=3</label>
+<label kind="synchronisation" x="200" y="120">T0_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T1_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a47"/>
+<target ref="a47"/>
+<label kind="guard" x="432" y="64">x &gt;=5 &amp;&amp;  x &lt;=5</label>
+<label kind="synchronisation" x="200" y="120">T1_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T2_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a48"/>
+<target ref="a48"/>
+<label kind="guard" x="432" y="64">x &gt;=7 &amp;&amp;  x &lt;=7</label>
+<label kind="synchronisation" x="200" y="120">T2_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a57"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a46"/>
+<target ref="a60"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a47"/>
+<target ref="a59"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T1!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a60"/>
+<target ref="a63"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T1?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a48"/>
+<target ref="a62"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T2!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a63"/>
+<target ref="a65"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T2?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a50"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64">x &gt; 0</label>
+<label kind="synchronisation" x="200" y="120">T3_T3!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a65"/>
+<target ref="a67"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T3?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a62"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T4!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a67"/>
+<target ref="a69"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T4?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a59"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T5!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a69"/>
+<target ref="a71"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T5?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a57"/>
+<target ref="a49"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T6!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a71"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T6?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+</template><template>
+<name x="5" y="5">Token4</name>
+<declaration>
+clock x; 
+</declaration>
+<location id="a46" x="192" y="95">
+<name x="192" y="95">P0</name>
+</location>
+<location id="a47" x="237" y="95">
+<name x="237" y="95">P1</name>
+</location>
+<location id="a48" x="282" y="95">
+<name x="282" y="95">P2</name>
+</location>
+<location id="a49" x="237" y="177">
+<name x="237" y="177">Target</name>
+</location>
+<location id="a50" x="192" y="140">
+<name x="192" y="140">P3</name>
+</location>
+<location id="a51" x="50" y="200">
+<name x="50" y="200">P_capacity</name>
+</location>
+<location id="a52" x="50" y="5">
+<name x="50" y="5">P_lock</name>
+</location>
+<location id="a57" x="157" y="140">
+<name x="157" y="140">T3_hp_0</name>
+</location>
+<location id="a59" x="197" y="140">
+<name x="197" y="140">T3_hp1</name>
+</location>
+<location id="a60" x="177" y="115">
+<name x="177" y="115">T3_im1</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a62" x="237" y="140">
+<name x="237" y="140">T3_hp2</name>
+</location>
+<location id="a63" x="217" y="115">
+<name x="217" y="115">T3_im2</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a65" x="257" y="115">
+<name x="257" y="115">T3_im3</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a67" x="257" y="165">
+<name x="257" y="165">T3_im4</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a69" x="217" y="165">
+<name x="217" y="165">T3_im5</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a71" x="177" y="165">
+<name x="177" y="165">T3_im6</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<init ref="a50"/>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T0_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a46"/>
+<target ref="a46"/>
+<label kind="guard" x="432" y="64">x &gt;=3 &amp;&amp;  x &lt;=3</label>
+<label kind="synchronisation" x="200" y="120">T0_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T1_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a47"/>
+<target ref="a47"/>
+<label kind="guard" x="432" y="64">x &gt;=5 &amp;&amp;  x &lt;=5</label>
+<label kind="synchronisation" x="200" y="120">T1_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T2_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a48"/>
+<target ref="a48"/>
+<label kind="guard" x="432" y="64">x &gt;=7 &amp;&amp;  x &lt;=7</label>
+<label kind="synchronisation" x="200" y="120">T2_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a57"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a46"/>
+<target ref="a60"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a47"/>
+<target ref="a59"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T1!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a60"/>
+<target ref="a63"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T1?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a48"/>
+<target ref="a62"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T2!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a63"/>
+<target ref="a65"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T2?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a50"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64">x &gt; 0</label>
+<label kind="synchronisation" x="200" y="120">T3_T3!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a65"/>
+<target ref="a67"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T3?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a62"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T4!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a67"/>
+<target ref="a69"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T4?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a59"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T5!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a69"/>
+<target ref="a71"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T5?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a57"/>
+<target ref="a49"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T6!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a71"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T6?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+</template><template>
+<name x="5" y="5">Token5</name>
+<declaration>
+clock x; 
+</declaration>
+<location id="a46" x="192" y="95">
+<name x="192" y="95">P0</name>
+</location>
+<location id="a47" x="237" y="95">
+<name x="237" y="95">P1</name>
+</location>
+<location id="a48" x="282" y="95">
+<name x="282" y="95">P2</name>
+</location>
+<location id="a49" x="237" y="177">
+<name x="237" y="177">Target</name>
+</location>
+<location id="a50" x="192" y="140">
+<name x="192" y="140">P3</name>
+</location>
+<location id="a51" x="50" y="200">
+<name x="50" y="200">P_capacity</name>
+</location>
+<location id="a52" x="50" y="5">
+<name x="50" y="5">P_lock</name>
+</location>
+<location id="a57" x="157" y="140">
+<name x="157" y="140">T3_hp_0</name>
+</location>
+<location id="a59" x="197" y="140">
+<name x="197" y="140">T3_hp1</name>
+</location>
+<location id="a60" x="177" y="115">
+<name x="177" y="115">T3_im1</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a62" x="237" y="140">
+<name x="237" y="140">T3_hp2</name>
+</location>
+<location id="a63" x="217" y="115">
+<name x="217" y="115">T3_im2</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a65" x="257" y="115">
+<name x="257" y="115">T3_im3</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a67" x="257" y="165">
+<name x="257" y="165">T3_im4</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a69" x="217" y="165">
+<name x="217" y="165">T3_im5</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<location id="a71" x="177" y="165">
+<name x="177" y="165">T3_im6</name>
+<label kind="invariant" x="-66" y="263"> x &lt;=0</label></location>
+<init ref="a51"/>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T0_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a46"/>
+<target ref="a46"/>
+<label kind="guard" x="432" y="64">x &gt;=3 &amp;&amp;  x &lt;=3</label>
+<label kind="synchronisation" x="200" y="120">T0_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T1_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a47"/>
+<target ref="a47"/>
+<label kind="guard" x="432" y="64">x &gt;=5 &amp;&amp;  x &lt;=5</label>
+<label kind="synchronisation" x="200" y="120">T1_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T2_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a48"/>
+<target ref="a48"/>
+<label kind="guard" x="432" y="64">x &gt;=7 &amp;&amp;  x &lt;=7</label>
+<label kind="synchronisation" x="200" y="120">T2_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a52"/>
+<target ref="a57"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T0!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a46"/>
+<target ref="a60"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T0?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a47"/>
+<target ref="a59"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T1!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a60"/>
+<target ref="a63"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T1?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a48"/>
+<target ref="a62"/>
+<label kind="guard" x="432" y="64"> x &lt;=0</label>
+<label kind="synchronisation" x="200" y="120">T3_T2!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a63"/>
+<target ref="a65"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T2?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a50"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64">x &gt; 0</label>
+<label kind="synchronisation" x="200" y="120">T3_T3!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a65"/>
+<target ref="a67"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T3?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a62"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T4!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a67"/>
+<target ref="a69"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T4?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a59"/>
+<target ref="a51"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T5!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a69"/>
+<target ref="a71"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T5?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a57"/>
+<target ref="a49"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T6!</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+<transition>
+<source ref="a71"/>
+<target ref="a52"/>
+<label kind="guard" x="432" y="64"></label>
+<label kind="synchronisation" x="200" y="120">T3_T6?</label>
+<label kind="assignment" x="10" y="160">x:=0</label>
+</transition>
+</template><system>
+system Token0, Token1, Token2, Token3, Token4, Token5;</system>
+</nta>
