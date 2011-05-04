@@ -120,7 +120,7 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 
 	// Build control variables (Transition Lock and Release Lock)
 	lockStateIdle = 0;
-	lockStateAgeing = transitions.size();
+	lockStateAgeing = transitions.size()+1;
 	builder->addVariable("L", 0, transitions.size() + 1); //one for each transition + idle and ageing
 
 	// For each place
@@ -232,8 +232,8 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 			// If we are the first place, require that the lock is idle, and set it ageing
 			if(isFirst){
 				isFirst = false;
-				maxCond += "L == " + i2s(lockStateIdle) + " and ";
-				ageCond += "L == " + i2s(lockStateIdle) + " and ";
+				//maxCond += "L == " + i2s(lockStateIdle) + " and "; Not necessary with these
+				//ageCond += "L == " + i2s(lockStateIdle) + " and ";
 				maxAssign += "L := " + i2s(lockStateAgeing) + " ; ";
 				ageAssign += "L := " + i2s(lockStateAgeing) + " ; ";
 			}else if(isLast){

@@ -63,7 +63,8 @@ HEADERS		   += \
     DTAPN/DTAPNPrinter.h \
     Reachability/BestFirstReachabilitySearch.h \
     Structures/StateConstraints.h \
-    Reachability/LinearOverApprox.h
+    Reachability/LinearOverApprox.h \
+    Structures/EnhancedPriorityQueue.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine

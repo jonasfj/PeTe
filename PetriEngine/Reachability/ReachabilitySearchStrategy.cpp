@@ -28,6 +28,9 @@
 #define NAME_BestFSDeltaSumExtreme				"BestFS-Delta (Sum, Extreme)"
 #define NAME_BestFSDeltaSumAverage				"BestFS-Delta (Sum, Average)"
 
+#define NAME_BestFSDeltaSumExtremeBFS			"BestFS-Delta (Sum, Extreme) BFS"
+#define NAME_BestFSDeltaSumExtremeDFS			"BestFS-Delta (Sum, Extreme) DFS"
+
 #define NAME_BestFSDeltaDeep2Extreme			"BestFS-Delta-Deep (Extreme, Extreme)"
 #define NAME_BestFSDeltaDeepExtremeAverage		"BestFS-Delta-Deep (Extreme, Average)"
 #define NAME_BestFSDeltaDeepAverageExtreme		"BestFS-Delta-Deep (Average, Extreme)"
@@ -126,6 +129,8 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BestFSTokenCostDeep2Average,
 		NAME_BestFSTokenCostDeepSumExtreme,
 		NAME_BestFSTokenCostDeepSumAverage*/
+		NAME_BestFSDeltaSumExtremeBFS,
+		NAME_BestFSDeltaSumExtremeDFS,
 		NAME_LinearOverApprox,
 		NAME_BestFSDeltaSumExtremeLH1,
 		NAME_BestFSDeltaSumExtremeLH2,
@@ -272,24 +277,35 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	//BestFSDelta-LHx
 	if(strategy == NAME_BestFSDeltaSumExtremeLH1){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
-		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 1);
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, true, 1);
 	}
 	if(strategy == NAME_BestFSDeltaSumExtremeLH2){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
-		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 2);
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, true, 2);
 	}
 	if(strategy == NAME_BestFSDeltaSumExtremeLH3){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
-		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 3);
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, true, 3);
 	}
 	if(strategy == NAME_BestFSDeltaSumExtremeLH4){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
-		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 4);
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, true, 4);
 	}
 	if(strategy == NAME_BestFSDeltaSumExtremeLH5){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
-		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, 5);
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, true, 5);
 	}
+
+
+	if(strategy == NAME_BestFSDeltaSumExtremeBFS){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, false);
+	}
+	if(strategy == NAME_BestFSDeltaSumExtremeDFS){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, true);
+	}
+
 
 	//Linear over-approximation
 	if(strategy == NAME_LinearOverApprox){

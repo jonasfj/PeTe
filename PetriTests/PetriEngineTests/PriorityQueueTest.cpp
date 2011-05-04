@@ -22,16 +22,8 @@ SUITE(PriorityQueueTest){
 		item.i = 10;
 		queue.push(1, item);
 		CHECK(queue.size() == 3);
-		PriorityQueue<MyItem>::Iterator it = queue.pop();
-		while(it++){
-			CHECK(it->i == 10);
-			queue.remove(it);
-		}
-		it = queue.pop();
-		while(it++){
-			CHECK(it->i == 2);
-			queue.remove(it);
-		}
+		CHECK(queue.pop().i == 10);
+		CHECK(queue.pop().i == 2);
 		CHECK(queue.size() == 1);
 	}
 }
