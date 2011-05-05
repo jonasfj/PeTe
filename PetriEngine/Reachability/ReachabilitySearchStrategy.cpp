@@ -7,6 +7,7 @@
 #include "BestFirstReachabilitySearch.h"
 #include "LinearOverApprox.h"
 #include "RandomDFS.h"
+#include "BestFSCooling.h"
 #include "HeuristicDFS.h"
 #include "../PQL/Contexts.h"
 #include <stdio.h>
@@ -78,6 +79,9 @@
 //Over-approximation by linear programming
 #define NAME_LinearOverApprox					"Linear over-approximation"
 
+//Cooling BestFS
+#define NAME_BestFSCoolingDeltaDFS				"BestFS-Cooling-Delta (DFS)"
+
 //Below defines are candidates for deletion
 #define NAME_HashUnderApproximation				"Hash under-approximation"
 #define NAME_ClosestFirstReachabilityAvg		"Closest-First (Avg)"
@@ -136,7 +140,8 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BestFSDeltaSumExtremeLH2,
 		NAME_BestFSDeltaSumExtremeLH3,
 		NAME_BestFSDeltaSumExtremeLH4,
-		NAME_BestFSDeltaSumExtremeLH5
+		NAME_BestFSDeltaSumExtremeLH5,
+		NAME_BestFSCoolingDeltaDFS
 	};
 	return std::vector<std::string>(strats, strats + sizeof(strats) / sizeof(std::string));
 }
@@ -310,6 +315,11 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	//Linear over-approximation
 	if(strategy == NAME_LinearOverApprox){
 		return new LinearOverApprox();
+	}
+
+	if(strategy == NAME_BestFSCoolingDeltaDFS){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new BestFSCooling((PQL::DistanceContext::DistanceStrategy)flags, true);
 	}
 
 

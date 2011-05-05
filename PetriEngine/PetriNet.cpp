@@ -77,8 +77,37 @@ bool PetriNet::fire(unsigned int t,
 	return true;
 }
 
-bool PetriNet::fire(unsigned int transition, const Structures::State* s, Structures::State* ns) const{
-	return fire(transition, s->marking(), s->valuation(), ns->marking(), ns->valuation());
+bool PetriNet::fire(unsigned int t,
+					const Structures::State* s,
+					Structures::State* ns,
+					int multiplicity) const{
+	//Check the condition
+	if(_conditions[t] &&
+	   !_conditions[t]->evaluate(PQL::EvaluationContext(s->marking(), s->valuation())))
+		return false;
+
+	// We can handle multiplicity if there's conditions or assignments on the transition
+	if((_conditions[t] && multiplicity != 1) || (_assignments[t] && multiplicity != 1))
+		return false;
+
+	const MarkVal* tv = _tv(t);
+	//Check that we can take from the marking
+	for(size_t i = 0; i < _nPlaces; i++){
+		ns->marking()[i] = s->marking()[i] - tv[i] * multiplicity;
+		if(ns->marking()[i] < 0)
+			return false;
+	}
+	//Add stuff that the marking gives us
+	for(size_t i = 0; i < _nPlaces; i++)
+		ns->marking()[i] += tv[i+_nPlaces] * multiplicity;
+
+
+	if(_assignments[t])
+		_assignments[t]->evaluate(s->marking(), s->valuation(), ns->valuation(), _ranges, _nVariables);
+	else
+		memcpy(ns->valuation(), s->valuation(), sizeof(VarVal) * _nVariables);
+
+	return true;
 }
 
 bool PetriNet::fireWithMarkInf(unsigned int t,

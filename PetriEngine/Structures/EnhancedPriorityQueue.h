@@ -20,6 +20,7 @@ private:
 	typedef std::list<Item> ItemList;
 	typedef std::map<double, ItemList> Queue;
 	typedef typename Queue::iterator Iter;
+	typedef typename Queue::const_iterator ConstIter;
 	/** Underlying queue */
 	Queue _queue;
 	size_t _size;
@@ -69,6 +70,24 @@ public:
 		if(it->second.empty())
 			_queue.erase(it);
 		return retval;
+	}
+
+	/** Get the top most item */
+	Item& top(bool preferNewest = true){
+		assert(_size > 0);
+		assert(_queue.begin() != _queue.end());
+		Iter it = _queue.begin();
+		assert(!it->second.empty());
+		return preferNewest ? it->second.back() : it->second.front();
+	}
+
+	/** Get priority of top most item in queue */
+	double topPriority() const {
+		assert(_size > 0);
+		assert(_queue.begin() != _queue.end());
+		ConstIter it = _queue.begin();
+		assert(!it->second.empty());
+		return it->first;
 	}
 };
 

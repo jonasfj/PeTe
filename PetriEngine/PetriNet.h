@@ -37,7 +37,7 @@ public:
 			  const VarVal* assignment,
 			  MarkVal* resultMarking,
 			  VarVal* resultAssignment) const;
-	bool fire(unsigned int transition, const Structures::State* s, Structures::State* ns) const;
+	bool fire(unsigned int transition, const Structures::State* s, Structures::State* ns, int multiplicity = 1) const;
 	/** Fire transition if possible and store result in result (Respect MARK_INF */
 	bool fireWithMarkInf(unsigned int transition,
 			  const MarkVal* marking,
