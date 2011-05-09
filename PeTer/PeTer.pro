@@ -6,6 +6,8 @@ INCLUDEPATH		+= ../
 LIBS			+= -L../ -lPetriEngine -llpsolve55 -lcolamd $$system(llvm-config --libs all)
 PRE_TARGETDEPS	+= ../PetriEngine
 CONFIG			+= console
+CONFIG			+= link_pkgconfig
+PKGCONFIG		+= igraph
 
 SOURCES	   +=   peter.cpp \
     xmlsp/xmlsp_dom.cpp \

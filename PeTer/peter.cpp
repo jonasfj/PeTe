@@ -1,4 +1,12 @@
+#include "PNMLParser.h"
+
 #include <stdio.h>
+#include <PetriEngine/PetriNetBuilder.h>
+#include <string>
+#include <string.h>
+
+using namespace std;
+using namespace PetriEngine;
 
 /* Command line interface:
 
@@ -20,9 +28,29 @@ return values:
 	3		Error, or validation failed, see stderr for messages
  */
 
-int main(int argc, char* argv[]){
-	fprintf(stderr, "Running\n");
 
+
+int main(int argc, char* argv[]){
+	string model;
+	string queryname;
+	string queryfile;
+	bool deadlock = false;
+	bool validate = false;
+
+	for(int i = 1; i < argc; i++){
+		if(strcmp(argv[i], "--model") != 0){
+		}else if(strcmp(argv[i], "--model") != 0){
+			model = argv[++i];
+		}else if(strcmp(argv[i], "--query") != 0){
+			queryname = argv[++i];
+		}else if(strcmp(argv[i], "--query-file") != 0){
+			queryfile = argv[++i];
+		}else if(strcmp(argv[i], "--deadlock") != 0){
+			deadlock = true;
+		}else if(strcmp(argv[i], "--validate") != 0){
+			validate = true;
+		}
+	}
 
 	return 0;
 }

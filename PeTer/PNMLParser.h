@@ -1,7 +1,7 @@
 #ifndef PNMLPARSER_H
 #define PNMLPARSER_H
 
-#include "PetriEngine/AbstractPetriNetBuilder.h"
+#include <PetriEngine/AbstractPetriNetBuilder.h>
 #include "xmlsp/xmlsp_dom.h"
 
 #include <map>
