@@ -18,6 +18,7 @@ SOURCES	   +=   peter.cpp \
 HEADERS		+= \
     xmlsp/xmlsp_dom.h \
     xmlsp/xmlsp.h \
-    PNMLParser.h
+    PNMLParser.h \
+    SUMoQueryParser.h
 
 TARGET		 = PeTer

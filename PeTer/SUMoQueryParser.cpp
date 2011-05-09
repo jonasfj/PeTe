@@ -1,16 +1,15 @@
-#include <map>
-#include <string>
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
+
+#include "SUMoQueryParser.h"
 #include "../PetriEngine/PQL/PQL.h"
-#include "../PetriEngine/PQL/PQLParser.h"
 
 
 using namespace std;
 using namespace PetriEngine::PQL;
 
-map<string, SUMoQuery> ParseSUMoQueries(std::string filename){
+map<string, SUMoQuery> ParseSUMoQueries(string filename){
 	fstream filestr(filename, fstream::in);
 	map<string, SUMoQuery> retMap;
 	
