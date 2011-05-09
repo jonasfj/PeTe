@@ -110,6 +110,28 @@ bool PetriNet::fire(unsigned int t,
 	return true;
 }
 
+void PetriNet::fireWithoutCheck(unsigned int t,
+								const MarkVal *m0,
+								const VarVal *a0,
+								MarkVal *m2,
+								VarVal *a2,
+								int multiplicity) const {
+	//Don't check conditions
+
+	// Do assignment first, so that we can allow m0 == m2 and a0 == a2
+	// e.g. reuse of memory...
+	//Assume that multiplicity is zero if there's an assignment
+	if(_assignments[t])
+		_assignments[t]->evaluate(m0, a0, a2, _ranges, _nVariables);
+	else
+		memcpy(a2, a0, sizeof(VarVal) * _nVariables);
+
+	const MarkVal* tv = _tv(t);
+	//Check that we can take from the marking
+	for(size_t i = 0; i < _nPlaces; i++)
+		m2[i] = m0[i] - tv[i] * multiplicity + tv[i+_nPlaces] * multiplicity;
+}
+
 bool PetriNet::fireWithMarkInf(unsigned int t,
 							   const MarkVal* m,
 							   const VarVal* a,

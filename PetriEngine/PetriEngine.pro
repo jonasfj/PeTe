@@ -29,7 +29,9 @@ SOURCES		   += \
     Reachability/BestFirstReachabilitySearch.cpp \
     Structures/StateConstraints.cpp \
     Reachability/LinearOverApprox.cpp \
-    Reachability/BestFSCooling.cpp
+    Reachability/BestFSCooling.cpp \
+    Structures/SmartState.cpp \
+    Reachability/MagicSearch.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -66,7 +68,11 @@ HEADERS		   += \
     Structures/StateConstraints.h \
     Reachability/LinearOverApprox.h \
     Structures/EnhancedPriorityQueue.h \
-    Reachability/BestFSCooling.h
+    Reachability/BestFSCooling.h \
+    Structures/SmartState.h \
+    Structures/SmartStateAllocator.h \
+    Structures/SmartStateSet.h \
+    Reachability/MagicSearch.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine

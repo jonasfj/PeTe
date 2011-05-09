@@ -168,13 +168,23 @@ bool NotCondition::evaluate(const EvaluationContext& context) const{
 
 void AssignmentExpression::evaluate(const MarkVal* m,
 									const VarVal *a,
-									VarVal *result_a,
+									VarVal* result_a,
 									VarVal* ranges,
 									size_t nvars) const{
-	memcpy(result_a, a, sizeof(VarVal) * nvars);
-	EvaluationContext context(m, a);
-	for(const_iter it = assignments.begin(); it != assignments.end(); it++)
-		result_a[it->offset] = it->expr->evaluate(context) % (ranges[it->offset]+1);
+	//If the same memory is used for a and result_a, do a little hack...
+	if(a == result_a){
+		VarVal acpy[nvars];
+		memcpy(acpy, a, sizeof(VarVal) * nvars);
+		memcpy(result_a, acpy, sizeof(VarVal) * nvars);
+		EvaluationContext context(m, acpy);
+		for(const_iter it = assignments.begin(); it != assignments.end(); it++)
+			result_a[it->offset] = it->expr->evaluate(context) % (ranges[it->offset]+1);
+	}else{
+		memcpy(result_a, a, sizeof(VarVal) * nvars);
+		EvaluationContext context(m, a);
+		for(const_iter it = assignments.begin(); it != assignments.end(); it++)
+			result_a[it->offset] = it->expr->evaluate(context) % (ranges[it->offset]+1);
+	}
 }
 
 /******************** Apply (BinaryExpr subclasses) ********************/
