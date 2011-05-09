@@ -7,6 +7,7 @@ using namespace PetriEngine::PQL;
 
 Condition* sumoQuery;
 std::string sumoName;
+bool isInvariant;
 extern int sumolex();
 extern char* sumotext;
 void sumoerror(const char *s) {printf("ERROR: %s: %s\n", s, sumotext);}
@@ -43,8 +44,8 @@ void sumoerror(const char *s) {printf("ERROR: %s: %s\n", s, sumotext);}
 
 %%
 
-root	: ID EQUAL REACHABLE subformula		{ sumoQuery = $4; sumoName = *$1; delete $1;}
-		| ID EQUAL INVARIANT subformula		{ sumoQuery = NULL; /*TODO: Fix later*/ }
+root	: ID EQUAL REACHABLE subformula		{ sumoQuery = $4; isInvariant = false; sumoName = *$1; delete $1;}
+		| ID EQUAL INVARIANT subformula		{ sumoQuery = new NotCondition($4); isInvariant = true; sumoName = *$1; delete $1; }
 		;
 
 subformula : subformula AND subformula		{ $$ = new AndCondition($1, $3); }

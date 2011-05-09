@@ -181,7 +181,7 @@ void QueryModel::importSUMoQueries(QIODevice &f){
 		if(line.size() == 0)
 			continue;
 		PetriEngine::PQL::SUMoQuery c = PetriEngine::PQL::ParseSUMoQuery(line.data());
-		if(!c.query)
+		if(!c.query || c.isInvariant)
 			continue;
 		Query q;
 		//You can hardcode scaling into the queries here

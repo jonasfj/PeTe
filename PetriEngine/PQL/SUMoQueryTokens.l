@@ -8,6 +8,7 @@
 extern "C" int sumowrap(){return 1;}
 extern PetriEngine::PQL::Condition* sumoQuery;
 extern std::string sumoName;
+extern bool isInvariant;
 extern int sumoparse();
 %}
 %option prefix="sumo"
@@ -52,9 +53,11 @@ SUMoQuery ParseSUMoQuery(const std::string& queryString){
 	SUMoQuery q;
 	q.name = "";
 	q.query = NULL;
+	q.isInvariant = isInvariant;
 	if(sumoparse() == 0){
 		q.query = sumoQuery;
 		q.name = sumoName;
+		q.isInvariant = isInvariant;
 	}
 	//Delete buffer
 	sumo_delete_buffer(buf);

@@ -10,7 +10,8 @@ CONFIG			+= console
 SOURCES	   +=   peter.cpp \
     xmlsp/xmlsp_dom.cpp \
     xmlsp/xmlsp.cpp \
-    PNMLParser.cpp
+    PNMLParser.cpp \
+    SUMoQueryParser.cpp
 
 HEADERS		+= \
     xmlsp/xmlsp_dom.h \

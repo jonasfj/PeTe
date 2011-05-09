@@ -12,6 +12,7 @@ class AssignmentExpression;
 struct SUMoQuery{
 	Condition* query;
 	std::string name;
+	bool isInvariant;
 };
 
 Condition* ParseQuery(const std::string& queryString);
