@@ -177,7 +177,7 @@ void QueryModel::importSUMoQueries(QIODevice &f){
 		f.open(QIODevice::ReadOnly);
 	QUndoCommand* cmdStack = new QUndoCommand();
 	while(!f.atEnd()){
-		QByteArray line = f.readLine(1<<10);
+		QByteArray line = f.readLine();
 		if(line.size() == 0)
 			continue;
 		PetriEngine::PQL::SUMoQuery c = PetriEngine::PQL::ParseSUMoQuery(line.data());

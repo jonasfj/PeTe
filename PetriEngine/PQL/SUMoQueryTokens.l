@@ -45,9 +45,10 @@ id				{letter}({letter}|{digit})*
 namespace PetriEngine{ namespace PQL{
 SUMoQuery ParseSUMoQuery(const std::string& queryString){
 	sumoQuery = NULL;
-	
+
 	//Load up input buffer in Flex
 	YY_BUFFER_STATE buf = sumo_scan_string(queryString.c_str());
+
 	SUMoQuery q;
 	q.name = "";
 	q.query = NULL;
