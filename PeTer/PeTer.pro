@@ -12,13 +12,11 @@ PKGCONFIG		+= igraph
 SOURCES	   +=   peter.cpp \
     xmlsp/xmlsp_dom.cpp \
     xmlsp/xmlsp.cpp \
-    PNMLParser.cpp \
-    SUMoQueryParser.cpp
+    PNMLParser.cpp
 
 HEADERS		+= \
     xmlsp/xmlsp_dom.h \
     xmlsp/xmlsp.h \
-    PNMLParser.h \
-    SUMoQueryParser.h
+    PNMLParser.h
 
 TARGET		 = PeTer
