@@ -72,7 +72,8 @@ HEADERS		   += \
     Structures/SmartState.h \
     Structures/SmartStateAllocator.h \
     Structures/SmartStateSet.h \
-    Reachability/MagicSearch.h
+    Reachability/MagicSearch.h \
+    Structures/Scale.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine
