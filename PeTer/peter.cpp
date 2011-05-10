@@ -11,10 +11,14 @@
 #include <map>
 
 #include "PetriEngine/PQL/PQLParser.h"
+#include "PetriEngine/Reachability/LinearOverApprox.h"
+#include "PetriEngine/Reachability/BestFirstReachabilitySearch.h"
+#include "PetriEngine/PQL/Contexts.h"
 
 using namespace std;
 using namespace PetriEngine;
 using namespace PetriEngine::PQL;
+using namespace PetriEngine::Reachability;
 
 /* Command line interface:
 
@@ -150,10 +154,17 @@ int main(int argc, char* argv[]){
 			return SuccessCode;
 		}
 
-		// Assign queries and move on
+		// Assign queries and invariant
 		string formula(queryname);
 		query = queries[formula].query;
 		isInvariant = queries[formula].isInvariant;
+
+		//Cleanup
+		typedef map<string, SUMoQuery>::iterator iter;
+		for(iter it = queries.begin(); it != queries.end(); it++){
+			if((*it).first != formula)
+				delete (*it).second.query;
+		}
 	}
 
 	//----------------------- Models -----------------------//
@@ -189,8 +200,49 @@ int main(int argc, char* argv[]){
 		modelfile.close();
 	}
 
+	//----------------------- Reachability -----------------------//
 
-	//TODO: Do reachability with the best method we've got
+
+	//Begin reachability search, begin scope to release memory from the stack
+	{
+		//Fallback strategy
+		int flags = DistanceContext::AndSum | DistanceContext::OrExtreme;
+		BestFirstReachabilitySearch fallback((DistanceContext::DistanceStrategy)flags);
+		//Linear Approximation
+		LinearOverApprox strategy(&fallback);
+
+		//Context analysis
+		{
+			AnalysisContext context(*net);
+			query->analyze(context);
+
+			for(size_t i = 0; i < context.errors().size(); i++){
+				fprintf(stderr, "Query Context Analysis Error: %s\n", context.errors()[i].toString().c_str());
+			}
+
+			if(context.errors().size() > 0)
+				return ErrorCode;
+		}
+
+		ReachabilityResult result = strategy.reachable(*net, m0, v0, query);
+
+		//TODO: Double check technique print.. I don't really know what to put here
+		string techniques("EXPLICIT HEURISTIC");
+
+		if(result.result() == ReachabilityResult::Satisfied){
+			string resultText = isInvariant ? "FALSE" : "TRUE";
+			fprintf(stdout, "FORMULA %s %s %s\n", queryname, resultText.c_str(), techniques.c_str());
+			return FailedCode;
+		}else if(result.result() == ReachabilityResult::NotSatisfied){
+			string resultText = isInvariant ? "TRUE" : "FALSE";
+			fprintf(stdout, "FORMULA %s %s %s\n", queryname, resultText.c_str(), techniques.c_str());
+			return SuccessCode;
+		} else {
+			//Unknown. Could not compute.
+			fprintf(stdout, "CANNOT_COMPUTE\n");
+			return UnknownCode;
+		}
+	}
 
 	return UnknownCode;
 }
