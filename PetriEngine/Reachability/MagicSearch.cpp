@@ -1,7 +1,7 @@
 #include "MagicSearch.h"
 #include "../Structures/EnhancedPriorityQueue.h"
 
-#define	MEMORY_BOUND		1073741824
+#define	MEMORY_BOUND		1024*1024*512
 
 using namespace PetriEngine::Structures;
 using namespace PetriEngine::PQL;
@@ -18,7 +18,14 @@ ReachabilityResult MagicSearch::reachable(const PetriNet &net,
 	EnhancedPriorityQueue<Step> queue;
 
 	_dm = new Structures::DistanceMatrix(net);
+	{	//Compute constraints
+		ConstraintAnalysisContext context(net);
+		query->findConstraints(context);
+		if(context.canAnalyze)
+			contraints = context.retval;
+	}
 
+	//Create s0
 	SmartState* s0 = allocator.createStoredState();
 	memcpy(s0->marking(), m0, sizeof(MarkVal) * net.numberOfPlaces());
 	memcpy(s0->valuation(), v0, sizeof(VarVal) * net.numberOfVariables());
@@ -58,24 +65,29 @@ ReachabilityResult MagicSearch::reachable(const PetriNet &net,
 		Step step = queue.pop(depthFirst);
 		expanded++; //Cound expanded states
 
-		//TODO: Do over-approximation at some interval on nextstep.lastApprox
+		// Get current state
+		const MarkVal* m;
+		const VarVal* v;
+		if(step.state->stored()){
+			m = step.state->marking();
+			v = step.state->valuation();
+		}else{
+			step.state->getState(net, tmpM, tmpV);
+			m = tmpM;
+			v = tmpV;
+		}
+
+		//Attempt to exclude by over-approx
+		if(true){
+			if(canExcludeByOverApprox(net, m, v))
+				continue;
+		}
 
 		for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
-			// Get current state
-			const MarkVal* m;
-			const VarVal* v;
-			if(step.state->stored()){
-				m = step.state->marking();
-				v = step.state->valuation();
-			}else{
-				step.state->getState(net, tmpM, tmpV);
-				m = tmpM;
-				v = tmpV;
-			}
 			//Fire the transition
 			if(net.fire(t, m, v, ns->marking(), ns->valuation())){
 				//Determine whether or not to store the entire state
-				bool storeCurrentState = false;
+				bool storeCurrentState = true;
 				SmartState* storeState;
 				if(storeCurrentState)
 					storeState = ns;
@@ -136,6 +148,15 @@ double MagicSearch::priority(const MarkVal *marking,
 								 valuation,
 								 _dm);
 	return query->distance(context);
+}
+
+bool MagicSearch::canExcludeByOverApprox(const PetriNet& net, const MarkVal* m, const VarVal* v){
+	bool isImpossible = contraints.size() > 0;
+	for(size_t i = 0; i < contraints.size(); i++){
+		isImpossible &= contraints[i]->isImpossible(net, m, v);
+		if(!isImpossible) break;
+	}
+	return isImpossible;
 }
 
 } // Reachability

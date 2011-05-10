@@ -28,20 +28,20 @@ public:
 	}
 	/** Create new state, returns NULL if out of memory */
 	SmartState* createStoredState(){
-		size_t size = sizeof(SmartState*) + nPlaces * sizeof(MarkVal) + nVars * sizeof(VarVal);
+		size_t size = sizeof(SmartState) + nPlaces * sizeof(MarkVal) + nVars * sizeof(VarVal);
 		if(offset - data + size > memory)
 			return NULL;
 		SmartState* s = (SmartState*)offset;
 		s->setParent(NULL);
 		s->setTransition(0, 0);
-		s->_marking = (MarkVal*)(offset + sizeof(SmartState*));
-		s->_valuation = (MarkVal*)(offset + sizeof(SmartState*) + nPlaces * sizeof(MarkVal));
+		s->_marking = (MarkVal*)(offset + sizeof(SmartState));
+		s->_valuation = (VarVal*)(offset + sizeof(SmartState) + nPlaces * sizeof(MarkVal));
 		offset += size;
 		return s;
 	}
 	/** Create new non-stored state, returns NULL if out of memory */
 	SmartState* createState(SmartState* parent = NULL, unsigned int transition = 0, int multiplicity = 1){
-		size_t size = sizeof(SmartState*);
+		size_t size = sizeof(SmartState);
 		if(offset - data + size > memory)
 			return NULL;
 		SmartState* s = (SmartState*)offset;

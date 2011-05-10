@@ -9,6 +9,7 @@
 #include "RandomDFS.h"
 #include "BestFSCooling.h"
 #include "HeuristicDFS.h"
+#include "MagicSearch.h"
 #include "../PQL/Contexts.h"
 #include <stdio.h>
 
@@ -95,6 +96,7 @@
 #define NAME_ExtOrSumAndDeep					"Extreme-Or Sum-And Deep!"
 #define NAME_HeuristicDFSSumAndExtremeOr		"Heuristic DFS (Extreme-Or Sum-And)"
 
+#define NAME_MagicSearch						"Adaptive memory BFS Delta"
 
 #include <stdio.h>
 
@@ -141,7 +143,8 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BestFSDeltaSumExtremeLH3,
 		NAME_BestFSDeltaSumExtremeLH4,
 		NAME_BestFSDeltaSumExtremeLH5,
-		NAME_BestFSCoolingDeltaDFS
+		NAME_BestFSCoolingDeltaDFS,
+		NAME_MagicSearch
 	};
 	return std::vector<std::string>(strats, strats + sizeof(strats) / sizeof(std::string));
 }
@@ -320,6 +323,11 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	if(strategy == NAME_BestFSCoolingDeltaDFS){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
 		return new BestFSCooling((PQL::DistanceContext::DistanceStrategy)flags, true);
+	}
+
+	if(strategy == NAME_MagicSearch){
+		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;;
+		return new MagicSearch((PQL::DistanceContext::DistanceStrategy)flags,false);
 	}
 
 
