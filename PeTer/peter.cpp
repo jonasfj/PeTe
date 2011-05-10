@@ -26,6 +26,38 @@ return values:
 	1		Unsuccesful, query not satisfiable or deadlocks were found
 	2		Unknown, algorithm was unable to answer the question
 	3		Error, or validation failed, see stderr for messages
+
+Prints to stdout:
+	Deadlock:
+		DEADLOCKS <DVAL> TECHNIQUES <TVAL1> <TVAL2> ...
+			where:
+			- <DVAL> is the number of deadlocks in the system,
+	Validation:
+		FORMULA <NAME1> <RES1> TECHNIQUES <TVAL1> <TVAL2>...
+		FORMULA <NAME2> <RES1> TECHNIQUES <TVAL1> <TVAL2>...
+			where:
+			- <NAME> is the name of the formula in the file,
+			- <RES> is TRUE or FALSE,
+
+
+		- <TVALx> are techniques selected by the tool to perform
+			this operation (several may be used together).
+			Classification of these techniques are done by means of
+			the following keywords:
+				- EXPLICIT
+				- ABSTRACTIONS
+				- PARTIAL_ORDERS
+				- PARALLEL_PROCESSING
+				- DECISION_DIAGRAMS
+				- SYMMETRIES
+				- STATE_COMPRESSION
+				- OTHERS
+
+	If computation was not completed, must print either
+		- CANNOT_COMPUTE
+		- DO_NOT_COMPETE
+
+	Nothing else may be printed to stdout.
  */
 
 
