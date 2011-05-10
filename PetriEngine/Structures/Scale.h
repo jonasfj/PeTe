@@ -1,28 +1,24 @@
 #ifndef SCALE_H
 #define SCALE_H
 
+#include <math.h>
+
 namespace PetriEngine{
 namespace Structures{
 
 /** Provides functionality to perform adaptive scaling of memory, etc */
-class Scale
-{
+class Scale{
 public:
-
-	Scale(double a, double b, double c)
-	{
+	Scale(double a = 0, double b = 0, double c = 0){
 		this->a = a;
 		this->b = b;
 		this->c = c;
 	}
 
 	/** the input value is the value */
-	int operator()(double x){
-		// Start from inital offset
-		if(x < x_start)
-			x = x_start;
+	int operator() (double x){
 		double fx = a*(x*x) + b*x + c;
-		return (int)fx;
+		return (int)floor(fx);
 	}
 private:
 	double a;

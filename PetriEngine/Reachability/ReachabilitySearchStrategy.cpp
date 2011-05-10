@@ -100,6 +100,8 @@
 
 #include <stdio.h>
 
+using namespace PetriEngine::Structures;
+
 namespace PetriEngine { namespace Reachability {
 
 /** List all reachability strategies, return unqiue display names */
@@ -327,7 +329,10 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 
 	if(strategy == NAME_MagicSearch){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;;
-		return new MagicSearch((PQL::DistanceContext::DistanceStrategy)flags,false);
+		return new MagicSearch((PQL::DistanceContext::DistanceStrategy)flags,
+								false,
+								Scale(0, 0.5, 0),
+								Scale(0, 1, 0));
 	}
 
 
