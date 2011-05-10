@@ -37,12 +37,15 @@ public:
 private:
 	PQL::DistanceContext::DistanceStrategy _distanceStrategy;
 	Structures::DistanceMatrix* _dm;
+	/** Contraints for over-approximation, zero if analysis isn't possible */
+	PQL::ConstraintAnalysisContext::ConstraintSet contraints;
 	bool depthFirst;
 	/** Method for prioritizing different states, lower priority is better */
 	double priority(const MarkVal* marking,
 					const VarVal* valuation,
 					const PQL::Condition* query,
 					const PetriNet& net);
+	bool canExcludeByOverApprox(const PetriNet& net, const MarkVal* m, const VarVal* v);
 };
 
 } // Reachability
