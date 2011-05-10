@@ -52,5 +52,7 @@ int main(int argc, char* argv[]){
 		}
 	}
 
+	fprintf(stderr, "running\n");
+
 	return 0;
 }
