@@ -9,38 +9,25 @@ class Scale
 {
 public:
 
-	/** The descent function */
-	enum ScalingFunction{
-		Linear	= 0,
-		Hyperbola = 1
-	};
-
-	Scale(int xstart, int ymax, int scale, ScalingFunction function)
+	Scale(double a, double b, double c)
 	{
-		this->x_start=xstart;
-		this->y_max=ymax;
-		this->scale=scale;
-		this->function=function;
+		this->a = a;
+		this->b = b;
+		this->c = c;
 	}
-	int calculate(int x){
+
+	/** the input value is the value */
+	int operator()(double x){
 		// Start from inital offset
 		if(x < x_start)
 			x = x_start;
-
-		float fx;
-
-		if(function == Linear)
-			fx = ymax-x;
-		 else if(function == Hyperbola)
-			fx = (1/x);
-
-		return (int)(scale*fx);
+		double fx = a*(x*x) + b*x + c;
+		return (int)fx;
 	}
 private:
-	int x_start;
-	int y_max;
-	int scale;
-	ScalingFunction function;
+	double a;
+	double b;
+	double c;
 };
 
 } //Structures
