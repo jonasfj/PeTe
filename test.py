@@ -58,6 +58,9 @@ QueryPrefixIgnoreList = [
 "fNOK",
 ]
 
+# Skip the first n from each model list
+SkipFirstNModels = 0
+
 #####################################################################
 #                   End of Default Configuration                    #
 #####################################################################
@@ -77,6 +80,7 @@ try:
 	TimeOut 		= testconfig.TimeOut
 	QueriesToRun 	= testconfig.QueriesToRun
 	QueryPrefixIgnoreList = testconfig.QueryPrefixIgnoreList
+	SkipFirstNModels = testconfig.SkipFirstNModels
 except:
 	print "Failed to load config"
 	if kill:
@@ -131,10 +135,10 @@ MAPK = [
 DTAPN = ["DTAPNs/PrimeNet-7.pet", "DTAPNs/PrimeNet-11.pet", "DTAPNs/PrimeNet-13.pet", "DTAPNs/PrimeNet-17.pet", "DTAPNs/PrimeNet-19.pet"]
 modellists = []
 for m in Models:
-	if m == "MAPK": modellists += (MAPK,)
-	if m == "DTAPN": modellists += (DTAPN,)
-	if m == "Kanban": modellists += (Kanban,)
-	if m == "FMS": modellists += (FMS,)
+	if m == "MAPK": modellists += (MAPK[SkipFirstNModels:],)
+	if m == "DTAPN": modellists += (DTAPN[SkipFirstNModels:],)
+	if m == "Kanban": modellists += (Kanban[SkipFirstNModels:],)
+	if m == "FMS": modellists += (FMS[SkipFirstNModels:],)
 
 def getMemory(pid):
 	argvs = ["ps", "-p", str(pid), "-o", "vsz="]
