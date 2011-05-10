@@ -8,6 +8,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <map>
+
+#include "PetriEngine/PQL/PQLParser.h"
 
 using namespace std;
 using namespace PetriEngine;
@@ -70,35 +73,90 @@ enum ReturnValues{
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
-	string model;
-	string queryname;
-	string queryfile;
+	bool listformulas = false;
+	char* model = NULL;
+	char* queryname = NULL;
+	char* queryfile = NULL;
 
 	// Parse command line arguments
 	for(int i = 1; i < argc; i++){
-		if(strcmp(argv[i], "--model") != 0){
-		}else if(strcmp(argv[i], "--model") != 0){
+		if(strcmp(argv[i], "--model") == 0){
 			model = argv[++i];
-		}else if(strcmp(argv[i], "--query") != 0){
+		}else if(strcmp(argv[i], "--query") == 0){
 			queryname = argv[++i];
-		}else if(strcmp(argv[i], "--query-file") != 0){
+		}else if(strcmp(argv[i], "--query-file") == 0){
 			queryfile = argv[++i];
+		}else if(strcmp(argv[i], "--list-queries") == 0){
+			listformulas = true;
 		}
 	}
 
 	// Validate command line arguments
-	if(model == ""){
+	if(!model && !listformulas){
 		fprintf(stderr, "Argument Error: Model must be provided using --model\n");
 		return ErrorCode;
 	}
-	if(queryname == ""){
+	if(!queryname && !listformulas){
 		fprintf(stderr, "Argument Error: Query name must be provided using --query\n");
 		return ErrorCode;
 	}
-	if(queryfile == ""){
+	if(!queryfile){
 		fprintf(stderr, "Argument Error: Query file must be provided using --query-file\n");
 		return ErrorCode;
 	}
+
+	//----------------------- Queries -----------------------//
+
+	//Condition to check
+	Condition* query = NULL;
+	bool isInvariant = false;
+
+	//Parse query file, begin scope to release memory from the stack
+	{
+		map<string, SUMoQuery> queries;
+
+		// Load formulas
+		ifstream formulafile(queryfile, ifstream::in);
+		if(!formulafile){
+			fprintf(stderr, "Argument Error: Formula file \"%s\" couldn't be opened\n", queryfile);
+			return ErrorCode;
+		}
+
+		// Parse queries into map
+		while(!formulafile.eof()){
+			string queryString;
+			getline(formulafile, queryString);
+			if(queryString == "")
+				continue;
+
+			//Parse queries
+			SUMoQuery q = ParseSUMoQuery(queryString);
+			if(!q.query){
+				fprintf(stderr, "Argument Error: Failed to parse query \"%s\" in file \"%s\"", queryString.c_str(), queryfile);
+				return ErrorCode;
+			}
+
+			queries[q.name] = q;
+		}
+
+		formulafile.close();
+
+		// List possible formulas, then terminate
+		if(listformulas){
+			typedef map<string, SUMoQuery>::iterator iter;
+			for(iter it = queries.begin(); it != queries.end(); it++){
+				fprintf(stdout, "%s\n", (*it).second.name.c_str());
+			}
+			return SuccessCode;
+		}
+
+		// Assign queries and move on
+		string formula(queryname);
+		query = queries[formula].query;
+		isInvariant = queries[formula].isInvariant;
+	}
+
+	//----------------------- Models -----------------------//
 
 	//Load the model, begin scope to release memory from the stack
 	PetriNet* net = NULL;
@@ -108,7 +166,7 @@ int main(int argc, char* argv[]){
 		//Load the model
 		ifstream modelfile(model, ifstream::in);
 		if(!modelfile){
-			fprintf(stderr, "Argument Error: Model file \"%s\" couldn't be opened\n", model.c_str());
+			fprintf(stderr, "Argument Error: Model file \"%s\" couldn't be opened\n", model);
 			return ErrorCode;
 		}
 
@@ -131,14 +189,6 @@ int main(int argc, char* argv[]){
 		modelfile.close();
 	}
 
-	//Condition to check
-	Condition* query = NULL;
-	bool isInvariant = false;
-
-	//Parse query file, begin scope to release memory from the stack
-	{
-		//TODO: Parse query file... please release memory
-	}
 
 	//TODO: Do reachability with the best method we've got
 
