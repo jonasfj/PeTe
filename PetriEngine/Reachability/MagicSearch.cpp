@@ -1,7 +1,7 @@
 #include "MagicSearch.h"
 #include "../Structures/EnhancedPriorityQueue.h"
 
-#define	MEMORY_BOUND		1073741824
+#define	MEMORY_BOUND		1024*1024*512
 
 using namespace PetriEngine::Structures;
 using namespace PetriEngine::PQL;
@@ -58,7 +58,7 @@ ReachabilityResult MagicSearch::reachable(const PetriNet &net,
 		Step step = queue.pop(depthFirst);
 		expanded++; //Cound expanded states
 
-		//TODO: Do over-approximation at some interval on nextstep.lastApprox
+		//TODO: Do over-approximation at some interval on step.lastApprox
 
 		for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
 			// Get current state
@@ -75,7 +75,7 @@ ReachabilityResult MagicSearch::reachable(const PetriNet &net,
 			//Fire the transition
 			if(net.fire(t, m, v, ns->marking(), ns->valuation())){
 				//Determine whether or not to store the entire state
-				bool storeCurrentState = false;
+				bool storeCurrentState = true;
 				SmartState* storeState;
 				if(storeCurrentState)
 					storeState = ns;
