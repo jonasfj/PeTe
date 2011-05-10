@@ -78,16 +78,17 @@ ReachabilityResult MagicSearch::reachable(const PetriNet &net,
 		}
 
 		//Attempt to exclude by over-approx
-		if(true){
+		if(step.lastApprox >= approxScale(step.depth)){
 			if(canExcludeByOverApprox(net, m, v))
 				continue;
+			step.lastApprox = 0;
 		}
 
 		for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
 			//Fire the transition
 			if(net.fire(t, m, v, ns->marking(), ns->valuation())){
 				//Determine whether or not to store the entire state
-				bool storeCurrentState = true;
+				bool storeCurrentState = step.lastStored >= storeScale(allocator.percentMemoryUsed());
 				SmartState* storeState;
 				if(storeCurrentState)
 					storeState = ns;

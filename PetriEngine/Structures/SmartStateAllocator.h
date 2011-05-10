@@ -52,6 +52,10 @@ public:
 		offset += size;
 		return s;
 	}
+	/** Get memory usage as double between 1 and 100 */
+	double percentMemoryUsed() const{
+		return ((double)(offset - data)) / (((double)memory)/100);
+	}
 private:
 	int nPlaces, nVars;
 	char* data;

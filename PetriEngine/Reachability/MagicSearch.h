@@ -8,6 +8,7 @@
 #include "../Structures/SmartState.h"
 #include "../Structures/SmartStateSet.h"
 #include "../Structures/SmartStateAllocator.h"
+#include "../Structures/Scale.h"
 
 namespace PetriEngine{
 namespace Reachability{
@@ -26,15 +27,20 @@ public:
 	 * @param distanceStrategy Distance strategy, for computation of distance to query
 	 */
 	MagicSearch(PQL::DistanceContext::DistanceStrategy distanceStrategy,
-				bool depthFirst = true){
+				bool depthFirst,
+				Structures::Scale approxScale,
+				Structures::Scale storeScale){
 		this->_distanceStrategy = distanceStrategy;
 		this->depthFirst = depthFirst;
+		this->approxScale = approxScale;
+		this->storeScale = storeScale;
 	}
 	ReachabilityResult reachable(const PetriNet &net,
 								 const MarkVal* m0,
 								 const VarVal* v0,
 								 PQL::Condition* query);
 private:
+	Structures::Scale approxScale, storeScale;
 	PQL::DistanceContext::DistanceStrategy _distanceStrategy;
 	Structures::DistanceMatrix* _dm;
 	/** Contraints for over-approximation, zero if analysis isn't possible */
