@@ -191,17 +191,14 @@ bool StateConstraints::isImpossible(const PetriNet& net,
 		if(pcs[p].min == pcs[p].max &&
 		   pcs[p].max != CONSTRAINT_INFTY){
 			double target = pcs[p].min - m0[p];
-			bool ok = add_constraint(lp, row, EQ,  target);
-			assert(ok);
+			add_constraint(lp, row, EQ,  target);
 		}else{
 			// There's always a min, even zero is interesting
 			double target = pcs[p].min - m0[p];
-			bool ok = add_constraint(lp, row, GE,  target);
-			assert(ok);
+			add_constraint(lp, row, GE,  target);
 			if(pcs[p].max != CONSTRAINT_INFTY){
 				double target = pcs[p].max - m0[p];
-				bool ok = add_constraint(lp, row, LE,  target);
-				assert(ok);
+				add_constraint(lp, row, LE,  target);
 			}
 		}
 	}
@@ -227,8 +224,60 @@ bool StateConstraints::isImpossible(const PetriNet& net,
 	// Write it to stdout
 	//write_LP(lp, stdout);
 
+	//TODO: Set timeout, and handle a timeout
+
 	// Attempt to solve the problem
 	int result = solve(lp);
+
+	// Try to add a minimal trap constraint
+	while(result == OPTIMAL || result == SUBOPTIMAL){
+		memset(row, 0, sizeof(REAL) * net.numberOfTransitions() + 1);
+		// Get the firing vector
+		get_variables(lp, row);
+		// Compute the resulting marking
+		MarkVal rMark[net.numberOfPlaces()];
+		for(size_t p = 0; p < nPlaces; p++){
+			rMark[p] = m0[p];
+			for(size_t t = 0; t < net.numberOfTransitions(); t++)
+				rMark[p] += (net.outArc(t, p) - net.inArc(p, t)) * row[t+1];
+		}
+
+		// Find an M-trap
+		BitField trap(minimalTrap(net, m0, rMark));
+		if(trap.none()) break;
+
+		/* Debug information
+		printf("Firing vector:\n");
+		for(size_t t = 0; t < net.numberOfTransitions(); t++)
+			printf("\t %s = %i\n", net.transitionNames()[t].c_str(), row[t+1]);
+		printf("Result marking:\n");
+		for(size_t p = 0; p < nPlaces; p++)
+			printf("\t %s = %i\n", net.placeNames()[p].c_str(), rMark[p]);
+		printf("Got trap: ");
+		for(size_t p = 0; p < nPlaces; p++){
+			if(trap.test(p)){
+				printf("%s, ", net.placeNames()[p].c_str());
+			}
+		}
+		printf("\n");
+		*/
+
+		// Compute the new equation
+		for(size_t t = 0; t < net.numberOfTransitions(); t++){
+			row[1+t] = 0;
+			for(size_t p = 0; p < nPlaces; p++)
+				if(trap.test(p))
+					row[1+t] += net.outArc(t, p) - net.inArc(p, t);
+		}
+
+		// Add a new row with target as greater than equal to 1
+		set_add_rowmode(lp, TRUE);
+		add_constraint(lp, row, GE,  1);
+		set_add_rowmode(lp, FALSE);
+
+		// Attempt to solve the again
+		result = solve(lp);
+	}
 
 	// Delete the linear problem
 	delete_lp(lp);
@@ -238,6 +287,83 @@ bool StateConstraints::isImpossible(const PetriNet& net,
 	return result == INFEASIBLE;
 }
 
+BitField StateConstraints::maxTrap(const PetriNet& net,
+								   BitField places,
+								   const MarkVal* resultMarking) const{
+	BitField next(places.size());
+	BitField prev(places);
+	do{
+		prev = places;
+		for(size_t i = 0; i < places.size(); i++)
+			next.set(i, isInMaxTrap(net, i, places, resultMarking));
+		places = next;
+	}while(prev != next);
+	return places;
+}
+
+bool StateConstraints::isInMaxTrap(const PetriNet& net,
+								   size_t place,
+								   const BitField& places,
+								   const MarkVal* resultMarking) const{
+	if(!places.test(place))
+		return false;
+	/*
+		0 if M(p_i) = 1
+		0 if there is (p_i , t) ∈ F such that x_j = 0
+			for every p_j ∈ t•
+		1 otherwise
+	*/
+	if(resultMarking[place] > 0)
+		return false;
+
+	for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
+		if(net.inArc(place, t) > 0){
+			bool exclude = true;
+			for(unsigned int j = 0; j < net.numberOfPlaces(); j++){
+				if(net.outArc(t, j) > 0){
+					exclude &= !places.test(j);
+				}
+			}
+			if(exclude)
+				return false;
+		}
+	}
+	return true;
+}
+
+BitField StateConstraints::minimalTrap(const PetriNet& net,
+									   const MarkVal* marking,
+									   const MarkVal* resultMarking) const{
+	const size_t nPlaces = net.numberOfPlaces();
+	BitField trap(nPlaces);
+	trap.set();
+	trap = maxTrap(net, trap, resultMarking);
+	if(!isMarked(trap, marking))
+		return BitField(nPlaces).clear();
+
+	//Get the exclusion candidates
+	BitField EC(trap);
+	BitField tmp(nPlaces);
+	while(EC.any()){
+		int exclude = EC.first();
+		tmp = trap;
+		tmp.clear(exclude);
+		EC.clear(exclude);
+		tmp = maxTrap(net, tmp, resultMarking);
+		if(isMarked(tmp, marking)){
+			trap = tmp;
+			EC = tmp;
+		}
+	}
+	return trap;
+}
+
+bool StateConstraints::isMarked(const BitField& places, const MarkVal* marking) const{
+	for(size_t p = 0; p < places.size(); p++)
+		if(places.test(p) && marking[p] > 0)
+			return true;
+	return false;
+}
 
 } // Structures
 } // PetriEngines

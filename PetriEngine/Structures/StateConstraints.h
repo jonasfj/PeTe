@@ -2,6 +2,7 @@
 #define STATECONSTRAINTS_H
 
 #include "../PetriNet.h"
+#include "BitField.h"
 
 #include <vector>
 
@@ -106,6 +107,11 @@ private:
 	size_t nPlaces, nVars;
 	Constraint* pcs;
 	Constraint* vcs;
+
+	BitField maxTrap(const PetriNet& net, BitField places, const MarkVal* resultMarking) const;
+	bool isInMaxTrap(const PetriNet& net, size_t place, const BitField& places, const MarkVal* resultMarking) const;
+	BitField minimalTrap(const PetriNet& net, const MarkVal* marking, const MarkVal* resultMarking) const;
+	bool isMarked(const BitField& places, const MarkVal* marking) const;
 };
 
 } // Structures
