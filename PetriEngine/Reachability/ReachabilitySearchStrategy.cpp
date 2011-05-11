@@ -332,7 +332,7 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 		return new MagicSearch((PQL::DistanceContext::DistanceStrategy)flags,
 								false,
 								Scale(0, 0.5, 0),
-								Scale(0.01, 1, 0));
+								Scale(0.01, 0, 0));
 	}
 
 

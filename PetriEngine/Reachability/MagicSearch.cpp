@@ -1,7 +1,7 @@
 #include "MagicSearch.h"
 #include "../Structures/EnhancedPriorityQueue.h"
 
-#define	MEMORY_BOUND		1024*1024*512
+#define	MEMORY_BOUND		1024*1024*256
 
 using namespace PetriEngine::Structures;
 using namespace PetriEngine::PQL;
