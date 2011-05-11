@@ -74,8 +74,14 @@ enum ReturnValues{
 	ErrorCode	= 3
 };
 
+int test(int argc, char *argv[]);
 
 int main(int argc, char* argv[]){
+
+	// Test procedure
+	if(argc > 0 && strcmp(argv[0], "PeTe-Test-Bin") == 0)
+		return test(argc, argv);
+
 	// Commandline arguments
 	bool listformulas = false;
 	char* model = NULL;
@@ -247,8 +253,133 @@ int main(int argc, char* argv[]){
 	return UnknownCode;
 }
 
+/** Procedure for testing PeTe without Qt dependencies */
+int test(int argc, char* argv[]){
 
+	bool listformulas = false;
+	string queryname,strategy,filename;
 
+	for(int i = 1; i < argc; i++){
+		if(strcmp(argv[i], "--query") == 0){
+			queryname = argv[++i];
+		}else if(strcmp(argv[i], "--strategies") == 0){
+			std::vector<std::string> strats = ReachabilitySearchStrategy::listStrategies();
+			for(size_t i = 0; i < strats.size(); i++)
+				printf("%s\n",strats[i].c_str());
+		}else if(strcmp(argv[i],"--strategy") == 0){
+			strategy = argv[++i];
+		}else if(strcmp(argv[i], "--list-queries") == 0){
+			listformulas = true;
+		} else if(strcmp(argv[i],"--help") == 0){
+			printf("Usage: pete [net] [--query <query>] [--query-sumo <query>] [--help] [--strategies] [--strategy <strategy>]\n");
+		} else
+			filename = argv[i];
+	}
+
+	PetriNet* net = NULL;
+	MarkVal* m0 = NULL;
+	VarVal* v0 = NULL;
+	std::vector<PNMLParser::Query> queries;
+	{
+		//Load the model
+		ifstream modelfile(filename, ifstream::in);
+		if(!modelfile){
+			fprintf(stderr, "Argument Error: Model file \"%s\" couldn't be opened\n", filename);
+			return ErrorCode;
+		}
+
+		//Read everything
+		stringstream buffer;
+		buffer << modelfile.rdbuf();
+
+		//Parse and build the petri net
+		PetriNetBuilder builder(false);
+		PNMLParser parser;
+		parser.parse(buffer.str(), &builder);
+		parser.makePetriNet();
+
+		//Build the petri net
+		net = builder.makePetriNet();
+		m0 = builder.makeInitialMarking();
+		v0 = builder.makeInitialAssignment();
+		queries = parser.getQueries();
+
+		// Close the file
+		modelfile.close();
+	}
+
+	// List queries in file
+	if(listformulas){
+		for(std::vector<PNMLParser::Query>::iterator it = queries.begin(); it != queries.end(); it++)
+			printf("%s\n",(*it).name.c_str());
+		return 0;
+	}
+
+	// Find the query
+	string queryString;
+	for(std::vector<PNMLParser::Query>::iterator it = queries.begin(); it != queries.end(); it++){
+		if((*it).name == queryname){
+			queryString = (*it).text;
+			break;
+		}
+	}
+
+	// Parse query and analyze
+	PQL::Condition* query = PQL::ParseQuery(queryString);
+	AnalysisContext context(*net);
+	query->analyze(context);
+
+	//Load up reachability engine
+	ReachabilitySearchStrategy* strat;
+	strat = ReachabilitySearchStrategy::createStrategy(strategy);
+	ReachabilityResult result;
+
+	clock_t startClock = clock();
+	result = strat->reachable(*net, m0, v0, query);
+	float finishTime = ((float)(clock() - startClock)) / (float)CLOCKS_PER_SEC;
+
+	delete query;
+	query = NULL;
+	delete strat;
+	strat = NULL;
+
+	// Trim file name incase of alternate folder
+	string name;
+	bool chop = false;
+	int index = 0;
+	for(int i = 0; i < filename.size(); i++){
+		if(filename.at(i) == '/'){
+			chop = true;
+			index = i;
+		}
+	}
+	if(chop)
+		name = filename.substr(index+1,filename.length()-1);
+
+	delete query;
+	query = NULL;
+	delete strat;
+	strat = NULL;
+	//Print result
+	std::string r;
+	if(result.result() == ReachabilityResult::Satisfied)
+		r = "Satisfied";
+	else if(result.result() == ReachabilityResult::NotSatisfied)
+		r = "Not satisfiable";
+	else{
+		r = "Unknown";
+	}
+	std::cout<<name
+			 <<",\t"<<queryname
+			 <<",\t"<<strategy
+			 <<",\t"<<r
+			 <<",\t"<<finishTime
+			 <<",\t"<<result.expandedStates()
+			 <<",\t"<<result.exploredStates()
+			 <<",\t"<<result.pathLength()
+			 <<std::endl;
+	return 0;
+}
 
 
 

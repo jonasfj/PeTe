@@ -78,8 +78,25 @@ void PNMLParser::parseElement(DOMElement* element){
 			parseArc(*it);
 		}else if((*it)->getElementName() == "variable"){
 			parseVariable(*it);
+		} else if((*it)->getElementName() == "queries"){
+			parseQueries(*it);
 		}else
 			parseElement(*it);
+	}
+}
+
+void PNMLParser::parseQueries(DOMElement* element){
+	string name, query;
+
+	DOMElements elements = element->getChilds();
+	DOMElements::iterator it;
+	for(it = elements.begin(); it != elements.end(); it++){
+		name = element->getAttribute("name");
+		parseValue(element,query);
+		Query q;
+		q.name = name;
+		q.text = query;
+		this->queries.push_back(q);
 	}
 }
 
