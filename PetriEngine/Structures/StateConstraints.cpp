@@ -4,6 +4,11 @@
 #include <assert.h>
 #include <stdio.h>
 
+/** Don't give lp_solve more than 30s to handle the problem */
+#define OVER_APPROX_TIMEOUT				30
+/** Number of M-traps to account for each place */
+#define OVER_APPROX_TRAP_FACTOR			2
+
 namespace PetriEngine{
 namespace Structures{
 
@@ -173,13 +178,13 @@ bool StateConstraints::isImpossible(const PetriNet& net,
 
 	// Set transition names (not strictly needed)
 	for(size_t i = 0; i < net.numberOfTransitions(); i++)
-		set_col_name(lp, i+1, (char*)net.transitionNames()[i].c_str());
+		set_col_name(lp, i+1, const_cast<char*>(net.transitionNames()[i].c_str()));
 
 	// Start adding rows
 	set_add_rowmode(lp, TRUE);
 
 	REAL row[net.numberOfTransitions() + 1];
-	for(int p = 0; p < nPlaces; p++){
+	for(size_t p = 0; p < nPlaces; p++){
 		// Set row zero
 		memset(row, 0, sizeof(REAL) * net.numberOfTransitions() + 1);
 		for(size_t t = 0; t < net.numberOfTransitions(); t++){
@@ -225,13 +230,16 @@ bool StateConstraints::isImpossible(const PetriNet& net,
 	write_LP(lp, stdout);
 	printf("--------------\n");*/
 
-	//TODO: Set timeout, and handle a timeout
+	//Set timeout, and handle a timeout
+	set_timeout(lp, OVER_APPROX_TIMEOUT);
 
 	// Attempt to solve the problem
 	int result = solve(lp);
 
+	// Limit on traps to test
+	size_t traplimit = nPlaces * OVER_APPROX_TRAP_FACTOR;
 	// Try to add a minimal trap constraint
-	while(result == OPTIMAL || result == SUBOPTIMAL){
+	while((result == OPTIMAL || result == SUBOPTIMAL) && traplimit-- < 0){
 		memset(row, 0, sizeof(REAL) * net.numberOfTransitions() + 1);
 		// Get the firing vector
 		get_variables(lp, row);
