@@ -31,7 +31,8 @@ SOURCES		   += \
     Reachability/LinearOverApprox.cpp \
     Reachability/BestFSCooling.cpp \
     Structures/SmartState.cpp \
-    Reachability/MagicSearch.cpp
+    Reachability/MagicSearch.cpp \
+    Reachability/UltimateSearch.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -74,7 +75,9 @@ HEADERS		   += \
     Structures/SmartStateSet.h \
     Reachability/MagicSearch.h \
     Structures/Scale.h \
-    Structures/BitField.h
+    Structures/BitField.h \
+    Structures/BoundedStateAllocator.h \
+    Reachability/UltimateSearch.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine

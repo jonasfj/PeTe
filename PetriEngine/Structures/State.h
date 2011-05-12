@@ -9,6 +9,7 @@
 namespace PetriEngine { namespace Structures {
 
 template<size_t blocksize> class StateAllocator;
+template<size_t blocksize> class BoundedStateAllocator;
 
 /** GeneralState class for reachability searches.
   * Used in most reachability search cases */
@@ -19,6 +20,9 @@ public:
 
 	VarVal* valuation(){return _valuation; }
 	const VarVal* valuation() const{return _valuation; }
+
+	void setMarking(MarkVal* m){ _marking = m;}
+	void setValuation(VarVal* v){ _valuation = v;}
 
 	/** Getter for the parent */
 	State* parent(){ return _parent; }
@@ -84,6 +88,7 @@ public:
 		unsigned int nVariables;
 	};
 	template<size_t blocksize> friend class StateAllocator;
+	template<size_t blocksize> friend class BoundedStateAllocator;
 private:
 	State* _parent;
 	unsigned int _parentTransition;

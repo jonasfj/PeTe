@@ -8,6 +8,7 @@
 #include "LinearOverApprox.h"
 #include "RandomDFS.h"
 #include "BestFSCooling.h"
+#include "UltimateSearch.h"
 #include "HeuristicDFS.h"
 #include "MagicSearch.h"
 #include "../PQL/Contexts.h"
@@ -98,6 +99,8 @@
 
 #define NAME_MagicSearch						"Adaptive memory BFS Delta"
 
+#define NAME_UltimateSearch						"BestFS Ultimate Edition"
+
 #include <stdio.h>
 
 using namespace PetriEngine::Structures;
@@ -146,7 +149,8 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BestFSDeltaSumExtremeLH4,
 		NAME_BestFSDeltaSumExtremeLH5,
 		NAME_BestFSCoolingDeltaDFS,
-		NAME_MagicSearch
+		NAME_MagicSearch,
+		NAME_UltimateSearch
 	};
 	return std::vector<std::string>(strats, strats + sizeof(strats) / sizeof(std::string));
 }
@@ -335,6 +339,10 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 								Scale(0.01, 0, 0));
 	}
 
+
+	if(strategy == NAME_UltimateSearch){
+		return new UltimateSearch();
+	}
 
 	//If we didn't find it
 	fprintf(stderr, "Reachability strategy: \"%s\" not found!\n", strategy.c_str());
