@@ -158,9 +158,8 @@ bool StateConstraints::isImpossible(const PetriNet& net,
 	assert(nVars == net.numberOfVariables());
 
 	/*printf("-------\n");
-	for(int p = 0; p < nPlaces; p++){
+	for(int p = 0; p < nPlaces; p++)
 		printf("%s: [%i, %i]\n", net.placeNames()[p].c_str(), pcs[p].min, pcs[p].max);
-	}
 	printf("-------\n");*/
 
 	// Create linary problem
@@ -222,7 +221,9 @@ bool StateConstraints::isImpossible(const PetriNet& net,
 		set_int(lp, 1+i, TRUE);
 
 	// Write it to stdout
-	//write_LP(lp, stdout);
+	/*printf("--------------\n");
+	write_LP(lp, stdout);
+	printf("--------------\n");*/
 
 	//TODO: Set timeout, and handle a timeout
 
@@ -239,28 +240,31 @@ bool StateConstraints::isImpossible(const PetriNet& net,
 		for(size_t p = 0; p < nPlaces; p++){
 			rMark[p] = m0[p];
 			for(size_t t = 0; t < net.numberOfTransitions(); t++)
-				rMark[p] += (net.outArc(t, p) - net.inArc(p, t)) * row[t+1];
+				rMark[p] += (net.outArc(t, p) - net.inArc(p, t)) * (int)row[t];
 		}
 
 		// Find an M-trap
 		BitField trap(minimalTrap(net, m0, rMark));
-		if(trap.none()) break;
 
-		/* Debug information
+		/*printf("Initial marking:\n");
+		for(size_t p = 0; p < nPlaces; p++)
+			printf("\t %s = %i\n", net.placeNames()[p].c_str(), m0[p]);
+		// Debug information
 		printf("Firing vector:\n");
 		for(size_t t = 0; t < net.numberOfTransitions(); t++)
-			printf("\t %s = %i\n", net.transitionNames()[t].c_str(), row[t+1]);
+			printf("\t %s = %i\n", net.transitionNames()[t].c_str(), (int)row[t]);
 		printf("Result marking:\n");
 		for(size_t p = 0; p < nPlaces; p++)
 			printf("\t %s = %i\n", net.placeNames()[p].c_str(), rMark[p]);
 		printf("Got trap: ");
 		for(size_t p = 0; p < nPlaces; p++){
-			if(trap.test(p)){
+			if(trap.test(p))
 				printf("%s, ", net.placeNames()[p].c_str());
-			}
 		}
-		printf("\n");
-		*/
+		printf("\n");*/
+
+		//Break if there's no trap
+		if(trap.none()) break;
 
 		// Compute the new equation
 		for(size_t t = 0; t < net.numberOfTransitions(); t++){
