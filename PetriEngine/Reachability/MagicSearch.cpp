@@ -88,7 +88,7 @@ ReachabilityResult MagicSearch::reachable(const PetriNet &net,
 			//Fire the transition
 			if(net.fire(t, m, v, ns->marking(), ns->valuation())){
 				//Determine whether or not to store the entire state
-				bool storeCurrentState = step.lastStored >=10;// storeScale(allocator.percentMemoryUsed());
+				bool storeCurrentState = step.lastStored >= storeScale(allocator.percentMemoryUsed());// storeScale(allocator.percentMemoryUsed());
 				SmartState* storeState;
 				if(storeCurrentState)
 					storeState = ns;

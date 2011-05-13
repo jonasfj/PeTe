@@ -84,6 +84,13 @@
 //Cooling BestFS
 #define NAME_BestFSCoolingDeltaDFS				"BestFS-Cooling-Delta (DFS)"
 
+//Adaptive Memory Search
+#define NAME_MagicSearchBFS						"Adaptive memory BFS Delta"
+#define NAME_MagicSearchDFS10						"Adaptive memory DFS Delta 10"
+#define NAME_MagicSearchDFS50						"Adaptive memory DFS Delta 50"
+#define NAME_MagicSearchDFS100						"Adaptive memory DFS Delta 100"
+#define NAME_MagicSearchDFS200						"Adaptive memory DFS Delta 200"
+
 //Below defines are candidates for deletion
 #define NAME_HashUnderApproximation				"Hash under-approximation"
 #define NAME_ClosestFirstReachabilityAvg		"Closest-First (Avg)"
@@ -97,7 +104,6 @@
 #define NAME_ExtOrSumAndDeep					"Extreme-Or Sum-And Deep!"
 #define NAME_HeuristicDFSSumAndExtremeOr		"Heuristic DFS (Extreme-Or Sum-And)"
 
-#define NAME_MagicSearch						"Adaptive memory BFS Delta"
 
 #define NAME_UltimateSearch						"BestFS Ultimate Edition"
 
@@ -331,14 +337,13 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 		return new BestFSCooling((PQL::DistanceContext::DistanceStrategy)flags, true);
 	}
 
-	if(strategy == NAME_MagicSearch){
+	if(strategy == NAME_MagicSearchBFS){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;;
 		return new MagicSearch((PQL::DistanceContext::DistanceStrategy)flags,
 								false,
 								Scale(0, 0.5, 0),
 								Scale(0.01, 0, 0));
 	}
-
 
 	if(strategy == NAME_UltimateSearch){
 		return new UltimateSearch();
