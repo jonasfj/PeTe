@@ -155,7 +155,7 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BestFSDeltaSumExtremeLH4,
 		NAME_BestFSDeltaSumExtremeLH5,
 		NAME_BestFSCoolingDeltaDFS,
-		NAME_MagicSearch,
+		NAME_MagicSearchBFS,
 		NAME_UltimateSearch
 	};
 	return std::vector<std::string>(strats, strats + sizeof(strats) / sizeof(std::string));
