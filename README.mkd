@@ -4,48 +4,32 @@ PeTe - Petri Engine exTremE
 Building PeTe
 -------------
 PeTe is cross-platform, but it might require some tweaks to build it on a
-non-unix platform. Following dependencies are required:
+non-unix platform. Following dependencies are required for building:
 
   * Qt (>= 4.7)
   * qmake (>= 2.0)
   * UnitTest++ (>= 1.4)
+  * pkg-config (>= 0.25)
   * GNU Bison (>= 2.4)
   * flex (>= 2.5)
-
-Note the qmake script uses pkg-config to locate UnitTest++, but this dependency
-can be removed by removing references to PetriTests from PeTe.pro.
-
-To configure PeTe, run `qmake PeTe.pro`, after which PeTe can be build using make.
-No install targets haven't been tested yet, so add the build folder LD_LIBRARY_PATH
-when loading PeTe, e.i. launch with `LD_LIBRARY_PATH=$LD_LIBRARY_PATH:. ./PeTe`
-(assuming PeTe and libPetriEngine.so is the current directory).
+  * lp_solve (>= 5.5)
+  * llvm (>= 2.8)
+  * igraph (>= 0.5.3)
+  * libproc (>= 3.2.8)
 
 Developing with qt-creator
 --------------------------
 You can develop and build the project using qt-creator 2.0, however, you'll need UnitTest++
 for building the project.
 
-Things to be done
------------------
-  * Check for boundedness
-  * Check that query evaluation is correct, with respect to omega
-  * Add isCoverabilityCheck to CTLExpr
-  * Add msgbox for reachability, where unbounded and not coverability.
-  * Undo/redo commands for everything that modifies the network.
-  * Refactor MainWindow, don't use designer...
-  * Mac Binary, setup virtual machine
-  * LLVM evaluation of query
-  * Some kind of errorhandling for query parser to avoid sudden death
-  * Add mutex to query parser, so we can only have one running at any time
-
-
 License
 -------
-At the moment PeTe is made available under the terms of the GNU GPL version 3 or (at your option) any later version. We still working to choose an appropriate license, and if you feel that this doesn't meet your needs please contacts us.
+PeTe is available under the terms of the GNU GPL versoin 3 or (at your option) any later version.
+If this license doesn't suit you're welcome to contact us, and purpose an alternative license.
 
 Authors
 -------
   * Jonas Finnemann Jensen
-  * Thomas Nielsen
+  * Thomas Søndersø Nielsen
   * Lars Kærlund Østergaard
 
