@@ -97,8 +97,8 @@ int test(int argc, char *argv[]);
 
 int main(int argc, char* argv[]){
 	// Test procedure
-	if(argc > 0 && strcmp(argv[0], "PeTe-Test-Bin") == 0)
-		return test(argc, argv);
+	if(argc > 1 && strcmp(argv[1], "--test") == 0)
+		return test(argc-1, argv+1);
 
 	// Commandline arguments
 	bool listformulas = false;
