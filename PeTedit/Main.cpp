@@ -46,6 +46,7 @@ int main(int argc, char *argv[])
 
 	//Parsed Arguments:
 	QString queryName;
+	QString queryString;
 	QString fileName;
 	QString strategy;
 
@@ -56,7 +57,10 @@ int main(int argc, char *argv[])
 		if(args[i] == "--query") {
 			queryName = args[++i];
 			showGUI = false;
-		} else if(args[i] == "--list-queries") {
+		} else if(args[i] == "--query-string") {
+			queryString = args[++i];
+			showGUI = false;
+		}else if(args[i] == "--list-queries") {
 			listQueries = true;
 			showGUI = false;
 		}else if(args[i] == "--strategies"){
@@ -104,11 +108,12 @@ int main(int argc, char *argv[])
 		}
 
 		// Find the query
-		QString queryString;
-		for(QList<QueryModel::Query>::iterator it = queries.begin(); it != queries.end(); it++){
-			if((*it).name == queryName){
-				queryString = (*it).query;
-				break;
+		if(!queryName.isNull()){
+			for(QList<QueryModel::Query>::iterator it = queries.begin(); it != queries.end(); it++){
+				if((*it).name == queryName){
+					queryString = (*it).query;
+					break;
+				}
 			}
 		}
 
@@ -168,6 +173,9 @@ int main(int argc, char *argv[])
 			Q_ASSERT(result.result() == ReachabilityResult::Unknown);
 			r = "Unknown";
 		}
+		if(queryName.isNull())
+			queryName = "Custom Query";
+
 		std::cout<<name.toStdString()<<",\t"<<queryName.toStdString()<<",\t"<<strategy.toStdString()<<",\t"<<r<<",\t"<<finishTime<<",\t"<<result.expandedStates()<<",\t"<<result.exploredStates()<<",\t"<<result.pathLength()<<std::endl;
 	}
 	return 0;
