@@ -32,6 +32,7 @@
 #include "PetriEngine/Reachability/LinearOverApprox.h"
 #include "PetriEngine/Reachability/BestFirstReachabilitySearch.h"
 #include "PetriEngine/PQL/Contexts.h"
+#include "PetriEngine/Reachability/RandomDFS.h"
 
 using namespace std;
 using namespace PetriEngine;
@@ -95,7 +96,6 @@ enum ReturnValues{
 int test(int argc, char *argv[]);
 
 int main(int argc, char* argv[]){
-
 	// Test procedure
 	if(argc > 0 && strcmp(argv[0], "PeTe-Test-Bin") == 0)
 		return test(argc, argv);
@@ -274,8 +274,12 @@ int main(int argc, char* argv[]){
 /** Procedure for testing PeTe without Qt dependencies */
 int test(int argc, char* argv[]){
 
+	bool genRandState = false;
 	bool listformulas = false;
-	string queryname,strategy,filename;
+	string queryname,
+		   strategy,
+		   filename,
+		   queryString;
 
 	for(int i = 1; i < argc; i++){
 		if(strcmp(argv[i], "--query") == 0){
@@ -284,10 +288,14 @@ int test(int argc, char* argv[]){
 			std::vector<std::string> strats = ReachabilitySearchStrategy::listStrategies();
 			for(size_t i = 0; i < strats.size(); i++)
 				printf("%s\n",strats[i].c_str());
+		}else if(strcmp(argv[i], "--literal-query") == 0){
+			queryString = argv[++i];
 		}else if(strcmp(argv[i],"--strategy") == 0){
 			strategy = argv[++i];
 		}else if(strcmp(argv[i], "--list-queries") == 0){
 			listformulas = true;
+		} else if(strcmp(argv[i],"--gen-query") == 0){
+			genRandState = true;
 		} else if(strcmp(argv[i],"--help") == 0){
 			printf("Usage: pete [net] [--query <query>] [--query-sumo <query>] [--help] [--strategies] [--strategy <strategy>]\n");
 		} else
@@ -302,7 +310,7 @@ int test(int argc, char* argv[]){
 		//Load the model
 		ifstream modelfile(filename, ifstream::in);
 		if(!modelfile){
-			fprintf(stderr, "Argument Error: Model file \"%s\" couldn't be opened\n", filename);
+			fprintf(stderr, "Argument Error: Model file \"%s\" couldn't be opened\n", filename.c_str());
 			return ErrorCode;
 		}
 
@@ -333,8 +341,15 @@ int test(int argc, char* argv[]){
 		return 0;
 	}
 
+	// If generate random state
+	if(genRandState){
+		RandomDFS dfs;
+		dfs.reachable(*net, m0, v0, NULL);
+		return 0;
+	}
+
+
 	// Find the query
-	string queryString;
 	for(std::vector<PNMLParser::Query>::iterator it = queries.begin(); it != queries.end(); it++){
 		if((*it).name == queryname){
 			queryString = (*it).text;
