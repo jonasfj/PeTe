@@ -55,7 +55,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 	states.add(s0);
 	State* ns = allocator.createState();
 
-	int countdown = rand() % 3000000;
+	int countdown = rand() % 800000;
 	unsigned int max = 0;
 	int count = 0;
 	BigInt exploredStates = 0;
