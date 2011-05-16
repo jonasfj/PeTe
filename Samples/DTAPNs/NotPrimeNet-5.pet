@@ -1,0 +1,1003 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+     <net>
+          <variable name="L" initial-value="0" range="7"/>
+          <variable name="P0_0" initial-value="0" range="1"/>
+          <variable name="Target_0" initial-value="0" range="0"/>
+          <variable name="P2_0" initial-value="0" range="2"/>
+          <variable name="P3_0" initial-value="0" range="3"/>
+          <variable name="P4_0" initial-value="0" range="4"/>
+          <variable name="P5_0" initial-value="0" range="5"/>
+          <variable name="P6_0" initial-value="0" range="6"/>
+          <transition id="P6_age_t_0">
+               <graphics>
+                    <position x="813.339" y="54.2303"/>
+               </graphics>
+               <name>
+                    <value>P6_age_t_0</value>
+               </name>
+               <conditions>P6_0 &lt; 6</conditions>
+               <assignments>L := 0 ; P6_0 := P6_0 + 1 ;</assignments>
+          </transition>
+          <transition id="P6_max_t_0">
+               <graphics>
+                    <position x="798.348" y="82.8028"/>
+               </graphics>
+               <name>
+                    <value>P6_max_t_0</value>
+               </name>
+               <conditions>P6_0 == 6</conditions>
+               <assignments>L := 0 ; </assignments>
+          </transition>
+          <transition id="P5_age_t_0">
+               <graphics>
+                    <position x="886.573" y="152.843"/>
+               </graphics>
+               <name>
+                    <value>P5_age_t_0</value>
+               </name>
+               <conditions>P5_0 &lt; 5</conditions>
+               <assignments>P5_0 := P5_0 + 1 ;</assignments>
+          </transition>
+          <transition id="P5_max_t_0">
+               <graphics>
+                    <position x="854.894" y="158.922"/>
+               </graphics>
+               <name>
+                    <value>P5_max_t_0</value>
+               </name>
+               <conditions>P5_0 == 5</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="P4_age_t_0">
+               <graphics>
+                    <position x="855.136" y="271.559"/>
+               </graphics>
+               <name>
+                    <value>P4_age_t_0</value>
+               </name>
+               <conditions>P4_0 &lt; 4</conditions>
+               <assignments>P4_0 := P4_0 + 1 ;</assignments>
+          </transition>
+          <transition id="P4_max_t_0">
+               <graphics>
+                    <position x="830.623" y="250.614"/>
+               </graphics>
+               <name>
+                    <value>P4_max_t_0</value>
+               </name>
+               <conditions>P4_0 == 4</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="P3_age_t_0">
+               <graphics>
+                    <position x="742.721" y="320.988"/>
+               </graphics>
+               <name>
+                    <value>P3_age_t_0</value>
+               </name>
+               <conditions>P3_0 &lt; 3</conditions>
+               <assignments>P3_0 := P3_0 + 1 ;</assignments>
+          </transition>
+          <transition id="P3_max_t_0">
+               <graphics>
+                    <position x="743.827" y="288.793"/>
+               </graphics>
+               <name>
+                    <value>P3_max_t_0</value>
+               </name>
+               <conditions>P3_0 == 3</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="P2_age_t_0">
+               <graphics>
+                    <position x="659.866" y="244.708"/>
+               </graphics>
+               <name>
+                    <value>P2_age_t_0</value>
+               </name>
+               <conditions>P2_0 &lt; 2</conditions>
+               <assignments>P2_0 := P2_0 + 1 ;</assignments>
+          </transition>
+          <transition id="P2_max_t_0">
+               <graphics>
+                    <position x="633.967" y="263.92"/>
+               </graphics>
+               <name>
+                    <value>P2_max_t_0</value>
+               </name>
+               <conditions>P2_0 == 2</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="Target_age_t_0">
+               <graphics>
+                    <position x="641.934" y="151.569"/>
+               </graphics>
+               <name>
+                    <value>Target_age_t_0</value>
+               </name>
+               <conditions>Target_0 &lt; 0</conditions>
+               <assignments>Target_0 := Target_0 + 1 ;</assignments>
+          </transition>
+          <transition id="Target_max_t_0">
+               <graphics>
+                    <position x="610.769" y="143.326"/>
+               </graphics>
+               <name>
+                    <value>Target_max_t_0</value>
+               </name>
+               <conditions>Target_0 == 0</conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="P0_age_t_0">
+               <graphics>
+                    <position x="690.599" y="50"/>
+               </graphics>
+               <name>
+                    <value>P0_age_t_0</value>
+               </name>
+               <conditions>P0_0 &lt; 1</conditions>
+               <assignments>L := 7 ; P0_0 := P0_0 + 1 ;</assignments>
+          </transition>
+          <transition id="P0_max_t_0">
+               <graphics>
+                    <position x="703.59" y="79.4909"/>
+               </graphics>
+               <name>
+                    <value>P0_max_t_0</value>
+               </name>
+               <conditions>P0_0 == 1</conditions>
+               <assignments>L := 7 ; </assignments>
+          </transition>
+          <transition id="T7_pre_t_5_0">
+               <graphics>
+                    <position x="291.847" y="197.641"/>
+               </graphics>
+               <name>
+                    <value>T7_pre_t_5_0</value>
+               </name>
+               <conditions>T7_pre_5 == 0 and 
+P6 &gt;= 0 and 
+0 &lt;= P6_0 and 
+P6_0 &lt;= 0 and 
+( L == 0 or L == 6 )</conditions>
+               <assignments>L := 6 ; 
+</assignments>
+          </transition>
+          <transition id="T7_pre_t_4_0">
+               <graphics>
+                    <position x="306.729" y="439.841"/>
+               </graphics>
+               <name>
+                    <value>T7_pre_t_4_0</value>
+               </name>
+               <conditions>T7_pre_4 == 0 and 
+P5 &gt;= 0 and 
+0 &lt;= P5_0 and 
+P5_0 &lt;= 0 and 
+( L == 0 or L == 6 )</conditions>
+               <assignments>L := 6 ; 
+</assignments>
+          </transition>
+          <transition id="T7_pre_t_3_0">
+               <graphics>
+                    <position x="417.126" y="243.941"/>
+               </graphics>
+               <name>
+                    <value>T7_pre_t_3_0</value>
+               </name>
+               <conditions>T7_pre_3 == 0 and 
+P4 &gt;= 0 and 
+0 &lt;= P4_0 and 
+P4_0 &lt;= 0 and 
+( L == 0 or L == 6 )</conditions>
+               <assignments>L := 6 ; 
+</assignments>
+          </transition>
+          <transition id="T7_pre_t_2_0">
+               <graphics>
+                    <position x="202.641" y="359.403"/>
+               </graphics>
+               <name>
+                    <value>T7_pre_t_2_0</value>
+               </name>
+               <conditions>T7_pre_2 == 0 and 
+P3 &gt;= 0 and 
+0 &lt;= P3_0 and 
+P3_0 &lt;= 0 and 
+( L == 0 or L == 6 )</conditions>
+               <assignments>L := 6 ; 
+</assignments>
+          </transition>
+          <transition id="T7_pre_t_1_0">
+               <graphics>
+                    <position x="425.168" y="380.467"/>
+               </graphics>
+               <name>
+                    <value>T7_pre_t_1_0</value>
+               </name>
+               <conditions>T7_pre_1 == 0 and 
+P2 &gt;= 0 and 
+0 &lt;= P2_0 and 
+P2_0 &lt;= 0 and 
+( L == 0 or L == 6 )</conditions>
+               <assignments>L := 6 ; 
+</assignments>
+          </transition>
+          <transition id="T7_pre_t_0_0">
+               <graphics>
+                    <position x="224.618" y="266.324"/>
+               </graphics>
+               <name>
+                    <value>T7_pre_t_0_0</value>
+               </name>
+               <conditions>T7_pre_0 == 0 and 
+P0 &gt;= 0 and 
+1 &lt;= P0_0 and 
+P0_0 &lt;= 1 and 
+( L == 0 or L == 6 )</conditions>
+               <assignments>L := 6 ; 
+</assignments>
+          </transition>
+          <transition id="T7">
+               <graphics>
+                    <position x="317.345" y="319.22"/>
+               </graphics>
+               <name>
+                    <value>T7</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; 
+Target_0 := 0 ; 
+</assignments>
+          </transition>
+          <transition id="T4_pre_t_0_0">
+               <graphics>
+                    <position x="283.46" y="86.2906"/>
+               </graphics>
+               <name>
+                    <value>T4_pre_t_0_0</value>
+               </name>
+               <conditions>T4_pre_0 == 0 and 
+P6 &gt;= 0 and 
+5 &lt;= P6_0 and 
+P6_0 &lt;= 5 and 
+( L == 0 or L == 5 )</conditions>
+               <assignments>L := 5 ; 
+</assignments>
+          </transition>
+          <transition id="T4">
+               <graphics>
+                    <position x="228.26" y="103.793"/>
+               </graphics>
+               <name>
+                    <value>T4</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; 
+P6_0 := 0 ; 
+</assignments>
+          </transition>
+          <transition id="T3_pre_t_0_0">
+               <graphics>
+                    <position x="266.216" y="543.989"/>
+               </graphics>
+               <name>
+                    <value>T3_pre_t_0_0</value>
+               </name>
+               <conditions>T3_pre_0 == 0 and 
+P5 &gt;= 0 and 
+4 &lt;= P5_0 and 
+P5_0 &lt;= 4 and 
+( L == 0 or L == 4 )</conditions>
+               <assignments>L := 4 ; 
+</assignments>
+          </transition>
+          <transition id="T3">
+               <graphics>
+                    <position x="323.058" y="550.24"/>
+               </graphics>
+               <name>
+                    <value>T3</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; 
+P5_0 := 0 ; 
+</assignments>
+          </transition>
+          <transition id="T2_pre_t_0_0">
+               <graphics>
+                    <position x="519.989" y="201.253"/>
+               </graphics>
+               <name>
+                    <value>T2_pre_t_0_0</value>
+               </name>
+               <conditions>T2_pre_0 == 0 and 
+P4 &gt;= 0 and 
+3 &lt;= P4_0 and 
+P4_0 &lt;= 3 and 
+( L == 0 or L == 3 )</conditions>
+               <assignments>L := 3 ; 
+</assignments>
+          </transition>
+          <transition id="T2">
+               <graphics>
+                    <position x="485.116" y="155.634"/>
+               </graphics>
+               <name>
+                    <value>T2</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; 
+P4_0 := 0 ; 
+</assignments>
+          </transition>
+          <transition id="T1_pre_t_0_0">
+               <graphics>
+                    <position x="103.198" y="410.247"/>
+               </graphics>
+               <name>
+                    <value>T1_pre_t_0_0</value>
+               </name>
+               <conditions>T1_pre_0 == 0 and 
+P3 &gt;= 0 and 
+2 &lt;= P3_0 and 
+P3_0 &lt;= 2 and 
+( L == 0 or L == 2 )</conditions>
+               <assignments>L := 2 ; 
+</assignments>
+          </transition>
+          <transition id="T1">
+               <graphics>
+                    <position x="89.2058" y="354.14"/>
+               </graphics>
+               <name>
+                    <value>T1</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; 
+P3_0 := 0 ; 
+</assignments>
+          </transition>
+          <transition id="T0_pre_t_0_0">
+               <graphics>
+                    <position x="505.238" y="457.812"/>
+               </graphics>
+               <name>
+                    <value>T0_pre_t_0_0</value>
+               </name>
+               <conditions>T0_pre_0 == 0 and 
+P2 &gt;= 0 and 
+1 &lt;= P2_0 and 
+P2_0 &lt;= 1 and 
+( L == 0 or L == 1 )</conditions>
+               <assignments>L := 1 ; 
+</assignments>
+          </transition>
+          <transition id="T0">
+               <graphics>
+                    <position x="533.375" y="408.003"/>
+               </graphics>
+               <name>
+                    <value>T0</value>
+               </name>
+               <conditions></conditions>
+               <assignments>L := 0; 
+P2_0 := 0 ; 
+</assignments>
+          </transition>
+          <place id="P6_age_0">
+               <graphics>
+                    <position x="849.878" y="103.598"/>
+               </graphics>
+               <name>
+                    <value>P6_age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P5_age_0">
+               <graphics>
+                    <position x="870.744" y="212.162"/>
+               </graphics>
+               <name>
+                    <value>P5_age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P4_age_0">
+               <graphics>
+                    <position x="798.884" y="296.19"/>
+               </graphics>
+               <name>
+                    <value>P4_age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P3_age_0">
+               <graphics>
+                    <position x="688.39" y="292.368"/>
+               </graphics>
+               <name>
+                    <value>P3_age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P2_age_0">
+               <graphics>
+                    <position x="622.473" y="203.615"/>
+               </graphics>
+               <name>
+                    <value>P2_age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="Target_age_0">
+               <graphics>
+                    <position x="650.761" y="96.7295"/>
+               </graphics>
+               <name>
+                    <value>Target_age_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P0_age_0">
+               <graphics>
+                    <position x="751.974" y="52.2141"/>
+               </graphics>
+               <name>
+                    <value>P0_age_0</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="T7_pre_5">
+               <graphics>
+                    <position x="308.472" y="256.791"/>
+               </graphics>
+               <name>
+                    <value>T7_pre_5</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="T7_pre_4">
+               <graphics>
+                    <position x="312.749" y="380.212"/>
+               </graphics>
+               <name>
+                    <value>T7_pre_4</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="T7_pre_3">
+               <graphics>
+                    <position x="368.777" y="279.128"/>
+               </graphics>
+               <name>
+                    <value>T7_pre_3</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="T7_pre_2">
+               <graphics>
+                    <position x="261.828" y="343.172"/>
+               </graphics>
+               <name>
+                    <value>T7_pre_2</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="T7_pre_1">
+               <graphics>
+                    <position x="372.369" y="352.973"/>
+               </graphics>
+               <name>
+                    <value>T7_pre_1</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="T7_pre_0">
+               <graphics>
+                    <position x="274.95" y="294.636"/>
+               </graphics>
+               <name>
+                    <value>T7_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="T4_pre_0">
+               <graphics>
+                    <position x="240.971" y="50"/>
+               </graphics>
+               <name>
+                    <value>T4_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="T3_pre_0">
+               <graphics>
+                    <position x="289.375" y="594.428"/>
+               </graphics>
+               <name>
+                    <value>T3_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="T2_pre_0">
+               <graphics>
+                    <position x="540.284" y="149.548"/>
+               </graphics>
+               <name>
+                    <value>T2_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="T1_pre_0">
+               <graphics>
+                    <position x="50" y="393.099"/>
+               </graphics>
+               <name>
+                    <value>T1_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="T0_pre_0">
+               <graphics>
+                    <position x="560.769" y="456.319"/>
+               </graphics>
+               <name>
+                    <value>T0_pre_0</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P6">
+               <graphics>
+                    <position x="271.917" y="142.067"/>
+               </graphics>
+               <name>
+                    <value>P6</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="P5">
+               <graphics>
+                    <position x="300.174" y="497.76"/>
+               </graphics>
+               <name>
+                    <value>P5</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="P4">
+               <graphics>
+                    <position x="463.253" y="208.577"/>
+               </graphics>
+               <name>
+                    <value>P4</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="P3">
+               <graphics>
+                    <position x="144.74" y="371.267"/>
+               </graphics>
+               <name>
+                    <value>P3</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="P2">
+               <graphics>
+                    <position x="476.07" y="408.566"/>
+               </graphics>
+               <name>
+                    <value>P2</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <place id="Target">
+               <graphics>
+                    <position x="349.854" y="320.005"/>
+               </graphics>
+               <name>
+                    <value>Target</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="P0">
+               <graphics>
+                    <position x="175.163" y="238.642"/>
+               </graphics>
+               <name>
+                    <value>P0</value>
+               </name>
+               <initialMarking>
+                    <value>1</value>
+               </initialMarking>
+          </place>
+          <arc source="P6_age_t_0" target="P0_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P6_max_t_0" target="P0_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P5_age_t_0" target="P6_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P5_max_t_0" target="P6_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P4_age_t_0" target="P5_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P4_max_t_0" target="P5_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P3_age_t_0" target="P4_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P3_max_t_0" target="P4_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2_age_t_0" target="P3_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2_max_t_0" target="P3_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Target_age_t_0" target="P2_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Target_max_t_0" target="P2_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P0_age_t_0" target="Target_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P0_max_t_0" target="Target_age_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7" target="Target">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7_pre_t_5_0" target="T7_pre_5">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7_pre_t_4_0" target="T7_pre_4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7_pre_t_3_0" target="T7_pre_3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7_pre_t_2_0" target="T7_pre_2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7_pre_t_1_0" target="T7_pre_1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7_pre_t_0_0" target="T7_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T4" target="P6">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T4_pre_t_0_0" target="T4_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T3" target="P5">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T3_pre_t_0_0" target="T3_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T2" target="P4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T2_pre_t_0_0" target="T2_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1" target="P3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1_pre_t_0_0" target="T1_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0" target="P2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0_pre_t_0_0" target="T0_pre_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P6_age_0" target="P6_age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P6_age_0" target="P6_max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P5_age_0" target="P5_age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P5_age_0" target="P5_max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P4_age_0" target="P4_age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P4_age_0" target="P4_max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P3_age_0" target="P3_age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P3_age_0" target="P3_max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2_age_0" target="P2_age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2_age_0" target="P2_max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Target_age_0" target="Target_age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="Target_age_0" target="Target_max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P0_age_0" target="P0_age_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P0_age_0" target="P0_max_t_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7_pre_5" target="T7">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P6" target="T7_pre_t_5_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7_pre_4" target="T7">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P5" target="T7_pre_t_4_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7_pre_3" target="T7">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P4" target="T7_pre_t_3_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7_pre_2" target="T7">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P3" target="T7_pre_t_2_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7_pre_1" target="T7">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2" target="T7_pre_t_1_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T7_pre_0" target="T7">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P0" target="T7_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T4_pre_0" target="T4">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P6" target="T4_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T3_pre_0" target="T3">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P5" target="T3_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T2_pre_0" target="T2">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P4" target="T2_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T1_pre_0" target="T1">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P3" target="T1_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="T0_pre_0" target="T0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="P2" target="T0_pre_t_0_0">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+     </net>
+     <queries>
+          <query name="Target Reachable" strategy="" jit="true">L == 0 and (  Target=1 ) </query>
+     </queries>
+</pnml>
