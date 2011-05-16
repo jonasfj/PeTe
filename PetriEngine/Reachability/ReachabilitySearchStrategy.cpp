@@ -86,7 +86,8 @@
 #define NAME_BestFSTokenCostExtremeAverage		"BestFS-TokenCost (Extreme, Average)"
 #define NAME_BestFSTokenCostAverageExtreme		"BestFS-TokenCost (Average, Extreme)"
 #define NAME_BestFSTokenCost2Average			"BestFS-TokenCost (Average, Average)"
-#define NAME_BestFSTokenCostSumExtreme			"BestFS-TokenCost (Sum, Extreme)"
+#define NAME_BestFSTokenCostSumExtremeBFS		"BestFS-TokenCost-BFS (Sum, Extreme)"
+#define NAME_BestFSTokenCostSumExtremeDFS		"BestFS-TokenCost-DFS (Sum, Extreme)"
 #define NAME_BestFSTokenCostSumAverage			"BestFS-TokenCost (Sum, Average)"
 
 #define NAME_BestFSTokenCostDeep2Extreme		"BestFS-TokenCost-Deep (Extreme, Extreme)"
@@ -156,7 +157,6 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BestFSTokenCostExtremeAverage,
 		NAME_BestFSTokenCostAverageExtreme,
 		NAME_BestFSTokenCost2Average,
-		NAME_BestFSTokenCostSumExtreme,
 		NAME_BestFSTokenCostSumAverage,
 		NAME_BestFSTokenCostDeep2Extreme,
 		NAME_BestFSTokenCostDeepExtremeAverage,
@@ -164,6 +164,8 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BestFSTokenCostDeep2Average,
 		NAME_BestFSTokenCostDeepSumExtreme,
 		NAME_BestFSTokenCostDeepSumAverage*/
+		NAME_BestFSTokenCostSumExtremeBFS,
+		NAME_BestFSTokenCostSumExtremeDFS,
 		NAME_BestFSDeltaSumExtremeBFS,
 		NAME_BestFSDeltaSumExtremeDFS,
 		NAME_LinearOverApprox,
@@ -198,6 +200,15 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	if(strategy == NAME_DFSDelta){
 		int flags = PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;;
 		return new HeuristicDFS((PQL::DistanceContext::DistanceStrategy)flags);
+	}
+
+	if(strategy == NAME_BestFSTokenCostSumExtremeDFS){
+		int flags = PQL::DistanceContext::TokenCost | PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags);
+	}
+	if(strategy == NAME_BestFSTokenCostSumExtremeBFS){
+		int flags = PQL::DistanceContext::TokenCost | PQL::DistanceContext::AndSum | PQL::DistanceContext::OrExtreme;
+		return new BestFirstReachabilitySearch((PQL::DistanceContext::DistanceStrategy)flags, false, false);
 	}
 
 	//BestFSDelta

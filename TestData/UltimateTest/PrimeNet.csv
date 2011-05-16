@@ -1,0 +1,14 @@
+PrimeNet-7.pet,Target Reachable,BestFS-TokenCost (Sum Extreme) BFS,Satisfied,0.08,193,220,24,45080
+PrimeNet-11.pet,Target Reachable,BestFS-TokenCost (Sum Extreme) BFS,Satisfied,0.18,16830,19127,130,45080
+PrimeNet-13.pet,Target Reachable,BestFS-TokenCost (Sum Extreme) BFS,Satisfied,4.67,720556,795990,213,257888
+PrimeNet-17.pet,Target Reachable,BestFS-TokenCost (Sum Extreme) BFS,OutOfMemory,-,-,-,-,1057060
+PrimeNet-7.pet,Target Reachable,BestFS-TokenCost (Sum Extreme) DFS,Satisfied,0.08,32,40,24,45080
+PrimeNet-11.pet,Target Reachable,BestFS-TokenCost (Sum Extreme) DFS,Satisfied,2.03,337952,370993,9595,152032
+PrimeNet-13.pet,Target Reachable,BestFS-TokenCost (Sum Extreme) DFS,OutOfMemory,-,-,-,-,1136064
+PrimeNet-7.pet,Target Reachable,BestFS-Delta (Sum Extreme) BFS,Satisfied,0.07,193,220,24,45080
+PrimeNet-11.pet,Target Reachable,BestFS-Delta (Sum Extreme) BFS,Satisfied,0.18,16830,19127,130,45080
+PrimeNet-13.pet,Target Reachable,BestFS-Delta (Sum Extreme) BFS,Satisfied,4.68,720556,795990,213,256868
+PrimeNet-17.pet,Target Reachable,BestFS-Delta (Sum Extreme) BFS,OutOfMemory,-,-,-,-,1075096
+PrimeNet-7.pet,Target Reachable,BestFS-Delta (Sum Extreme) DFS,Satisfied,0.08,32,40,24,45080
+PrimeNet-11.pet,Target Reachable,BestFS-Delta (Sum Extreme) DFS,Satisfied,2.03,337952,370993,9595,152032
+PrimeNet-13.pet,Target Reachable,BestFS-Delta (Sum Extreme) DFS,OutOfMemory,-,-,-,-,1137168

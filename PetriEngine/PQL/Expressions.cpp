@@ -535,7 +535,7 @@ void GreaterThanOrEqualCondition::addConstraints(ConstraintAnalysisContext& cont
 /******************** Distance Condition ********************/
 
 #define MAX(v1, v2)		(v1 > v2 ? v1 : v2)
-#define MIN(v1, v2)		(v1 > v2 ? v1 : v2)
+#define MIN(v1, v2)		(v1 < v2 ? v1 : v2)
 
 double NotCondition::distance(DistanceContext& context) const{
 	context.negate();
@@ -629,30 +629,35 @@ double CompareCondition::distance(DistanceContext& context) const{
 			return dfsArcLen(context.net(), context.marking(), id->offset()) * d;
 		}
 	} else if(context.strategy() & DistanceContext::TokenCost){
-		int d = delta(v1, v2, context.negated());
-		if(d == 0) return 0;
+
 		//TODO: Account for when we have too many tokens instead of too few
 		if(_expr1->pfree() && !_expr2->pfree() && _expr2->type() == Expr::IdentifierExpr){
+			int d = delta(v2, v1, context.negated());
+			if(d == 0) return 0;
+			if(d < 0) return abs(d);
 			IdentifierExpr* id = (IdentifierExpr*)_expr2;
 			return context.distanceMatrix()->tokenCost(id->offset(), d, context.marking());
 		}else if(_expr2->pfree() && !_expr1->pfree() && _expr1->type() == Expr::IdentifierExpr){
+			int d = delta(v1, v2, context.negated());
+			if(d == 0) return 0;
+			if(d < 0) return abs(d);
 			IdentifierExpr* id = (IdentifierExpr*)_expr1;
 			return context.distanceMatrix()->tokenCost(id->offset(), d, context.marking());
 		}
 	}
-	return delta(v1, v2, context.negated());
+	return abs(delta(v1, v2, context.negated()));
 }
 
 double EqualCondition::delta(int v1, int v2, bool negated) const{
 	if(!negated)
-		return v1 > v2 ? v1 - v2 : v2 - v1;
+		return v1 - v2;
 	else
 		return v1 == v2 ? 1 : 0;
 }
 
 double NotEqualCondition::delta(int v1, int v2, bool negated) const{
 	if(negated)
-		return v1 > v2 ? v1 - v2 : v2 - v1;
+		return v1 - v2;
 	else
 		return v1 == v2 ? 1 : 0;
 }
