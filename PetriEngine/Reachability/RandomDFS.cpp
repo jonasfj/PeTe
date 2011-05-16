@@ -65,6 +65,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 	int count = 0;
 	BigInt exploredStates = 0;
 	BigInt expandedStates = 0;
+	State* s = s0;
 	while(!stack.empty()){
 		// Progress reporting and abort checking
 		if(count++ & 1<<17){
@@ -79,7 +80,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 										"Search was aborted.");
 		}
 
-		State* s = stack.back();
+		s = stack.back();
 		stack.pop_back();
 
 		//Hack for when query is null and we're look to print a random state
@@ -127,6 +128,16 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 			} while(t != random);
 		} while(t != random);
 	}
+
+	//Hack for when query is null and we're look to print a random state
+	if(!query){
+		printf("%s == %i ", net.placeNames()[0].c_str(), s->marking()[0]);
+			for(int p = 1; p < net.numberOfPlaces(); p++)
+				printf(" and %s == %i ", net.placeNames()[p].c_str(), s->marking()[p]);
+			for(int x = 0; x < net.numberOfVariables(); x++)
+				printf(" and %s == %i ", net.variableNames()[x].c_str(), s->valuation()[x]);
+	}
+
 
 	return ReachabilityResult(ReachabilityResult::NotSatisfied,
 						"No state satisfying the query exists.", expandedStates, exploredStates);
