@@ -25,6 +25,7 @@
 #include <list>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 
 using namespace PetriEngine::PQL;
@@ -37,7 +38,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 										const VarVal *v0,
 										PQL::Condition *query){
 	//Do we initially satisfy query?
-	if(query->evaluate(PQL::EvaluationContext(m0, v0)))
+	if(query && query->evaluate(PQL::EvaluationContext(m0, v0)))
 		return ReachabilityResult(ReachabilityResult::Satisfied,
 								  "A state satisfying the query was found");
 
@@ -54,6 +55,12 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 	states.add(s0);
 	State* ns = allocator.createState();
 
+	int countdown = 1;
+	if(!query){
+		int m = 1;
+		while(m *= RAND_MAX <= INT_MAX)
+			countdown *= rand();
+	}
 	unsigned int max = 0;
 	int count = 0;
 	BigInt exploredStates = 0;
@@ -74,6 +81,18 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 
 		State* s = stack.back();
 		stack.pop_back();
+
+		//Hack for when query is null and we're look to print a random state
+		if(!query && countdown-- <= 0){
+			//TODO: Remove this hack or copy the code for random state generation, if we need that feature...
+			printf("%s == %i ", net.placeNames()[0].c_str(), s->marking()[0]);
+			for(int p = 1; p < net.numberOfPlaces(); p++)
+				printf(" and %s == %i ", net.placeNames()[p].c_str(), s->marking()[p]);
+			for(int x = 0; x < net.numberOfVariables(); x++)
+				printf(" and %s == %i ", net.variableNames()[x].c_str(), s->valuation()[x]);
+			return ReachabilityResult();
+		}
+
 		State* succ[net.numberOfTransitions()];
 		memset(succ, 0, net.numberOfTransitions()*sizeof(State*));
 		for(unsigned int t = 0; t < net.numberOfTransitions(); t++){
@@ -81,7 +100,7 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 				if(states.add(ns)){
 					exploredStates++;
 					ns->setParent(s);
-					if(query->evaluate(*ns))
+					if(query && query->evaluate(*ns))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
 												"A state satisfying the query was found", expandedStates, exploredStates, ns->pathLength());
 					ns->setTransition(t);

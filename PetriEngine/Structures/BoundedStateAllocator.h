@@ -24,7 +24,9 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
+#define MEMORY_STEP			1024*1024*100
 
 namespace PetriEngine {
 namespace Structures {
@@ -36,20 +38,28 @@ public:
 	BoundedStateAllocator(const PetriNet& net){
 		_nPlaces = net.numberOfPlaces();
 		_nVars = net.numberOfVariables();
-		_data = new char[memory];
+		_allocated = memory + MEMORY_STEP;
+		do{
+			_allocated -= MEMORY_STEP;
+			_data = (char*)malloc(_allocated);
+		}while(!_data);
+		if(!_data)
+			fprintf(stderr, "Memory Allocation Failure: Unable to allocated even 100 MiB!\n");
+		_allocated = memory;
 		_offset = _data;
 	}
 	~BoundedStateAllocator(){
 		if(_data){
-			delete[] _data;
+			free(_data);
 			_data = NULL;
 		}
 		_offset = NULL;
+		_allocated = 0;
 	}
 
 	/** Create new state */
 	State* createState(){
-		if(_offset - _data + stateSize() >= memory)
+		if(_offset - _data + stateSize() >= _allocated)
 			return NULL;
 		char* d = _offset;
 		State* s = (State*)d;
@@ -66,6 +76,7 @@ private:
 	}
 	char* _data;
 	char* _offset;
+	size_t _allocated;
 	int _nPlaces;
 	int _nVars;
 };
