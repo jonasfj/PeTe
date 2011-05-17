@@ -144,12 +144,9 @@ while True:
 			else:
 				result += "0,\t"
 		f.write(result + "\n")
-<<<<<<< HEAD
 		#if count > 20:
 		f.flush()
 	if count > 20:
 		count = 0
-=======
 		f.flush()
->>>>>>> fc758ac1786481c8335bf53152042f2e56caa00b
 
