@@ -132,9 +132,8 @@ for model in Models:
 		for strategy in Strategies:
 			result += strategy.replace(",","-") + ","
 		Files[model].write(result + "\n")
-count = 0
+
 while True:
-	count += 1
 	for model in Models:
 		f = Files[model]
 		query = genQuery(model)
@@ -145,8 +144,12 @@ while True:
 			else:
 				result += "0,\t"
 		f.write(result + "\n")
+<<<<<<< HEAD
 		#if count > 20:
 		f.flush()
 	if count > 20:
 		count = 0
+=======
+		f.flush()
+>>>>>>> fc758ac1786481c8335bf53152042f2e56caa00b
 
