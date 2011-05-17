@@ -145,8 +145,8 @@ while True:
 			else:
 				result += "0,\t"
 		f.write(result + "\n")
-		if count > 20:
-			f.flush()
+		#if count > 20:
+		f.flush()
 	if count > 20:
 		count = 0
 
