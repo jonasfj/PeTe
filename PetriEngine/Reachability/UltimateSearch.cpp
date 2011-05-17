@@ -101,7 +101,7 @@ ReachabilityResult UltimateSearch::reachable(const PetriNet &net,
 		}
 
 		// Pop from queue
-		State* s = queue.pop(true);
+		State* s = queue.pop(depthFirst);
 		expanded++;
 
 		// Try firing each transition

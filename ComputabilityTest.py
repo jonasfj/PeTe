@@ -19,8 +19,8 @@ InitialPollTime = 0.1
 TimeOut = 60*2
 
 Strategies = [
-"BestFS-Delta (Sum, Extreme) BFS",
-"BestFS-Delta (Sum, Extreme) DFS"
+"BestFS Ultimate Edition DFS",
+"BestFS Ultimate Edition BFS",
 ]
 
 # NULL-Device
@@ -40,7 +40,7 @@ FMS = [
 #"FMS2.pet", 
 #"FMS10.pet",
 #"FMS20.pet", 
-#"FMS50.pet", 
+"FMS50.pet", 
 "FMS100.pet", 
 "FMS200.pet", 
 "FMS500.pet"
@@ -123,11 +123,15 @@ Files = {}
 
 #Setup headers and create files
 for model in Models:
-	Files[model] = open(outputdir + model + ".result", "w")
-	result = "Query,\t"
-	for strategy in Strategies:
-		result += strategy.replace(",","-") + ","
-	Files[model].write(result + "\n")
+	fp = outputdir + model + ".result"
+	if os.path.isfile(fp):
+		Files[model] = open(fp, "a")
+	else:
+		Files[model] = open(fp, "w")
+		result = "Query,\t"
+		for strategy in Strategies:
+			result += strategy.replace(",","-") + ","
+		Files[model].write(result + "\n")
 count = 0
 while True:
 	count += 1

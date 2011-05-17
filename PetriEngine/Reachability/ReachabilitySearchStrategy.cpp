@@ -125,7 +125,8 @@
 #define NAME_HeuristicDFSSumAndExtremeOr		"Heuristic DFS (Extreme-Or Sum-And)"
 
 
-#define NAME_UltimateSearch						"BestFS Ultimate Edition"
+#define NAME_UltimateSearchDFS					"BestFS Ultimate Edition DFS"
+#define NAME_UltimateSearchBFS					"BestFS Ultimate Edition BFS"
 #define NAME_StateSearchBFS						"State Search BFS"
 #define NAME_StateSearchDFS						"State Search DFS"
 
@@ -179,7 +180,8 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BestFSDeltaSumExtremeLH5,
 		NAME_BestFSCoolingDeltaDFS,
 		NAME_MagicSearchBFS,
-		NAME_UltimateSearch,
+		NAME_UltimateSearchDFS,
+		NAME_UltimateSearchBFS,
 		NAME_StateSearchBFS,
 		NAME_StateSearchDFS
 	};
@@ -379,8 +381,11 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 								Scale(0.01, 0, 0));
 	}
 
-	if(strategy == NAME_UltimateSearch){
-		return new UltimateSearch();
+	if(strategy == NAME_UltimateSearchDFS){
+		return new UltimateSearch(true);
+	}
+	if(strategy == NAME_UltimateSearchBFS){
+		return new UltimateSearch(false);
 	}
 	if(strategy == NAME_StateSearchBFS)
 		return new StateSearch(false);

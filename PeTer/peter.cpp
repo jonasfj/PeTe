@@ -416,7 +416,7 @@ int test(int argc, char* argv[]){
 			 <<",\t"<<result.exploredStates()
 			 <<",\t"<<result.pathLength()
 			 <<std::endl;
-	return 0;
+	return result.result() == ReachabilityResult::Satisfied ? 0 : 1;
 }
 
 

@@ -48,7 +48,7 @@ std::string RandomQueryGenerator::gen(const PetriNet& net,
 	memcpy(s->marking(), m0, sizeof(MarkVal)*net.numberOfPlaces());
 	memcpy(s->valuation(), v0, sizeof(VarVal)*net.numberOfVariables());
 
-	int countdown = rand() % 10000000;
+	int countdown = rand() % 5000000;
 
 	State* ns = allocator.createState();
 	while(countdown-- > 0){
