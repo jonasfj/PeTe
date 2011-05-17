@@ -29,6 +29,7 @@
 #include "UltimateSearch.h"
 #include "HeuristicDFS.h"
 #include "MagicSearch.h"
+#include "StateSearch.h"
 #include "../PQL/Contexts.h"
 #include <stdio.h>
 
@@ -125,6 +126,8 @@
 
 
 #define NAME_UltimateSearch						"BestFS Ultimate Edition"
+#define NAME_StateSearchBFS						"State Search BFS"
+#define NAME_StateSearchDFS						"State Search DFS"
 
 #include <stdio.h>
 
@@ -176,7 +179,9 @@ std::vector<std::string> ReachabilitySearchStrategy::listStrategies(){
 		NAME_BestFSDeltaSumExtremeLH5,
 		NAME_BestFSCoolingDeltaDFS,
 		NAME_MagicSearchBFS,
-		NAME_UltimateSearch
+		NAME_UltimateSearch,
+		NAME_StateSearchBFS,
+		NAME_StateSearchDFS
 	};
 	return std::vector<std::string>(strats, strats + sizeof(strats) / sizeof(std::string));
 }
@@ -377,6 +382,10 @@ ReachabilitySearchStrategy* ReachabilitySearchStrategy::createStrategy(const std
 	if(strategy == NAME_UltimateSearch){
 		return new UltimateSearch();
 	}
+	if(strategy == NAME_StateSearchBFS)
+		return new StateSearch(false);
+	if(strategy == NAME_StateSearchDFS)
+		return new StateSearch(true);
 
 	//If we didn't find it
 	fprintf(stderr, "Reachability strategy: \"%s\" not found!\n", strategy.c_str());

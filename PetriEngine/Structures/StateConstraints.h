@@ -105,6 +105,10 @@ public:
 
 	/** Attempts to solve using lp_solve, returns True if the net cannot satisfy these constraints! */
 	bool isImpossible(const PetriNet& net, const MarkVal* marking, const VarVal* valuation) const;
+	/** Attempts to solve using lp_solve size of fire vector */
+	int fireVectorSize(const PetriNet& net, const MarkVal* marking, const VarVal* valuation) const;
+	/** True if the state constraint contains exactly one state */
+	bool isSpecific() const;
 
 	/** Merge the two sets of StateConstraints such that one from A and one from B is always satisfied, when one in the return value is
 	 * @remarks This will take ownership of the provided StateConstraints, and delete them or own them

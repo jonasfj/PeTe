@@ -395,5 +395,138 @@ bool StateConstraints::isMarked(const BitField& places, const MarkVal* marking) 
 	return false;
 }
 
+bool StateConstraints::isSpecific() const{
+	for(size_t p = 0; p < nPlaces; p++){
+		if(pcs[p].max != pcs[p].min)
+			return false;
+	}
+	for(size_t v = 0; v < nVars; v++){
+		if(vcs[v].max != vcs[v].min)
+			return false;
+	}
+	return true;
+}
+
+int StateConstraints::fireVectorSize(const PetriNet& net,
+									 const MarkVal* m0,
+									 const VarVal*) const{
+	assert(nPlaces == net.numberOfPlaces());
+	assert(nVars == net.numberOfVariables());
+
+	// Create linary problem
+	lprec* lp;
+	lp = make_lp(0, net.numberOfTransitions());	// One variable for each entry in the firing vector
+	assert(lp);
+	if(!lp) return false;
+
+	// Set verbosity
+	set_verbose(lp, IMPORTANT);
+
+	// Set transition names (not strictly needed)
+	for(size_t i = 0; i < net.numberOfTransitions(); i++)
+		set_col_name(lp, i+1, const_cast<char*>(net.transitionNames()[i].c_str()));
+
+	// Start adding rows
+	set_add_rowmode(lp, TRUE);
+
+	REAL row[net.numberOfTransitions() + 1];
+	for(size_t p = 0; p < nPlaces; p++){
+		// Set row zero
+		memset(row, 0, sizeof(REAL) * net.numberOfTransitions() + 1);
+		for(size_t t = 0; t < net.numberOfTransitions(); t++){
+			int d = net.outArc(t, p) - net.inArc(p, t);
+			row[1+t] = d;
+		}
+
+		if(pcs[p].min == pcs[p].max &&
+		   pcs[p].max != CONSTRAINT_INFTY){
+			double target = pcs[p].min - m0[p];
+			add_constraint(lp, row, EQ,  target);
+		}else{
+			// There's always a min, even zero is interesting
+			double target = pcs[p].min - m0[p];
+			add_constraint(lp, row, GE,  target);
+			if(pcs[p].max != CONSTRAINT_INFTY){
+				double target = pcs[p].max - m0[p];
+				add_constraint(lp, row, LE,  target);
+			}
+		}
+	}
+
+	// Finished adding rows
+	set_add_rowmode(lp, FALSE);
+
+	// Create objective
+	memset(row, 0, sizeof(REAL) * net.numberOfTransitions() + 1);
+	for(size_t t = 0; t < net.numberOfTransitions(); t++)
+		row[1+t] = 1;	// The sum the components in the firing vector
+
+	// Set objective
+	set_obj_fn(lp, row);
+
+	// Minimize the objective
+	set_minim(lp);
+
+	// Set variables as integer variables
+	for(size_t i = 0; i < net.numberOfTransitions(); i++)
+		set_int(lp, 1+i, TRUE);
+
+	// Attempt to solve the problem
+	int result = solve(lp);
+
+	// Limit on traps to test
+	size_t traplimit = nPlaces * OVER_APPROX_TRAP_FACTOR;
+	// Try to add a minimal trap constraint
+	while((result == OPTIMAL) && traplimit-- < 0){
+		memset(row, 0, sizeof(REAL) * net.numberOfTransitions() + 1);
+		// Get the firing vector
+		get_variables(lp, row);
+		// Compute the resulting marking
+		MarkVal rMark[net.numberOfPlaces()];
+		for(size_t p = 0; p < nPlaces; p++){
+			rMark[p] = m0[p];
+			for(size_t t = 0; t < net.numberOfTransitions(); t++)
+				rMark[p] += (net.outArc(t, p) - net.inArc(p, t)) * (int)row[t];
+		}
+
+		// Find an M-trap
+		BitField trap(minimalTrap(net, m0, rMark));
+
+		//Break if there's no trap
+		if(trap.none()) break;
+
+		// Compute the new equation
+		for(size_t t = 0; t < net.numberOfTransitions(); t++){
+			row[1+t] = 0;
+			for(size_t p = 0; p < nPlaces; p++)
+				if(trap.test(p))
+					row[1+t] += net.outArc(t, p) - net.inArc(p, t);
+		}
+
+		// Add a new row with target as greater than equal to 1
+		set_add_rowmode(lp, TRUE);
+		add_constraint(lp, row, GE,  1);
+		set_add_rowmode(lp, FALSE);
+
+		// Attempt to solve the again
+		result = solve(lp);
+	}
+
+	int retval = 0;
+
+	if(result != INFEASIBLE){
+		get_variables(lp, row);
+		for(size_t t = 0; t < net.numberOfTransitions(); t++)
+			retval += (int)row[t];
+	}
+
+	// Delete the linear problem
+	delete_lp(lp);
+	lp = NULL;
+
+	// Return true, if it was infeasible
+	return retval;
+}
+
 } // Structures
 } // PetriEngines
