@@ -45,5 +45,5 @@ for model in Models:
 		count += 1
 	q, s1, s2, empty = lines[0].split(",")
 	print model + ":"
-	print "\t" + s1.strip() + ": " + str(sum1) + " of " + str(count)
-	print "\t" + s2.strip() + ": " + str(sum2) + " of " + str(count)
+	print "\t" + s1.strip() + "," + str(sum1) + "," + str(count)
+	print "\t" + s2.strip() + "," + str(sum2) + "," + str(count)
