@@ -33,6 +33,7 @@
 #include "PetriEngine/Reachability/BestFirstReachabilitySearch.h"
 #include "PetriEngine/PQL/Contexts.h"
 #include "PetriEngine/Reachability/RandomDFS.h"
+#include "PetriEngine/Reachability/RandomQueryGenerator.h"
 
 using namespace std;
 using namespace PetriEngine;
@@ -343,17 +344,21 @@ int test(int argc, char* argv[]){
 
 	// If generate random state
 	if(genRandState){
-		RandomDFS dfs;
-		dfs.reachable(*net, m0, v0, NULL);
+		//RandomDFS dfs;
+		//dfs.reachable(*net, m0, v0, NULL);
+		RandomQueryGenerator rng;
+		cout<<rng.gen(*net, m0, v0)<<"\n";
 		return 0;
 	}
 
 
 	// Find the query
-	for(std::vector<PNMLParser::Query>::iterator it = queries.begin(); it != queries.end(); it++){
-		if((*it).name == queryname){
-			queryString = (*it).text;
-			break;
+	if(queryString.empty()){
+		for(std::vector<PNMLParser::Query>::iterator it = queries.begin(); it != queries.end(); it++){
+			if((*it).name == queryname){
+				queryString = (*it).text;
+				break;
+			}
 		}
 	}
 

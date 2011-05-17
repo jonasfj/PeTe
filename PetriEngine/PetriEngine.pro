@@ -32,7 +32,8 @@ SOURCES		   += \
     Reachability/BestFSCooling.cpp \
     Structures/SmartState.cpp \
     Reachability/MagicSearch.cpp \
-    Reachability/UltimateSearch.cpp
+    Reachability/UltimateSearch.cpp \
+    Reachability/RandomQueryGenerator.cpp
 	#Reachability/CoverabilityTreeNode.cpp
 
 HEADERS		   += \
@@ -77,7 +78,8 @@ HEADERS		   += \
     Structures/Scale.h \
     Structures/BitField.h \
     Structures/BoundedStateAllocator.h \
-    Reachability/UltimateSearch.h
+    Reachability/UltimateSearch.h \
+    Reachability/RandomQueryGenerator.h
 	#Reachability/CoverabilityTreeNode.h
 
 TARGET			= ../PetriEngine
