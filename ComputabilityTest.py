@@ -31,7 +31,7 @@ Kanban = [
 #"Kanban10.pet", 
 #"Kanban20.pet", 
 #"Kanban50.pet", 
-#"Kanban100.pet", 
+"Kanban100.pet", 
 "Kanban200.pet", 
 "Kanban500.pet", 
 "Kanban1000.pet"
@@ -50,7 +50,7 @@ MAPK = [
 #"MAPK40.pet", 
 #"MAPK80.pet", 
 #"MAPK160.pet", 
-#"MAPK320.pet",
+"MAPK320.pet",
 "MAPK640.pet",
 "MAPK1280.pet",
 "MAPK2560.pet"
