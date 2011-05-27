@@ -4,4 +4,4 @@ Type=Application
 Name=PeTe
 Comment=Petri Engine exTremE
 Exec=PeTe
-#Icon= TODO Add icon here...
+Icon=/usr/share/icons/hicolor/scalable/apps/pete.svg

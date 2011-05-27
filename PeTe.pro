@@ -21,5 +21,7 @@ unix{
 	PeTe.files = PeTe
 	Desktop.path = /usr/share/applications/
 	Desktop.files = PeTe.desktop
-	INSTALLS += PeTe Desktop
+	PeTeIcon.path = /usr/share/icons/hicolor/scalable/apps/
+	PeTeIcon.files = PeTedit/Icons/scalable/pete.svg
+	INSTALLS += PeTe Desktop PeTeIcon
 }
