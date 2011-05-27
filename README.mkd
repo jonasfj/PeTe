@@ -1,5 +1,7 @@
 PeTe - Petri Engine exTremE
 ===========================
+PeTe is a graphical Petri net modelling and verification tool.
+A binary package for Ubuntu can be found [here](https://github.com/downloads/jopsen/PeTe/pete_1.0-1ubuntu1_i386.deb) and a PPA for Ubuntu 10.10 is available [here](https://launchpad.net/~jopsen/+archive/pete).
 
 Building PeTe
 -------------
@@ -17,11 +19,6 @@ non-unix platform. Following dependencies are required for building:
   * igraph (>= 0.5.3)
   * libproc (>= 3.2.8)
 
-Developing with qt-creator
---------------------------
-You can develop and build the project using qt-creator 2.0, however, you'll need UnitTest++
-for building the project.
-
 License
 -------
 PeTe is available under the terms of the GNU GPL versoin 3 or (at your option) any later version.
@@ -32,4 +29,3 @@ Authors
   * Jonas Finnemann Jensen
   * Thomas Søndersø Nielsen
   * Lars Kærlund Østergaard
-
