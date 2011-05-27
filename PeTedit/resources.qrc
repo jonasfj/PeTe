@@ -29,5 +29,6 @@
         <file>Icons/24x24/align-horizontal.png</file>
         <file>Icons/24x24/align-vertical.png</file>
         <file>Icons/24x24/print.png</file>
+        <file>Icons/about-pete.png</file>
     </qresource>
 </RCC>

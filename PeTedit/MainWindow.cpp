@@ -503,15 +503,17 @@ void MainWindow::on_importSUMoQueriesAction_triggered(){
 void MainWindow::on_aboutAction_triggered()
 {
 	QMessageBox* msg = new QMessageBox(this);
-	QString text = "PeTe Petri Net Tool v.0.1<br><br>";
-			text.append("<b>Authors:</b><br>");
-			text.append("Jonas Finnemann Jensen<br>");
-			text.append("Thomas Nielsen<br>");
-			text.append("Lars Kaerlund Oestergaard<br><br>");
-			text.append("<b>Website:</b><br>");
-			text.append("<a href='https://github.com/jopsen/PeTe'>PeTe @ github</a>");
+	msg->setWindowTitle("");
+	QString text = "<h2>About PeTe</h2>";
+			text.append("<i>PeTe started as a student project at Aalborg University.</i>");
+			text.append("<br><b>Authors:</b><br>");
+			text.append("Jonas Finnemann Jensen,<br>");
+			text.append("Thomas Nielsen, and<br>");
+			text.append(QString::fromUtf8("Lars Kærlund Østergaard<br><br>"));
+			text.append("<b>Website: </b>");
+			text.append("<a href=\"https://github.com/jopsen/PeTe\">https://github.com/jopsen/PeTe</a>");
 	msg->setText(text );
-
+	msg->setIconPixmap(QPixmap(":/Icons/about-pete.png"));
 	msg->show();
 }
 

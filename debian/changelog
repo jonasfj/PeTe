@@ -1,3 +1,10 @@
+pete (1.0-1ubuntu1) maverick; urgency=low
+
+  * Packing version 1.0 of PeTe
+  * Adding new dependencies
+
+ -- Jonas Finnemann Jensen <jopsen@gmail.com>  Fri, 27 May 2011 15:31:05 +0200
+
 pete (0.1-1ubuntu3) maverick; urgency=low
 
   * Added pkg-config as dependency
