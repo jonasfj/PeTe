@@ -76,10 +76,13 @@ ReachabilityResult BreadthFirstReachabilitySearch::reachable(const PetriNet &net
 				if(states.add(ns)){
 					exploredStates++;
 					ns->setParent(s);
-					if(query->evaluate(*ns))
+					ns->setTransition(t);
+					if(query->evaluate(*ns)){
+						//ns->dumpTrace(net);
 						return ReachabilityResult(ReachabilityResult::Satisfied,
 												"A state satisfying the query was found", expandedStates, exploredStates, ns->pathLength());
-					ns->setTransition(t);
+					}
+
 					queue.push_back(ns);
 					ns = allocator.createState();
 				}

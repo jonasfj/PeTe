@@ -22,6 +22,7 @@
 #include "../PetriNet.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 namespace PetriEngine { namespace Structures {
@@ -58,6 +59,16 @@ public:
 			return 1 + _parent->pathLength();
 		else
 			return 0;
+	}
+
+	/** Dump trace to stderr */
+	void dumpTrace(const PetriNet& net){
+		fprintf(stderr, "trace: (Latest first)");
+		State* c = this;
+		while(c->parent()){
+			fprintf(stderr, "%s\n", net.transitionNames()[c->transition()].c_str());
+			c = c->parent();
+		}
 	}
 
 	/** State specialisation of std::hash */
