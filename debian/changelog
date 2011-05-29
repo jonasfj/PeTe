@@ -1,3 +1,9 @@
+pete (1.0.1-1ubuntu1) maverick; urgency=low
+
+  * Fixed minor bug in translation of DTAPNs
+
+ -- Jonas Finnemann Jensen <jopsen@gmail.com>  Sun, 29 May 2011 17:21:56 +0200
+
 pete (1.0-1ubuntu1) maverick; urgency=low
 
   * Packing version 1.0 of PeTe
