@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
 	//Set metadata (Used by QSettings, etc)
 	QCoreApplication::setApplicationName("PeTe");
-	QCoreApplication::setApplicationVersion("1.0.1");
+	QCoreApplication::setApplicationVersion("1.0.2");
 	QCoreApplication::setOrganizationName("PeTe Development Team");
 	QCoreApplication::setOrganizationDomain("https://github.com/jopsen/PeTe");
 

@@ -89,9 +89,11 @@ ReachabilityResult BestFirstReachabilitySearch::reachable(const PetriNet &net,
 					ns->setTransition(t);
 
 					//Test query
-					if(query->evaluate(*ns))
+					if(query->evaluate(*ns)){
+						//ns->dumpTrace(net);
 						return ReachabilityResult(ReachabilityResult::Satisfied,
 												  "Query was satified!", expandedStates, exploredStates, ns->pathLength());
+					}
 
 					// Insert in queue, with given priority
 					double bestp = priority(ns, query, net);

@@ -183,7 +183,7 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 				// preplace == 0
 				conds += preplace + " == 0 and \n";
 				// ai->start >= i
-				conds += ai->start + " >= " + i2s(i) + " and \n";
+				conds += ai->start + " >= " + i2s(i+1) + " and \n";
 				// ai->startInterval <= <ai->start>_<i>
 				conds += i2s(ai->startInterval) + " <= " + tokenAgeVariable(ai->start, i) + " and \n";
 				// <ai->start>_<i> <= ai->endInterval
