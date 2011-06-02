@@ -1,126 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pnml>
      <net>
-          <place id="WaitingAck">
+          <transition id="HandleMsg">
                <graphics>
-                    <position x="220.677" y="241.404"/>
+                    <position x="477.118" y="179.257"/>
                </graphics>
                <name>
-                    <value>WaitingAck</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="MsgRecv">
-               <graphics>
-                    <position x="445.019" y="241.404"/>
-               </graphics>
-               <name>
-                    <value>MsgRecv</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="MsgBuffer">
-               <graphics>
-                    <position x="334.019" y="156.972"/>
-               </graphics>
-               <name>
-                    <value>MsgBuffer</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="AckBuffer">
-               <graphics>
-                    <position x="329.019" y="325.627"/>
-               </graphics>
-               <name>
-                    <value>AckBuffer</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <transition id="SendMsg">
-               <graphics>
-                    <position x="220.677" y="156.972"/>
-               </graphics>
-               <name>
-                    <value>SendMsg</value>
+                    <value>HandleMsg</value>
                </name>
                <conditions></conditions>
                <assignments></assignments>
           </transition>
-          <transition id="RecvAck">
+          <transition id="MakeMsg">
                <graphics>
-                    <position x="220.677" y="325.627"/>
+                    <position x="84.2477" y="179.257"/>
                </graphics>
                <name>
-                    <value>RecvAck</value>
+                    <value>MakeMsg</value>
                </name>
                <conditions></conditions>
                <assignments></assignments>
           </transition>
-          <transition id="RecvMsg">
-               <graphics>
-                    <position x="445.019" y="156.972"/>
-               </graphics>
-               <name>
-                    <value>RecvMsg</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <transition id="SendAck">
-               <graphics>
-                    <position x="445.019" y="325.627"/>
-               </graphics>
-               <name>
-                    <value>SendAck</value>
-               </name>
-               <conditions></conditions>
-               <assignments></assignments>
-          </transition>
-          <place id="MsgReady">
-               <graphics>
-                    <position x="167.355" y="156.972"/>
-               </graphics>
-               <name>
-                    <value>MsgReady</value>
-               </name>
-               <initialMarking>
-                    <value>2</value>
-               </initialMarking>
-          </place>
-          <place id="AckRecv">
-               <graphics>
-                    <position x="167.355" y="325.627"/>
-               </graphics>
-               <name>
-                    <value>AckRecv</value>
-               </name>
-               <initialMarking>
-                    <value>0</value>
-               </initialMarking>
-          </place>
-          <place id="RecvRedy">
-               <graphics>
-                    <position x="500.225" y="156.972"/>
-               </graphics>
-               <name>
-                    <value>RecvRedy</value>
-               </name>
-               <initialMarking>
-                    <value>2</value>
-               </initialMarking>
-          </place>
           <place id="AckSent">
                <graphics>
-                    <position x="500.225" y="325.627"/>
+                    <position x="447.118" y="263.48"/>
                </graphics>
                <name>
                     <value>AckSent</value>
@@ -129,92 +32,124 @@
                     <value>0</value>
                </initialMarking>
           </place>
-          <transition id="MakeMsg">
+          <place id="RecvRedy">
                <graphics>
-                    <position x="137.355" y="241.404"/>
+                    <position x="447.118" y="94.8251"/>
                </graphics>
                <name>
-                    <value>MakeMsg</value>
+                    <value>RecvRedy</value>
+               </name>
+               <initialMarking>
+                    <value>2</value>
+               </initialMarking>
+          </place>
+          <place id="AckRecv">
+               <graphics>
+                    <position x="114.248" y="263.48"/>
+               </graphics>
+               <name>
+                    <value>AckRecv</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="MsgReady">
+               <graphics>
+                    <position x="114.248" y="94.8251"/>
+               </graphics>
+               <name>
+                    <value>MsgReady</value>
+               </name>
+               <initialMarking>
+                    <value>2</value>
+               </initialMarking>
+          </place>
+          <transition id="SendAck">
+               <graphics>
+                    <position x="391.912" y="263.48"/>
+               </graphics>
+               <name>
+                    <value>SendAck</value>
                </name>
                <conditions></conditions>
                <assignments></assignments>
           </transition>
-          <transition id="HandleMsg">
+          <transition id="RecvMsg">
                <graphics>
-                    <position x="530.225" y="241.404"/>
+                    <position x="391.912" y="94.8251"/>
                </graphics>
                <name>
-                    <value>HandleMsg</value>
+                    <value>RecvMsg</value>
                </name>
                <conditions></conditions>
                <assignments></assignments>
           </transition>
-          <arc source="SendMsg" target="WaitingAck">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="WaitingAck" target="RecvAck">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="SendMsg" target="MsgBuffer">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="MsgBuffer" target="RecvMsg">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="RecvMsg" target="MsgRecv">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="MsgRecv" target="SendAck">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="SendAck" target="AckBuffer">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="AckBuffer" target="RecvAck">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="RecvAck" target="AckRecv">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="AckRecv" target="MakeMsg">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="MakeMsg" target="MsgReady">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="MsgReady" target="SendMsg">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="HandleMsg" target="RecvRedy">
-               <inscription>
-                    <value>1</value>
-               </inscription>
-          </arc>
-          <arc source="RecvRedy" target="RecvMsg">
+          <transition id="RecvAck">
+               <graphics>
+                    <position x="167.57" y="263.48"/>
+               </graphics>
+               <name>
+                    <value>RecvAck</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <transition id="SendMsg">
+               <graphics>
+                    <position x="167.57" y="94.8251"/>
+               </graphics>
+               <name>
+                    <value>SendMsg</value>
+               </name>
+               <conditions></conditions>
+               <assignments></assignments>
+          </transition>
+          <place id="AckBuffer">
+               <graphics>
+                    <position x="275.912" y="263.48"/>
+               </graphics>
+               <name>
+                    <value>AckBuffer</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="MsgBuffer">
+               <graphics>
+                    <position x="280.912" y="94.8251"/>
+               </graphics>
+               <name>
+                    <value>MsgBuffer</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="MsgRecv">
+               <graphics>
+                    <position x="391.912" y="179.257"/>
+               </graphics>
+               <name>
+                    <value>MsgRecv</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <place id="WaitingAck">
+               <graphics>
+                    <position x="167.57" y="179.257"/>
+               </graphics>
+               <name>
+                    <value>WaitingAck</value>
+               </name>
+               <initialMarking>
+                    <value>0</value>
+               </initialMarking>
+          </place>
+          <arc source="AckSent" target="HandleMsg">
                <inscription>
                     <value>1</value>
                </inscription>
@@ -224,7 +159,72 @@
                     <value>1</value>
                </inscription>
           </arc>
-          <arc source="AckSent" target="HandleMsg">
+          <arc source="RecvRedy" target="RecvMsg">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="HandleMsg" target="RecvRedy">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MsgReady" target="SendMsg">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MakeMsg" target="MsgReady">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="AckRecv" target="MakeMsg">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="RecvAck" target="AckRecv">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="AckBuffer" target="RecvAck">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="SendAck" target="AckBuffer">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MsgRecv" target="SendAck">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="RecvMsg" target="MsgRecv">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="MsgBuffer" target="RecvMsg">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="SendMsg" target="MsgBuffer">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="WaitingAck" target="RecvAck">
+               <inscription>
+                    <value>1</value>
+               </inscription>
+          </arc>
+          <arc source="SendMsg" target="WaitingAck">
                <inscription>
                     <value>1</value>
                </inscription>
@@ -232,6 +232,6 @@
      </net>
      <queries>
           <query name="Can be confused (BestFS)" strategy="BestFS-Delta (Sum, Extreme) DFS" jit="false">MsgBuffer == 1 and AckRecv == 1</query>
-          <query name="Can be confuse (BFS)" strategy="Naive BFS with Hash" jit="false">AckRecv == 1 and MsgBuffer == 1</query>
+          <query name="Can be confuse (BFS)" strategy="Naive BFS with Hash" jit="false">MsgBuffer == 1 and AckRecv == 1</query>
      </queries>
 </pnml>
