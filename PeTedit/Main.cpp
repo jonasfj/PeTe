@@ -22,6 +22,7 @@
 #include "MainWindow.h"
 #include "time.h"
 
+#include "DataFormats/DTAPNParser.h"
 #include "DataFormats/PNMLParser.h"
 #include "Misc/QueryListBuilder.h"
 #include <PetriEngine/PetriNetBuilder.h>
@@ -30,6 +31,8 @@
 #include <PetriEngine/Reachability/ReachabilitySearchStrategy.h>
 #include <PetriEngine/PQL/PQL.h>
 #include <PetriEngine/PQL/Contexts.h>
+#include <PetriEngine/DTAPN/DTAPNTranslator.h>
+
 
 using namespace PetriEngine;
 using namespace PetriEngine::Reachability;
@@ -49,6 +52,8 @@ int main(int argc, char *argv[])
 	QString queryString;
 	QString fileName;
 	QString strategy;
+	QString dtpan;
+	int bound = 0;
 
 	bool showGUI = true;
 	bool listQueries = false;
@@ -71,6 +76,11 @@ int main(int argc, char *argv[])
 		} else if(args[i] == "--strategy"){
 			strategy = args[++i];
 			showGUI = false;
+		} else if(args[i] == "--DTAPN"){
+			dtpan = args[++i];
+			showGUI = false;
+		} else if(args[i] == "-k"){
+			bound = args[++i].toInt();
 		} else if(args[i] == "--help") {
 			printf("Usage: pete [net] [--query <query>] [--query-sumo <query>] [--help] [--strategies] [--strategy <strategy>]\n");
 			showGUI = false;
@@ -83,6 +93,78 @@ int main(int argc, char *argv[])
 		MainWindow w;
 		w.show();
 		return a.exec();
+	}
+
+	// If there's a DTAPN to translate and run queries on
+	if(dtpan.count() > 0){
+		if(bound <= 0){
+			fprintf(stderr, "You must provide a bound -k for DTAPN translation\n");
+			return 3;
+		}
+		QFile file(dtpan);
+		if(!file.open(QIODevice::ReadOnly))
+			return 8;
+		// Create translator
+		PetriEngine::DTAPN::DTAPNTranslator translator(bound);
+
+		// Parse file to translator
+		DTAPNParser p;
+		p.parse(&file, &translator);
+		file.close();
+		PetriEngine::PetriNetBuilder builder;
+		translator.makePNDV(&builder);
+
+		// Load network
+		PetriNet* net = builder.makePetriNet();
+		MarkVal* m0 = builder.makeInitialMarking();
+		VarVal* a0 = builder.makeInitialAssignment();
+
+		foreach(const DTAPNParser::Query& q, p.getQueries()){
+			//Translate query
+			std::string querystring = PetriEngine::DTAPN::DTAPNTranslator::translateQuery(q.query.toStdString());
+			PQL::Condition* query = PQL::ParseQuery(querystring);
+
+			//Load and analyze query
+			if(!query) {
+				std::cerr<<"Syntax error in query"<<std::endl;
+				return 2;
+			}
+			PQL::AnalysisContext context(*net);
+			query->analyze(context);
+			for(size_t i = 0; i < context.errors().size(); i++){
+				std::cerr<<context.errors()[i].toString()<<std::endl;
+			}
+			if(context.errors().size() > 0)
+				return 2;
+
+			//Load up reachability engine
+			ReachabilitySearchStrategy* strat;
+			strat = ReachabilitySearchStrategy::createStrategy(strategy.toStdString());
+
+			//Run the query
+			clock_t startClock = clock();
+			ReachabilityResult result = strat->reachable(*net, m0, a0, query);
+			qreal finishTime = ((qreal)(clock() - startClock)) / (qreal)CLOCKS_PER_SEC;
+
+			//Release resources
+			delete query;
+			query = NULL;
+			delete strat;
+			strat = NULL;
+
+			//Print result
+			std::string r;
+			if(result.result() == ReachabilityResult::Satisfied)
+				r = "satisfied";
+			else if(result.result() == ReachabilityResult::NotSatisfied)
+				r = "not satisfiable";
+			else{
+				Q_ASSERT(result.result() == ReachabilityResult::Unknown);
+				r = "found unknown";
+			}
+
+			std::cout<<"Query: \""<<q.name.toStdString()<<"\" was " << r << " in "<< finishTime <<"s\n";
+		}
 	}
 
 	if(fileName.count() > 0){
