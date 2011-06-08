@@ -142,12 +142,22 @@ void DTAPNParser::place(){
 	QString name = xml.attributes().value("name").toString();
 	QString id = xml.attributes().value("id").toString();
 	int initialMarking = 0;
+	int maxInvariantAge = -1;
 	if(xml.attributes().hasAttribute("positionX"))
 		x = xml.attributes().value("positionX").toString().toInt();
 	if(xml.attributes().hasAttribute("positionY"))
 		y = xml.attributes().value("positionY").toString().toInt();
 	if(xml.attributes().hasAttribute("initialMarking"))
 		initialMarking = xml.attributes().value("initialMarking").toString().toInt();
+	if(xml.attributes().hasAttribute("invariant")){
+		QRegExp reg("(<=|<)(\\s*)(\\d+|inf)");
+		if(reg.indexIn(xml.attributes().value("invariant").toString()) > -1){
+			if(reg.cap(3) == "inf")
+				maxInvariantAge = -1;
+			else
+				maxInvariantAge = reg.cap(3).toInt() - (reg.cap(1) == "<=" ? 0 : 1);
+		}
+	}
 
 	while(xml.readNextStartElement()){
 		if(xml.name() == "graphics"){
@@ -158,11 +168,21 @@ void DTAPNParser::place(){
 			QString val;
 			value(val);
 			initialMarking = val.toInt();
+		}else if(xml.name() == "invariant"){
+			QString val;
+			value(val);
+			QRegExp reg("(<=|<)(\\s*)(\\d+|inf)");
+			if(reg.indexIn(val) > -1){
+				if(reg.cap(3) == "inf")
+					maxInvariantAge = -1;
+				else
+					maxInvariantAge = reg.cap(3).toInt() - (reg.cap(1) == "<=" ? 0 : 1);
+			}
 		}else
 			xml.skipCurrentElement();
 	}
 	//Create place
-	builder->addPlace(name.toStdString(), initialMarking, x, y);
+	builder->addPlace(name.toStdString(), initialMarking, maxInvariantAge, x, y);
 	//Map id to name
 	idmap[id] = NodeName(Place, name);
 }

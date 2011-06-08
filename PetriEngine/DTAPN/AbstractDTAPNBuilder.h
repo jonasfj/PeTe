@@ -29,7 +29,8 @@ class AbstractDTAPNBuilder{
 public:
 	virtual void addPlace(const std::string& name,
 						  int tokens,
-						  double x =0,
+						  int maxInvariantAge = -1,
+						  double x = 0,
 						  double y = 0) = 0;
 
 	virtual void addTransition(const std::string& name,

@@ -34,12 +34,16 @@ std::string i2s(int i){
 namespace PetriEngine{
 namespace DTAPN {
 
-void DTAPNTranslator::addPlace(const std::string& name, int tokens, double, double){
+void DTAPNTranslator::addPlace(const std::string& name, int tokens, int maxInvariantAge, double, double){
 	assert(!name.empty());
 	Place p;
 	p.name = name;
 	p.tokens = tokens;
-	p.maxAge = 0;
+	if(maxInvariantAge != -1)
+		p.maxAge = maxInvariantAge;
+	else
+		p.maxAge = 0;
+	p.maxInvariantAge = maxInvariantAge;
 	places.push_back(p);
 }
 
@@ -126,7 +130,8 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 	// Find max age for all places
 	for(InArcIter ai = inArcs.begin(); ai != inArcs.end(); ai++){
 		Place& p = findPlace(ai->start);
-		p.maxAge = MAX(p.maxAge, MAX(ai->startInterval, ai->endInterval + 1));
+		if(p.maxInvariantAge == -1)
+			p.maxAge = MAX(p.maxAge, MAX(ai->startInterval, ai->endInterval + 1));
 	}
 
 	// Replace infinity with max age
@@ -262,13 +267,17 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 			// Increment token age if not max
 			maxCond += tokenAge + " == " + i2s(p->maxAge);
 			ageCond += tokenAge + " < " + i2s(p->maxAge);
+			// Prevent aging if it violates the invariant
+			if(p->maxInvariantAge != -1)
+				ageCond += " and " + tokenAge + " < " + i2s(p->maxInvariantAge);
 			ageAssign += tokenAge + " := " + tokenAge + " + 1 ;";
 			// Create intermediate ageing transitions
 			string maxT = maxTransition(p->name, i);
 			string ageT = ageTransition(p->name, i);
 			// Create network structure
-			builder->addTransition(maxT, maxCond, maxAssign);
 			builder->addTransition(ageT, ageCond, ageAssign);
+			if(p->maxInvariantAge != -1)	//Don't add max transition if there's an invariant
+				builder->addTransition(maxT, maxCond, maxAssign);
 			// Connect places and transitions
 			builder->addInputArc(iplace, maxT);
 			builder->addInputArc(iplace, ageT);

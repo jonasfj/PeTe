@@ -29,7 +29,7 @@ class DTAPNPrinter : public AbstractDTAPNBuilder
 {
 public:
 
-	void addPlace(const std::string& name, int tokens, double, double);
+	void addPlace(const std::string& name, int tokens, int maxInvariantAge, double, double);
 
 	void addTransition(const std::string& name, double, double);
 

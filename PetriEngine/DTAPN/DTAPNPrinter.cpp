@@ -42,8 +42,8 @@ void DTAPNPrinter::addOutputArc(const std::string &transition, const std::string
 	cerr << "|"+transition + "| --> ("+ place + ")\n";
 }
 
-void DTAPNPrinter::addPlace(const std::string &name, int tokens, double, double){
-	cerr << "("+ name + ","+i2s(tokens)+")\n";
+void DTAPNPrinter::addPlace(const std::string &name, int tokens, int maxInvariantAge, double, double){
+	cerr << "("+ name + ","+i2s(tokens)+", <= " + i2s(maxInvariantAge) + ")\n";
 }
 
 void DTAPNPrinter::addTransition(const std::string &name, double, double){

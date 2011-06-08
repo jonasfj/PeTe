@@ -37,6 +37,7 @@ class DTAPNTranslator : public AbstractDTAPNBuilder
 		std::string name;
 		int tokens;
 		int maxAge;
+		int maxInvariantAge;
 	};
 	typedef std::list<Place> PlaceList;
 	typedef std::list<Place>::iterator PlaceIter;
@@ -64,7 +65,7 @@ class DTAPNTranslator : public AbstractDTAPNBuilder
 	typedef std::list<OutArc>::iterator OutArcIter;
 public:
 	DTAPNTranslator(int bound){ this->bound = bound; }
-	void addPlace(const std::string& name, int tokens, double x = 0, double y = 0);
+	void addPlace(const std::string& name, int tokens, int maxInvariantAge, double x = 0, double y = 0);
 	void addTransition(const std::string& name, double x = 0, double y = 0);
 	void addInputArc(const std::string& place, const std::string& transition, int startInterval, int endInterval);
 	void addOutputArc(const std::string& transition, const std::string& place);
