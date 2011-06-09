@@ -78,6 +78,7 @@ int LayoutBuilder::numberFromName(const std::string& name){
 			return i;
 		i++;
 	}
+	fprintf(stderr, "LayoutBuilder: Please validate before using LayoutBuilder, place/transition \"%s\" was not found\n", name.c_str());
 	assert(false); //Please validate before running this!
 	return -1;
 }

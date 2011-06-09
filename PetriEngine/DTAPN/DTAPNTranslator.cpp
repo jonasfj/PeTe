@@ -274,15 +274,16 @@ void DTAPNTranslator::makePNDV(AbstractPetriNetBuilder* builder){
 			// Create intermediate ageing transitions
 			string maxT = maxTransition(p->name, i);
 			string ageT = ageTransition(p->name, i);
-			// Create network structure
+			// Create and connect age transition
 			builder->addTransition(ageT, ageCond, ageAssign);
-			if(p->maxInvariantAge != -1)	//Don't add max transition if there's an invariant
-				builder->addTransition(maxT, maxCond, maxAssign);
-			// Connect places and transitions
-			builder->addInputArc(iplace, maxT);
 			builder->addInputArc(iplace, ageT);
-			builder->addOutputArc(maxT, niplace);
 			builder->addOutputArc(ageT, niplace);
+			//Create max transition if there's no invariant
+			if(p->maxInvariantAge != -1){
+				builder->addTransition(maxT, maxCond, maxAssign);
+				builder->addInputArc(iplace, maxT);
+				builder->addOutputArc(maxT, niplace);
+			}
 		}
 	}
 }
