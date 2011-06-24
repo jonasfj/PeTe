@@ -50,7 +50,8 @@ SOURCES	   += \
     Misc/QueryListBuilder.cpp \
     DataFormats/DTAPNParser.cpp \
     Dialogs/ImportDTAPNDialog.cpp \
-    Commands/DeleteItemsCommand.cpp
+    Commands/DeleteItemsCommand.cpp \
+    DataFormats/TAPAALExportBuilder.cpp
 
 
 HEADERS		+= \
@@ -94,7 +95,8 @@ HEADERS		+= \
     Misc/QueryListBuilder.h \
     DataFormats/DTAPNParser.h \
     Dialogs/ImportDTAPNDialog.h \
-    Commands/DeleteItemsCommand.h
+    Commands/DeleteItemsCommand.h \
+    DataFormats/TAPAALExportBuilder.h
 
 
 FORMS		+= MainWindow.ui \
