@@ -79,8 +79,10 @@
     <addaction name="SaveAction"/>
     <addaction name="saveAsAction"/>
     <addaction name="separator"/>
-    <addaction name="actionExport_SVG"/>
     <addaction name="printAction"/>
+    <addaction name="separator"/>
+    <addaction name="actionExport_SVG"/>
+    <addaction name="TAPAALExportAction"/>
     <addaction name="separator"/>
     <addaction name="importSUMoQueriesAction"/>
     <addaction name="translateDTAPNAction"/>
@@ -709,6 +711,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="TAPAALExportAction">
+   <property name="text">
+    <string>Export TAPN for &amp;TAPAAL</string>
    </property>
   </action>
  </widget>

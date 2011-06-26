@@ -155,6 +155,13 @@ private:
 	const PetriNet& _net;
 };
 
+/** Context for condition to TAPAAL export */
+class TAPAALConditionExportContext{
+public:
+	bool failed;
+	std::string netName;
+};
+
 /** Just-In-Time compilation context */
 class CodeGenerationContext{
 public:

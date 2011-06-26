@@ -167,6 +167,7 @@ public:
 	double distance(DistanceContext& context) const;
 	std::string toString() const;
 	void scale(int factor);
+	std::string toTAPAALQuery(TAPAALConditionExportContext& context) const;
 private:
 	virtual bool apply(bool b1, bool b2) const = 0;
 	/** LLVM binary operator (llvm::Instruction::BinaryOps) */
@@ -217,12 +218,17 @@ public:
 	double distance(DistanceContext& context) const;
 	std::string toString() const;
 	void scale(int factor);
+	std::string toTAPAALQuery(TAPAALConditionExportContext& context) const;
 private:
 	virtual bool apply(int v1, int v2) const = 0;
 	/** LLVM Comparison predicate (llvm::ICmpInst::Predicate) */
 	virtual int compareOp() const = 0;
 	virtual double delta(int v1, int v2, bool negated) const = 0;
 	virtual std::string op() const = 0;
+	/** Operator when exported to TAPAAL */
+	virtual std::string opTAPAAL() const = 0;
+	/** Swapped operator when exported to TAPAAL, e.g. operator when operands are swapped */
+	virtual std::string sopTAPAAL() const = 0;
 	virtual void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const = 0;
 	virtual void addConstraints(ConstraintAnalysisContext& context,	int value, IdentifierExpr* id) const = 0;
 	Expr* _expr1;
@@ -240,12 +246,15 @@ private:
 	void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const;
 	void addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const;
 	std::string op() const;
+	std::string opTAPAAL() const;
+	std::string sopTAPAAL() const;
 };
 
 /* None equality conditon */
 class NotEqualCondition : public CompareCondition{
 public:
 	NotEqualCondition(Expr* expr1, Expr* expr2) : CompareCondition(expr1,expr2) {}
+	std::string toTAPAALQuery(TAPAALConditionExportContext& context) const;
 private:
 	bool apply(int v1, int v2) const;
 	int compareOp() const;
@@ -253,6 +262,8 @@ private:
 	void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const;
 	void addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const;
 	std::string op() const;
+	std::string opTAPAAL() const;
+	std::string sopTAPAAL() const;
 };
 
 /* Less-than conditon */
@@ -266,6 +277,8 @@ private:
 	void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const;
 	void addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const;
 	std::string op() const;
+	std::string opTAPAAL() const;
+	std::string sopTAPAAL() const;
 };
 
 /* Less-than-or-equal conditon */
@@ -279,6 +292,8 @@ private:
 	void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const;
 	void addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const;
 	std::string op() const;
+	std::string opTAPAAL() const;
+	std::string sopTAPAAL() const;
 };
 
 /* Greater-than conditon */
@@ -292,6 +307,8 @@ private:
 	void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const;
 	void addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const;
 	std::string op() const;
+	std::string opTAPAAL() const;
+	std::string sopTAPAAL() const;
 };
 
 /* Greater-than-or-equal conditon */
@@ -305,6 +322,8 @@ private:
 	void addConstraints(ConstraintAnalysisContext& context,	IdentifierExpr* id, int value) const;
 	void addConstraints(ConstraintAnalysisContext& context, int value,	IdentifierExpr* id) const;
 	std::string op() const;
+	std::string opTAPAAL() const;
+	std::string sopTAPAAL() const;
 };
 
 /* Not condition */
@@ -320,6 +339,7 @@ public:
 	llvm::Value* codegen(CodeGenerationContext& context) const;
 	double distance(DistanceContext& context) const;
 	std::string toString() const;
+	std::string toTAPAALQuery(TAPAALConditionExportContext& context) const;
 	void scale(int factor);
 private:
 	Condition* _cond;

@@ -31,6 +31,7 @@
 #include "TransitionItem.h"
 
 #include "../DataFormats/PNMLBuilder.h"
+#include "../DataFormats/TAPAALExportBuilder.h"
 #include "../Misc/QueryModel.h"
 #include "../Dialogs/QueryDialog.h"
 #include "../Commands/EditQueryCommand.h"
@@ -614,6 +615,16 @@ void PetriNetScene::keyPressEvent(QKeyEvent *event) {
 }
 
 /******************** Produce using builder ********************/
+
+/** Save, this extension method will also save queries */
+void PetriNetScene::produce(TAPAALExportBuilder* builder){
+	//Produce the usual stuff
+	produce((PetriEngine::AbstractPetriNetBuilder*)builder);
+
+	//Output queries
+	for(int i = 0; i < _queries->rowCount(); i++)
+		builder->addQuery(_queries->query(i));
+}
 
 /** Save, this extension method will also save queries */
 void PetriNetScene::produce(PNMLBuilder* builder){

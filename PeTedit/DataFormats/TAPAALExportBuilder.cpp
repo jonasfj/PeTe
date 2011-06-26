@@ -18,6 +18,10 @@
  */
 #include "TAPAALExportBuilder.h"
 
+#include <PetriEngine/PQL/PQLParser.h>
+#include <PetriEngine/PQL/PQL.h>
+#include <PetriEngine/PQL/Contexts.h>
+
 #include <QString>
 
 TAPAALExportBuilder::TAPAALExportBuilder(QIODevice* device)
@@ -30,7 +34,7 @@ TAPAALExportBuilder::TAPAALExportBuilder(QIODevice* device)
 	xml.writeAttribute("xmlns", "http://www.informatik.hu-berlin.de/top/pnml/ptNetb");
 	xml.writeStartElement("net");
 	xml.writeAttribute("active", "true");
-	xml.writeAttribute("id", "TAPN1");
+	xml.writeAttribute("id", "ExportedNet");
 	xml.writeAttribute("type", "P/T net");
 	_nextArcId = 0;
 	_maxX = 0;
@@ -52,7 +56,7 @@ void TAPAALExportBuilder::addPlace(const std::string &name, int tokens, double x
 }
 
 void TAPAALExportBuilder::addVariable(const std::string& name, int initialValue, int range){
-	_comments += "Variable \"" + name.c_str() + "\" = " + QString::number(initialValue) +" with upperbound " + QString::number(range) + " was ignored\n";
+	_comments += "Variable \"" + QString(name.c_str()) + "\" = " + QString::number(initialValue) +" with upperbound " + QString::number(range) + " was ignored\n";
 }
 
 
@@ -96,8 +100,8 @@ void TAPAALExportBuilder::addOutputArc(const std::string &transition, const std:
 	xml.writeStartElement("arc");
 	xml.writeAttribute("source", transition.c_str());
 	xml.writeAttribute("target", place.c_str());
-	xml.writeAttribute("inscription", "[0,inf)");
-	xml.writeAttribute("type", "timed");
+	xml.writeAttribute("inscription", "1");
+	xml.writeAttribute("type", "normal");
 	xml.writeAttribute("id", "arc" + QString::number(_nextArcId++));
 	xml.writeEndElement();
 	if(weight > 1)
@@ -105,7 +109,24 @@ void TAPAALExportBuilder::addOutputArc(const std::string &transition, const std:
 }
 
 void TAPAALExportBuilder::addQuery(const QueryModel::Query& query){
-	_queries.append(query);
+	PetriEngine::PQL::Condition* q = PetriEngine::PQL::ParseQuery(query.query.toStdString());
+	if(!q){
+		QString qs = query.query;
+		_comments += "Query \"" + query.name + "\" = \"" + qs.replace("\n","") + "\" didn't parse.\n";
+		return;
+	}else{
+		PetriEngine::PQL::TAPAALConditionExportContext context;
+		context.failed = false;
+		context.netName = "ExportedNet";
+		QueryModel::Query cpy = query;
+		cpy.query = "EF ( " + QString(q->toTAPAALQuery(context).c_str()) + " )";
+		if(!context.failed)
+			_queries.append(cpy);
+		else{
+			QString qs = query.query;
+			_comments += "Query \"" + query.name + "\" = \"" + qs.replace("\n","")+ "\" couldn't be translated.\n";
+		}
+	}
 }
 
 
@@ -117,6 +138,8 @@ void TAPAALExportBuilder::makeXMLFile(){
 		xml.writeAttribute("positionY", "50");
 		xml.writeAttribute("height", "700");
 		xml.writeAttribute("width", "500");
+		xml.writeCharacters(_comments);
+		xml.writeEndElement();
 	}
 	xml.writeEndElement(); //net
 

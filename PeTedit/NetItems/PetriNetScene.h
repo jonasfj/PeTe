@@ -37,6 +37,7 @@ class QueryModel;
 class PNMLBuilder;
 class VariableModel;
 class PetriNetView;
+class TAPAALExportBuilder;
 
 /** A TAPN document, the model behind the view */
 class PetriNetScene : public QGraphicsScene
@@ -88,8 +89,11 @@ public:
 
 	/** Produce a copy using builder */
 	void produce(PetriEngine::AbstractPetriNetBuilder* builder);
+	//TODO: Make common base class with abstract addQuery method for PNMLBuilder and TAPAALExportBuilder
 	/** Save, this extension method will also save queries */
 	void produce(PNMLBuilder* builder);
+	/** Save, this extension method will also save queries */
+	void produce(TAPAALExportBuilder* builder);
 
 	/** Get the variables */
 	VariableModel* variables() { return this->_variables; }

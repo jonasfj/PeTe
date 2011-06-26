@@ -45,6 +45,7 @@ public:
 	void findConstraints(ConstraintAnalysisContext& context) const;
 	double distance(DistanceContext& context) const;
 	std::string toString() const;
+	std::string toTAPAALQuery(TAPAALConditionExportContext& context) const;
 	void scale(int factor);
 private:
 	Condition* _cond;

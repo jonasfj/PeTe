@@ -29,6 +29,7 @@
 
 #include "DataFormats/PNMLParser.h"
 #include "DataFormats/PNMLBuilder.h"
+#include "DataFormats/TAPAALExportBuilder.h"
 #include "NetItems/PetriNetSceneBuilder.h"
 #include "Widgets/VariableDelegate.h"
 #include "Widgets/MemoryMonitor.h"
@@ -420,6 +421,25 @@ void MainWindow::on_actionExport_SVG_triggered()
 	}
 }
 
+/** Save current scene as TAPN for TAPAAL */
+void MainWindow::on_TAPAALExportAction_triggered(){
+	if(!currentScene)
+		return;
+	QString fname = QFileDialog::getSaveFileName(this, "Export TAPN for TAPAAL", lastExportPath);
+	if(fname != ""){
+		QFile file(fname);
+		if(!file.open(QIODevice::WriteOnly))
+			return;
+		lastExportPath = QFileInfo(fname).absoluteDir().absolutePath();
+
+		TAPAALExportBuilder builder(&file);
+		currentScene->produce(&builder);
+		builder.makeXMLFile();
+
+		file.close();
+	}
+}
+
 /******************** Validation ********************/
 
 /** Set resize mode for ValidationView */
@@ -682,3 +702,4 @@ void MainWindow::on_printAction_triggered(){
 		}
 	}
 }
+

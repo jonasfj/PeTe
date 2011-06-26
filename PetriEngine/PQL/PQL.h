@@ -38,6 +38,7 @@ class EvaluationContext;
 class DistanceContext;
 class ConstraintAnalysisContext;
 class CodeGenerationContext;
+class TAPAALConditionExportContext;
 
 /** Representation of a PQL error */
 class ExprError{
@@ -123,6 +124,8 @@ public:
 	virtual llvm::Value* codegen(CodeGenerationContext& context) const = 0;
 	/** Convert condition to string */
 	virtual std::string toString() const = 0;
+	/** Export condition to TAPAAL query (add EF manually!) */
+	virtual std::string toTAPAALQuery(TAPAALConditionExportContext& context) const = 0;
 	/** Get distance to query */
 	virtual double distance(DistanceContext& context) const = 0;
 	/** Scale all nested literals by factor */

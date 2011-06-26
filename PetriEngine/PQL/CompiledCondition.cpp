@@ -163,6 +163,10 @@ string CompiledCondition::toString() const{
 	return _cond->toString();
 }
 
+string CompiledCondition::toTAPAALQuery(TAPAALConditionExportContext& context) const{
+	return _cond->toTAPAALQuery(context);
+}
+
 void CompiledCondition::scale(int factor){ _cond->scale(factor); }
 
 } // PQL

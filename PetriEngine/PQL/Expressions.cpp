@@ -23,6 +23,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
+#include <iostream>
 #include <set>
 
 namespace PetriEngine {
@@ -100,6 +101,49 @@ std::string CompareCondition::toString() const{
 std::string NotCondition::toString() const {
 	return "(not " + _cond->toString() + ")";
 }
+
+/******************** To TAPAAL Query ********************/
+
+std::string LogicalCondition::toTAPAALQuery(TAPAALConditionExportContext& context) const{
+	return " ( " + _cond1->toTAPAALQuery(context) + " " + op() + " " + _cond2->toTAPAALQuery(context) + " ) ";
+}
+
+std::string CompareCondition::toTAPAALQuery(TAPAALConditionExportContext& context) const{
+	//If <id> <op> <literal>
+	if(_expr1->type() == Expr::IdentifierExpr && _expr2->type() == Expr::LiteralExpr){
+		return " ( " + context.netName + "." + _expr1->toString() + " " + opTAPAAL() + " " + _expr2->toString() + " ) ";
+	//If <literal> <op> <id>
+	}else if(_expr2->type() == Expr::IdentifierExpr && _expr1->type() == Expr::LiteralExpr){
+		return " ( " + _expr1->toString() + " " + sopTAPAAL() + " " + context.netName + "." + _expr2->toString() + " ) ";
+	}else{
+		context.failed = true;
+		return " false ";
+	}
+}
+
+std::string NotEqualCondition::toTAPAALQuery(TAPAALConditionExportContext& context) const{
+	return " !( " + CompareCondition::toTAPAALQuery(context) + " ) ";
+}
+
+std::string NotCondition::toTAPAALQuery(TAPAALConditionExportContext& context) const{
+	return " !( " + _cond->toTAPAALQuery(context) + " ) ";
+}
+
+/******************** opTAPAAL ********************/
+
+std::string EqualCondition::opTAPAAL() const				{ return "=";	}
+std::string NotEqualCondition::opTAPAAL() const				{ return "=";	} //Handled with hack in NotEqualCondition::toTAPAALQuery
+std::string LessThanCondition::opTAPAAL() const				{ return "<";	}
+std::string LessThanOrEqualCondition::opTAPAAL() const		{ return "<=";	}
+std::string GreaterThanCondition::opTAPAAL() const			{ return ">";	}
+std::string GreaterThanOrEqualCondition::opTAPAAL() const	{ return ">=";	}
+
+std::string EqualCondition::sopTAPAAL() const				{ return "=";	}
+std::string NotEqualCondition::sopTAPAAL() const			{ return "=";	} //Handled with hack in NotEqualCondition::toTAPAALQuery
+std::string LessThanCondition::sopTAPAAL() const			{ return ">=";	}
+std::string LessThanOrEqualCondition::sopTAPAAL() const		{ return ">";	}
+std::string GreaterThanCondition::sopTAPAAL() const			{ return "<=";	}
+std::string GreaterThanOrEqualCondition::sopTAPAAL() const	{ return "<";	}
 
 /******************** Context Analysis ********************/
 
