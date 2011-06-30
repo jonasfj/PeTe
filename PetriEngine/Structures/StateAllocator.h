@@ -64,6 +64,7 @@ public:
 		State* s = (State*)d;
 		s->_parent = NULL;
 		s->_parentTransition = 0;
+		s->_transitionMultiplicity = 0;
 		s->_marking = (MarkVal*)(d + sizeof(State));
 		s->_valuation = (VarVal*)(d + sizeof(State) + sizeof(MarkVal) * _nPlaces);
 		_offset++;
@@ -78,6 +79,7 @@ public:
 		char* d = (char*)memory;
 		memory->_parent = NULL;
 		memory->_parentTransition = 0;
+		memory->_transitionMultiplicity = 0;
 		memory->_marking = (MarkVal*)(d + sizeof(State));
 		memory->_valuation = (VarVal*)(d + sizeof(State) + sizeof(MarkVal) * net.numberOfPlaces());
 	}

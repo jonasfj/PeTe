@@ -80,7 +80,7 @@ ReachabilityResult BreadthFirstReachabilitySearch::reachable(const PetriNet &net
 					if(query->evaluate(*ns)){
 						//ns->dumpTrace(net);
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-												"A state satisfying the query was found", expandedStates, exploredStates, ns->pathLength());
+												"A state satisfying the query was found", expandedStates, exploredStates, ns->pathLength(), ns->trace());
 					}
 
 					queue.push_back(ns);

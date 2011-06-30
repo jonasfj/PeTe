@@ -65,6 +65,7 @@ public:
 		State* s = (State*)d;
 		s->_parent = NULL;
 		s->_parentTransition = 0;
+		s->_transitionMultiplicity = 0;
 		s->_marking = (MarkVal*)(d + sizeof(State));
 		s->_valuation = (VarVal*)(d + sizeof(State) + sizeof(MarkVal) * _nPlaces);
 		_offset += stateSize();

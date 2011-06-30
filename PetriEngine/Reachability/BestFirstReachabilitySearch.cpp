@@ -92,7 +92,7 @@ ReachabilityResult BestFirstReachabilitySearch::reachable(const PetriNet &net,
 					if(query->evaluate(*ns)){
 						//ns->dumpTrace(net);
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-												  "Query was satified!", expandedStates, exploredStates, ns->pathLength());
+												  "Query was satified!", expandedStates, exploredStates, ns->pathLength(), ns->trace());
 					}
 
 					// Insert in queue, with given priority
@@ -102,23 +102,25 @@ ReachabilityResult BestFirstReachabilitySearch::reachable(const PetriNet &net,
 
 					if(fireUntillNoBetter && net.fire(t, ns, ns2)){
 						if(query->evaluate(*ns2)){
+							ns2->setTransition(t);
 							ns2->setParent(ns);
 							return ReachabilityResult(ReachabilityResult::Satisfied,
-												  "Query was satified!", expandedStates, exploredStates, ns2->pathLength());
+												  "Query was satified!", expandedStates, exploredStates, ns2->pathLength(), ns2->trace());
 						}
 						double p = priority(ns2, query, net);
 						if(p <= bestp){
 							bestp = p;
 							while(net.fire(t, ns2, ns3) && (p = priority(ns3, query, net)) <= bestp){
+								ns3->setTransition(t);
+								ns3->setParent(ns2);
 								bestp = p;
 								State* tmp = ns2;	//SWAP ns2 and ns3
 								ns2 = ns3;
 								ns3 = tmp;
 								exploredStates++;
 								if(query->evaluate(*ns2)){
-									ns2->setParent(ns3);
 									return ReachabilityResult(ReachabilityResult::Satisfied,
-													  "Query was satisfied!", expandedStates, exploredStates, ns2->pathLength());
+													  "Query was satisfied!", expandedStates, exploredStates, ns2->pathLength(), ns2->trace());
 								}
 							}
 							if(states.add(ns2)){

@@ -19,6 +19,7 @@
 #include "SmartState.h"
 
 #include <string.h>
+#include <algorithm>
 
 namespace PetriEngine{
 namespace Structures{
@@ -32,6 +33,25 @@ int SmartState::getState(const PetriNet& net, MarkVal* marking, VarVal* valuatio
 	int depth = parent()->getState(net, marking, valuation);
 	net.fireWithoutCheck(transition(), marking, valuation, marking, valuation, multiplicity());
 	return depth + 1;
+}
+
+int SmartState::pathLength(){
+	if(_parent)
+		return multiplicity() + _parent->pathLength();
+	else
+		return 0;
+}
+
+std::vector<unsigned int> SmartState::trace(){
+	SmartState* current = this;
+	std::vector<unsigned int> trace;
+	while(current->parent()){
+		for(unsigned int i = 0; i < multiplicity(); i++)
+			trace.push_back(current->transition());
+		current = current->_parent;
+	}
+	std::reverse(trace.begin(), trace.end());
+	return trace;
 }
 
 } // Structures

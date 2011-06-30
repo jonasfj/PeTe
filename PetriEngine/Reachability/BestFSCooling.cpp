@@ -97,7 +97,11 @@ ReachabilityResult BestFSCooling::reachable(const PetriNet &net,
 					//Test query
 					if(query->evaluate(*ns))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-												  "Query was satified!", expandedStates, exploredStates, ns->pathLength());
+												  "Query was satified!",
+												  expandedStates,
+												  exploredStates,
+												  ns->pathLength(),
+												  ns->trace());
 
 					// Insert in queue, with given priority
 					double bestp = priority(ns, query, net);
@@ -106,6 +110,7 @@ ReachabilityResult BestFSCooling::reachable(const PetriNet &net,
 					//Do the cool step
 					if(heatFactor > 1 && net.fire(t, s, ns2, heatFactor)){
 						if(states.add(ns2)){
+							ns2->setTransition(t, heatFactor);
 							queue.push(priority(ns2, query, net), ns2);
 							ns2 = allocator.createState();
 						}

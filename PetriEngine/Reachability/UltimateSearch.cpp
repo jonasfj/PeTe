@@ -116,7 +116,7 @@ ReachabilityResult UltimateSearch::reachable(const PetriNet &net,
 				if(query->evaluate(*ns)){
 					return ReachabilityResult(ReachabilityResult::Satisfied,
 											  "Query was satisfied",
-											  expanded, explored, ns->pathLength());
+											  expanded, explored, ns->pathLength(), ns->trace());
 				}
 
 				// Push new state on the queue

@@ -24,6 +24,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <algorithm>
+#include <vector>
 
 namespace PetriEngine { namespace Structures {
 
@@ -51,14 +53,29 @@ public:
 	/** Getter for the transition the parent took to get here */
 	unsigned int transition(){ return _parentTransition; }
 	/** Setter for the transition the parent took to get here */
-	void setTransition(unsigned int t){ _parentTransition = t; }
+	void setTransition(unsigned int t, unsigned int multiplicity = 1){ _parentTransition = t; _transitionMultiplicity = multiplicity; }
+	/** Get transition multiplicity */
+	unsigned int transitionMultiplicity() const { return _transitionMultiplicity; }
 
 	/** Gets the length of the trace to this state */
 	int pathLength(){
 		if(_parent)
-			return 1 + _parent->pathLength();
+			return transitionMultiplicity() + _parent->pathLength();
 		else
 			return 0;
+	}
+
+	/** Get trace from initial state */
+	std::vector<unsigned int> trace() {
+		State* current = this;
+		std::vector<unsigned int> trace;
+		while(current->parent()){
+			for(unsigned int i = 0; i < transitionMultiplicity(); i++)
+				trace.push_back(current->transition());
+			current = current->parent();
+		}
+		std::reverse(trace.begin(), trace.end());
+		return trace;
 	}
 
 	/** Dump trace to stderr */
@@ -121,6 +138,7 @@ public:
 private:
 	State* _parent;
 	unsigned int _parentTransition;
+	unsigned int _transitionMultiplicity;
 	MarkVal* _marking;
 	VarVal* _valuation;
 };

@@ -56,6 +56,7 @@ ReachabilityResult HashUnderApproximation::reachable(const PetriNet &net,
 
 	unsigned int max =0;
 	int count = 0;
+	BigInt expanded = 0, explored = 0;
 	// Main loop
 	while(!stack.empty()){
 		// Magic number, so we do not report progress too often
@@ -78,12 +79,13 @@ ReachabilityResult HashUnderApproximation::reachable(const PetriNet &net,
 		bool foundSomething = false;
 		for(unsigned int t = stack.back().t; t < net.numberOfTransitions(); t++){
 			if(net.fire(t, s->marking(), s->valuation(), ns->marking(), ns->valuation())){
+				explored++;
 				std::pair<HashSetIter,bool> result = states.insert(hasher(ns));
 				if(result.second){
 					ns->setTransition(t);
 					if(query->evaluate(PQL::EvaluationContext(ns->marking(), ns->valuation())))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-									  "A state satisfying the query was found");
+									  "A state satisfying the query was found", expanded, explored, ns->pathLength(), ns->trace());
 					stack.back().t = t + 1;
 					stack.push_back(Step(ns, 0));
 					foundSomething = true;
@@ -91,11 +93,13 @@ ReachabilityResult HashUnderApproximation::reachable(const PetriNet &net,
 				}
 			}
 		}
-		if(!foundSomething)
+		if(!foundSomething){
 			stack.pop_back();
+			expanded++;
+		}
 	}
 	return ReachabilityResult(ReachabilityResult::Unknown,
-							"Could not disprove the existence of a state not satisfying the query.");
+							"Could not disprove the existence of a state not satisfying the query.", expanded, explored);
 }
 
 }}

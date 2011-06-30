@@ -19,6 +19,8 @@
 #ifndef REACHABILITYRESULT_H
 #define REACHABILITYRESULT_H
 
+#include <vector>
+
 namespace PetriEngine { namespace Reachability {
 
 // Big int used for state space statistics
@@ -38,12 +40,18 @@ public:
 	};
 
 	/** Create a new instance of ReachabilityResult */
-	ReachabilityResult(Result result = Unknown, const std::string& explanation = "", BigInt expandedStates = 0, BigInt exploredStates = 0, int pathLength = 0){
+	ReachabilityResult(Result result = Unknown,
+					   const std::string& explanation = "",
+					   BigInt expandedStates = 0,
+					   BigInt exploredStates = 0,
+					   int pathLength = 0,
+					   const std::vector<unsigned int>& trace = std::vector<unsigned int>()){
 		_result = result;
 		_explanation = explanation;
 		_expandedStates = expandedStates;
 		_exploredStates = exploredStates;
 		_pathLength = pathLength;
+		_trace = trace;
 	}
 
 	/** Gets a human readable explanation */
@@ -58,12 +66,15 @@ public:
 	BigInt exploredStates() const { return _exploredStates; }
 	/** Gets the length of the trace path. */
 	int pathLength() const { return _pathLength; }
+	/** Get trace, empty if no trace available or not provided by strategy */
+	const std::vector<unsigned int>& trace() const { return _trace; };
 private:
 	std::string _explanation;
 	Result _result;
 	BigInt _expandedStates;
 	BigInt _exploredStates;
 	int _pathLength;
+	std::vector<unsigned int> _trace;
 };
 
 } // Reachability

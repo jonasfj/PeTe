@@ -83,10 +83,10 @@ ReachabilityResult HeuristicDFS::reachable(const PetriNet& net,
 				if(states.add(ns)){
 					exploredStates++;
 					ns->setParent(s);
+					ns->setTransition(t);
 					if(query->evaluate(*ns))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-												"A state satisfying the query was found", expandedStates, exploredStates, ns->pathLength());
-					ns->setTransition(t);
+												"A state satisfying the query was found", expandedStates, exploredStates, ns->pathLength(), ns->trace());
 					PQL::DistanceContext context(net,
 												 _distanceStrategy,
 												 ns->marking(),

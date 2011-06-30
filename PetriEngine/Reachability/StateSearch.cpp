@@ -116,7 +116,7 @@ ReachabilityResult StateSearch::reachable(const PetriNet &net,
 				if(query->evaluate(*ns)){
 					return ReachabilityResult(ReachabilityResult::Satisfied,
 											  "Query was satisfied",
-											  expanded, explored, ns->pathLength());
+											  expanded, explored, ns->pathLength(), ns->trace());
 				}
 
 				bool isImpossible = true;

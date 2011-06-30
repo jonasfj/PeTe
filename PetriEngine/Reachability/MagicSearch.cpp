@@ -126,7 +126,8 @@ ReachabilityResult MagicSearch::reachable(const PetriNet &net,
 												  "Query was satified!",
 												  expanded,
 												  explored,
-												  0 /*TODO: Support path depth */);
+												  storeState->pathLength(),
+												  storeState->trace());
 					}
 
 					//Make the next step

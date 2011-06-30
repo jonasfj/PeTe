@@ -96,10 +96,10 @@ ReachabilityResult RandomDFS::reachable(const PetriNet &net,
 				if(states.add(ns)){
 					exploredStates++;
 					ns->setParent(s);
+					ns->setTransition(t);
 					if(query && query->evaluate(*ns))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-												"A state satisfying the query was found", expandedStates, exploredStates, ns->pathLength());
-					ns->setTransition(t);
+												"A state satisfying the query was found", expandedStates, exploredStates, ns->pathLength(), ns->trace());
 					succ[t] = ns;
 					ns = allocator.createState();
 				}

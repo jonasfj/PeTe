@@ -43,6 +43,12 @@ public:
 	 */
 	int getState(const PetriNet& net, MarkVal* marking, VarVal* valuation) const;
 
+	/** Get trace from initial state */
+	std::vector<unsigned int> trace();
+
+	/** Get path length from initial state */
+	int pathLength();
+
 	void setTransition(unsigned int transition, int multiplicity = 1) {
 		_transition = transition;
 		_multiplicity = multiplicity;

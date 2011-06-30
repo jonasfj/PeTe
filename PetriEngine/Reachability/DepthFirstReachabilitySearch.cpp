@@ -80,7 +80,7 @@ ReachabilityResult DepthFirstReachabilitySearch::reachable(const PetriNet &net,
 					ns->setTransition(t);
 					if(query->evaluate(PQL::EvaluationContext(ns->marking(), ns->valuation())))
 						return ReachabilityResult(ReachabilityResult::Satisfied,
-									  "A state satisfying the query was found", expandedStates, exploredStates, ns->pathLength());
+									  "A state satisfying the query was found", expandedStates, exploredStates, ns->pathLength(), ns->trace());
 					stack.back().t = t + 1;
 					stack.push_back(Step(ns, 0));
 					exploredStates++;
