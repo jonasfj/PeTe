@@ -4,12 +4,13 @@ CONFIG	   += ordered
 
 SUBDIRS		= \
 	PetriEngine \
+	PetriParse \
 	PeTedit \
 	PeTer \
 	PetriTests
 
 PeTedit.depends = PetriEngine
-PeTer.depends = PetriEngine
+PeTer.depends = PetriEngine PetriParse
 PetriTests.depends = PetriEngine
 
 unix{

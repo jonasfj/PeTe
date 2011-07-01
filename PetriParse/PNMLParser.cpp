@@ -19,6 +19,8 @@
 #include "PNMLParser.h"
 
 #include <string>
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace PetriEngine;
 using namespace XMLSP;
@@ -92,7 +94,9 @@ void PNMLParser::parseElement(DOMElement* element){
 			parsePlace(*it);
 		}else if((*it)->getElementName() == "transition"){
 			parseTransition(*it);
-		}else if((*it)->getElementName() == "arc"){
+		}else if((*it)->getElementName() == "arc" ||
+				 (*it)->getElementName() == "inputArc" ||
+				 (*it)->getElementName() == "outputArc"){
 			parseArc(*it);
 		}else if((*it)->getElementName() == "variable"){
 			parseVariable(*it);
@@ -120,8 +124,9 @@ void PNMLParser::parseQueries(DOMElement* element){
 
 void PNMLParser::parsePlace(DOMElement* element){
 	double x = 0, y = 0;
-	string name, id = element->getAttribute("id");
-	int initialMarking = 0;
+	string name = element->getAttribute("name"),
+		   id = element->getAttribute("id");
+	int initialMarking = atoi(element->getAttribute("initialMarking").c_str());
 
 	DOMElements elements = element->getChilds();
 	DOMElements::iterator it;
@@ -169,7 +174,8 @@ void PNMLParser::parseArc(DOMElement* element){
 
 void PNMLParser::parseTransition(DOMElement* element){
 	double x = 0, y = 0;
-	string name, id = element->getAttribute("id");
+	string name = element->getAttribute("name"),
+		   id = element->getAttribute("id");
 	string cond, assign;
 
 	DOMElements elements = element->getChilds();

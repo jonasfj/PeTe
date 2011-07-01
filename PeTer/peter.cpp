@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "PNMLParser.h"
+#include <PetriParse/PNMLParser.h>
 
 #include <stdio.h>
 #include <PetriEngine/PetriNetBuilder.h>
@@ -28,12 +28,12 @@
 #include <sstream>
 #include <map>
 
-#include "PetriEngine/PQL/PQLParser.h"
-#include "PetriEngine/Reachability/LinearOverApprox.h"
-#include "PetriEngine/Reachability/BestFirstReachabilitySearch.h"
-#include "PetriEngine/PQL/Contexts.h"
-#include "PetriEngine/Reachability/RandomDFS.h"
-#include "PetriEngine/Reachability/RandomQueryGenerator.h"
+#include <PetriEngine/PQL/PQLParser.h>
+#include <PetriEngine/Reachability/LinearOverApprox.h>
+#include <PetriEngine/Reachability/BestFirstReachabilitySearch.h>
+#include <PetriEngine/PQL/Contexts.h>
+#include <PetriEngine/Reachability/RandomDFS.h>
+#include <PetriEngine/Reachability/RandomQueryGenerator.h>
 
 using namespace std;
 using namespace PetriEngine;
