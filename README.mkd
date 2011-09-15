@@ -2,6 +2,7 @@ PeTe - Petri Engine exTremE
 ===========================
 PeTe is a graphical Petri net modelling and verification tool.
 A binary package for Ubuntu can be found [here](https://github.com/downloads/jopsen/PeTe/pete_1.0-1ubuntu1_i386.deb) and a PPA for Ubuntu 10.10 is available [here](https://launchpad.net/~jopsen/+archive/pete).
+An untimed Petri net verification engine for TAPAAL based on PeTe, can be found at [launchpad.net/verifypn](https://launchpad.net/verifypn).
 
 Building PeTe
 -------------
